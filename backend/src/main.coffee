@@ -5,7 +5,18 @@ class Server
     maxCapacity: ->
         @diskType.maxCapacity() * @maxDisks
 
+    getInfo: ->
+        """
+        Maximum capacity of one server: #{@maxCapacity()} TB
+        Disk vendor: #{@diskType.vendor}
+        Server disk choices #{@diskType.capacities.join " TB, "} TB
+        Biggest available disk is #{@diskType.maxCapacity()} TB
+        """
+
 class BareMetal extends Server
+    maxDisks: 8
+
+class VMware extends Server
     maxDisks: 8
 
 class AWS extends Server
@@ -38,10 +49,11 @@ class TLC extends NVMe
 
 
 
-disk1 = new OneDWPD "intel"
+disk1vendor = "intel"
+disk1 = new OneDWPD disk1vendor
 server1 = new BareMetal disk1
 
-targetCapacity = 100
+targetCapacity = 501
 numberOfReplicaGroups = (targetCapacity, serverType) ->
     Math.ceil targetCapacity / serverType.maxCapacity()
 
@@ -53,17 +65,61 @@ remainderStorageCluster = (targetCapacity, serverType) ->
 remainderStorageServer = (targetCapacity, diskType) ->
     Math.ceil targetCapacity / diskType.maxCapacity()
 
-console.log "DISK"
-console.log "Vendor: #{disk1.vendor}"
-console.log "SERVER"
-console.log "Maximum capacity of server: #{server1.maxCapacity()} TB"
-console.log "Biggest disk in server is #{server1.diskType.maxCapacity()} TB"
-console.log "Server disk choices #{server1.diskType.capacities.join " TB, "} TB"
+capacityPlanning = (targetCapacity, serverType) ->
+    remainderStorageNeeded = remainderStorageCluster targetCapacity, serverType
+    """
+    Necessary replica groups to reach target capacity of #{targetCapacity} TB: #{numberOfReplicaGroups targetCapacity, serverType}
+    Storage to be distributed in last storage group is approximately #{Math.round((remainderStorageNeeded + Number.EPSILON) * 100) / 100} TB
+    Number of disks in last storage group's servers is #{remainderStorageServer remainderStorageNeeded, server1.diskType}
+    """
 
-console.log "Necessary replica groups to reach target capacity of #{targetCapacity} TB"
-console.log numberOfReplicaGroups targetCapacity, server1
+updatePlanning = ->
+    resultScreen = $("#resultScreen")[0];
+    resultScreen.innerHTML = """
+                            *SERVER INFO*
+                            #{server1.getInfo()}
 
-remainderStorageNeeded = remainderStorageCluster targetCapacity, server1
+                            *CAPACITY PLANNING*
+                            #{capacityPlanning targetCapacity, server1}
+                            """
 
-console.log "Storage to be distributed in last storage group is #{remainderStorageNeeded} TB"
-console.log "Number of disks in last storage group's servers is #{remainderStorageServer remainderStorageNeeded, server1.diskType}"
+updatePlanning()
+
+redoServer = (serverType) ->
+    switch serverType
+        when "metal" then server1 = new BareMetal disk1
+        when "aws" then server1 = new AWS disk1
+        when "vmware" then server1 = new VMware disk1
+
+redoDisk = (diskType) ->
+    switch diskType
+        when "1DPWD" then disk1 = new OneDWPD disk1vendor
+        when "3DPWD" then disk1 = new ThreeDWPD disk1vendor
+        when "TLC" then disk1 = new TLC disk1vendor
+    redoServer($('#platform')[0].value)
+
+
+$(document).ready ->
+    $('#platform').change (event) ->
+        redoServer(this.value)
+        updatePlanning()
+
+    $('#diskVendor').change (event) ->
+        disk1vendor = this.value
+        redoDisk($('#diskType')[0].value)
+        updatePlanning()
+
+    $('#diskType').change (event) ->
+        redoDisk(this.value)
+        updatePlanning()
+
+    slider = $("#capacityRange")[0];
+    output = $("#rangeValue")[0];
+    output.innerHTML = slider.value + " TB"; # Display the default slider value
+
+    # Update the current slider value (each time you drag the slider handle)
+    slider.oninput = () ->
+        output.innerHTML = this.value + " TB";
+        targetCapacity = this.value
+        updatePlanning()
+
