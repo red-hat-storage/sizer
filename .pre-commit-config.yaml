@@ -1,0 +1,23 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: master
+    hooks:
+      - id: trailing-whitespace
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: end-of-file-fixer
+      - id: fix-encoding-pragma
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: master
+    hooks:
+      - id: markdownlint
+        args:
+          # Disable line length check
+          - --rules=~MD013
+  # - repo: https://github.com/pre-commit/mirrors-coffeelint
+  #   rev: master
+  #   hooks:
+  #     - id: coffeelint

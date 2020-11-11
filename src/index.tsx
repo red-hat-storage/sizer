@@ -159,7 +159,7 @@ const App = () => {
   return (
     <Box mx="auto" p={4} my={4} maxW="800px" minW="200px" style={{ backgroundColor: '#AAAAAA', color: "#000000"
     }}>
-      
+
       <Heading><img src="http://rht-sbu.s3.amazonaws.com/images/ocs_logo.png" width="424px" height="140px" /></Heading>
       <Divider my={8} />
 
