@@ -149,18 +149,18 @@ const redoDisk = function (diskType: string) {
 
 
 $(function () {
-  $('#platform').on('change', function (event: any) {
+  $('#platform').on('change', function () {
     redoServer((<HTMLInputElement>this).value);
     return updatePlanning();
   });
 
-  $('#diskVendor').on('change', function (event: any) {
+  $('#diskVendor').on('change', function () {
     disk1vendor = (<HTMLInputElement>this).value;
     redoDisk((<HTMLInputElement>$('#diskType')[0]).value);
     return updatePlanning();
   });
 
-  $('#diskType').on('change', function (event: any) {
+  $('#diskType').on('change', function () {
     redoDisk((<HTMLInputElement>this).value);
     return updatePlanning();
   });

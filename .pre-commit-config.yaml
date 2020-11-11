@@ -21,3 +21,11 @@ repos:
   #   rev: master
   #   hooks:
   #     - id: coffeelint
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: "master"
+    hooks:
+      - id: eslint
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        types: [file]
+        args:
+            - '--max-warnings=0'
