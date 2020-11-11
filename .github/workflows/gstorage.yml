@@ -3,7 +3,7 @@ name: push to Google Storage
 on:
   push:
     branches:
-      - master
+      - cblum-dev
     paths:
       - 'backend/**'
 
