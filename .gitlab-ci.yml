@@ -1,0 +1,49 @@
+image:
+  name: quay.io/mulbc/ocs-solver-builder:$CI_COMMIT_SHA
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+variables:
+  CONTAINER_IMAGE_NAME: quay.io/mulbc/ocs-solver-builder
+  DOCKER_HOST: unix:///var/run/docker.sock
+  GCS_BUCKET: ocs-solver-dev
+  GCS_PROJECT: apt-quarter-272014
+
+stages:
+  # - build
+    #  - lint
+  - deploy
+
+# update-image:
+#   stage: build
+#   image: docker:19.03
+#   # only:
+#   #   changes:
+#   #     - Dockerfile
+#   #     - .pre-commit-config.yaml
+#   before_script:
+#     - docker login -u="mulbc+gitlabci" -p="$DOCKER_LOGIN_PASSWORD" quay.io
+
+#   script:
+#     - docker build --no-cache --tag $CONTAINER_IMAGE_NAME:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE_NAME:latest .
+#     - docker push $CONTAINER_IMAGE_NAME:$CI_COMMIT_SHA
+#     - docker push $CONTAINER_IMAGE_NAME:latest
+
+# pre-commit:
+#   stage: lint
+
+#   script:
+#     - pre-commit run --all-files
+
+
+push-to-google-storage:
+  stage: deploy
+  image: google/cloud-sdk:alpine
+  only:
+    - cblum-dev
+
+  script:
+    - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
+    - gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
+    - rm /tmp/key.json
+    - gsutil -m rsync -R "$CI_PROJECT_DIR/backend" "gs://$GCS_BUCKET"

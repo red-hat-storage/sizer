@@ -1,82 +1,63 @@
-class Server {
-  maxDisks: number;
-  diskType: OneDWPD;
-  cpuCores: number;
-  memory: number;
-  static initClass() {
-    this.prototype.maxDisks = 0;
-  }
-  constructor(diskType: OneDWPD) {
+abstract class Server {
+  static maxDisks: number;
+  static cpuCores: number;
+  static memory: number;
+  diskType: NVMe;
+
+  constructor(diskType: NVMe) {
     this.diskType = diskType;
   }
 
   maxCapacity() {
-    return this.diskType.maxCapacity() * this.maxDisks;
+    return this.diskType.maxCapacity() * Server.maxDisks;
   }
 
   getInfo() {
     return `\
-Maximum number of disks per server: ${this.maxDisks}
+Maximum number of disks per server: ${Server.maxDisks}
 Maximum capacity of one server: ${this.maxCapacity()} TB
 Disk vendor: ${this.diskType.vendor}
-Server disk choices ${this.diskType.capacities.join(" TB, ")} TB
+Server disk choices ${NVMe.capacities.join(" TB, ")} TB
 Biggest available disk is ${this.diskType.maxCapacity()} TB\
 `;
   }
 }
-Server.initClass();
 
 class BareMetal extends Server {
-  static initClass() {
-    this.prototype.maxDisks = 8;
-  }
+  static maxDisks = 8;
 }
-BareMetal.initClass();
 
 class VMware extends Server {
-  static initClass() {
-    this.prototype.maxDisks = 8;
-  }
+  static maxDisks = 8;
 }
-VMware.initClass();
 
 class AWSattached extends Server {
-  static initClass() {
     // instance storage i3en.2xl
-    this.prototype.maxDisks = 2;
-  }
+    static maxDisks = 2;
 }
-AWSattached.initClass();
 
-class AWSEBS extends Server {
-  static initClass() {
-    // instance with EBS m5.4xl
-    this.prototype.maxDisks = 8;
-    this.prototype.cpuCores = 16;
-  }
-}
-AWSEBS.initClass();
+// class AWSEBS extends Server {
+//     // instance with EBS m5.4xl
+//     static maxDisks = 8;
+//     static cpuCores = 16;
+// }
 
-class NVMe {
-  capacities: Array<number>;
+abstract class NVMe {
   vendor: string;
-  static initClass() {
-    this.prototype.capacities = [];
-  }
+  static capacities: Array<number>;
   constructor(vendor: string) {
     this.vendor = vendor;
   }
 
   maxCapacity() {
-    return Math.max(...Array.from(this.capacities || []));
+    return Math.max(...Array.from(NVMe.capacities || []));
   }
 }
-NVMe.initClass();
 
 class OneDWPD extends NVMe {
   constructor(vendor: string) {
     super(vendor);
-    this.capacities = (() => {
+    NVMe.capacities = (() => {
       switch (this.vendor) {
         case "intel": return [1.92, 3.84, 7.68];
         case "micron": return [3.84, 7.68, 15.36];
@@ -87,11 +68,53 @@ class OneDWPD extends NVMe {
 }
 
 class ThreeDWPD extends NVMe {
-  static initClass() {
-    this.prototype.capacities = [1.6, 3.2, 6.4, 12.8];
-  }
+    static capacities = [1.6, 3.2, 6.4, 12.8];
 }
-ThreeDWPD.initClass();
+
+// abstract class Service {
+//   static requiredMemory: number;
+//   static requiredCPU: number;
+// }
+
+// class Noobaa_core extends Service {
+//   static requiredMemory = 4;
+//   static requiredCPU = 1;
+// }
+
+// class Noobaa_DB extends Service {
+//   static requiredMemory = 4;
+//   static requiredCPU = 0.5;
+// }
+
+// class Noobaa_Endpoint extends Service {
+//   static requiredMemory = 2;
+//   static requiredCPU = 1;
+// }
+
+// class Ceph_MDS extends Service {
+//   static requiredMemory = 8;
+//   static requiredCPU = 3;
+// }
+
+// class Ceph_MGR extends Service {
+//   static requiredMemory = 3;
+//   static requiredCPU = 1;
+// }
+
+// class Ceph_MON extends Service {
+//   static requiredMemory = 2;
+//   static requiredCPU = 1;
+// }
+
+// class Ceph_OSD extends Service {
+//   static requiredMemory = 5;
+//   static requiredCPU = 2;
+// }
+
+// class Ceph_RGW extends Service {
+//   static requiredMemory = 4;
+//   static requiredCPU = 2;
+// }
 
 
 let disk1vendor = "intel";
