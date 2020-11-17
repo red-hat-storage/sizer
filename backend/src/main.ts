@@ -95,13 +95,22 @@ abstract class Server {
 		});
 		return totalCores;
 	}
-	addService(service: Service) {
+	canIAddService(service: Service) {
 		if (this.getUsedCPU() + Object.getPrototypeOf(service).constructor.requiredCPU > Object.getPrototypeOf(this).constructor.cpuCores ||
 			this.getUsedMemory() + Object.getPrototypeOf(service).constructor.requiredMemory > Object.getPrototypeOf(this).constructor.memory) {
 			return false
 		}
-		this.services.push(service)
+		if (service instanceof Ceph_OSD && this.getAmountOfOSDs() >= Object.getPrototypeOf(this).constructor.maxDisks) {
+			return false
+		}
 		return true
+	}
+	addService(service: Service) {
+		if (this.canIAddService(service)) {
+			this.services.push(service)
+			return true
+		}
+		return false
 	}
 	getAmountOfOSDs() {
 		let osdCount = 0;
