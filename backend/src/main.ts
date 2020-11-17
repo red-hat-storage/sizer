@@ -1,3 +1,6 @@
+declare module "jquery" {
+    export = $;
+}
 class Cluster {
 	replicaSets: Array<ReplicaSet>;
 	platform: string;
@@ -58,7 +61,7 @@ class ReplicaSet {
 	diskType: NVMe;
 	servers: Array<Server>
 
-	constructor(platform, diskType) {
+	constructor(platform: string, diskType: NVMe) {
 		this.replicaCount = 3
 		this.platform = platform
 		this.diskType = diskType
@@ -241,7 +244,9 @@ abstract class NVMe {
 	}
 
 	maxCapacity() {
-		return Math.max(...Array.from(NVMe.capacities || []));
+		return NVMe.capacities.reduce(function(a,b){
+			return Math.max(a,b);
+		})
 	}
 }
 

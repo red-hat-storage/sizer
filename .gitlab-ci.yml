@@ -11,30 +11,8 @@ variables:
 
 stages:
   # - build
-    #  - lint
+  # - lint
   - deploy
-
-# update-image:
-#   stage: build
-#   image: docker:19.03
-#   # only:
-#   #   changes:
-#   #     - Dockerfile
-#   #     - .pre-commit-config.yaml
-#   before_script:
-#     - docker login -u="mulbc+gitlabci" -p="$DOCKER_LOGIN_PASSWORD" quay.io
-
-#   script:
-#     - docker build --no-cache --tag $CONTAINER_IMAGE_NAME:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE_NAME:latest .
-#     - docker push $CONTAINER_IMAGE_NAME:$CI_COMMIT_SHA
-#     - docker push $CONTAINER_IMAGE_NAME:latest
-
-# pre-commit:
-#   stage: lint
-
-#   script:
-#     - pre-commit run --all-files
-
 
 push-to-google-storage:
   stage: deploy
@@ -43,7 +21,13 @@ push-to-google-storage:
     - cblum-dev
 
   script:
+    - apk add -U npm
+    - cd "$CI_PROJECT_DIR/backend"
+    - npm install -g typescript
+    - tsc --version
+    - npm i
+    - find "$CI_PROJECT_DIR/backend/src" -name "*.ts" | xargs tsc --outDir "$CI_PROJECT_DIR/backend/lib"
     - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
     - gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
     - rm /tmp/key.json
-    - gsutil -m rsync -R "$CI_PROJECT_DIR/backend" "gs://$GCS_BUCKET"
+    - gsutil -m rsync -R -x "node_modules|src" "$CI_PROJECT_DIR/backend" "gs://$GCS_BUCKET"

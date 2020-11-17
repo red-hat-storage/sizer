@@ -18,7 +18,6 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "isolatedModules": true,
     "noEmit": true
   }
 }
