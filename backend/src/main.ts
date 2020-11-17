@@ -28,8 +28,7 @@ class Cluster {
 	}
 
 	addReplicaSet() {
-		const count = this.replicaSets.push(new ReplicaSet(this.platform, this.diskType))
-		console.log(`Added new Set - now we have ${count}`)
+		this.replicaSets.push(new ReplicaSet(this.platform, this.diskType))
 	}
 
 	addService(service: Service) {
@@ -39,7 +38,6 @@ class Cluster {
 		if (!targetSet.addService(service)) {
 			// If the set refuses to add the service
 			// it is probably already full - then add a new set
-			console.log("ADDING SET")
 			this.addReplicaSet()
 			this.addService(service)
 		}
@@ -264,7 +262,10 @@ class OneDWPD extends NVMe {
 }
 
 class ThreeDWPD extends NVMe {
-	static capacities = [1.6, 3.2, 6.4, 12.8];
+	constructor(vendor: string) {
+		super(vendor);
+		NVMe.capacities = [1.6, 3.2, 6.4, 12.8];
+	}
 }
 
 abstract class Service {
@@ -360,6 +361,7 @@ const updatePlanning = function () {
 };
 
 const redoDisk = function (diskType: string) {
+	console.log(`Changing disk to ${diskType}`)
 	switch (diskType) {
 		case "1DPWD": disk1 = new OneDWPD(disk1vendor); break;
 		case "3DPWD": disk1 = new ThreeDWPD(disk1vendor); break;
