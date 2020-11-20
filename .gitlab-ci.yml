@@ -16,18 +16,23 @@ stages:
 
 push-to-google-storage:
   stage: deploy
-  image: google/cloud-sdk:alpine
+  image: google/cloud-sdk:latest
   only:
     - cblum-dev
 
   script:
-    - apk add -U npm
+    - apt update && apt install -y npm
+    - npm i npm@latest -g
     - cd "$CI_PROJECT_DIR/backend"
-    - npm install -g typescript
-    - tsc --version
-    - npm i
-    - find "$CI_PROJECT_DIR/backend/src" -name "*.ts" | xargs tsc --outDir "$CI_PROJECT_DIR/backend/lib"
+    - npm install
+    - npx tsc --version
+    - find "$CI_PROJECT_DIR/backend/src" -name "*.ts" | xargs -t npx tsc --outDir "$CI_PROJECT_DIR/backend/lib"
+    - find "$CI_PROJECT_DIR/backend/lib" -name "*.js" | xargs -t -I {} npx browserify {} --ignore ./lib/bundle.js --outfile ./lib/bundle.js
     - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
     - gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
     - rm /tmp/key.json
     - gsutil -m rsync -R -x "node_modules|src" "$CI_PROJECT_DIR/backend" "gs://$GCS_BUCKET"
+
+  cache:
+    paths:
+      - backend/node_modules

@@ -8,17 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/red-hat-storage/ocs-solver.git"
+    "url": "git+https://gitlab.consulting.redhat.com/red-hat-data-services/ocs-solver.git"
   },
   "author": "Chris Blum <cblum@redhat.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/red-hat-storage/ocs-solver/issues"
+    "url": "https://gitlab.consulting.redhat.com/red-hat-data-services/ocs-solver/issues"
   },
-  "homepage": "https://github.com/red-hat-storage/ocs-solver#readme",
+  "homepage": "https://gitlab.consulting.redhat.com/red-hat-data-services/ocs-solver#readme",
   "devDependencies": {
+    "@types/fabric": "^3.6.9",
     "@types/jquery": "^3.5.4",
+    "browserify": "^17.0.0",
     "coffeescript": "^2.5.1",
+    "fabric": "^4.2.0",
     "typescript": "^4.0.5"
   }
 }

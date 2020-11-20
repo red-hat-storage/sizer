@@ -26,6 +26,7 @@ repos:
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        exclude: assets.*
         types: [file]
         args:
             - '--max-warnings=0'
