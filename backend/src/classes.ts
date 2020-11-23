@@ -32,14 +32,19 @@ export class Cluster {
 	calculateIOPs(platform: string, diskType: Disk):void {
 		switch (this.platform) {
 			case "metal":
-			case "awsAttached":
-			case "awsEBS":
 			case "vmware":
 				// TODO: Needs more IOPs logic
 				// For clouds we can make it dependent on the size of the disk
 				diskType.iops = 100000;
-				(<HTMLInputElement>$("#diskSpeedValue")[0]).value = diskType.iops.toLocaleString();
+				break;
+			case "awsAttached":
+				diskType.iops = 130000;
+				break;
+			case "awsEBS":
+				diskType.iops = 18750;
+				break;
 		}
+		(<HTMLInputElement>$("#diskSpeedValue")[0]).value = diskType.iops.toLocaleString();
 	}
 
 	addReplicaSet(): void {
