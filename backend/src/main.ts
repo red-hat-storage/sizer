@@ -1,29 +1,32 @@
 import * as classes from "./classes"
 
-let disk1vendor = "intel";
 let platform = "metal";
-let disk1 = new classes.OneDWPD(disk1vendor);
 
 let targetCapacity = 501;
 
 const updatePlanning = function () {
 	const resultScreen = $("#resultScreen")[0];
 	const advancedResultScreen = $("#advancedResultScreen")[0];
-	const cluster = new classes.Cluster(platform, disk1, targetCapacity);
+	const capacityRangeSlider = (<HTMLInputElement>$("#capacityRange")[0]);
+	targetCapacity = +capacityRangeSlider.value;
+	const diskSizeRangeSlider = (<HTMLInputElement>$("#diskSizeRange")[0]);
+	const disk = new classes.Disk(+diskSizeRangeSlider.value)
+	const cluster = new classes.Cluster(platform, disk, targetCapacity);
 	resultScreen.innerHTML = cluster.print();
 	advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
 	cluster.draw();
 };
 
-const redoDisk = function (diskType: string) {
-	console.log(`Changing disk to ${diskType}`)
-	switch (diskType) {
-		case "1DPWD": disk1 = new classes.OneDWPD(disk1vendor); break;
-		case "3DPWD": disk1 = new classes.ThreeDWPD(disk1vendor); break;
-	}
-	return platform = ((<HTMLInputElement>$('#platform')[0]).value);
-};
+function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement):void {
+	valueLabel.innerHTML = range.value + " TB"; // Display the default slider value
+	updatePlanning();
 
+	// Update the current slider value (each time you drag the slider handle)
+	range.oninput = function () {
+		valueLabel.innerHTML = (<HTMLInputElement>this).value + " TB";
+		updatePlanning();
+	};
+}
 
 $(function () {
 	$('#platform').on('change', function () {
@@ -31,27 +34,11 @@ $(function () {
 		return updatePlanning();
 	});
 
-	$('#diskVendor').on('change', function () {
-		disk1vendor = (<HTMLInputElement>this).value;
-		redoDisk((<HTMLInputElement>$('#diskType')[0]).value);
-		return updatePlanning();
-	});
+	const capacityRangeSlider = (<HTMLInputElement>$("#capacityRange")[0]);
+	const capacityRangeValue = $("#capacityRangeValue")[0];
+	setUpRange(capacityRangeSlider, capacityRangeValue);
 
-	$('#diskType').on('change', function () {
-		redoDisk((<HTMLInputElement>this).value);
-		return updatePlanning();
-	});
-
-	const slider = (<HTMLInputElement>$("#capacityRange")[0]);
-	const output = $("#rangeValue")[0];
-	output.innerHTML = slider.value + " TB"; // Display the default slider value
-	targetCapacity = +slider.value;
-	updatePlanning();
-
-	// Update the current slider value (each time you drag the slider handle)
-	return slider.oninput = function () {
-		output.innerHTML = (<HTMLInputElement>this).value + " TB";
-		targetCapacity = +(<HTMLInputElement>this).value;
-		return updatePlanning();
-	};
+	const diskSizeRangeSlider = (<HTMLInputElement>$("#diskSizeRange")[0]);
+	const diskSizeRangeValue = $("#diskSizeRangeValue")[0];
+	setUpRange(diskSizeRangeSlider, diskSizeRangeValue);
 });

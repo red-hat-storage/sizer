@@ -54,21 +54,21 @@
                     </select>
                 </div>
 
+
                 <div class="form-group">
-                    <p>Disk Vendor</p>
-                    <select id="diskVendor" class="custom-select">
-                        <option value="intel">Intel</option>
-                        <option value="micron">Micron</option>
-                        <option value="samsung">Samsung</option>
-                    </select>
+                    <label for="diskSizeRange">Disk Size (TB)</label>
+                    <div class="input-group mb-3">
+                        <input type="range" class="form-control-range" min="0.5" max="16" step="0.1" value="7.68"
+                            id="diskSizeRange">
+                        <div class="input-group-append">
+                            <span id="diskSizeRangeValue" class="input-group-text"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <p>Disk Type</p>
-                    <select id="diskType" class="custom-select">
-                        <option value="1DPWD">Read Optimized - 1DPWD</option>
-                        <option value="3DPWD">Mixed use - 3DPWD</option>
-                    </select>
+                    <label for="diskSpeedValue">Disk IOPs</label>
+                    <input type="text" id="diskSpeedValue" class="form-control" placeholder="Auto-calculated" disabled>
                 </div>
 
                 <div class="form-group">
@@ -77,7 +77,7 @@
                         <input type="range" class="form-control-range" min="2" max="1000" step="1" value="10"
                             id="capacityRange">
                         <div class="input-group-append">
-                            <span id="rangeValue" class="input-group-text">2 TB</span>
+                            <span id="capacityRangeValue" class="input-group-text"></span>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                 <div id="resultScreen" style="white-space: pre;">
                 </div>
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#advancedResultOutput"
-                    aria-expanded="false" aria-controls="advancedResultOutput">
+                    aria-expanded="false" aria-controls="advancedResultOutput" style="margin-top: 20px;">
                     Show advanced output
                 </button>
                 <div class="collapse" id="advancedResultOutput">
@@ -112,7 +112,6 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 
-    <script src="https://storage.cloud.google.com/ocs-solver-dev/assets/fabric.js"></script>
     <script src="https://storage.cloud.google.com/ocs-solver-dev/lib/bundle.js"></script>
 
 </body>

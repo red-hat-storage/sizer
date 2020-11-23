@@ -3,15 +3,16 @@ import * as draw from "./draw"
 export class Cluster {
 	replicaSets: Array<ReplicaSet>;
 	platform: string;
-	diskType: NVMe;
+	diskType: Disk;
 	canvas;
 	static replicaCount = 3;
 
-	constructor(platform: string, diskType: NVMe, targetCapacity: number) {
+	constructor(platform: string, diskType: Disk, targetCapacity: number) {
 		this.platform = platform;
 		this.diskType = diskType;
+		this.calculateIOPs(platform, diskType)
 		this.canvas = draw.getCanvas();
-		this.replicaSets = [new ReplicaSet(this.platform, this.diskType)];
+		this.replicaSets = [new ReplicaSet(this.platform, Cluster.replicaCount)];
 		// this.addReplicaSet();
 		this.addService(new Ceph_MGR)
 		this.addService(new Ceph_MON)
@@ -21,15 +22,28 @@ export class Cluster {
 		this.addService(new Noobaa_Endpoint)
 		this.addService(new Noobaa_core)
 
-		const osdsNeededForTargetCapacity = Math.ceil(targetCapacity / diskType.maxCapacity())
+		const osdsNeededForTargetCapacity = Math.ceil(targetCapacity / diskType.capacity)
 
 		for (let i = 0; i < osdsNeededForTargetCapacity; i++) {
 			this.addService(new Ceph_OSD)
 		}
 	}
 
+	calculateIOPs(platform: string, diskType: Disk):void {
+		switch (this.platform) {
+			case "metal":
+			case "awsAttached":
+			case "awsEBS":
+			case "vmware":
+				// TODO: Needs more IOPs logic
+				// For clouds we can make it dependent on the size of the disk
+				diskType.iops = 100000;
+				(<HTMLInputElement>$("#diskSpeedValue")[0]).value = diskType.iops.toLocaleString();
+		}
+	}
+
 	addReplicaSet(): void {
-		this.replicaSets.push(new ReplicaSet(this.platform, this.diskType))
+		this.replicaSets.push(new ReplicaSet(this.platform, Cluster.replicaCount))
 	}
 
 	addService(service: Service): void {
@@ -45,7 +59,7 @@ export class Cluster {
 	}
 	print(): string {
 		let message = `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuCores} CPU cores, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
-		message += `The max disk size in this cluster is ${this.diskType.maxCapacity()}\n`;
+		message += `The disk size in this cluster is ${this.diskType.capacity}\n`;
 		message += `This cluster has ${this.replicaSets.length * Cluster.replicaCount} servers`;
 		return message
 	}
@@ -70,37 +84,34 @@ export class Cluster {
 export class ReplicaSet {
 	replicaCount: number
 	platform: string
-	diskType: NVMe;
 	servers: Array<Server>
 
-	constructor(platform: string, diskType: NVMe) {
-		this.replicaCount = 3
+	constructor(platform: string, replicaCount: number) {
+		this.replicaCount = replicaCount
 		this.platform = platform
-		this.diskType = diskType
 		this.servers = []
 		for (let i = 0; i < this.replicaCount; i++) {
 			switch (this.platform) {
-				case "metal": this.servers.push(new BareMetal(this.diskType)); break;
-				case "awsAttached": this.servers.push(new AWSattached(this.diskType)); break;
-				case "awsEBS": this.servers.push(new AWSEBS(this.diskType)); break;
-				case "vmware": this.servers.push(new VMware(this.diskType)); break;
+				case "metal": this.servers.push(new BareMetal()); break;
+				case "awsAttached": this.servers.push(new AWSattached()); break;
+				case "awsEBS": this.servers.push(new AWSEBS()); break;
+				case "vmware": this.servers.push(new VMware()); break;
 			}
 		}
 	}
 
 	addService(service: Service): boolean {
-		let returnFlag = true
+		let serviceAddRefused = false
 		switch (Object.getPrototypeOf(service).constructor) {
 			// Services running on 3 servers
 			case Ceph_MON:
 			case Ceph_OSD:
 				this.servers.forEach(server => {
 					if (!server.canIAddService(service)) {
-						returnFlag = false
-						return
+						serviceAddRefused = true
 					}
 				});
-				if (!returnFlag) return false
+				if (serviceAddRefused) return false
 				this.servers.forEach(server => {
 					server.addService(service)
 				});
@@ -149,16 +160,10 @@ export abstract class Server {
 	static maxDisks: number;
 	static cpuCores: number;
 	static memory: number;
-	diskType: NVMe;
 	services: Array<Service>;
 
-	constructor(diskType: NVMe) {
-		this.diskType = diskType;
+	constructor() {
 		this.services = [];
-	}
-
-	maxCapacity(): number {
-		return this.diskType.maxCapacity() * Server.maxDisks;
 	}
 
 	getUsedMemory(): number {
@@ -210,16 +215,6 @@ export abstract class Server {
 		return false
 	}
 
-	getInfo(): string {
-		return `
-Maximum number of disks per server: ${Server.maxDisks}
-Maximum capacity of one server: ${this.maxCapacity()} TB
-Disk vendor: ${this.diskType.vendor}
-Server disk choices ${NVMe.capacities.join(" TB, ")} TB
-Biggest available disk is ${this.diskType.maxCapacity()} TB
-`;
-	}
-
 	print(indentation = ""): string {
 		let message = indentation + `This server has ${this.getUsedCPU()} used CPU cores, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks\n`
 		message += indentation + "SERVICES ON THIS SERVER:"
@@ -257,39 +252,33 @@ export class AWSEBS extends Server {
 	static memory = 64;
 }
 
-export abstract class NVMe {
-	vendor: string;
-	static capacities: Array<number>;
-	constructor(vendor: string) {
-		this.vendor = vendor;
-	}
-
-	maxCapacity(): number {
-		return NVMe.capacities.reduce(function (a, b) {
-			return Math.max(a, b);
-		})
+export class Disk {
+	capacity: number;
+	iops = 0;
+	constructor(capacity: number) {
+		this.capacity = capacity;
 	}
 }
 
-export class OneDWPD extends NVMe {
-	constructor(vendor: string) {
-		super(vendor);
-		NVMe.capacities = (() => {
-			switch (this.vendor) {
-				case "intel": return [1.92, 3.84, 7.68];
-				case "micron": return [3.84, 7.68, 15.36];
-				default: return [1.92, 3.84, 7.68, 16.36];
-			}
-		})();
-	}
-}
+// export class OneDWPD extends NVMe {
+// 	constructor(vendor: string) {
+// 		super(vendor);
+// 		NVMe.capacities = (() => {
+// 			switch (this.vendor) {
+// 				case "intel": return [1.92, 3.84, 7.68];
+// 				case "micron": return [3.84, 7.68, 15.36];
+// 				default: return [1.92, 3.84, 7.68, 16.36];
+// 			}
+// 		})();
+// 	}
+// }
 
-export class ThreeDWPD extends NVMe {
-	constructor(vendor: string) {
-		super(vendor);
-		NVMe.capacities = [1.6, 3.2, 6.4, 12.8];
-	}
-}
+// export class ThreeDWPD extends NVMe {
+// 	constructor(vendor: string) {
+// 		super(vendor);
+// 		NVMe.capacities = [1.6, 3.2, 6.4, 12.8];
+// 	}
+// }
 
 export abstract class Service {
 	static requiredMemory: number;
