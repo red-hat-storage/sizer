@@ -7,6 +7,7 @@ let targetCapacity = 501;
 const updatePlanning = function () {
 	const resultScreen = $("#resultScreen")[0];
 	const advancedResultScreen = $("#advancedResultScreen")[0];
+	const SKUScreen = $("#SKUScreen")[0];
 	const capacityRangeSlider = (<HTMLInputElement>$("#capacityRange")[0]);
 	targetCapacity = +capacityRangeSlider.value;
 	const diskSizeRangeSlider = (<HTMLInputElement>$("#diskSizeRange")[0]);
@@ -14,6 +15,7 @@ const updatePlanning = function () {
 	const cluster = new classes.Cluster(platform, disk, targetCapacity);
 	resultScreen.innerHTML = cluster.print();
 	advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
+	SKUScreen.innerHTML = cluster.printSKU("  ");
 	cluster.draw();
 };
 

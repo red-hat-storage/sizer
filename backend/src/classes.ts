@@ -29,7 +29,7 @@ export class Cluster {
 		}
 	}
 
-	calculateIOPs(platform: string, diskType: Disk):void {
+	calculateIOPs(platform: string, diskType: Disk): void {
 		switch (this.platform) {
 			case "metal":
 			case "vmware":
@@ -73,6 +73,26 @@ export class Cluster {
 		let message = "";
 		for (let i = 0; i < this.replicaSets.length; i++) {
 			message += `\n\nNodeSet ${i + 1}` + this.replicaSets[i].print(indentation);
+		}
+		return message
+	}
+
+	printSKU(indentation = ""): string {
+		let totalCores = 0, totalMemory = 0, totalDisks = 0;
+		for (let i = 0; i < this.replicaSets.length; i++) {
+			const replicaSet = this.replicaSets[i]
+			for (let j = 0; j < replicaSet.servers.length; j++) {
+				const server = replicaSet.servers[j];
+				totalCores += server.getUsedCPU()
+				totalMemory += server.getUsedMemory()
+				totalDisks += server.getAmountOfOSDs()
+			}
+		}
+		let message = indentation + `This cluster requires of a total of ${totalCores} CPU cores, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
+		if (totalCores < 48) {
+			message += indentation + "This cluster is small enough to qualify for a StarterPack SKU!"
+		} else {
+			message += indentation + `This requires a total of ${Math.ceil(totalCores / 2)} RSU00181 SKUs`
 		}
 		return message
 	}
