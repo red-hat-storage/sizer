@@ -14,7 +14,7 @@ stages:
   # - lint
   - deploy
 
-push-to-google-storage:
+.push-to-google-storage:
   stage: deploy
   image: google/cloud-sdk:latest
   only:
