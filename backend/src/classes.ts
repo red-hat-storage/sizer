@@ -133,12 +133,16 @@ export class ReplicaSet {
 					if (a.getUsedCPU() < b.getUsedCPU()) return -1
 					else return 1
 				});
-				this.servers.slice(0, 1).forEach(server => {
+				console.debug(`Server list is ${this.servers.length} long`)
+				for (let i = 0; i < Math.min(this.servers.length, 2); i++) {
+					const server = this.servers[i];
 					if (!server.canIAddService(service)) return false
-				});
-				this.servers.slice(0, 1).forEach(server => {
+				}
+				for (let i = 0; i < Math.min(this.servers.length, 2); i++) {
+					const server = this.servers[i];
+					console.debug(`Adding ${service.print('')} to Server ${i}`)
 					server.addService(service)
-				});
+				}
 				return true
 		}
 		return false
