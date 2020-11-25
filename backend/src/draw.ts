@@ -46,15 +46,21 @@ export function drawServer(canvas: fabric.Canvas, server: classes.Server, leftPa
         left: 140,
     }));
 
-    group.addWithUpdate(new fabric.Text(`${server.getUsedCPU()} CPU cores`, {
-        top: 150,
+    group.addWithUpdate(new fabric.Text(`OCS services consume:`, {
+        top: 145,
         left: 40,
+        fontSize: 20,
+    }));
+
+    group.addWithUpdate(new fabric.Text(`${server.getUsedCPU()} CPU units`, {
+        top: 170,
+        left: 60,
         fontSize: 27,
     }));
 
-    group.addWithUpdate(new fabric.Text(`${server.getUsedMemory()}GB RAM`, {
-        top: 180,
-        left: 40,
+    group.addWithUpdate(new fabric.Text(`${server.getUsedMemory()} GB RAM`, {
+        top: 200,
+        left: 60,
         fontSize: 27,
     }));
 

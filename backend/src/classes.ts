@@ -63,9 +63,9 @@ export class Cluster {
 		}
 	}
 	print(): string {
-		let message = `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuCores} CPU cores, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
-		message += `The disk size in this cluster is ${this.diskType.capacity}\n`;
-		message += `This cluster has ${this.replicaSets.length * Cluster.replicaCount} servers`;
+		let message = `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuUnits} CPU units, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
+		message += `The disk size in this cluster is ${this.diskType.capacity} TB\n`;
+		message += `To reach the target capacity with the above constraints, we need ${this.replicaSets.length * Cluster.replicaCount} servers`;
 		return message
 	}
 
@@ -88,7 +88,7 @@ export class Cluster {
 				totalDisks += server.getAmountOfOSDs()
 			}
 		}
-		let message = indentation + `This cluster requires of a total of ${totalCores} CPU cores, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
+		let message = indentation + `This cluster requires of a total of ${totalCores} CPU units, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
 		if (totalCores < 48) {
 			message += indentation + "This cluster is small enough to qualify for a StarterPack SKU!"
 		} else {
@@ -185,7 +185,7 @@ export class ReplicaSet {
 
 export abstract class Server {
 	static maxDisks: number;
-	static cpuCores: number;
+	static cpuUnits: number;
 	static memory: number;
 	services: Array<Service>;
 
@@ -208,7 +208,7 @@ export abstract class Server {
 		return totalCores;
 	}
 	canIAddService(service: Service): boolean {
-		if (this.getUsedCPU() + Object.getPrototypeOf(service).constructor.requiredCPU > Object.getPrototypeOf(this).constructor.cpuCores ||
+		if (this.getUsedCPU() + Object.getPrototypeOf(service).constructor.requiredCPU > Object.getPrototypeOf(this).constructor.cpuUnits ||
 			this.getUsedMemory() + Object.getPrototypeOf(service).constructor.requiredMemory > Object.getPrototypeOf(this).constructor.memory) {
 			return false
 		}
@@ -243,7 +243,7 @@ export abstract class Server {
 	}
 
 	print(indentation = ""): string {
-		let message = indentation + `This server has ${this.getUsedCPU()} used CPU cores, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks\n`
+		let message = indentation + `This server has ${this.getUsedCPU()} used CPU units, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks\n`
 		message += indentation + "SERVICES ON THIS SERVER:"
 		this.services.forEach(service => {
 			message += "\n" + service.print(indentation + indentation)
@@ -254,13 +254,13 @@ export abstract class Server {
 
 export class BareMetal extends Server {
 	static maxDisks = 8;
-	static cpuCores = 16;
+	static cpuUnits = 24;
 	static memory = 64;
 }
 
 export class VMware extends Server {
 	static maxDisks = 8;
-	static cpuCores = 16;
+	static cpuUnits = 16;
 	static memory = 64;
 }
 
@@ -268,14 +268,14 @@ export class AWSattached extends Server {
 	// instance storage i3en.2xl
 	// 2 x 2.5TB disks
 	static maxDisks = 2;
-	static cpuCores = 8;
+	static cpuUnits = 8;
 	static memory = 64;
 }
 
 export class AWSEBS extends Server {
 	// instance with EBS m5.4xl
 	static maxDisks = 8;
-	static cpuCores = 16;
+	static cpuUnits = 16;
 	static memory = 64;
 }
 
