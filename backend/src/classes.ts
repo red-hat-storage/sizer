@@ -18,9 +18,9 @@ export class Cluster {
 		this.addService(new Ceph_MON)
 		this.addService(new Ceph_RGW)
 		this.addService(new Ceph_MDS)
-		this.addService(new Noobaa_DB)
-		this.addService(new Noobaa_Endpoint)
-		this.addService(new Noobaa_core)
+		this.addService(new NooBaa_DB)
+		this.addService(new NooBaa_Endpoint)
+		this.addService(new NooBaa_core)
 
 		const osdsNeededForTargetCapacity = Math.ceil(targetCapacity / diskType.capacity)
 
@@ -125,9 +125,9 @@ export class ReplicaSet {
 			case Ceph_MDS:
 			case Ceph_MGR:
 			case Ceph_RGW:
-			case Noobaa_DB:
-			case Noobaa_Endpoint:
-			case Noobaa_core:
+			case NooBaa_DB:
+			case NooBaa_Endpoint:
+			case NooBaa_core:
 				// Sort servers ascending based on used CPU
 				this.servers.sort(function (a, b) {
 					if (a.getUsedCPU() < b.getUsedCPU()) return -1
@@ -296,30 +296,30 @@ export abstract class Service {
 	abstract print(indentation: string): string;
 }
 
-export class Noobaa_core extends Service {
+export class NooBaa_core extends Service {
 	static requiredMemory = 4;
 	static requiredCPU = 1;
 
 	print(indentation = ""): string {
-		return indentation + "Noobaa Core"
+		return indentation + "NooBaa Core"
 	}
 }
 
-export class Noobaa_DB extends Service {
+export class NooBaa_DB extends Service {
 	static requiredMemory = 4;
 	static requiredCPU = 0.5;
 
 	print(indentation = ""): string {
-		return indentation + "Noobaa DB"
+		return indentation + "NooBaa DB"
 	}
 }
 
-export class Noobaa_Endpoint extends Service {
+export class NooBaa_Endpoint extends Service {
 	static requiredMemory = 2;
 	static requiredCPU = 1;
 
 	print(indentation = ""): string {
-		return indentation + "Noobaa Endpoint"
+		return indentation + "NooBaa Endpoint"
 	}
 }
 
