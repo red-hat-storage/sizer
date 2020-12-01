@@ -40,6 +40,12 @@ export function drawServer(canvas: fabric.Canvas, server: classes.Server, leftPa
         cropX: 30,
     }).scaleToWidth(100));
 
+    group.addWithUpdate(new fabric.Text(server.getFittingInstanceSize(), {
+        top: 120,
+        left: 10,
+        angle: 270,
+        fontSize: 20,
+    }));
 
     group.addWithUpdate(new fabric.Text(`x${server.getAmountOfOSDs()}`, {
         top: 90,

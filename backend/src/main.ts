@@ -1,6 +1,7 @@
 import * as classes from "./classes"
 
 let platform = "metal";
+let cluster: classes.Cluster
 
 let targetCapacity = 501;
 
@@ -12,14 +13,14 @@ const updatePlanning = function () {
 	targetCapacity = +capacityRangeSlider.value;
 	const diskSizeRangeSlider = (<HTMLInputElement>$("#diskSizeRange")[0]);
 	const disk = new classes.Disk(+diskSizeRangeSlider.value)
-	const cluster = new classes.Cluster(platform, disk, targetCapacity);
+	cluster = new classes.Cluster(platform, disk, targetCapacity);
 	resultScreen.innerHTML = cluster.print();
 	advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
 	SKUScreen.innerHTML = cluster.printSKU("  ");
 	cluster.draw();
 };
 
-function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement):void {
+function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement): void {
 	valueLabel.innerHTML = range.value + " TB"; // Display the default slider value
 	updatePlanning();
 
@@ -33,7 +34,16 @@ function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement):void {
 $(function () {
 	$('#platform').on('change', function () {
 		platform = ((<HTMLInputElement>this).value);
-		return updatePlanning();
+		const diskSizeRangeSlider = (<HTMLInputElement>$("#diskSizeRange")[0]);
+		const diskSizeRangeValue = $("#diskSizeRangeValue")[0];
+		if (platform == "awsAttached") {
+			diskSizeRangeSlider.disabled = true
+			diskSizeRangeSlider.value = "2.5"
+			diskSizeRangeValue.innerHTML = "2.5 TB"
+		} else {
+			diskSizeRangeSlider.disabled = false
+		}
+		updatePlanning();
 	});
 
 	const capacityRangeSlider = (<HTMLInputElement>$("#capacityRange")[0]);
@@ -43,4 +53,11 @@ $(function () {
 	const diskSizeRangeSlider = (<HTMLInputElement>$("#diskSizeRange")[0]);
 	const diskSizeRangeValue = $("#diskSizeRangeValue")[0];
 	setUpRange(diskSizeRangeSlider, diskSizeRangeValue);
+
+	const canvasDownloadBtn = (<HTMLAnchorElement>$("#canvasDownloadBtn")[0]);
+	canvasDownloadBtn.addEventListener("click", function () {
+		console.log('export image');
+		this.href = cluster.canvas.toDataURL({format: 'png'});
+		this.download = 'canvas.png'
+	}, false)
 });

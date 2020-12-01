@@ -78,21 +78,25 @@ export class Cluster {
 	}
 
 	printSKU(indentation = ""): string {
-		let totalCores = 0, totalMemory = 0, totalDisks = 0;
+		let totalSKUCores = 0, totalCores = 0, totalMemory = 0, totalDisks = 0;
 		for (let i = 0; i < this.replicaSets.length; i++) {
 			const replicaSet = this.replicaSets[i]
 			for (let j = 0; j < replicaSet.servers.length; j++) {
 				const server = replicaSet.servers[j];
+				// SKUs cannot be shared between VMs
+				// Thus we need to round up to the next round number
 				totalCores += server.getUsedCPU()
+				totalSKUCores += 2 * Math.round(Math.ceil(server.getUsedCPU()) / 2)
 				totalMemory += server.getUsedMemory()
 				totalDisks += server.getAmountOfOSDs()
 			}
 		}
 		let message = indentation + `This cluster requires of a total of ${totalCores} CPU units, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
-		if (totalCores < 48) {
+		message += indentation + `Factoring in that SKUs cannot be shared between VMs, we have to calculate the SKUs with ${totalSKUCores} CPU Units\n`
+		if (totalSKUCores < 48) {
 			message += indentation + "This cluster is small enough to qualify for a StarterPack SKU!"
 		} else {
-			message += indentation + `This requires a total of ${Math.ceil(totalCores / 2)} RSU00181 SKUs`
+			message += indentation + `This requires a total of ${Math.ceil(totalSKUCores / 2)} RSU00181 SKUs`
 		}
 		return message
 	}
@@ -250,18 +254,31 @@ export abstract class Server {
 		});
 		return message
 	}
+
+	abstract getFittingInstanceSize(): string
 }
 
 export class BareMetal extends Server {
 	static maxDisks = 8;
 	static cpuUnits = 24;
 	static memory = 64;
+
+	getFittingInstanceSize(): string {
+		return ""
+	}
 }
 
 export class VMware extends Server {
-	static maxDisks = 8;
-	static cpuUnits = 16;
-	static memory = 64;
+	// Per VM we can have at most 30 disks per SATA adapter and
+	// max 4 adapters = 120 disks in total (minus OS disk)
+	// https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
+	static maxDisks = 119;
+	static cpuUnits = 768;
+	static memory = 24000;
+
+	getFittingInstanceSize(): string {
+		return ""
+	}
 }
 
 export class AWSattached extends Server {
@@ -270,13 +287,43 @@ export class AWSattached extends Server {
 	static maxDisks = 2;
 	static cpuUnits = 8;
 	static memory = 64;
+
+	getFittingInstanceSize(): string {
+		if (this.getAmountOfOSDs() == 0) {
+			return "m5.2xlarge"
+		}
+		return "i3en.2xlarge"
+	}
 }
 
 export class AWSEBS extends Server {
-	// instance with EBS m5.4xl
-	static maxDisks = 8;
-	static cpuUnits = 16;
-	static memory = 64;
+	// instance with EBS based on m5 instances
+
+	// Linux instances should not have more than 40 EBS volumes
+	// https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
+	static maxDisks = 40;
+	static cpuUnits = 96;
+	static memory = 384;
+
+	getFittingInstanceSize(): string {
+		const usedCPU = this.getUsedCPU()
+		if (usedCPU <= 2) {
+			return "m5.large"
+		} else if (usedCPU <= 4) {
+			return "m5.xlarge"
+		} else if (usedCPU <= 8) {
+			return "m5.2xlarge"
+		} else if (usedCPU <= 16) {
+			return "m5.4xlarge"
+		} else if (usedCPU <= 32) {
+			return "m5.8xlarge"
+		} else if (usedCPU <= 48) {
+			return "m5.12xlarge"
+		} else if (usedCPU <= 64) {
+			return "m5.16xlarge"
+		}
+		return "m5.24xlarge"
+	}
 }
 
 export class Disk {
@@ -286,26 +333,6 @@ export class Disk {
 		this.capacity = capacity;
 	}
 }
-
-// export class OneDWPD extends NVMe {
-// 	constructor(vendor: string) {
-// 		super(vendor);
-// 		NVMe.capacities = (() => {
-// 			switch (this.vendor) {
-// 				case "intel": return [1.92, 3.84, 7.68];
-// 				case "micron": return [3.84, 7.68, 15.36];
-// 				default: return [1.92, 3.84, 7.68, 16.36];
-// 			}
-// 		})();
-// 	}
-// }
-
-// export class ThreeDWPD extends NVMe {
-// 	constructor(vendor: string) {
-// 		super(vendor);
-// 		NVMe.capacities = [1.6, 3.2, 6.4, 12.8];
-// 	}
-// }
 
 export abstract class Service {
 	static requiredMemory: number;
