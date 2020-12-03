@@ -209,7 +209,8 @@ export abstract class Server {
 		this.services.forEach(service => {
 			totalCores += Object.getPrototypeOf(service).constructor.requiredCPU;
 		});
-		return totalCores;
+		// 2 * Math.round(Math.ceil(server.getUsedCPU()) / 2)
+		return 2 * Math.round(Math.ceil(totalCores) / 2);
 	}
 	canIAddService(service: Service): boolean {
 		if (this.getUsedCPU() + Object.getPrototypeOf(service).constructor.requiredCPU > Object.getPrototypeOf(this).constructor.cpuUnits ||
@@ -378,7 +379,7 @@ export class Ceph_MDS extends Service {
 }
 
 export class Ceph_MGR extends Service {
-	static requiredMemory = 3;
+	static requiredMemory = 3.5;
 	static requiredCPU = 1;
 
 	print(indentation = ""): string {
