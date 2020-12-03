@@ -63,10 +63,10 @@ export class Cluster {
 		}
 	}
 	print(): string {
-		let message = `To reach the target capacity with the above constraints, we need ${this.replicaSets.length * Cluster.replicaCount} servers\n`;
-		message += `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuUnits} CPU units, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
+		let message = "<p>" + `To reach the target capacity with the above constraints, we need ${this.replicaSets.length * Cluster.replicaCount} servers\n`;
+		message += `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuUnits} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
 		message += `The disk size in this cluster is ${this.diskType.capacity} TB`;
-		return message
+		return message + "</p>"
 	}
 
 	printAdvanced(indentation = ""): string {
@@ -91,14 +91,14 @@ export class Cluster {
 				totalDisks += server.getAmountOfOSDs()
 			}
 		}
-		let message = indentation + `This cluster requires of a total of ${totalCores} CPU units, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
-		message += indentation + `Factoring in that SKUs cannot be shared between VMs, we have to calculate the SKUs with ${totalSKUCores} CPU Units\n`
+		let message = "<p>" + indentation + `This cluster requires of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
+		message += indentation + `Factoring in that SKUs cannot be shared between VMs, we have to calculate the SKUs with ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>\n`
 		if (totalSKUCores < 48) {
 			message += indentation + "This cluster is small enough to qualify for a StarterPack SKU!"
 		} else {
 			message += indentation + `This requires a total of ${Math.ceil(totalSKUCores / 2)} RSU00181 SKUs`
 		}
-		return message
+		return message + "</p>"
 	}
 
 	draw(): void {

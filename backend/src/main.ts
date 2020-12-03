@@ -17,6 +17,10 @@ const updatePlanning = function () {
 	resultScreen.innerHTML = cluster.print();
 	advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
 	SKUScreen.innerHTML = cluster.printSKU("  ");
+
+	// enable tooltips
+	(<any>$('[data-toggle="tooltip"]')).tooltip(); // eslint-disable-line @typescript-eslint/no-explicit-any
+
 	cluster.draw();
 };
 
@@ -59,5 +63,6 @@ $(function () {
 		console.log('export image');
 		this.href = cluster.canvas.toDataURL({format: 'png'});
 		this.download = 'canvas.png'
-	}, false)
+	}, false);
+
 });
