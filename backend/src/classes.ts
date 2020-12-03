@@ -63,9 +63,9 @@ export class Cluster {
 		}
 	}
 	print(): string {
-		let message = `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuUnits} CPU units, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
-		message += `The disk size in this cluster is ${this.diskType.capacity} TB\n`;
-		message += `To reach the target capacity with the above constraints, we need ${this.replicaSets.length * Cluster.replicaCount} servers`;
+		let message = `To reach the target capacity with the above constraints, we need ${this.replicaSets.length * Cluster.replicaCount} servers\n`;
+		message += `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuUnits} CPU units, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
+		message += `The disk size in this cluster is ${this.diskType.capacity} TB`;
 		return message
 	}
 
