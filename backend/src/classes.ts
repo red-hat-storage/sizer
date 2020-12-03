@@ -32,7 +32,7 @@ export class Cluster {
 	// calculateIOPs(platform: string, diskType: Disk): void {
 	// 	switch (this.platform) {
 	// 		case "metal":
-	// 		case "vmware":
+	// 		case "vm":
 	// 			// TODO: Needs more IOPs logic
 	// 			// For clouds we can make it dependent on the size of the disk
 	// 			diskType.iops = 100000;
@@ -124,7 +124,7 @@ export class ReplicaSet {
 				case "metal": this.servers.push(new BareMetal()); break;
 				case "awsAttached": this.servers.push(new AWSattached()); break;
 				case "awsEBS": this.servers.push(new AWSEBS()); break;
-				case "vmware": this.servers.push(new VMware()); break;
+				case "vm": this.servers.push(new VMserver()); break;
 			}
 		}
 	}
@@ -269,11 +269,11 @@ export class BareMetal extends Server {
 	}
 }
 
-export class VMware extends Server {
+export class VMserver extends Server {
 	// Per VM we can have at most 30 disks per SATA adapter and
 	// max 4 adapters = 120 disks in total (minus OS disk)
 	// https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
-	static maxDisks = 119;
+	static maxDisks = 20;
 	static cpuUnits = 768;
 	static memory = 24000;
 
@@ -307,23 +307,7 @@ export class AWSEBS extends Server {
 	static memory = 64;
 
 	getFittingInstanceSize(): string {
-		const usedCPU = this.getUsedCPU()
-		if (usedCPU <= 2) {
-			return "m5.large"
-		} else if (usedCPU <= 4) {
-			return "m5.xlarge"
-		} else if (usedCPU <= 8) {
-			return "m5.2xlarge"
-		} else if (usedCPU <= 16) {
 		return "m5.4xlarge"
-		} else if (usedCPU <= 32) {
-			return "m5.8xlarge"
-		} else if (usedCPU <= 48) {
-			return "m5.12xlarge"
-		} else if (usedCPU <= 64) {
-			return "m5.16xlarge"
-		}
-		return "m5.24xlarge"
 	}
 }
 
