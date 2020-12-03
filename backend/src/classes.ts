@@ -10,7 +10,7 @@ export class Cluster {
 	constructor(platform: string, diskType: Disk, targetCapacity: number) {
 		this.platform = platform;
 		this.diskType = diskType;
-		this.calculateIOPs(platform, diskType)
+		// this.calculateIOPs(platform, diskType)
 		this.canvas = draw.getCanvas();
 		this.replicaSets = [new ReplicaSet(this.platform, Cluster.replicaCount)];
 		// this.addReplicaSet();
@@ -29,23 +29,23 @@ export class Cluster {
 		}
 	}
 
-	calculateIOPs(platform: string, diskType: Disk): void {
-		switch (this.platform) {
-			case "metal":
-			case "vmware":
-				// TODO: Needs more IOPs logic
-				// For clouds we can make it dependent on the size of the disk
-				diskType.iops = 100000;
-				break;
-			case "awsAttached":
-				diskType.iops = 130000;
-				break;
-			case "awsEBS":
-				diskType.iops = 18750;
-				break;
-		}
-		(<HTMLInputElement>$("#diskSpeedValue")[0]).value = diskType.iops.toLocaleString();
-	}
+	// calculateIOPs(platform: string, diskType: Disk): void {
+	// 	switch (this.platform) {
+	// 		case "metal":
+	// 		case "vmware":
+	// 			// TODO: Needs more IOPs logic
+	// 			// For clouds we can make it dependent on the size of the disk
+	// 			diskType.iops = 100000;
+	// 			break;
+	// 		case "awsAttached":
+	// 			diskType.iops = 130000;
+	// 			break;
+	// 		case "awsEBS":
+	// 			diskType.iops = 18750;
+	// 			break;
+	// 	}
+	// 	(<HTMLInputElement>$("#diskSpeedValue")[0]).value = diskType.iops.toLocaleString();
+	// }
 
 	addReplicaSet(): void {
 		this.replicaSets.push(new ReplicaSet(this.platform, Cluster.replicaCount))
