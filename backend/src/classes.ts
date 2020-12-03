@@ -302,9 +302,9 @@ export class AWSEBS extends Server {
 
 	// Linux instances should not have more than 40 EBS volumes
 	// https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
-	static maxDisks = 40;
-	static cpuUnits = 96;
-	static memory = 384;
+	static maxDisks = 20;
+	static cpuUnits = 16;
+	static memory = 64;
 
 	getFittingInstanceSize(): string {
 		const usedCPU = this.getUsedCPU()
@@ -315,7 +315,7 @@ export class AWSEBS extends Server {
 		} else if (usedCPU <= 8) {
 			return "m5.2xlarge"
 		} else if (usedCPU <= 16) {
-			return "m5.4xlarge"
+		return "m5.4xlarge"
 		} else if (usedCPU <= 32) {
 			return "m5.8xlarge"
 		} else if (usedCPU <= 48) {
