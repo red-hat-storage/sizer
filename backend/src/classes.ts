@@ -178,7 +178,7 @@ export class ReplicaSet {
 		return message
 	}
 
-	draw(canvas: fabric.Canvas, topPad: number): void {
+	draw(canvas: fabric.StaticCanvas, topPad: number): void {
 		let leftPad = 0
 		this.servers.forEach(server => {
 			draw.drawServer(canvas, server, leftPad, topPad)
@@ -265,7 +265,7 @@ export class BareMetal extends Server {
 	static memory = 64;
 
 	getFittingInstanceSize(): string {
-		return ""
+		return `${BareMetal.cpuUnits} CPUs | ${BareMetal.memory} GB RAM`
 	}
 }
 
@@ -274,11 +274,11 @@ export class VMserver extends Server {
 	// max 4 adapters = 120 disks in total (minus OS disk)
 	// https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
 	static maxDisks = 20;
-	static cpuUnits = 768;
-	static memory = 24000;
+	static cpuUnits = 40;
+	static memory = 128;
 
 	getFittingInstanceSize(): string {
-		return ""
+		return `${VMserver.cpuUnits} CPUs | ${VMserver.memory} GB RAM`
 	}
 }
 

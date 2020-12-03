@@ -4,11 +4,11 @@ import { fabric } from 'fabric'
 const serverImage = <HTMLImageElement>document.getElementById('img-server');
 const storageImage = <HTMLImageElement>document.getElementById('img-storage');
 
-export function getCanvas(): fabric.Canvas {
-    return new fabric.Canvas('canvas');
+export function getCanvas(): fabric.StaticCanvas {
+    return new fabric.StaticCanvas('canvas');
 }
 
-export function drawServer(canvas: fabric.Canvas, server: classes.Server, leftPad: number, topPad: number): void {
+export function drawServer(canvas: fabric.StaticCanvas, server: classes.Server, leftPad: number, topPad: number): void {
     canvas.setHeight(topPad + 300);
     canvas.setWidth(leftPad + 300);
 
@@ -41,10 +41,11 @@ export function drawServer(canvas: fabric.Canvas, server: classes.Server, leftPa
     }).scaleToWidth(100));
 
     group.addWithUpdate(new fabric.Text(server.getFittingInstanceSize(), {
-        top: 120,
+        top: 10,
         left: 10,
         angle: 270,
         fontSize: 20,
+        originX: 'right',
     }));
 
     group.addWithUpdate(new fabric.Text(`x${server.getAmountOfOSDs()}`, {
