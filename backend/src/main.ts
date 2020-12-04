@@ -12,18 +12,36 @@ function updatePlanning() {
 	const capacityRangeSlider = (<HTMLInputElement>$("#capacityRange")[0]);
 	const diskSizeRangeSlider = (<HTMLInputElement>$("#diskSizeRange")[0]);
 	const diskSizeRangeValue = $("#diskSizeRangeValue")[0];
+	const manualInstanceRangeViews = $(".manualInstance");
+	const instanceCPURangeSlider = (<HTMLInputElement>$("#instanceCPU")[0])
+	const instanceMemoryRangeSlider = (<HTMLInputElement>$("#instanceMemory")[0])
 
-	if (platform == "awsAttached") {
-		diskSizeRangeSlider.disabled = true
-		diskSizeRangeSlider.value = "2.5"
-		diskSizeRangeValue.innerHTML = "2.5 TB"
-	} else {
-		diskSizeRangeSlider.disabled = false
+	diskSizeRangeSlider.disabled = false
+	for (let i = 0; i < manualInstanceRangeViews.length; i++) {
+		const instance = manualInstanceRangeViews[i];
+		instance.classList.add("d-none")
+	}
+	switch (platform) {
+		case "awsAttached":
+			diskSizeRangeSlider.disabled = true
+			diskSizeRangeSlider.value = "2.5"
+			diskSizeRangeValue.innerHTML = "2.5 TB"
+			break;
+		case "metal":
+		case "vm":
+			// Make controls visible
+			for (let i = 0; i < manualInstanceRangeViews.length; i++) {
+				const instance = manualInstanceRangeViews[i];
+				instance.classList.remove("d-none")
+			}
+			break;
+		default:
+			break;
 	}
 
 	const disk = new classes.Disk(+diskSizeRangeSlider.value)
 	targetCapacity = +capacityRangeSlider.value;
-	cluster = new classes.Cluster(platform, disk, targetCapacity);
+	cluster = new classes.Cluster(platform, disk, targetCapacity, +instanceCPURangeSlider.value, +instanceMemoryRangeSlider.value);
 	resultScreen.innerHTML = cluster.print();
 	advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
 	SKUScreen.innerHTML = cluster.printSKU("  ");
@@ -76,10 +94,32 @@ $(function () {
 		setInputs(platform, diskSize, totalCapacity)
 	}
 
-	$('#platform').on('change', function () {
-		platform = ((<HTMLInputElement>this).value);
+
+	$("#instanceCPU").on('change', function () {
 		updatePlanning();
 	});
+
+	$("#instanceMemory").on('change', function () {
+		updatePlanning();
+	});
+
+	$('#platform').on('change', function () {
+		platform = ((<HTMLInputElement>this).value);
+		const instanceCPURangeSlider = (<HTMLInputElement>$("#instanceCPU")[0])
+		const instanceMemoryRangeSlider = (<HTMLInputElement>$("#instanceMemory")[0])
+		switch (platform) {
+			case "metal":
+				instanceCPURangeSlider.value = "32"
+				instanceMemoryRangeSlider.value = "64"
+				break;
+			case "vm":
+				instanceCPURangeSlider.value = "48"
+				instanceMemoryRangeSlider.value = "128"
+				break;
+		}
+		updatePlanning();
+	});
+	$('#platform').trigger("change")
 
 	const capacityRangeSlider = (<HTMLInputElement>$("#capacityRange")[0]);
 	const capacityRangeValue = $("#capacityRangeValue")[0];

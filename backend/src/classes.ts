@@ -4,15 +4,19 @@ export class Cluster {
 	replicaSets: Array<ReplicaSet>;
 	platform: string;
 	diskType: Disk;
+	instanceCPU: number;
+	instanceMemory: number;
 	canvas;
 	static replicaCount = 3;
 
-	constructor(platform: string, diskType: Disk, targetCapacity: number) {
+	constructor(platform: string, diskType: Disk, targetCapacity: number, instanceCPU: number, instanceMemory: number) {
 		this.platform = platform;
 		this.diskType = diskType;
+		this.instanceCPU = instanceCPU;
+		this.instanceMemory = instanceMemory;
 		// this.calculateIOPs(platform, diskType)
 		this.canvas = draw.getCanvas();
-		this.replicaSets = [new ReplicaSet(this.platform, Cluster.replicaCount)];
+		this.replicaSets = [new ReplicaSet(this.platform, Cluster.replicaCount, this.instanceCPU, this.instanceMemory)];
 		// this.addReplicaSet();
 		this.addService(new Ceph_MGR)
 		this.addService(new Ceph_MON)
@@ -48,7 +52,7 @@ export class Cluster {
 	// }
 
 	addReplicaSet(): void {
-		this.replicaSets.push(new ReplicaSet(this.platform, Cluster.replicaCount))
+		this.replicaSets.push(new ReplicaSet(this.platform, Cluster.replicaCount, this.instanceCPU, this.instanceMemory))
 	}
 
 	addService(service: Service): void {
@@ -115,16 +119,16 @@ export class ReplicaSet {
 	platform: string
 	servers: Array<Server>
 
-	constructor(platform: string, replicaCount: number) {
+	constructor(platform: string, replicaCount: number, instanceCPU: number, instanceMemory: number) {
 		this.replicaCount = replicaCount
 		this.platform = platform
 		this.servers = []
 		for (let i = 0; i < this.replicaCount; i++) {
 			switch (this.platform) {
-				case "metal": this.servers.push(new BareMetal()); break;
+				case "metal": this.servers.push(new BareMetal(20, instanceCPU, instanceMemory)); break;
 				case "awsAttached": this.servers.push(new AWSattached()); break;
 				case "awsEBS": this.servers.push(new AWSEBS()); break;
-				case "vm": this.servers.push(new VMserver()); break;
+				case "vm": this.servers.push(new VMserver(20, instanceCPU, instanceMemory)); break;
 			}
 		}
 	}
