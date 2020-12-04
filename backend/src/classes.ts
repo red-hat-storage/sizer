@@ -64,7 +64,7 @@ export class Cluster {
 	}
 	print(): string {
 		let message = "<p>" + `To reach the target capacity with the above constraints, we need ${this.replicaSets.length * Cluster.replicaCount} servers\n`;
-		message += `Each server has ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.cpuUnits} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.memory} GB memory and a maximum of ${Object.getPrototypeOf(this.replicaSets[0].servers[0]).constructor.maxDisks} disks.\n`;
+		message += `Each server has ${this.replicaSets[0].servers[0].cpuUnits} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${this.replicaSets[0].servers[0].memory} GB memory and a maximum of ${this.replicaSets[0].servers[0].maxDisks} disks.\n`;
 		message += `The disk size in this cluster is ${this.diskType.capacity} TB`;
 		return message + "</p>"
 	}
@@ -188,13 +188,17 @@ export class ReplicaSet {
 }
 
 export abstract class Server {
-	static maxDisks: number;
-	static cpuUnits: number;
-	static memory: number;
+	maxDisks: number;
+	cpuUnits: number;
+	memory: number;
 	services: Array<Service>;
 
-	constructor() {
+	constructor(maxDisks = 0, cpuUnits = 0, memory = 0) {
 		this.services = [];
+
+		this.maxDisks = maxDisks;
+		this.cpuUnits = cpuUnits;
+		this.memory = memory;
 	}
 
 	getUsedMemory(): number {
@@ -213,11 +217,11 @@ export abstract class Server {
 		return 2 * Math.round(Math.ceil(totalCores) / 2);
 	}
 	canIAddService(service: Service): boolean {
-		if (this.getUsedCPU() + Object.getPrototypeOf(service).constructor.requiredCPU > Object.getPrototypeOf(this).constructor.cpuUnits ||
-			this.getUsedMemory() + Object.getPrototypeOf(service).constructor.requiredMemory > Object.getPrototypeOf(this).constructor.memory) {
+		if (this.getUsedCPU() + Object.getPrototypeOf(service).constructor.requiredCPU > this.cpuUnits ||
+			this.getUsedMemory() + Object.getPrototypeOf(service).constructor.requiredMemory > this.memory) {
 			return false
 		}
-		if (service instanceof Ceph_OSD && this.getAmountOfOSDs() >= Object.getPrototypeOf(this).constructor.maxDisks) {
+		if (service instanceof Ceph_OSD && this.getAmountOfOSDs() >= this.maxDisks) {
 			return false
 		}
 		return true
@@ -260,12 +264,15 @@ export abstract class Server {
 }
 
 export class BareMetal extends Server {
-	static maxDisks = 8;
-	static cpuUnits = 24;
-	static memory = 64;
+	constructor(maxDisks = 20, cpuUnits = 24, memory = 64) {
+		super();
+		this.maxDisks = maxDisks;
+		this.cpuUnits = cpuUnits;
+		this.memory = memory;
+	}
 
 	getFittingInstanceSize(): string {
-		return `${BareMetal.cpuUnits} CPUs | ${BareMetal.memory} GB RAM`
+		return `${this.cpuUnits} CPUs | ${this.memory} GB RAM`
 	}
 }
 
@@ -273,21 +280,28 @@ export class VMserver extends Server {
 	// Per VM we can have at most 30 disks per SATA adapter and
 	// max 4 adapters = 120 disks in total (minus OS disk)
 	// https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
-	static maxDisks = 20;
-	static cpuUnits = 40;
-	static memory = 128;
+
+	constructor(maxDisks = 20, cpuUnits = 40, memory = 128) {
+		super();
+		this.maxDisks = maxDisks;
+		this.cpuUnits = cpuUnits;
+		this.memory = memory;
+	}
 
 	getFittingInstanceSize(): string {
-		return `${VMserver.cpuUnits} CPUs | ${VMserver.memory} GB RAM`
+		return `${this.cpuUnits} CPUs | ${this.memory} GB RAM`
 	}
 }
 
 export class AWSattached extends Server {
 	// instance storage i3en.2xl
 	// 2 x 2.5TB disks
-	static maxDisks = 2;
-	static cpuUnits = 8;
-	static memory = 64;
+	constructor(maxDisks = 2, cpuUnits = 8, memory = 64) {
+		super();
+		this.maxDisks = maxDisks;
+		this.cpuUnits = cpuUnits;
+		this.memory = memory;
+	}
 
 	getFittingInstanceSize(): string {
 		if (this.getAmountOfOSDs() == 0) {
@@ -302,9 +316,12 @@ export class AWSEBS extends Server {
 
 	// Linux instances should not have more than 40 EBS volumes
 	// https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
-	static maxDisks = 20;
-	static cpuUnits = 16;
-	static memory = 64;
+	constructor(maxDisks = 20, cpuUnits = 16, memory = 64) {
+		super();
+		this.maxDisks = maxDisks;
+		this.cpuUnits = cpuUnits;
+		this.memory = memory;
+	}
 
 	getFittingInstanceSize(): string {
 		return "m5.4xlarge"
