@@ -1,5 +1,4 @@
 import * as classes from "./classes";
-import { getCanvas } from "./draw";
 
 let platform = "metal";
 let cluster: classes.Cluster;
