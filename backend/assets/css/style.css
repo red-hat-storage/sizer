@@ -1,6 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700;900&display=swap");
+
+* {
+  font-family: "Red Hat Display", sans-serif;
+}
+
 .body-container {
   display: flex;
-  padding: 10px 20px;
 }
 
 .custom-container {
@@ -10,14 +15,11 @@
   background-color: #fff;
 }
 
-body {
-  background-color: #b7b7b7;
-}
-
 .body-lhs {
   max-width: calc(50vw - 50px);
   padding-right: 10px;
   border-right: 1px solid #0d0d0d60;
+  flex-grow: 1;
 }
 
 .body-rhs {
@@ -42,4 +44,46 @@ body {
 
 .button-bar > .btn {
   margin: 0 0.5em;
+}
+
+.header {
+  background-color: #000;
+  color: #fff;
+  padding: 1em;
+  font-family: "Red Hat Display", sans-serif;
+  display: flex;
+}
+
+.header--content {
+  padding: 15px 10px;
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+  margin-right: 205px;
+  margin-top: 25px;
+}
+
+.logo {
+  background: url(https://assets.openshift.com/hubfs/images/logos/osh/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg)
+    100% no-repeat;
+  background-size: contain;
+  background-position: left center;
+  margin: 5px 15px;
+  padding: 0;
+  width: 175px;
+  height: 70px;
+}
+
+.hard {
+  font-weight: 900;
+}
+
+.medium {
+  font-weight: 700;
+}
+
+.light {
+  font-weight: 500;
 }

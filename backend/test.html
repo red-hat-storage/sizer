@@ -37,26 +37,27 @@
 
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="header">
+        <div class="logo"></div>
+        <div class="text">
+            <h2><span class="medium">OpenShift</span> <span class="light">Container</span> <span class="">Storage</span>
+                Sizing Solver</h2>
+        </div>
+    </div>
     <div class="custom-container">
-        <div class="title">
-            <h2>
-                <img src="https://rht-sbu.s3.amazonaws.com/images/ocs_logo.png" width="424px" height="140px" />
-            </h2>
+        <div class="content-header">
+            <p class="header--content medium">
+                This solver can be used to take the expected cluster size and building block parameters and tell
+                you how
+                you need to set up your instances to get the desired cluster capacity.</br>
+                You will also get relevant SKU information to know how much this will cost you.
+            </p>
         </div>
         <div class="body-container">
             <div class="body-lhs">
-                <div class="content-header">
-                    <h3 class="header--border">Sizing Solver</h3>
-                    <p class="header--content">
-                        This solver can be used to take the expected cluster size and building block parameters and tell
-                        you how
-                        you need to set up your instances to get the desired cluster capacity.</br>
-                        You will also get relevant SKU information to know how much this will cost you.
-                    </p>
-                </div>
                 <div class="content-body">
                     <div class="form-group">
-                        <p>Platform</p>
+                        <p class="medium">Platform</p>
                         <select id="platform" class="custom-select">
                             <option value="metal">Bare Metal</option>
                             <option value="awsAttached">AWS i3en.2xl using local NVMe</option>
@@ -89,7 +90,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="diskSizeRange">Disk Size (TB)</label>
+                        <label for="diskSizeRange" class="medium">Disk Size (TB)</label>
                         <div class="input-group mb-3">
                             <input type="range" class="form-control-range range-controller" min="0.5" max="16"
                                 step="0.1" value="7.68" id="diskSizeRange" />
@@ -99,14 +100,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="diskSpeedValue">Disk Write IOPs</label>
+                    <!-- <div class="form-group">
+                        <label for="diskSpeedValue" class="medium">Disk Write IOPs</label>
                         <input type="text" id="diskSpeedValue" class="form-control " placeholder="Auto-calculated"
                             disabled />
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
-                        <label for="capacityRange">Usable capacity required (TB)</label>
+                        <label for="capacityRange" class="medium">Usable capacity required (TB)</label>
                         <div class="input-group mb-3">
                             <input type="range" class="form-control-range" min="2" max="1000" step="1" value="10"
                                 id="capacityRange" />

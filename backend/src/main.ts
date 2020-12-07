@@ -72,7 +72,7 @@ function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement): void {
   // Update the current slider value (each time you drag the slider handle)
   range.oninput = function() {
     valueLabel.innerHTML = (<HTMLInputElement>this).value + " TB";
-    updatePlanning(0.25);
+    updatePlanning();
   };
 }
 

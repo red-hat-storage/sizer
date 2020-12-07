@@ -12,7 +12,8 @@ export function drawServer(
   canvas: fabric.StaticCanvas,
   server: classes.Server,
   leftPad: number,
-  topPad: number
+  topPad: number,
+  scale = 1
 ): void {
   canvas.setHeight(topPad + 300);
   canvas.setWidth(leftPad + 300);
