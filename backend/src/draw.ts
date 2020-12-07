@@ -40,7 +40,7 @@ export function drawServer(
       left: 40,
       cropY: 140,
       cropX: 30
-    }).scaleToWidth(scale)
+    }).scaleToWidth(200)
   );
 
   group.addWithUpdate(
@@ -49,7 +49,7 @@ export function drawServer(
       left: 40,
       cropY: 100,
       cropX: 30
-    }).scaleToWidth(scale)
+    }).scaleToWidth(100)
   );
 
   group.addWithUpdate(
