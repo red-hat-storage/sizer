@@ -78,11 +78,14 @@ export function drawServer(
   );
 
   group.addWithUpdate(
-    new fabric.Text(`${server.getUsedCPU()} CPU units\n${server.getUsedMemory()} GB RAM`, {
-      top: 170,
-      left: 60,
-      fontSize: 27
-    })
+    new fabric.Text(
+      `${server.getUsedCPU()} CPU units\n${server.getUsedMemory()} GB RAM`,
+      {
+        top: 170,
+        left: 60,
+        fontSize: 27
+      }
+    )
   );
 
   group.set("left", leftPad);
