@@ -69,7 +69,7 @@ function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement): void {
   updatePlanning();
 
   // Update the current slider value (each time you drag the slider handle)
-  range.oninput = function() {
+  range.oninput = function () {
     valueLabel.innerHTML = (<HTMLInputElement>this).value + " TB";
     updatePlanning();
   };
@@ -88,13 +88,13 @@ function setInputs(
   updatePlanning();
 }
 
-$(function() {
+$(function () {
   const searchString = window.location.search.split("?");
   if (searchString.length > 1 && searchString[1].split("&").length == 3) {
     let platform = "",
       diskSize = "",
       totalCapacity = "";
-    searchString[1].split("&").forEach(searchString => {
+    searchString[1].split("&").forEach((searchString) => {
       switch (searchString.split("=")[0]) {
         case "platform":
           platform = searchString.split("=")[1];
@@ -110,15 +110,15 @@ $(function() {
     setInputs(platform, diskSize, totalCapacity);
   }
 
-  $("#instanceCPU").on("change", function() {
+  $("#instanceCPU").on("change", function () {
     updatePlanning();
   });
 
-  $("#instanceMemory").on("change", function() {
+  $("#instanceMemory").on("change", function () {
     updatePlanning();
   });
 
-  $("#platform").on("change", function() {
+  $("#platform").on("change", function () {
     platform = (<HTMLInputElement>this).value;
     const instanceCPURangeSlider = <HTMLInputElement>$("#instanceCPU")[0];
     const instanceMemoryRangeSlider = <HTMLInputElement>$("#instanceMemory")[0];
@@ -147,7 +147,7 @@ $(function() {
   const canvasDownloadBtn = <HTMLAnchorElement>$("#canvasDownloadBtn")[0];
   canvasDownloadBtn.addEventListener(
     "click",
-    function() {
+    function () {
       console.log("export image");
       this.href = cluster.canvas.toDataURL({ format: "png" });
       this.download = "canvas.png";

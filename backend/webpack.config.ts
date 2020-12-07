@@ -7,10 +7,10 @@ const Configuration: webpack.Configuration = {
   output: {
     path: path.resolve(__dirname, "lib/"),
     publicPath: "assets/",
-    filename: "[name]-bundle.js"
+    filename: "[name]-bundle.js",
   },
   resolve: {
-    extensions: [".ts", ".js", ".json", ".html"]
+    extensions: [".ts", ".js", ".json", ".html"],
   },
   mode: "production",
   module: {
@@ -21,39 +21,39 @@ const Configuration: webpack.Configuration = {
           {
             loader: "ts-loader",
             options: {
-              configFile: path.resolve(__dirname, "tsconfig.json")
-            }
-          }
-        ]
+              configFile: path.resolve(__dirname, "tsconfig.json"),
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(svg|png|jpe?g|gif)$/i,
         use: [
           {
-            loader: "file-loader"
+            loader: "file-loader",
           },
           {
             loader: "url-loader",
             options: {
-              limit: 8192
-            }
-          }
-        ]
-      }
-    ]
+              limit: 8192,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new CopyPlugin({
       patterns: [
         { from: "./test.html", to: "index.html" },
-        { from: "assets", to: "assets" }
-      ]
-    })
-  ]
+        { from: "assets", to: "assets" },
+      ],
+    }),
+  ],
 };
 
 export default Configuration;

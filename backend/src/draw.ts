@@ -20,7 +20,7 @@ export function drawServer(
 
   const group = new fabric.Group([], {
     left: 200,
-    top: 200
+    top: 200,
   });
   group.addWithUpdate(
     new fabric.Rect({
@@ -30,7 +30,7 @@ export function drawServer(
       height: 240,
       stroke: "black",
       strokeWidth: 3,
-      fill: "transparent"
+      fill: "transparent",
     })
   );
 
@@ -39,7 +39,7 @@ export function drawServer(
       top: 20,
       left: 40,
       cropY: 140,
-      cropX: 30
+      cropX: 30,
     }).scaleToWidth(200)
   );
 
@@ -48,7 +48,7 @@ export function drawServer(
       top: 90,
       left: 40,
       cropY: 100,
-      cropX: 30
+      cropX: 30,
     }).scaleToWidth(100)
   );
 
@@ -58,14 +58,14 @@ export function drawServer(
       left: 10,
       angle: 270,
       fontSize: 20,
-      originX: "right"
+      originX: "right",
     })
   );
 
   group.addWithUpdate(
     new fabric.Text(`x${server.getAmountOfOSDs()}`, {
       top: 90,
-      left: 140
+      left: 140,
     })
   );
 
@@ -73,7 +73,7 @@ export function drawServer(
     new fabric.Text(`OCS services consume:`, {
       top: 145,
       left: 40,
-      fontSize: 20
+      fontSize: 20,
     })
   );
 
@@ -83,7 +83,7 @@ export function drawServer(
       {
         top: 170,
         left: 60,
-        fontSize: 27
+        fontSize: 27,
       }
     )
   );
