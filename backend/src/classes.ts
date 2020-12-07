@@ -1,4 +1,4 @@
-import * as draw from "./draw"
+import * as draw from "./draw";
 
 export class Cluster {
 	replicaSets: Array<ReplicaSet>;
@@ -333,88 +333,88 @@ export class AWSEBS extends Server {
 }
 
 export class Disk {
-	capacity: number;
-	iops = 0;
-	constructor(capacity: number) {
-		this.capacity = capacity;
-	}
+  capacity: number;
+  iops = 0;
+  constructor(capacity: number) {
+    this.capacity = capacity;
+  }
 }
 
 export abstract class Service {
-	static requiredMemory: number;
-	static requiredCPU: number;
+  static requiredMemory: number;
+  static requiredCPU: number;
 
-	abstract print(indentation: string): string;
+  abstract print(indentation: string): string;
 }
 
 export class NooBaa_core extends Service {
-	static requiredMemory = 4;
-	static requiredCPU = 1;
+  static requiredMemory = 4;
+  static requiredCPU = 1;
 
-	print(indentation = ""): string {
-		return indentation + "NooBaa Core"
-	}
+  print(indentation = ""): string {
+    return indentation + "NooBaa Core";
+  }
 }
 
 export class NooBaa_DB extends Service {
-	static requiredMemory = 4;
-	static requiredCPU = 0.5;
+  static requiredMemory = 4;
+  static requiredCPU = 0.5;
 
-	print(indentation = ""): string {
-		return indentation + "NooBaa DB"
-	}
+  print(indentation = ""): string {
+    return indentation + "NooBaa DB";
+  }
 }
 
 export class NooBaa_Endpoint extends Service {
-	static requiredMemory = 2;
-	static requiredCPU = 1;
+  static requiredMemory = 2;
+  static requiredCPU = 1;
 
-	print(indentation = ""): string {
-		return indentation + "NooBaa Endpoint"
-	}
+  print(indentation = ""): string {
+    return indentation + "NooBaa Endpoint";
+  }
 }
 
 export class Ceph_MDS extends Service {
-	static requiredMemory = 8;
-	static requiredCPU = 3;
+  static requiredMemory = 8;
+  static requiredCPU = 3;
 
-	print(indentation = ""): string {
-		return indentation + "Ceph MDS"
-	}
+  print(indentation = ""): string {
+    return indentation + "Ceph MDS";
+  }
 }
 
 export class Ceph_MGR extends Service {
 	static requiredMemory = 3.5;
 	static requiredCPU = 1;
 
-	print(indentation = ""): string {
-		return indentation + "Ceph MGR"
-	}
+  print(indentation = ""): string {
+    return indentation + "Ceph MGR";
+  }
 }
 
 export class Ceph_MON extends Service {
-	static requiredMemory = 2;
-	static requiredCPU = 1;
+  static requiredMemory = 2;
+  static requiredCPU = 1;
 
-	print(indentation = ""): string {
-		return indentation + "Ceph MON"
-	}
+  print(indentation = ""): string {
+    return indentation + "Ceph MON";
+  }
 }
 
 export class Ceph_OSD extends Service {
-	static requiredMemory = 5;
-	static requiredCPU = 2;
+  static requiredMemory = 5;
+  static requiredCPU = 2;
 
-	print(indentation = ""): string {
-		return indentation + "Ceph OSD"
-	}
+  print(indentation = ""): string {
+    return indentation + "Ceph OSD";
+  }
 }
 
 export class Ceph_RGW extends Service {
-	static requiredMemory = 4;
-	static requiredCPU = 2;
+  static requiredMemory = 4;
+  static requiredCPU = 2;
 
-	print(indentation = ""): string {
-		return indentation + "Ceph RGW"
-	}
+  print(indentation = ""): string {
+    return indentation + "Ceph RGW";
+  }
 }
