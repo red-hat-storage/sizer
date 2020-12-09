@@ -1,5 +1,5 @@
 import * as classes from "./classes";
-import { fabric } from "fabric";
+const fabric = window.fabric;
 
 const nodeImage = <HTMLImageElement>document.getElementById("img-node");
 const storageImage = <HTMLImageElement>document.getElementById("img-storage");
