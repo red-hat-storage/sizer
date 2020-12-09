@@ -1,5 +1,6 @@
 import * as webpack from "webpack";
 import * as path from "path";
+import * as os from "os";
 import CopyPlugin from "copy-webpack-plugin";
 
 const Configuration: webpack.Configuration = {
@@ -19,22 +20,32 @@ const Configuration: webpack.Configuration = {
       {
         test: /\.ts$/,
         use: [
+          { loader: "cache-loader" },
+          {
+            loader: "thread-loader",
+            options: {
+              workers: os.cpus().length - 1,
+              poolTimeout: Infinity,
+            },
+          },
           {
             loader: "ts-loader",
             options: {
               configFile: path.resolve(__dirname, "tsconfig.json"),
+              happyPackMode: true,
+              transpileOnly: true,
             },
           },
         ],
       },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, 'assets', 'css'),
+        include: path.resolve(__dirname, "assets", "css"),
         use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(svg|png|jpe?g|gif)$/i,
-        include: path.resolve(__dirname, 'assets'),
+        include: path.resolve(__dirname, "assets"),
         use: [
           {
             loader: "file-loader",

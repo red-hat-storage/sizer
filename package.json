@@ -46,7 +46,9 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "fabric": "^4.2.0"
+    "cache-loader": "^4.1.0",
+    "fabric": "^4.2.0",
+    "thread-loader": "^3.0.1"
   },
   "husky": {
     "hooks": {
