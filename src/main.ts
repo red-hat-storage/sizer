@@ -6,6 +6,7 @@ let cluster: classes.Cluster;
 let targetCapacity = 501;
 
 function updatePlanning() {
+  const supportExceptionBanner = $("#supportExceptionWarning")[0];
   const resultScreen = $("#resultScreen")[0];
   const advancedResultScreen = $("#advancedResultScreen")[0];
   const SKUScreen = $("#SKUScreen")[0];
@@ -21,6 +22,7 @@ function updatePlanning() {
     const node = manualNodeRangeViews[i];
     node.classList.add("d-none");
   }
+  supportExceptionBanner.classList.add("d-none")
   switch (platform) {
     case "awsAttached":
       diskSizeRangeSlider.disabled = true;
@@ -29,6 +31,7 @@ function updatePlanning() {
       break;
     case "metal":
     case "vm":
+    case "vmPreview":
       // Make controls visible
       for (let i = 0; i < manualNodeRangeViews.length; i++) {
         const node = manualNodeRangeViews[i];
@@ -40,6 +43,10 @@ function updatePlanning() {
   }
 
   const disk = new classes.Disk(+diskSizeRangeSlider.value);
+  if (+diskSizeRangeSlider.value > 4 ||
+    platform == "vmPreview") {
+    supportExceptionBanner.classList.remove("d-none")
+  }
   targetCapacity = +capacityRangeSlider.value;
   cluster = new classes.Cluster(
     platform,
@@ -128,6 +135,7 @@ $(function () {
         nodeMemoryRangeSlider.value = "64";
         break;
       case "vm":
+      case "vmPreview":
         nodeCPURangeSlider.value = "48";
         nodeMemoryRangeSlider.value = "128";
         break;

@@ -60,6 +60,9 @@
     </div>
     <div class="custom-container">
       <div class="content-header">
+        <p id="supportExceptionWarning" class="header--content header--warn medium d-none">
+          This cluster is not within the regular support limits. You will need a support exception!
+        </p>
         <p class="header--content medium">
           This solver can be used to take the expected cluster size and building
           block parameters and tell you how you need to set up your nodes to
@@ -79,7 +82,8 @@
                   AWS i3en.2xl using local NVMe
                 </option>
                 <option value="awsEBS">AWS m5 nodes using EBS</option>
-                <option value="vm">VMs in VMware, RHV & OpenStack</option>
+                <option value="vm">VMs in VMware</option>
+                <option value="vmPreview">VMs in RHV & OpenStack</option>
               </select>
             </div>
 

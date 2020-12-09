@@ -181,6 +181,7 @@ export class ReplicaSet {
           this.nodes.push(new AWSEBS());
           break;
         case "vm":
+        case "vmPreview":
           this.nodes.push(new VMnode(20, nodeCPU, nodeMemory));
           break;
       }
