@@ -1,38 +1,41 @@
-image:
-  name: quay.io/mulbc/ocs-solver-builder:$CI_COMMIT_SHA
-  entrypoint:
-    - '/usr/bin/env'
-    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 variables:
-  CONTAINER_IMAGE_NAME: quay.io/mulbc/ocs-solver-builder
   DOCKER_HOST: unix:///var/run/docker.sock
   GCS_BUCKET: ocs-solver-dev
   GCS_PROJECT: apt-quarter-272014
 
-stages:
-  # - build
-  # - lint
-  - deploy
-
-.push-to-google-storage:
-  stage: deploy
-  image: google/cloud-sdk:latest
-  only:
-    - cblum-dev
-
-  script:
-    - apt update && apt install -y npm
-    - npm i npm@latest -g
-    - cd "$CI_PROJECT_DIR/backend"
-    - npm install
-    - npx tsc --version
-    - find "$CI_PROJECT_DIR/backend/src" -name "*.ts" | xargs -t npx tsc --outDir "$CI_PROJECT_DIR/backend/lib"
-    - find "$CI_PROJECT_DIR/backend/lib" -name "*.js" | xargs -t -I {} npx browserify {} --ignore ./lib/bundle.js --outfile ./lib/bundle.js
-    - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
-    - gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
-    - rm /tmp/key.json
-    - gsutil -m rsync -R -x "node_modules|src" "$CI_PROJECT_DIR/backend" "gs://$GCS_BUCKET"
-
+default:
+  image: google/cloud-sdk:alpine
+  before_script:
+    - apk update && apk add -u yarn
+    - cd "$CI_PROJECT_DIR"
+    - yarn install
   cache:
     paths:
-      - backend/node_modules
+      - node_modules
+
+stages:
+  - test
+  - build
+  - deploy
+
+
+test:
+  stage: test
+  script:
+    - ./node_modules/.bin/eslint --ext ".js,.ts" src/
+
+build:
+  stage: build
+  script:
+    - yarn build
+
+push-to-google-storage:
+  stage: deploy
+  only:
+    - main
+  script:
+    - yarn build
+    - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json && \
+      gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}" && \
+      rm /tmp/key.json
+    - "./$CI_PROJECT_DIR/updateOnGoogle.sh"

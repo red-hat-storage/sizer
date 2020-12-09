@@ -1,3 +1,5 @@
 #!/bin/bash
 
-gsutil -m rsync -R -x "node_modules|src" "$(git rev-parse --show-toplevel)/backend" "gs://ocs-solver-dev"
+ROOTDIR=$(git rev-parse --show-toplevel)
+gsutil -m cp -r "${ROOTDIR}/*.html" "gs://ocs-solver-dev/"
+gsutil -m cp -r "${ROOTDIR}/lib/*" "gs://ocs-solver-dev/"
