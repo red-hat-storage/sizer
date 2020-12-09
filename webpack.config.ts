@@ -11,6 +11,7 @@ const Configuration: webpack.Configuration = {
   },
   resolve: {
     extensions: [".ts", ".js", ".json", ".html"],
+    symlinks: false,
   },
   mode: "production",
   module: {
@@ -28,10 +29,12 @@ const Configuration: webpack.Configuration = {
       },
       {
         test: /\.css$/,
+        include: path.resolve(__dirname, 'assets', 'css'),
         use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(svg|png|jpe?g|gif)$/i,
+        include: path.resolve(__dirname, 'assets'),
         use: [
           {
             loader: "file-loader",
