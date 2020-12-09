@@ -5,7 +5,7 @@ const nodeImage = <HTMLImageElement>document.getElementById("img-node");
 const storageImage = <HTMLImageElement>document.getElementById("img-storage");
 
 export function getCanvas(): fabric.StaticCanvas {
-  return new fabric.StaticCanvas("canvas");
+  return new fabric.StaticCanvas("canvas", { renderOnAddRemove: false });
 }
 
 export function drawNode(
@@ -94,5 +94,4 @@ export function drawNode(
   group.scaleY = scale;
   group.setCoords();
   canvas.add(group);
-  canvas.renderAll();
 }

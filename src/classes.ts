@@ -244,6 +244,7 @@ export class ReplicaSet {
       draw.drawNode(canvas, node, leftPad, topPad);
       leftPad += 300;
     });
+    canvas.renderAll();
   }
 }
 
