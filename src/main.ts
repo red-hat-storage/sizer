@@ -12,14 +12,14 @@ function updatePlanning() {
   const capacityRangeSlider = <HTMLInputElement>$("#capacityRange")[0];
   const diskSizeRangeSlider = <HTMLInputElement>$("#diskSizeRange")[0];
   const diskSizeRangeValue = $("#diskSizeRangeValue")[0];
-  const manualInstanceRangeViews = $(".manualInstance");
-  const instanceCPURangeSlider = <HTMLInputElement>$("#instanceCPU")[0];
-  const instanceMemoryRangeSlider = <HTMLInputElement>$("#instanceMemory")[0];
+  const manualNodeRangeViews = $(".manualnode");
+  const nodeCPURangeSlider = <HTMLInputElement>$("#nodeCPU")[0];
+  const nodeMemoryRangeSlider = <HTMLInputElement>$("#nodeMemory")[0];
 
   diskSizeRangeSlider.disabled = false;
-  for (let i = 0; i < manualInstanceRangeViews.length; i++) {
-    const instance = manualInstanceRangeViews[i];
-    instance.classList.add("d-none");
+  for (let i = 0; i < manualNodeRangeViews.length; i++) {
+    const node = manualNodeRangeViews[i];
+    node.classList.add("d-none");
   }
   switch (platform) {
     case "awsAttached":
@@ -30,9 +30,9 @@ function updatePlanning() {
     case "metal":
     case "vm":
       // Make controls visible
-      for (let i = 0; i < manualInstanceRangeViews.length; i++) {
-        const instance = manualInstanceRangeViews[i];
-        instance.classList.remove("d-none");
+      for (let i = 0; i < manualNodeRangeViews.length; i++) {
+        const node = manualNodeRangeViews[i];
+        node.classList.remove("d-none");
       }
       break;
     default:
@@ -45,8 +45,8 @@ function updatePlanning() {
     platform,
     disk,
     targetCapacity,
-    +instanceCPURangeSlider.value,
-    +instanceMemoryRangeSlider.value
+    +nodeCPURangeSlider.value,
+    +nodeMemoryRangeSlider.value
   );
   resultScreen.innerHTML = cluster.print();
   advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
@@ -110,26 +110,26 @@ $(function () {
     setInputs(platform, diskSize, totalCapacity);
   }
 
-  $("#instanceCPU").on("change", function () {
+  $("#nodeCPU").on("change", function () {
     updatePlanning();
   });
 
-  $("#instanceMemory").on("change", function () {
+  $("#nodeMemory").on("change", function () {
     updatePlanning();
   });
 
   $("#platform").on("change", function () {
     platform = (<HTMLInputElement>this).value;
-    const instanceCPURangeSlider = <HTMLInputElement>$("#instanceCPU")[0];
-    const instanceMemoryRangeSlider = <HTMLInputElement>$("#instanceMemory")[0];
+    const nodeCPURangeSlider = <HTMLInputElement>$("#nodeCPU")[0];
+    const nodeMemoryRangeSlider = <HTMLInputElement>$("#nodeMemory")[0];
     switch (platform) {
       case "metal":
-        instanceCPURangeSlider.value = "32";
-        instanceMemoryRangeSlider.value = "64";
+        nodeCPURangeSlider.value = "32";
+        nodeMemoryRangeSlider.value = "64";
         break;
       case "vm":
-        instanceCPURangeSlider.value = "48";
-        instanceMemoryRangeSlider.value = "128";
+        nodeCPURangeSlider.value = "48";
+        nodeMemoryRangeSlider.value = "128";
         break;
     }
     updatePlanning();

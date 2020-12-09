@@ -1,16 +1,16 @@
 import * as classes from "./classes";
 import { fabric } from "fabric";
 
-const serverImage = <HTMLImageElement>document.getElementById("img-server");
+const nodeImage = <HTMLImageElement>document.getElementById("img-node");
 const storageImage = <HTMLImageElement>document.getElementById("img-storage");
 
 export function getCanvas(): fabric.StaticCanvas {
   return new fabric.StaticCanvas("canvas");
 }
 
-export function drawServer(
+export function drawNode(
   canvas: fabric.StaticCanvas,
-  server: classes.Server,
+  node: classes.Node,
   leftPad: number,
   topPad: number,
   scale = 1
@@ -35,7 +35,7 @@ export function drawServer(
   );
 
   group.addWithUpdate(
-    new fabric.Image(serverImage, {
+    new fabric.Image(nodeImage, {
       top: 20,
       left: 40,
       cropY: 140,
@@ -53,7 +53,7 @@ export function drawServer(
   );
 
   group.addWithUpdate(
-    new fabric.Text(server.getFittingInstanceSize(), {
+    new fabric.Text(node.getFittingNodeSize(), {
       top: 10,
       left: 10,
       angle: 270,
@@ -63,7 +63,7 @@ export function drawServer(
   );
 
   group.addWithUpdate(
-    new fabric.Text(`x${server.getAmountOfOSDs()}`, {
+    new fabric.Text(`x${node.getAmountOfOSDs()}`, {
       top: 90,
       left: 140,
     })
@@ -79,7 +79,7 @@ export function drawServer(
 
   group.addWithUpdate(
     new fabric.Text(
-      `${server.getUsedCPU()} CPU units\n${server.getUsedMemory()} GB RAM`,
+      `${node.getUsedCPU()} CPU units\n${node.getUsedMemory()} GB RAM`,
       {
         top: 170,
         left: 60,

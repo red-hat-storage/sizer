@@ -4,8 +4,8 @@ export class Cluster {
   replicaSets: Array<ReplicaSet>;
   platform: string;
   diskType: Disk;
-  instanceCPU: number;
-  instanceMemory: number;
+  nodeCPU: number;
+  nodeMemory: number;
   canvas;
   static replicaCount = 3;
 
@@ -13,21 +13,21 @@ export class Cluster {
     platform: string,
     diskType: Disk,
     targetCapacity: number,
-    instanceCPU: number,
-    instanceMemory: number
+    nodeCPU: number,
+    nodeMemory: number
   ) {
     this.platform = platform;
     this.diskType = diskType;
-    this.instanceCPU = instanceCPU;
-    this.instanceMemory = instanceMemory;
+    this.nodeCPU = nodeCPU;
+    this.nodeMemory = nodeMemory;
     // this.calculateIOPs(platform, diskType)
     this.canvas = draw.getCanvas();
     this.replicaSets = [
       new ReplicaSet(
         this.platform,
         Cluster.replicaCount,
-        this.instanceCPU,
-        this.instanceMemory
+        this.nodeCPU,
+        this.nodeMemory
       ),
     ];
     // this.addReplicaSet();
@@ -71,8 +71,8 @@ export class Cluster {
       new ReplicaSet(
         this.platform,
         Cluster.replicaCount,
-        this.instanceCPU,
-        this.instanceMemory
+        this.nodeCPU,
+        this.nodeMemory
       )
     );
   }
@@ -93,8 +93,8 @@ export class Cluster {
       "<p>" +
       `To reach the target capacity with the above constraints, we need ${
         this.replicaSets.length * Cluster.replicaCount
-      } servers\n`;
-    message += `Each server has ${this.replicaSets[0].servers[0].cpuUnits} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${this.replicaSets[0].servers[0].memory} GB memory and a maximum of ${this.replicaSets[0].servers[0].maxDisks} disks.\n`;
+      } nodes\n`;
+    message += `Each node has ${this.replicaSets[0].nodes[0].cpuUnits} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${this.replicaSets[0].nodes[0].memory} GB memory and a maximum of ${this.replicaSets[0].nodes[0].maxDisks} disks.\n`;
     message += `The disk size in this cluster is ${this.diskType.capacity} TB`;
     return message + "</p>";
   }
@@ -115,14 +115,14 @@ export class Cluster {
       totalDisks = 0;
     for (let i = 0; i < this.replicaSets.length; i++) {
       const replicaSet = this.replicaSets[i];
-      for (let j = 0; j < replicaSet.servers.length; j++) {
-        const server = replicaSet.servers[j];
-        // SKUs cannot be shared between VMs
+      for (let j = 0; j < replicaSet.nodes.length; j++) {
+        const node = replicaSet.nodes[j];
+        // SKUs cannot be shared between nodes
         // Thus we need to round up to the next round number
-        totalCores += server.getUsedCPU();
-        totalSKUCores += 2 * Math.round(Math.ceil(server.getUsedCPU()) / 2);
-        totalMemory += server.getUsedMemory();
-        totalDisks += server.getAmountOfOSDs();
+        totalCores += node.getUsedCPU();
+        totalSKUCores += 2 * Math.round(Math.ceil(node.getUsedCPU()) / 2);
+        totalMemory += node.getUsedMemory();
+        totalDisks += node.getAmountOfOSDs();
       }
     }
     let message =
@@ -131,7 +131,7 @@ export class Cluster {
       `This cluster requires of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
     message +=
       indentation +
-      `Factoring in that SKUs cannot be shared between VMs, we have to calculate the SKUs with ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>\n`;
+      `Factoring in that SKUs cannot be shared between nodes, we have to calculate the SKUs with ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>\n`;
     if (totalSKUCores < 48) {
       message +=
         indentation +
@@ -158,30 +158,30 @@ export class Cluster {
 export class ReplicaSet {
   replicaCount: number;
   platform: string;
-  servers: Array<Server>;
+  nodes: Array<Node>;
 
   constructor(
     platform: string,
     replicaCount: number,
-    instanceCPU: number,
-    instanceMemory: number
+    nodeCPU: number,
+    nodeMemory: number
   ) {
     this.replicaCount = replicaCount;
     this.platform = platform;
-    this.servers = [];
+    this.nodes = [];
     for (let i = 0; i < this.replicaCount; i++) {
       switch (this.platform) {
         case "metal":
-          this.servers.push(new BareMetal(20, instanceCPU, instanceMemory));
+          this.nodes.push(new BareMetal(20, nodeCPU, nodeMemory));
           break;
         case "awsAttached":
-          this.servers.push(new AWSattached());
+          this.nodes.push(new AWSattached());
           break;
         case "awsEBS":
-          this.servers.push(new AWSEBS());
+          this.nodes.push(new AWSEBS());
           break;
         case "vm":
-          this.servers.push(new VMserver(20, instanceCPU, instanceMemory));
+          this.nodes.push(new VMnode(20, nodeCPU, nodeMemory));
           break;
       }
     }
@@ -190,38 +190,38 @@ export class ReplicaSet {
   addService(service: Service): boolean {
     let serviceAddRefused = false;
     switch (Object.getPrototypeOf(service).constructor) {
-      // Services running on 3 servers
+      // Services running on 3 nodes
       case Ceph_MON:
       case Ceph_OSD:
-        this.servers.forEach((server) => {
-          if (!server.canIAddService(service)) {
+        this.nodes.forEach((node) => {
+          if (!node.canIAddService(service)) {
             serviceAddRefused = true;
           }
         });
         if (serviceAddRefused) return false;
-        this.servers.forEach((server) => {
-          server.addService(service);
+        this.nodes.forEach((node) => {
+          node.addService(service);
         });
         return true;
-      // Services running on 2 servers
+      // Services running on 2 nodes
       case Ceph_MDS:
       case Ceph_MGR:
       case Ceph_RGW:
       case NooBaa_DB:
       case NooBaa_Endpoint:
       case NooBaa_core:
-        // Sort servers ascending based on used CPU
-        this.servers.sort(function (a, b) {
+        // Sort nodes ascending based on used CPU
+        this.nodes.sort(function (a, b) {
           if (a.getUsedCPU() < b.getUsedCPU()) return -1;
           else return 1;
         });
-        for (let i = 0; i < Math.min(this.servers.length, 2); i++) {
-          const server = this.servers[i];
-          if (!server.canIAddService(service)) return false;
+        for (let i = 0; i < Math.min(this.nodes.length, 2); i++) {
+          const node = this.nodes[i];
+          if (!node.canIAddService(service)) return false;
         }
-        for (let i = 0; i < Math.min(this.servers.length, 2); i++) {
-          const server = this.servers[i];
-          server.addService(service);
+        for (let i = 0; i < Math.min(this.nodes.length, 2); i++) {
+          const node = this.nodes[i];
+          node.addService(service);
         }
         return true;
     }
@@ -230,24 +230,24 @@ export class ReplicaSet {
 
   print(indentation = ""): string {
     let message = "";
-    for (let i = 0; i < this.servers.length; i++) {
+    for (let i = 0; i < this.nodes.length; i++) {
       message +=
-        `\n${indentation}SERVER ${i + 1}\n` +
-        this.servers[i].print(indentation + indentation);
+        `\n${indentation}node ${i + 1}\n` +
+        this.nodes[i].print(indentation + indentation);
     }
     return message;
   }
 
   draw(canvas: fabric.StaticCanvas, topPad: number): void {
     let leftPad = 0;
-    this.servers.forEach((server) => {
-      draw.drawServer(canvas, server, leftPad, topPad);
+    this.nodes.forEach((node) => {
+      draw.drawNode(canvas, node, leftPad, topPad);
       leftPad += 300;
     });
   }
 }
 
-export abstract class Server {
+export abstract class Node {
   maxDisks: number;
   cpuUnits: number;
   memory: number;
@@ -273,7 +273,7 @@ export abstract class Server {
     this.services.forEach((service) => {
       totalCores += Object.getPrototypeOf(service).constructor.requiredCPU;
     });
-    // 2 * Math.round(Math.ceil(server.getUsedCPU()) / 2)
+    // 2 * Math.round(Math.ceil(node.getUsedCPU()) / 2)
     return 2 * Math.round(Math.ceil(totalCores) / 2);
   }
   canIAddService(service: Service): boolean {
@@ -311,9 +311,9 @@ export abstract class Server {
     });
     return osdCount;
   }
-  serverHasService(service: Service): boolean {
-    this.services.forEach((serverService) => {
-      if (serverService instanceof Object.getPrototypeOf(service)) {
+  nodeHasService(service: Service): boolean {
+    this.services.forEach((nodeService) => {
+      if (nodeService instanceof Object.getPrototypeOf(service)) {
         return true;
       }
     });
@@ -323,18 +323,18 @@ export abstract class Server {
   print(indentation = ""): string {
     let message =
       indentation +
-      `This server has ${this.getUsedCPU()} used CPU units, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks\n`;
-    message += indentation + "SERVICES ON THIS SERVER:";
+      `This node has ${this.getUsedCPU()} used CPU units, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks\n`;
+    message += indentation + "SERVICES ON THIS node:";
     this.services.forEach((service) => {
       message += "\n" + service.print(indentation + indentation);
     });
     return message;
   }
 
-  abstract getFittingInstanceSize(): string;
+  abstract getFittingNodeSize(): string;
 }
 
-export class BareMetal extends Server {
+export class BareMetal extends Node {
   constructor(maxDisks = 20, cpuUnits = 24, memory = 64) {
     super();
     this.maxDisks = maxDisks;
@@ -342,13 +342,13 @@ export class BareMetal extends Server {
     this.memory = memory;
   }
 
-  getFittingInstanceSize(): string {
+  getFittingNodeSize(): string {
     return `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
   }
 }
 
-export class VMserver extends Server {
-  // Per VM we can have at most 30 disks per SATA adapter and
+export class VMnode extends Node {
+  // Per node we can have at most 30 disks per SATA adapter and
   // max 4 adapters = 120 disks in total (minus OS disk)
   // https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
 
@@ -359,13 +359,13 @@ export class VMserver extends Server {
     this.memory = memory;
   }
 
-  getFittingInstanceSize(): string {
+  getFittingNodeSize(): string {
     return `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
   }
 }
 
-export class AWSattached extends Server {
-  // instance storage i3en.2xl
+export class AWSattached extends Node {
+  // node storage i3en.2xl
   // 2 x 2.5TB disks
   constructor(maxDisks = 2, cpuUnits = 8, memory = 64) {
     super();
@@ -374,7 +374,7 @@ export class AWSattached extends Server {
     this.memory = memory;
   }
 
-  getFittingInstanceSize(): string {
+  getFittingNodeSize(): string {
     if (this.getAmountOfOSDs() == 0) {
       return "m5.2xlarge";
     }
@@ -382,10 +382,10 @@ export class AWSattached extends Server {
   }
 }
 
-export class AWSEBS extends Server {
-  // instance with EBS based on m5 instances
+export class AWSEBS extends Node {
+  // node with EBS based on m5 nodes
 
-  // Linux instances should not have more than 40 EBS volumes
+  // Linux nodes should not have more than 40 EBS volumes
   // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
   constructor(maxDisks = 20, cpuUnits = 16, memory = 64) {
     super();
@@ -394,7 +394,7 @@ export class AWSEBS extends Server {
     this.memory = memory;
   }
 
-  getFittingInstanceSize(): string {
+  getFittingNodeSize(): string {
     return "m5.4xlarge";
   }
 }
