@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./lib",
-    "build": "yarn clean && yarn webpack",
+    "build": "yarn clean && MODE=production yarn webpack",
     "dev": "yarn clean && yarn webpack serve --port 9001"
   },
   "repository": {

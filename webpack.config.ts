@@ -3,6 +3,8 @@ import * as path from "path";
 import * as os from "os";
 import CopyPlugin from "copy-webpack-plugin";
 
+const mode = process.env.MODE || "development";
+
 const Configuration: webpack.Configuration = {
   entry: ["./src/main.ts"],
   output: {
@@ -14,7 +16,7 @@ const Configuration: webpack.Configuration = {
     extensions: [".ts", ".js", ".json", ".html"],
     symlinks: false,
   },
-  mode: "production",
+  mode: mode === "development" ? "development" : "production",
   module: {
     rules: [
       {
@@ -25,7 +27,7 @@ const Configuration: webpack.Configuration = {
             loader: "thread-loader",
             options: {
               workers: os.cpus().length - 1,
-              poolTimeout: Infinity,
+              poolTimeout: mode === "development" ? Infinity : 1000,
             },
           },
           {
