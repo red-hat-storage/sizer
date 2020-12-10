@@ -65,19 +65,18 @@
 .text {
   width: 100%;
   text-align: center;
-  margin-right: 205px;
-  margin-top: 25px;
+  margin-right: 300px;
+  margin-top: 20px;
 }
 
 .logo {
-  background: url(https://assets.openshift.com/hubfs/images/logos/osh/Logo-Red_Hat-OpenShift-A-Reverse-RGB.svg)
+  background: url('../images/ocs-logo.png')
     100% no-repeat;
   background-size: contain;
   background-position: left center;
   margin: 5px 15px;
   padding: 0;
-  width: 175px;
-  height: 70px;
+  width: 100%;
 }
 
 .hard {
