@@ -13,7 +13,7 @@ function updatePlanning() {
   const capacityRangeSlider = <HTMLInputElement>$("#capacityRange")[0];
   const diskSizeRangeSlider = <HTMLInputElement>$("#diskSizeRange")[0];
   const diskSizeRangeValue = $("#diskSizeRangeValue")[0];
-  const manualNodeRangeViews = $(".manualnode");
+  const manualNodeRangeViews = $(".manualNode");
   const nodeCPURangeSlider = <HTMLInputElement>$("#nodeCPU")[0];
   const nodeMemoryRangeSlider = <HTMLInputElement>$("#nodeMemory")[0];
 
@@ -22,7 +22,7 @@ function updatePlanning() {
     const node = manualNodeRangeViews[i];
     node.classList.add("d-none");
   }
-  supportExceptionBanner.classList.add("d-none")
+  supportExceptionBanner.classList.add("d-none");
   switch (platform) {
     case "awsAttached":
       diskSizeRangeSlider.disabled = true;
@@ -43,9 +43,8 @@ function updatePlanning() {
   }
 
   const disk = new classes.Disk(+diskSizeRangeSlider.value);
-  if (+diskSizeRangeSlider.value > 4 ||
-    platform == "vmPreview") {
-    supportExceptionBanner.classList.remove("d-none")
+  if (+diskSizeRangeSlider.value > 4 || platform == "vmPreview") {
+    supportExceptionBanner.classList.remove("d-none");
   }
   targetCapacity = +capacityRangeSlider.value;
   cluster = new classes.Cluster(
