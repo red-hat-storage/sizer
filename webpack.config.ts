@@ -2,6 +2,7 @@ import * as webpack from "webpack";
 import * as path from "path";
 import * as os from "os";
 import CopyPlugin from "copy-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 
 const mode = process.env.MODE || "development";
 
@@ -69,6 +70,7 @@ const Configuration: webpack.Configuration = {
         { from: "assets", to: "assets" },
       ],
     }),
+    new ForkTsCheckerWebpackPlugin(),
   ],
 };
 
