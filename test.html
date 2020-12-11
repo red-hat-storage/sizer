@@ -37,6 +37,7 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/shepherd.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -83,7 +84,7 @@
       <div class="body-container">
         <div class="body-lhs">
           <div class="content-body">
-            <div class="form-group">
+            <div id="platformGroup" class="form-group">
               <p class="medium">Platform</p>
               <select id="platform" class="custom-select">
                 <option value="metal">Bare Metal</option>
@@ -118,7 +119,7 @@
               </select>
             </div>
 
-            <div class="form-group">
+            <div id="diskSizeGroup" class="form-group">
               <label for="diskSizeRange" class="medium">Disk Size (TB)</label>
               <div class="input-group mb-3">
                 <input
@@ -142,7 +143,7 @@
                             disabled />
                     </div> -->
 
-            <div class="form-group">
+            <div id="clusterSizeGroup" class="form-group">
               <label for="capacityRange" class="medium"
                 >Usable capacity required (TB)</label
               >
@@ -168,6 +169,7 @@
           <div id="resultScreen" style="white-space: pre"></div>
           <div class="button-bar">
             <button
+              id="advancedResultsButton"
               class="btn btn-primary"
               type="button"
               data-toggle="collapse"
@@ -179,6 +181,7 @@
               Show advanced output
             </button>
             <button
+              id="SKUResultsButton"
               class="btn btn-primary"
               type="button"
               data-toggle="collapse"
@@ -190,8 +193,8 @@
               Show SKU information
             </button>
             <a
-              class="btn btn-primary"
               id="canvasDownloadBtn"
+              class="btn btn-primary"
               type="button"
               style="margin-top: 20px"
               >Download as PNG</a

@@ -1,4 +1,5 @@
 import * as classes from "./classes";
+import * as tour from "./tour";
 
 let platform = "metal";
 let cluster: classes.Cluster;
@@ -161,4 +162,9 @@ $(function () {
     },
     false
   );
+
+  if (!tour.Cookies.get("SkipTour")) {
+    console.debug("skipTour cookie found, skipping Tour");
+    tour.tour.start();
+  }
 });
