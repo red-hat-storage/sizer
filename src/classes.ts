@@ -89,22 +89,43 @@ export class Cluster {
     }
   }
   print(): string {
-    let message =
-      "<p>" +
-      `To reach the target capacity with the above constraints, we need ${
-        this.replicaSets.length * Cluster.replicaCount
-      } nodes\n`;
-    message += `Each node has ${this.replicaSets[0].nodes[0].cpuUnits} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${this.replicaSets[0].nodes[0].memory} GB memory and a maximum of ${this.replicaSets[0].nodes[0].maxDisks} disks.\n`;
-    message += `The disk size in this cluster is ${this.diskType.capacity} TB`;
-    return message + "</p>";
+    return `
+    <div class="test-result-text">
+      <div class="test-result-text__line">
+        To reach the target capacity with the above constraints, we need ${
+          this.replicaSets.length * Cluster.replicaCount
+        } nodes.
+      </div>
+      <div class="test-result-text__line">
+        Each node has ${
+          this.replicaSets[0].nodes[0].cpuUnits
+        } <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${
+      this.replicaSets[0].nodes[0].memory
+    } GB memory and a maximum of ${this.replicaSets[0].nodes[0].maxDisks} disks.
+      </div>
+      <div class="test-result-text__line">
+        Each node has ${
+          this.replicaSets[0].nodes[0].cpuUnits
+        } <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${
+      this.replicaSets[0].nodes[0].memory
+    } GB memory and a maximum of ${this.replicaSets[0].nodes[0].maxDisks} disks.
+      </div>
+      <div class="test-result-text__line">
+        The disk size in this cluster is ${this.diskType.capacity} TB
+      </div>
+    </div>
+    `;
   }
 
   printAdvanced(indentation = ""): string {
-    let message = "";
+    let message = '<div class="advanced-result">';
     for (let i = 0; i < this.replicaSets.length; i++) {
-      message +=
-        `\n\nNodeSet ${i + 1}` + this.replicaSets[i].print(indentation);
+      message += `<div class="advanced-result__item"><div class="advanced-result-item__header">Node Set ${
+        i + 1
+      }</div>
+      ${this.replicaSets[i].print(indentation)}</div>`;
     }
+    message += "</div>";
     return message;
   }
 
@@ -126,24 +147,20 @@ export class Cluster {
       }
     }
     let message =
-      "<p>" +
-      indentation +
-      `This cluster requires of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs\n`;
-    message +=
-      indentation +
-      `Factoring in that SKUs cannot be shared between nodes, we have to calculate the SKUs with ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>\n`;
+      "<div class='sku-block'>" +
+      `<div class='sku-block__item'>This cluster requires of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs</div>`;
+    message += `<div class='sku-block__item'>Factoring in that SKUs cannot be shared between nodes, we have to calculate the SKUs with ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span></div>`;
     if (totalSKUCores < 48) {
       message +=
-        indentation +
-        "This cluster is small enough to qualify for a StarterPack SKU!";
+        "<div class='sku-block__item'>This cluster is small enough to qualify for a StarterPack SKU!</div>";
     } else {
       message +=
         indentation +
-        `This requires a total of ${Math.ceil(
+        `<div class='sku-block__item'>This requires a total of ${Math.ceil(
           totalSKUCores / 2
-        )} RSU00181 SKUs`;
+        )} RSU00181 SKUs</div>`;
     }
-    return message + "</p>";
+    return message + "</div>";
   }
 
   draw(): void {
@@ -232,9 +249,11 @@ export class ReplicaSet {
   print(indentation = ""): string {
     let message = "";
     for (let i = 0; i < this.nodes.length; i++) {
-      message +=
-        `\n${indentation}node ${i + 1}\n` +
-        this.nodes[i].print(indentation + indentation);
+      message += `<div class='rs-block'><div class='rs-block__title'>${indentation} Node ${
+        i + 1
+      }</div> <div class='rs-block__body'>${this.nodes[i].print(
+        indentation + indentation
+      )}</div></div>`;
     }
     return message;
   }
@@ -323,13 +342,17 @@ export abstract class Node {
   }
 
   print(indentation = ""): string {
-    let message =
+    let message = '<div class="node-list">';
+    message += `<div class="node-list__title">${indentation} This node has ${this.getUsedCPU()} used CPU units, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks.</div>`;
+    message +=
       indentation +
-      `This node has ${this.getUsedCPU()} used CPU units, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks\n`;
-    message += indentation + "SERVICES ON THIS node:";
+      "<div class='node-list__subtitle'>SERVICES ON THIS Node:</div>";
     this.services.forEach((service) => {
-      message += "\n" + service.print(indentation + indentation);
+      message += `<div class="node-list__item">${service.print(
+        indentation + indentation
+      )}</div>`;
     });
+    message += "</div>";
     return message;
   }
 

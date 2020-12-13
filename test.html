@@ -58,9 +58,8 @@
       <div class="logo"></div>
       <div class="text">
         <h2>
-          <span class="medium">OpenShift</span>
-          <span class="light">Container</span>
-          <span class="">Storage</span> Sizing Solver
+          <span class="light">OCS</span>
+          Sizing Solver
         </h2>
       </div>
     </div>
@@ -98,7 +97,7 @@
             </div>
 
             <div class="form-group manualNode d-none">
-              <p>node CPU Unit count</p>
+              <p class="medium">Node CPU unit count</p>
               <select id="nodeCPU" class="custom-select">
                 <option value="8">8</option>
                 <option value="16">16</option>
@@ -108,7 +107,7 @@
             </div>
 
             <div class="form-group manualNode d-none">
-              <p>node Memory in GB</p>
+              <p class="medium">Node memory in GB</p>
               <select id="nodeMemory" class="custom-select">
                 <option value="8">8</option>
                 <option value="16">16</option>
@@ -166,7 +165,7 @@
         </div>
         <div class="body-rhs">
           <h3 class="header--border">Result</h3>
-          <div id="resultScreen" style="white-space: pre"></div>
+          <div id="resultScreen" class="result-text"></div>
           <div class="button-bar">
             <button
               id="advancedResultsButton"
@@ -201,18 +200,10 @@
             >
           </div>
           <div class="collapse" id="advancedResultOutput">
-            <div
-              id="advancedResultScreen"
-              class="card card-body"
-              style="white-space: pre"
-            ></div>
+            <div id="advancedResultScreen" class="card card-body"></div>
           </div>
           <div class="collapse" id="SKUOutput">
-            <div
-              id="SKUScreen"
-              class="card card-body"
-              style="white-space: pre"
-            ></div>
+            <div id="SKUScreen" class="card card-body"></div>
           </div>
           <div className="canvas-container">
             <canvas id="canvas" width="200" height="200"></canvas>

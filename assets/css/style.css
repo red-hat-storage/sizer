@@ -17,6 +17,7 @@
 
 .body-lhs {
   max-width: calc(50vw - 50px);
+  min-width: calc(50vw - 150px);
   padding-right: 10px;
   border-right: 1px solid #0d0d0d60;
   flex-grow: 1;
@@ -48,6 +49,7 @@
 .button-bar {
   display: flex;
   margin-bottom: 1em;
+  flex-wrap: wrap;
 }
 
 .button-bar > .btn {
@@ -64,8 +66,6 @@
 
 .text {
   width: 100%;
-  text-align: center;
-  margin-right: 300px;
   margin-top: 20px;
 }
 
@@ -76,7 +76,7 @@
   background-position: left center;
   margin: 5px 15px;
   padding: 0;
-  width: 100%;
+  width: 60vw;
 }
 
 .hard {
@@ -89,4 +89,85 @@
 
 .light {
   font-weight: 500;
+}
+
+#canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.test-result-text {
+  margin: 10px 0;
+}
+
+.test-result-text__line {
+  line-height: 1.5em;
+}
+
+.rs-block {
+    margin: 10px 0 10px 10px;
+}
+
+.node-list {
+  margin-left: 5px;
+}
+
+.node-list__item {
+    margin-left: 10px;
+}
+
+.advanced-result-item__header {
+  font-weight: 900;
+}
+
+.rs-block__title {
+  font-weight: 700;
+}
+
+.node-list__title {
+  margin: 10px 0;
+}
+
+.node-list__subtitle {
+  margin-bottom: 5px;
+}
+
+.sku-block {
+  margin-left: 10px;
+}
+
+/* Mobile CSS Begins from Here */
+@media (max-width: 1200px) {
+  .body-container {
+    flex-direction: column;
+  }
+  
+  .body-lhs {
+    max-width: none;
+    border-right: none;
+    padding-right: none;
+    margin-bottom: 1em;
+  }
+
+  .test-result-text__line {
+    padding-bottom: 5px;
+  }
+
+  .body-rhs {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+  }
+  .logo {
+    height: 75px;
+    width: 100%;
+  }
+
+  .text {
+    text-align: center;
+  }
 }
