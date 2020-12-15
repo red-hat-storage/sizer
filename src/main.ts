@@ -15,6 +15,7 @@ function updatePlanning() {
   const diskSizeRangeSlider = <HTMLInputElement>$("#diskSizeRange")[0];
   const diskSizeRangeValue = $("#diskSizeRangeValue")[0];
   const manualNodeRangeViews = $(".manualNode");
+  const platformSelector = <HTMLInputElement>$("#platform")[0];
   const nodeCPURangeSlider = <HTMLInputElement>$("#nodeCPU")[0];
   const nodeMemoryRangeSlider = <HTMLInputElement>$("#nodeMemory")[0];
 
@@ -24,6 +25,8 @@ function updatePlanning() {
     node.classList.add("d-none");
   }
   supportExceptionBanner.classList.add("d-none");
+
+  platform = platformSelector.value;
   switch (platform) {
     case "awsAttached":
       diskSizeRangeSlider.disabled = true;
@@ -70,7 +73,7 @@ function updatePlanning() {
   window.history.replaceState(
     {},
     "",
-    `?platform=${platform}&diskSize=${diskSizeRangeSlider.value}&totalCapacity=${capacityRangeSlider.value}`
+    `?platform=${platform}&diskSize=${diskSizeRangeSlider.value}&totalCapacity=${capacityRangeSlider.value}&nodeCPU=${nodeCPURangeSlider.value}&nodeMemory=${nodeMemoryRangeSlider.value}`
   );
 
   cluster.draw();
@@ -78,7 +81,6 @@ function updatePlanning() {
 
 function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement): void {
   valueLabel.innerHTML = range.value + " TB"; // Display the default slider value
-  updatePlanning();
 
   // Update the current slider value (each time you drag the slider handle)
   range.oninput = function () {
@@ -90,22 +92,28 @@ function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement): void {
 function setInputs(
   platformLocal: string,
   diskSize: string,
-  totalCapacity: string
+  totalCapacity: string,
+  nodeCPU: string,
+  nodeMemory: string
 ) {
   platform = platformLocal;
   targetCapacity = +totalCapacity;
   (<HTMLInputElement>$("#platform")[0]).value = platformLocal;
   (<HTMLInputElement>$("#diskSizeRange")[0]).value = diskSize;
   (<HTMLInputElement>$("#capacityRange")[0]).value = totalCapacity;
+  (<HTMLInputElement>$("#nodeCPU")[0]).value = nodeCPU;
+  (<HTMLInputElement>$("#nodeMemory")[0]).value = nodeMemory;
   updatePlanning();
 }
 
 $(function () {
   const searchString = window.location.search.split("?");
-  if (searchString.length > 1 && searchString[1].split("&").length == 3) {
+  if (searchString.length > 1 && searchString[1].split("&").length == 5) {
     let platform = "",
       diskSize = "",
-      totalCapacity = "";
+      totalCapacity = "",
+      nodeCPU = "",
+      nodeMemory = "";
     searchString[1].split("&").forEach((searchString) => {
       switch (searchString.split("=")[0]) {
         case "platform":
@@ -117,9 +125,15 @@ $(function () {
         case "totalCapacity":
           totalCapacity = searchString.split("=")[1];
           break;
+        case "nodeCPU":
+          nodeCPU = searchString.split("=")[1];
+          break;
+        case "nodeMemory":
+          nodeMemory = searchString.split("=")[1];
+          break;
       }
     });
-    setInputs(platform, diskSize, totalCapacity);
+    setInputs(platform, diskSize, totalCapacity, nodeCPU, nodeMemory);
   }
 
   $("#nodeCPU").on("change", function () {
@@ -147,7 +161,6 @@ $(function () {
     }
     updatePlanning();
   });
-  $("#platform").trigger("change");
 
   const capacityRangeSlider = <HTMLInputElement>$("#capacityRange")[0];
   const capacityRangeValue = $("#capacityRangeValue")[0];
@@ -169,7 +182,7 @@ $(function () {
   );
 
   if (!tour.Cookies.get("SkipTour")) {
-    console.debug("skipTour cookie found, skipping Tour");
+    console.debug("skipTour cookie not found, doing Tour");
     tour.tour.start();
   }
 });
