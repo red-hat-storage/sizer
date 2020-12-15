@@ -146,14 +146,16 @@ export class Cluster {
     if (totalSKUCores < 48) {
       message +=
         "<div class='sku-block__item'>This cluster is small enough to qualify for a StarterPack SKU!</div>";
-      message += `<div class='sku-block__item'><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" >Standard SKU version</a></div>
-      <div class='sku-block__item'><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00212#product-attributes" >Premium SKU version</a></div>`;
+      message += `<div class='sku-block__item'><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" >Standard SKU version - RS00213</a></div>
+      <div class='sku-block__item'><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00212#product-attributes" >Premium SKU version - RS00212</a></div>`;
     } else {
       message +=
         indentation +
         `<div class='sku-block__item'>This requires a total of ${Math.ceil(
           totalSKUCores / 2
-        )} <a href="https://offering-manager.corp.redhat.com/offerings/view/RS00181#product-attributes" >RS00181 SKUs</a></div>`;
+        )} RS00181 or RS00182 SKUs</div>`;
+      message += `<div class='sku-block__item'><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00181#product-attributes" >Standard SKU version - RS00181</a></div>
+      <div class='sku-block__item'><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00182#product-attributes" >Premium SKU version - RS00182</a></div>`;
     }
     return message + "</div>";
   }
