@@ -104,13 +104,6 @@ export class Cluster {
     } GB memory and a maximum of ${this.replicaSets[0].nodes[0].maxDisks} disks.
       </div>
       <div class="test-result-text__line">
-        Each node has ${
-          this.replicaSets[0].nodes[0].cpuUnits
-        } <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${
-      this.replicaSets[0].nodes[0].memory
-    } GB memory and a maximum of ${this.replicaSets[0].nodes[0].maxDisks} disks.
-      </div>
-      <div class="test-result-text__line">
         The disk size in this cluster is ${this.diskType.capacity} TB
       </div>
     </div>
@@ -345,7 +338,13 @@ export abstract class Node {
 
   print(indentation = ""): string {
     let message = '<div class="node-list">';
-    message += `<div class="node-list__title">${indentation} This node has ${this.getUsedCPU()} used CPU units, ${this.getUsedMemory()} used GB of memory and ${this.getAmountOfOSDs()} disks.</div>`;
+    message += `<div class="node-list__title">${indentation} This node has ${this.getUsedCPU()}/${
+      this.cpuUnits
+    } used CPU units, ${this.getUsedMemory()}/${
+      this.memory
+    } used GB of memory and ${this.getAmountOfOSDs()}/${
+      this.maxDisks
+    } disks.</div>`;
     message +=
       indentation +
       "<div class='node-list__subtitle'>SERVICES ON THIS Node:</div>";
