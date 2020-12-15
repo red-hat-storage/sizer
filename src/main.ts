@@ -185,4 +185,5 @@ $(function () {
     console.debug("skipTour cookie not found, doing Tour");
     tour.tour.start();
   }
+  updatePlanning();
 });
