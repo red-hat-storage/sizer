@@ -20,7 +20,23 @@ tour.on("complete", () => {
 
 tour.addSteps([
   {
-    text: "Welcome to the OCS Sizer Tool",
+    title: "Welcome",
+    text: "Welcome to the OCS Sizer. This tool support OCS 4.5 onwards",
+    buttons: [
+      {
+        text: "Skip Tour",
+        action: tour.cancel,
+      },
+      {
+        text: "Next",
+        action: tour.next,
+      },
+    ],
+  },
+  {
+    title: "Sharing",
+    text:
+      "You can share your configuration by copying the URL above. It will auto-update when you change anything.",
     buttons: [
       {
         text: "Skip Tour",
@@ -205,7 +221,7 @@ tour.addSteps([
   },
   {
     text:
-      "Finally down here you see your cluster as a picture with information on how much resources OCS will consume on each instance",
+      "Finally down here you see your cluster as a picture with information on how much resources OCS will consume on each instance. Note that there is a difference between what OCS consumes (lower part) and the instance size (left part).",
     attachTo: {
       element: "#canvas",
       on: "top",
