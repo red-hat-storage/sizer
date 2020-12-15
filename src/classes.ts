@@ -189,7 +189,7 @@ export class ReplicaSet {
     for (let i = 0; i < this.replicaCount; i++) {
       switch (this.platform) {
         case "metal":
-          this.nodes.push(new BareMetal(20, nodeCPU, nodeMemory));
+          this.nodes.push(new BareMetal(24, nodeCPU, nodeMemory));
           break;
         case "awsAttached":
           this.nodes.push(new AWSattached());
@@ -199,7 +199,7 @@ export class ReplicaSet {
           break;
         case "vm":
         case "vmPreview":
-          this.nodes.push(new VMnode(20, nodeCPU, nodeMemory));
+          this.nodes.push(new VMnode(24, nodeCPU, nodeMemory));
           break;
       }
     }
@@ -360,7 +360,7 @@ export abstract class Node {
 }
 
 export class BareMetal extends Node {
-  constructor(maxDisks = 20, cpuUnits = 24, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 24, memory = 64) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
@@ -377,7 +377,7 @@ export class VMnode extends Node {
   // max 4 adapters = 120 disks in total (minus OS disk)
   // https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
 
-  constructor(maxDisks = 20, cpuUnits = 40, memory = 128) {
+  constructor(maxDisks = 24, cpuUnits = 40, memory = 128) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
@@ -412,7 +412,7 @@ export class AWSEBS extends Node {
 
   // Linux nodes should not have more than 40 EBS volumes
   // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
-  constructor(maxDisks = 20, cpuUnits = 16, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
