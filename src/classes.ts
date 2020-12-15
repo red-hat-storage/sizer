@@ -134,16 +134,16 @@ export class Cluster {
         // SKUs cannot be shared between nodes
         // Thus we need to round up to the next round number
         totalCores += node.getUsedCPU();
-        totalSKUCores += 2 * Math.round(Math.ceil(node.getUsedCPU()) / 2);
+        totalSKUCores += node.cpuUnits;
         totalMemory += node.getUsedMemory();
         totalDisks += node.getAmountOfOSDs();
       }
     }
     let message =
       "<div class='sku-block'>" +
-      `<div class='sku-block__item'>This cluster requires of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs</div>`;
-    message += `<div class='sku-block__item'>Factoring in that SKUs cannot be shared between nodes, we have to calculate the SKUs with ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span></div>`;
-    if (totalSKUCores < 48) {
+      `<div class='sku-block__item'>Based on your input, OCS will requires of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs</div>`;
+    message += `<div class='sku-block__item'>For the SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span></div>`;
+    if (totalSKUCores <= 48) {
       message +=
         "<div class='sku-block__item'>This cluster is small enough to qualify for a StarterPack SKU!</div>";
       message += `<div class='sku-block__item'><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" >Standard SKU version - RS00213</a></div>
