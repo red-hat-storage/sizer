@@ -44,7 +44,12 @@ function updatePlanning() {
   }
 
   const disk = new classes.Disk(+diskSizeRangeSlider.value);
-  if (+diskSizeRangeSlider.value > 4 || platform == "vmPreview") {
+  if (
+    +diskSizeRangeSlider.value > 4 ||
+    platform == "vmPreview" ||
+    platform == "azure" ||
+    platform == "gcp"
+  ) {
     supportExceptionBanner.classList.remove("d-none");
   }
   targetCapacity = +capacityRangeSlider.value;

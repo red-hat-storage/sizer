@@ -194,6 +194,12 @@ export class ReplicaSet {
         case "awsEBS":
           this.nodes.push(new AWSEBS());
           break;
+        case "gcp":
+          this.nodes.push(new GCP());
+          break;
+        case "azure":
+          this.nodes.push(new Azure());
+          break;
         case "vm":
         case "vmPreview":
           this.nodes.push(new VMnode(24, nodeCPU, nodeMemory));
@@ -424,6 +430,38 @@ export class AWSEBS extends Node {
 
   getFittingNodeSize(): string {
     return "m5.4xlarge";
+  }
+}
+
+export class GCP extends Node {
+  // Based on findings e2-standard-16 is the best general instance
+  // https://docs.google.com/document/d/1COHDVAVJCQovy1YKru9tZ5-GJv0cNXzVQ6t2m2c9-Jo/edit#
+  // For high-IOPs n2-standard-16 is better
+
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
+    super();
+    this.maxDisks = maxDisks;
+    this.cpuUnits = cpuUnits;
+    this.memory = memory;
+  }
+
+  getFittingNodeSize(): string {
+    return "e2-standard-16";
+  }
+}
+
+export class Azure extends Node {
+  // Based on our findings the D16s_v3 has a good performance and price
+  // https://docs.google.com/document/d/1-SIa219F0T13Yn1MQMrsP7O1sw8Auy97GCiqfst0J74/edit#
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
+    super();
+    this.maxDisks = maxDisks;
+    this.cpuUnits = cpuUnits;
+    this.memory = memory;
+  }
+
+  getFittingNodeSize(): string {
+    return "D16s_v3";
   }
 }
 
