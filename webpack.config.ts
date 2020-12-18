@@ -67,6 +67,7 @@ const Configuration: webpack.Configuration = {
     new CopyPlugin({
       patterns: [
         { from: "./test.html", to: "index.html" },
+        { from: "./faq.html", to: "faq.html" },
         { from: "assets", to: "assets" },
       ],
     }),
