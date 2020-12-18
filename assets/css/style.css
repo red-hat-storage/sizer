@@ -171,3 +171,29 @@
     text-align: center;
   }
 }
+
+/**Styles for FAQ Page **/
+
+.center-text {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.faq-link {
+    padding-top: 20px;
+    padding-left: 20px;
+    display: flex;
+    /* width: 100%; */
+}
+
+.faq-link > a {
+  display: flex;
+  font-weight: 700;
+  color:#fff;
+}
+
+.faq-link > a > i{
+  padding-right: 4px;
+  padding-top: 2px;
+}
