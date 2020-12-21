@@ -1,6 +1,6 @@
 variables:
   DOCKER_HOST: unix:///var/run/docker.sock
-  GCS_BUCKET: ocs-solver-dev
+  GCS_BUCKET: sizer.ocs.ninja
   GCS_PROJECT: apt-quarter-272014
 
 default:
@@ -24,7 +24,6 @@ stages:
   - build
   - deploy
 
-
 eslint:
   stage: test
   script:
@@ -44,5 +43,5 @@ push-to-google-storage:
     - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
     - /google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
     - rm /tmp/key.json
-    - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/*.html" "gs://ocs-solver-dev/"
-    - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/lib/*" "gs://ocs-solver-dev/"
+    - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/*.html" "gs://${GCS_BUCKET}/"
+    - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/lib/*" "gs://${GCS_BUCKET}/"
