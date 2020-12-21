@@ -39,7 +39,7 @@ push-to-google-storage:
   only:
     - main
   script:
-    - yarn build
+    - ls -al && ls -al lib
     - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
     - /google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
     - rm /tmp/key.json
