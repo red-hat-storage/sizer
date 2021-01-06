@@ -21,7 +21,7 @@ tour.on("complete", () => {
 tour.addSteps([
   {
     title: "Welcome",
-    text: "Welcome to the OCS Sizer. This tool support OCS 4.5 onwards",
+    text: "Welcome to the OCS Sizer. This tool supports OCS 4.5 onwards",
     buttons: [
       {
         text: "Skip Tour",
