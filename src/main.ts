@@ -64,13 +64,22 @@ function updatePlanning() {
   const deploymentType = (<HTMLInputElement>(
     $('input[name="deploymentType"]:checked')[0]
   )).value;
+  const cephFSActive = (<HTMLInputElement>$("#serviceDisableCephFS")[0])
+    .checked;
+  const nooBaaActive = (<HTMLInputElement>$("#serviceDisableNooBaa")[0])
+    .checked;
+  const rgwActive = (<HTMLInputElement>$("#serviceDisableRGW")[0]).checked;
+
   cluster = new classes.Cluster(
     platform,
     deploymentType,
     disk,
     targetCapacity,
     +nodeCPURangeSlider.value,
-    +nodeMemoryRangeSlider.value
+    +nodeMemoryRangeSlider.value,
+    cephFSActive,
+    nooBaaActive,
+    rgwActive
   );
   resultScreen.innerHTML = cluster.print();
   advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
@@ -124,6 +133,9 @@ $(function () {
   });
   (<any>$(".serviceDisable")).on("click change", function () {
     (<any>$("#TuningServiceDisable")).collapse("show");
+    updatePlanning();
+  });
+  (<any>$(".serviceDisableCheckBox")).on("click change", function () {
     updatePlanning();
   });
   /* eslint-enable @typescript-eslint/no-explicit-any */

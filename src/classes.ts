@@ -8,6 +8,9 @@ export class Cluster {
   nodeCPU: number;
   nodeMemory: number;
   deploymentType: string;
+  cephFSActive: boolean;
+  nooBaaActive: boolean;
+  rgwActive: boolean;
   canvas;
   static replicaCount = 3;
 
@@ -17,13 +20,19 @@ export class Cluster {
     diskType: Disk,
     targetCapacity: number,
     nodeCPU: number,
-    nodeMemory: number
+    nodeMemory: number,
+    cephFSActive: boolean,
+    nooBaaActive: boolean,
+    rgwActive: boolean
   ) {
     this.platform = platform;
     this.deploymentType = deploymentType;
     this.diskType = diskType;
     this.nodeCPU = nodeCPU;
     this.nodeMemory = nodeMemory;
+    this.cephFSActive = cephFSActive;
+    this.nooBaaActive = nooBaaActive;
+    this.rgwActive = rgwActive;
     // this.calculateIOPs(platform, diskType)
     this.canvas = draw.getCanvas();
     this.replicaSets = [
@@ -37,11 +46,17 @@ export class Cluster {
     // this.addReplicaSet();
     this.addService(new Ceph_MGR(this.deploymentType));
     this.addService(new Ceph_MON(this.deploymentType));
-    this.addService(new Ceph_RGW(this.deploymentType));
-    this.addService(new Ceph_MDS(this.deploymentType));
-    this.addService(new NooBaa_DB(this.deploymentType));
-    this.addService(new NooBaa_Endpoint(this.deploymentType));
-    this.addService(new NooBaa_core(this.deploymentType));
+    if (rgwActive) {
+      this.addService(new Ceph_RGW(this.deploymentType));
+    }
+    if (cephFSActive) {
+      this.addService(new Ceph_MDS(this.deploymentType));
+    }
+    if (nooBaaActive) {
+      this.addService(new NooBaa_DB(this.deploymentType));
+      this.addService(new NooBaa_Endpoint(this.deploymentType));
+      this.addService(new NooBaa_core(this.deploymentType));
+    }
 
     const osdsNeededForTargetCapacity = Math.ceil(
       targetCapacity / diskType.capacity
