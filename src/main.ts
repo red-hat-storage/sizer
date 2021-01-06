@@ -61,9 +61,6 @@ function updatePlanning() {
     addSupportExceptionReason("Platform", "Platform in Tech Preview", message);
   }
   targetCapacity = +capacityRangeSlider.value;
-  const deploymentType = (<HTMLInputElement>(
-    $('input[name="deploymentType"]:checked')[0]
-  )).value;
   const cephFSActive = (<HTMLInputElement>$("#serviceDisableCephFS")[0])
     .checked;
   const nooBaaActive = (<HTMLInputElement>$("#serviceDisableNooBaa")[0])
