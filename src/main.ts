@@ -69,6 +69,7 @@ function updatePlanning() {
   const nooBaaActive = (<HTMLInputElement>$("#serviceDisableNooBaa")[0])
     .checked;
   const rgwActive = (<HTMLInputElement>$("#serviceDisableRGW")[0]).checked;
+  const nvmeTuning = (<HTMLInputElement>$("#TuneForNVMe")[0]).checked;
 
   cluster = new classes.Cluster(
     platform,
@@ -79,7 +80,8 @@ function updatePlanning() {
     +nodeMemoryRangeSlider.value,
     cephFSActive,
     nooBaaActive,
-    rgwActive
+    rgwActive,
+    nvmeTuning
   );
   resultScreen.innerHTML = cluster.print();
   advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
@@ -136,6 +138,9 @@ $(function () {
     updatePlanning();
   });
   (<any>$(".serviceDisableCheckBox")).on("click change", function () {
+    updatePlanning();
+  });
+  (<any>$("#TuneForNVMe")).on("click change", function () {
     updatePlanning();
   });
   /* eslint-enable @typescript-eslint/no-explicit-any */

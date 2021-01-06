@@ -11,6 +11,7 @@ export class Cluster {
   cephFSActive: boolean;
   nooBaaActive: boolean;
   rgwActive: boolean;
+  nvmeTuning: boolean;
   canvas;
   static replicaCount = 3;
 
@@ -23,7 +24,8 @@ export class Cluster {
     nodeMemory: number,
     cephFSActive: boolean,
     nooBaaActive: boolean,
-    rgwActive: boolean
+    rgwActive: boolean,
+    nvmeTuning: boolean
   ) {
     this.platform = platform;
     this.deploymentType = deploymentType;
@@ -33,6 +35,7 @@ export class Cluster {
     this.cephFSActive = cephFSActive;
     this.nooBaaActive = nooBaaActive;
     this.rgwActive = rgwActive;
+    this.nvmeTuning = nvmeTuning;
     // this.calculateIOPs(platform, diskType)
     this.canvas = draw.getCanvas();
     this.replicaSets = [
@@ -63,7 +66,7 @@ export class Cluster {
     );
 
     for (let i = 0; i < osdsNeededForTargetCapacity; i++) {
-      this.addService(new Ceph_OSD(this.deploymentType));
+      this.addService(new Ceph_OSD(this.deploymentType, this.nvmeTuning));
     }
   }
 
@@ -627,7 +630,7 @@ export class Ceph_MON extends Service {
 }
 
 export class Ceph_OSD extends Service {
-  constructor(deploymentType: string) {
+  constructor(deploymentType: string, nvmeTuning: boolean) {
     super(deploymentType);
     switch (deploymentType) {
       case "minimal":
@@ -643,6 +646,9 @@ export class Ceph_OSD extends Service {
         this.requiredMemory = 5;
         this.requiredCPU = 2;
         break;
+    }
+    if (nvmeTuning) {
+      this.requiredCPU += 2;
     }
   }
 
