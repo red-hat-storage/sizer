@@ -48,24 +48,6 @@ export class Cluster {
     }
   }
 
-  // calculateIOPs(platform: string, diskType: Disk): void {
-  // 	switch (this.platform) {
-  // 		case "metal":
-  // 		case "vm":
-  // 			// TODO: Needs more IOPs logic
-  // 			// For clouds we can make it dependent on the size of the disk
-  // 			diskType.iops = 100000;
-  // 			break;
-  // 		case "awsAttached":
-  // 			diskType.iops = 130000;
-  // 			break;
-  // 		case "awsEBS":
-  // 			diskType.iops = 18750;
-  // 			break;
-  // 	}
-  // 	(<HTMLInputElement>$("#diskSpeedValue")[0]).value = diskType.iops.toLocaleString();
-  // }
-
   addReplicaSet(): void {
     this.replicaSets.push(
       new ReplicaSet(
@@ -297,7 +279,6 @@ export abstract class Node {
     this.services.forEach((service) => {
       totalCores += Object.getPrototypeOf(service).constructor.requiredCPU;
     });
-    // 2 * Math.round(Math.ceil(node.getUsedCPU()) / 2)
     return 2 * Math.round(Math.ceil(totalCores) / 2);
   }
   canIAddService(service: Service): boolean {
