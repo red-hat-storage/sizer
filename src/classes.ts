@@ -490,13 +490,7 @@ export class NooBaa_core extends Service {
     super(deploymentType);
     switch (deploymentType) {
       case "minimal":
-        this.requiredMemory = 4;
-        this.requiredCPU = 1;
-        break;
       case "compact":
-        this.requiredMemory = 4;
-        this.requiredCPU = 1;
-        break;
       default:
         this.requiredMemory = 4;
         this.requiredCPU = 1;
@@ -514,13 +508,7 @@ export class NooBaa_DB extends Service {
     super(deploymentType);
     switch (deploymentType) {
       case "minimal":
-        this.requiredMemory = 4;
-        this.requiredCPU = 0.5;
-        break;
       case "compact":
-        this.requiredMemory = 4;
-        this.requiredCPU = 0.5;
-        break;
       default:
         this.requiredMemory = 4;
         this.requiredCPU = 0.5;
@@ -538,13 +526,7 @@ export class NooBaa_Endpoint extends Service {
     super(deploymentType);
     switch (deploymentType) {
       case "minimal":
-        this.requiredMemory = 2;
-        this.requiredCPU = 1;
-        break;
       case "compact":
-        this.requiredMemory = 2;
-        this.requiredCPU = 1;
-        break;
       default:
         this.requiredMemory = 2;
         this.requiredCPU = 1;
@@ -561,13 +543,11 @@ export class Ceph_MDS extends Service {
   constructor(deploymentType: string) {
     super(deploymentType);
     switch (deploymentType) {
+      // https://github.com/openshift/console/blob/master/frontend/packages/ceph-storage-plugin/src/components/ocs-install/ocs-request-data.ts#L26
       case "minimal":
-        this.requiredMemory = 8;
-        this.requiredCPU = 3;
-        break;
       case "compact":
         this.requiredMemory = 8;
-        this.requiredCPU = 3;
+        this.requiredCPU = 1;
         break;
       default:
         this.requiredMemory = 8;
@@ -586,13 +566,7 @@ export class Ceph_MGR extends Service {
     super(deploymentType);
     switch (deploymentType) {
       case "minimal":
-        this.requiredMemory = 3.5;
-        this.requiredCPU = 1;
-        break;
       case "compact":
-        this.requiredMemory = 3.5;
-        this.requiredCPU = 1;
-        break;
       default:
         this.requiredMemory = 3.5;
         this.requiredCPU = 1;
@@ -610,13 +584,7 @@ export class Ceph_MON extends Service {
     super(deploymentType);
     switch (deploymentType) {
       case "minimal":
-        this.requiredMemory = 2;
-        this.requiredCPU = 1;
-        break;
       case "compact":
-        this.requiredMemory = 2;
-        this.requiredCPU = 1;
-        break;
       default:
         this.requiredMemory = 2;
         this.requiredCPU = 1;
@@ -633,13 +601,11 @@ export class Ceph_OSD extends Service {
   constructor(deploymentType: string, nvmeTuning: boolean) {
     super(deploymentType);
     switch (deploymentType) {
+      // https://github.com/openshift/console/blob/master/frontend/packages/ceph-storage-plugin/src/components/ocs-install/ocs-request-data.ts#L26
       case "minimal":
-        this.requiredMemory = 5;
-        this.requiredCPU = 2;
-        break;
       case "compact":
         this.requiredMemory = 5;
-        this.requiredCPU = 2;
+        this.requiredCPU = 1;
         break;
       // "standard"
       default:
@@ -661,13 +627,11 @@ export class Ceph_RGW extends Service {
   constructor(deploymentType: string) {
     super(deploymentType);
     switch (deploymentType) {
+      // https://github.com/openshift/console/blob/master/frontend/packages/ceph-storage-plugin/src/components/ocs-install/ocs-request-data.ts#L26
       case "minimal":
-        this.requiredMemory = 4;
-        this.requiredCPU = 2;
-        break;
       case "compact":
         this.requiredMemory = 4;
-        this.requiredCPU = 2;
+        this.requiredCPU = 1;
         break;
       default:
         this.requiredMemory = 4;
