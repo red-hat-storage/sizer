@@ -1,3 +1,4 @@
+// import { isTouchSupported } from "fabric/fabric-impl";
 import * as draw from "./draw";
 
 export class Cluster {
@@ -6,17 +7,20 @@ export class Cluster {
   diskType: Disk;
   nodeCPU: number;
   nodeMemory: number;
+  deploymentType: string;
   canvas;
   static replicaCount = 3;
 
   constructor(
     platform: string,
+    deploymentType: string,
     diskType: Disk,
     targetCapacity: number,
     nodeCPU: number,
     nodeMemory: number
   ) {
     this.platform = platform;
+    this.deploymentType = deploymentType;
     this.diskType = diskType;
     this.nodeCPU = nodeCPU;
     this.nodeMemory = nodeMemory;
@@ -31,20 +35,20 @@ export class Cluster {
       ),
     ];
     // this.addReplicaSet();
-    this.addService(new Ceph_MGR());
-    this.addService(new Ceph_MON());
-    this.addService(new Ceph_RGW());
-    this.addService(new Ceph_MDS());
-    this.addService(new NooBaa_DB());
-    this.addService(new NooBaa_Endpoint());
-    this.addService(new NooBaa_core());
+    this.addService(new Ceph_MGR(this.deploymentType));
+    this.addService(new Ceph_MON(this.deploymentType));
+    this.addService(new Ceph_RGW(this.deploymentType));
+    this.addService(new Ceph_MDS(this.deploymentType));
+    this.addService(new NooBaa_DB(this.deploymentType));
+    this.addService(new NooBaa_Endpoint(this.deploymentType));
+    this.addService(new NooBaa_core(this.deploymentType));
 
     const osdsNeededForTargetCapacity = Math.ceil(
       targetCapacity / diskType.capacity
     );
 
     for (let i = 0; i < osdsNeededForTargetCapacity; i++) {
-      this.addService(new Ceph_OSD());
+      this.addService(new Ceph_OSD(this.deploymentType));
     }
   }
 
@@ -270,25 +274,21 @@ export abstract class Node {
   getUsedMemory(): number {
     let totalMemory = 0;
     this.services.forEach((service) => {
-      totalMemory += Object.getPrototypeOf(service).constructor.requiredMemory;
+      totalMemory += service.requiredMemory;
     });
     return totalMemory;
   }
   getUsedCPU(): number {
     let totalCores = 0;
     this.services.forEach((service) => {
-      totalCores += Object.getPrototypeOf(service).constructor.requiredCPU;
+      totalCores += service.requiredCPU;
     });
     return 2 * Math.round(Math.ceil(totalCores) / 2);
   }
   canIAddService(service: Service): boolean {
     if (
-      this.getUsedCPU() +
-        Object.getPrototypeOf(service).constructor.requiredCPU >
-        this.cpuUnits ||
-      this.getUsedMemory() +
-        Object.getPrototypeOf(service).constructor.requiredMemory >
-        this.memory
+      this.getUsedCPU() + service.requiredCPU > this.cpuUnits ||
+      this.getUsedMemory() + service.requiredMemory > this.memory
     ) {
       return false;
     }
@@ -455,15 +455,36 @@ export class Disk {
 }
 
 export abstract class Service {
-  static requiredMemory: number;
-  static requiredCPU: number;
+  requiredMemory: number;
+  requiredCPU: number;
+
+  constructor(deploymentType: string) {
+    deploymentType;
+    this.requiredCPU = 0;
+    this.requiredMemory = 0;
+  }
 
   abstract print(indentation: string): string;
 }
 
 export class NooBaa_core extends Service {
-  static requiredMemory = 4;
-  static requiredCPU = 1;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 4;
+        this.requiredCPU = 1;
+        break;
+      case "compact":
+        this.requiredMemory = 4;
+        this.requiredCPU = 1;
+        break;
+      default:
+        this.requiredMemory = 4;
+        this.requiredCPU = 1;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "NooBaa Core";
@@ -471,8 +492,23 @@ export class NooBaa_core extends Service {
 }
 
 export class NooBaa_DB extends Service {
-  static requiredMemory = 4;
-  static requiredCPU = 0.5;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 4;
+        this.requiredCPU = 0.5;
+        break;
+      case "compact":
+        this.requiredMemory = 4;
+        this.requiredCPU = 0.5;
+        break;
+      default:
+        this.requiredMemory = 4;
+        this.requiredCPU = 0.5;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "NooBaa DB";
@@ -480,8 +516,23 @@ export class NooBaa_DB extends Service {
 }
 
 export class NooBaa_Endpoint extends Service {
-  static requiredMemory = 2;
-  static requiredCPU = 1;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 2;
+        this.requiredCPU = 1;
+        break;
+      case "compact":
+        this.requiredMemory = 2;
+        this.requiredCPU = 1;
+        break;
+      default:
+        this.requiredMemory = 2;
+        this.requiredCPU = 1;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "NooBaa Endpoint";
@@ -489,8 +540,23 @@ export class NooBaa_Endpoint extends Service {
 }
 
 export class Ceph_MDS extends Service {
-  static requiredMemory = 8;
-  static requiredCPU = 3;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 8;
+        this.requiredCPU = 3;
+        break;
+      case "compact":
+        this.requiredMemory = 8;
+        this.requiredCPU = 3;
+        break;
+      default:
+        this.requiredMemory = 8;
+        this.requiredCPU = 3;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "Ceph MDS";
@@ -498,8 +564,23 @@ export class Ceph_MDS extends Service {
 }
 
 export class Ceph_MGR extends Service {
-  static requiredMemory = 3.5;
-  static requiredCPU = 1;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 3.5;
+        this.requiredCPU = 1;
+        break;
+      case "compact":
+        this.requiredMemory = 3.5;
+        this.requiredCPU = 1;
+        break;
+      default:
+        this.requiredMemory = 3.5;
+        this.requiredCPU = 1;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "Ceph MGR";
@@ -507,8 +588,23 @@ export class Ceph_MGR extends Service {
 }
 
 export class Ceph_MON extends Service {
-  static requiredMemory = 2;
-  static requiredCPU = 1;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 2;
+        this.requiredCPU = 1;
+        break;
+      case "compact":
+        this.requiredMemory = 2;
+        this.requiredCPU = 1;
+        break;
+      default:
+        this.requiredMemory = 2;
+        this.requiredCPU = 1;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "Ceph MON";
@@ -516,8 +612,24 @@ export class Ceph_MON extends Service {
 }
 
 export class Ceph_OSD extends Service {
-  static requiredMemory = 5;
-  static requiredCPU = 2;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 5;
+        this.requiredCPU = 2;
+        break;
+      case "compact":
+        this.requiredMemory = 5;
+        this.requiredCPU = 2;
+        break;
+      // "standard"
+      default:
+        this.requiredMemory = 5;
+        this.requiredCPU = 2;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "Ceph OSD";
@@ -525,8 +637,23 @@ export class Ceph_OSD extends Service {
 }
 
 export class Ceph_RGW extends Service {
-  static requiredMemory = 4;
-  static requiredCPU = 2;
+  constructor(deploymentType: string) {
+    super(deploymentType);
+    switch (deploymentType) {
+      case "minimal":
+        this.requiredMemory = 4;
+        this.requiredCPU = 2;
+        break;
+      case "compact":
+        this.requiredMemory = 4;
+        this.requiredCPU = 2;
+        break;
+      default:
+        this.requiredMemory = 4;
+        this.requiredCPU = 2;
+        break;
+    }
+  }
 
   print(indentation = ""): string {
     return indentation + "Ceph RGW";

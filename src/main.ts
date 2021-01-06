@@ -61,8 +61,12 @@ function updatePlanning() {
     addSupportExceptionReason("Platform", "Platform in Tech Preview", message);
   }
   targetCapacity = +capacityRangeSlider.value;
+  const deploymentType = (<HTMLInputElement>(
+    $('input[name="deploymentType"]:checked')[0]
+  )).value;
   cluster = new classes.Cluster(
     platform,
+    deploymentType,
     disk,
     targetCapacity,
     +nodeCPURangeSlider.value,
@@ -112,6 +116,18 @@ function setInputs(
 }
 
 $(function () {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  (<any>$(".notServiceDisable")).on("click change", function () {
+    (<any>$("#TuningServiceDisable")).collapse("hide");
+    (<any>$(".serviceDisableCheckBox")).prop("checked", true);
+    updatePlanning();
+  });
+  (<any>$(".serviceDisable")).on("click change", function () {
+    (<any>$("#TuningServiceDisable")).collapse("show");
+    updatePlanning();
+  });
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+
   const searchString = window.location.search.split("?");
   if (searchString.length > 1 && searchString[1].split("&").length == 5) {
     let platform = "",
@@ -149,7 +165,8 @@ $(function () {
     updatePlanning();
   });
 
-  $("#platform").on("change", function () {
+  const testThing = $("#platform");
+  testThing.on("change", function () {
     platform = (<HTMLInputElement>this).value;
     const nodeCPURangeSlider = <HTMLInputElement>$("#nodeCPU")[0];
     const nodeMemoryRangeSlider = <HTMLInputElement>$("#nodeMemory")[0];

@@ -210,6 +210,18 @@
             >
               Show SKU information
             </button>
+            <button
+              id="TuningButton"
+              class="btn btn-primary"
+              type="button"
+              data-toggle="collapse"
+              data-target="#TuningOutput"
+              aria-expanded="false"
+              aria-controls="TuningOutput"
+              style="margin-top: 20px"
+            >
+              Deployment tuning
+            </button>
             <a
               id="canvasDownloadBtn"
               class="btn btn-primary"
@@ -223,6 +235,140 @@
           </div>
           <div class="collapse" id="SKUOutput">
             <div id="SKUScreen" class="card card-body"></div>
+          </div>
+          <div class="collapse" id="TuningOutput">
+            <div id="TuningScreen" class="card card-body">
+              <button
+                id="TuningHelpButton"
+                class="btn btn-secondary my-3"
+                type="button"
+                data-toggle="collapse"
+                data-target="#TuningHelp"
+                aria-expanded="false"
+                aria-controls="TuningHelp"
+                style="margin-top: 20px"
+              >
+                Help me decide
+              </button>
+              <div class="collapse pb-3" id="TuningHelp">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="font-weight-bold">Standard</p>
+                    is the regular way to deploy OCS
+                  </li>
+                  <li class="list-group-item">
+                    <p class="font-weight-bold">Compact mode</p>
+                    will deploy OCS on the masters. Useful if there are no
+                    OpenShift workers in the cluster
+                  </li>
+                  <li class="list-group-item">
+                    <p class="font-weight-bold">Minimal mode</p>
+                    will decrease the OCS requirements to a minimum for small
+                    deployments
+                  </li>
+                  <li class="list-group-item">
+                    <p class="font-weight-bold">Service Disable mode</p>
+                    will allow to unselect features of OCS
+                  </li>
+                </ul>
+                Note that compact and minimal mode will decrease the possible
+                maximum capacity!
+              </div>
+
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-info active">
+                  <input
+                    type="radio"
+                    name="deploymentType"
+                    class="notServiceDisable"
+                    value="standard"
+                    autocomplete="off"
+                    checked
+                  />
+                  Standard
+                </label>
+                <label class="btn btn-info">
+                  <input
+                    type="radio"
+                    name="deploymentType"
+                    class="notServiceDisable"
+                    value="compact"
+                    autocomplete="off"
+                  />
+                  Compact
+                </label>
+                <label class="btn btn-info">
+                  <input
+                    type="radio"
+                    name="deploymentType"
+                    class="notServiceDisable"
+                    value="minimal"
+                    autocomplete="off"
+                  />
+                  Minimal
+                </label>
+                <label class="btn btn-info">
+                  <input
+                    type="radio"
+                    name="deploymentType"
+                    value="standard"
+                    class="serviceDisable"
+                    autocomplete="off"
+                  />
+                  Service Disable
+                </label>
+              </div>
+              <div class="collapse" id="TuningServiceDisable">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <input
+                      class="form-check-input serviceDisableCheckBox"
+                      type="checkbox"
+                      checked
+                      id="serviceDisableCephFS"
+                    />
+                    <label class="form-check-label" for="serviceDisableCephFS"
+                      >Shared File System</label
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <input
+                      class="form-check-input serviceDisableCheckBox"
+                      type="checkbox"
+                      checked
+                      id="serviceDisableNooBaa"
+                    />
+                    <label class="form-check-label" for="serviceDisableNooBaa"
+                      >Multi Cloud Gateway Object Services</label
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <input
+                      class="form-check-input serviceDisableCheckBox"
+                      type="checkbox"
+                      checked
+                      id="serviceDisableRGW"
+                    />
+                    <label class="form-check-label" for="serviceDisableRGW"
+                      >RADOS Gateway Object Services</label
+                    >
+                  </li>
+                </ul>
+              </div>
+              <hr class="my-3" />
+
+              <div class="form-check mx-auto">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="TuneForNVMe"
+                />
+                <label class="form-check-label" for="TuneForNVMe">
+                  Tune for NVMe OSDs
+                </label>
+              </div>
+            </div>
           </div>
           <div className="canvas-container">
             <canvas id="canvas" width="200" height="200"></canvas>
