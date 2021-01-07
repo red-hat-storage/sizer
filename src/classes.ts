@@ -614,7 +614,8 @@ export class Ceph_OSD extends Service {
         break;
     }
     if (nvmeTuning) {
-      this.requiredCPU += 2;
+      // https://docs.google.com/document/d/1zqckcf4NllPvcKEHBs4wOzReG55P_GwvxdJ-1QajreY/edit#
+      this.requiredCPU = 5;
     }
   }
 
