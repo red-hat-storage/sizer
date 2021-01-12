@@ -197,3 +197,8 @@
   padding-right: 4px;
   padding-top: 2px;
 }
+
+.img-disk {
+  height: 80px;
+  object-fit: cover;
+}

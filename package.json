@@ -51,7 +51,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "fabric": "^4.2.0",
+    "html2canvas": "^1.0.0-rc.7",
     "shepherd.js": "^8.1.0"
   },
   "husky": {

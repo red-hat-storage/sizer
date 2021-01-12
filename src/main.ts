@@ -1,5 +1,6 @@
 import * as classes from "./classes";
 import * as tour from "./tour";
+import html2canvas from "html2canvas";
 
 let platform = "metal";
 let cluster: classes.Cluster;
@@ -210,9 +211,13 @@ $(function () {
   canvasDownloadBtn.addEventListener(
     "click",
     function () {
-      console.log("export image");
-      this.href = cluster.canvas.toDataURL({ format: "png" });
-      this.download = "canvas.png";
+      html2canvas($("#canvas-container")[0]).then((canvas) => {
+        canvas.id = "download-canvas";
+        document.body.appendChild(canvas);
+        console.log("export image");
+        this.href = (<HTMLCanvasElement>$("#download-canvas")[0]).toDataURL();
+        this.download = "OCS-Sizer.png";
+      });
     },
     false
   );

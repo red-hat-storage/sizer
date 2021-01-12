@@ -1,6 +1,3 @@
-// import { isTouchSupported } from "fabric/fabric-impl";
-import * as draw from "./draw";
-
 export class Cluster {
   replicaSets: Array<ReplicaSet>;
   platform: string;
@@ -12,7 +9,7 @@ export class Cluster {
   nooBaaActive: boolean;
   rgwActive: boolean;
   nvmeTuning: boolean;
-  canvas;
+  canvas: HTMLDivElement;
   static replicaCount = 3;
 
   constructor(
@@ -37,7 +34,8 @@ export class Cluster {
     this.rgwActive = rgwActive;
     this.nvmeTuning = nvmeTuning;
     // this.calculateIOPs(platform, diskType)
-    this.canvas = draw.getCanvas();
+    this.canvas = <HTMLInputElement>$("#canvas-container")[0];
+    this.canvas.innerHTML = "";
     this.replicaSets = [
       new ReplicaSet(
         this.platform,
@@ -165,10 +163,15 @@ export class Cluster {
   }
 
   draw(): void {
-    let topPad = 0;
     this.replicaSets.forEach((replicaSet) => {
-      replicaSet.draw(this.canvas, topPad);
-      topPad += 300;
+      const row = document.createElement("div");
+      row.classList.add("row");
+      row.classList.add("p-3");
+      const cardDeck = document.createElement("div");
+      cardDeck.classList.add("card-deck");
+      replicaSet.draw(cardDeck);
+      row.appendChild(cardDeck);
+      this.canvas.appendChild(row);
     });
   }
 }
@@ -265,13 +268,37 @@ export class ReplicaSet {
     return message;
   }
 
-  draw(canvas: fabric.StaticCanvas, topPad: number): void {
-    let leftPad = 0;
+  draw(cardDeck: HTMLDivElement): void {
     this.nodes.forEach((node) => {
-      draw.drawNode(canvas, node, leftPad, topPad);
-      leftPad += 300;
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML = `
+              <h4 class="card-header text-center">OpenShift node</h4>
+              <h6 class="card-header text-center bg-white">${node.getFittingNodeSize()}</h6>
+              <div class="row">
+                <div class="col pt-3 mr-0 pr-0">
+                  <img
+                  class="card-img-top img-disk"
+                  src="assets/Icon-Red_Hat-Hardware-Storage-A-Red-RGB.png"
+                  alt="Disks on Node"
+                  />
+                </div>
+                <div class="col align-middle ml-0 pl-0" style="align-self: center;">
+                  <h1 class="">x${node.getAmountOfOSDs()}</h1>
+                </div>
+              </div>
+              <div class="card-body pl-6">
+                <p class="card-text">OCS services consume:
+
+                <h5 class="pl-3">
+                  ${node.getUsedCPU()} CPU units<br />
+                  ${node.getUsedMemory()}GB RAM
+                </h5></p>
+              </div>
+              </div>
+              `;
+      cardDeck.appendChild(card);
     });
-    canvas.renderAll();
   }
 }
 
