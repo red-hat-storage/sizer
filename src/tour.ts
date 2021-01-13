@@ -83,6 +83,16 @@ tour.addSteps([
         action: tour.next,
       },
     ],
+    when: {
+      show: function () {
+        const CPUselector = $(".manualNode")[0];
+        CPUselector.classList.remove("d-none");
+      },
+      hide: function () {
+        // This will trigger an update that checks if the CPUselector should be visible
+        $("#platform").trigger("change");
+      },
+    },
   },
   {
     text: "Select your node's amount of memory here",
@@ -100,6 +110,16 @@ tour.addSteps([
         action: tour.next,
       },
     ],
+    when: {
+      show: function () {
+        const memorySelector = $(".manualNode")[1];
+        memorySelector.classList.remove("d-none");
+      },
+      hide: function () {
+        // This will trigger an update that checks if the memorySelector should be visible
+        $("#platform").trigger("change");
+      },
+    },
   },
   {
     text:
