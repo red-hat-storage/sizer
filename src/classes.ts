@@ -120,6 +120,12 @@ export class Cluster {
       <div class="test-result-text__line">
         The disk size in this cluster is ${this.diskType.capacity} TB
       </div>
+      <div class="test-result-text__line">
+        The deployment type is ${this.deploymentType}
+      </div>
+      <div class="test-result-text__line">
+        Tuning for NVMe disks is ${this.nvmeTuning ? "active" : "not active"}
+      </div>
     </div>
     `;
   }
