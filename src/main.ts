@@ -214,12 +214,15 @@ $(function () {
   canvasDownloadBtn.addEventListener(
     "click",
     function () {
+      const link = document.createElement("a");
+      link.download = "OCS-Sizer.png";
       html2canvas($("#canvas-container")[0]).then((canvas) => {
         canvas.id = "download-canvas";
-        document.body.appendChild(canvas);
+        canvas.classList.add("d-none");
+        // document.body.appendChild(canvas);
         console.log("export image");
-        this.href = (<HTMLCanvasElement>$("#download-canvas")[0]).toDataURL();
-        this.download = "OCS-Sizer.png";
+        link.href = canvas.toDataURL();
+        link.click();
       });
     },
     false

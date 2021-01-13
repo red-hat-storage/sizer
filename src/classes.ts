@@ -181,6 +181,7 @@ export class Cluster {
       row.classList.add("p-3");
       const cardDeck = document.createElement("div");
       cardDeck.classList.add("card-deck");
+      cardDeck.classList.add("w-100");
       replicaSet.draw(cardDeck);
       row.appendChild(cardDeck);
       this.canvas.appendChild(row);
@@ -288,6 +289,7 @@ export class ReplicaSet {
     this.nodes.forEach((node) => {
       const card = document.createElement("div");
       card.classList.add("card");
+      card.classList.add("md-auto");
       if (this.external) {
         card.classList.add("text-white");
         card.classList.add("bg-dark");
@@ -295,8 +297,8 @@ export class ReplicaSet {
       card.innerHTML = `
               <h4 class="card-header text-center">${nodeLabel}</h4>
               <h6 class="card-header text-center">${node.getFittingNodeSize()}</h6>
-              <div class="row">
-                <div class="col pt-3 mr-0 pr-0">
+              <div class="row justify-content-md-start pl-4">
+                <div class="col-4 p-2 mr-0 pr-0">
                   <img
                   class="card-img-top img-disk"
                   src="assets/Icon-Red_Hat-Hardware-Storage-A-Red-RGB.png"

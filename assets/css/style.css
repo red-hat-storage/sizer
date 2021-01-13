@@ -4,46 +4,8 @@
   font-family: "Red Hat Display", sans-serif;
 }
 
-.body-container {
-  display: flex;
-}
-
-.custom-container {
-  margin: 10px;
-  padding: 15px;
-  height: calc(100vh - 20px);
-  background-color: #fff;
-}
-
-.body-lhs {
-  max-width: calc(50vw - 50px);
-  min-width: calc(50vw - 150px);
-  padding-right: 10px;
-  border-right: 1px solid #0d0d0d60;
-  flex-grow: 1;
-}
-
-.body-rhs {
-  margin-left: 10px;
-}
-
 .header--border {
-  padding: 2px;
   border-bottom: 1px solid #0d0d0d60;
-}
-
-.header--content {
-  background-color: #b7b7b7;
-  margin: 10px 0;
-  padding: 15px 10px;
-}
-
-.header--warn {
-  background-color: orangered;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  font-size: large;
 }
 
 .button-bar {
@@ -91,11 +53,6 @@
   font-weight: 500;
 }
 
-#canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
 .test-result-text {
   margin: 10px 0;
 }
@@ -137,26 +94,6 @@
 }
 
 /* Mobile CSS Begins from Here */
-@media (max-width: 1200px) {
-  .body-container {
-    flex-direction: column;
-  }
-  
-  .body-lhs {
-    max-width: none;
-    border-right: none;
-    padding-right: none;
-    margin-bottom: 1em;
-  }
-
-  .test-result-text__line {
-    padding-bottom: 5px;
-  }
-
-  .body-rhs {
-    margin-left: 0;
-  }
-}
 
 @media (max-width: 480px) {
   .header {
@@ -200,5 +137,6 @@
 
 .img-disk {
   height: 80px;
-  object-fit: cover;
+  /* width: 200px; */
+  object-fit: contain;
 }
