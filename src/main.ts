@@ -65,12 +65,10 @@ function updatePlanning() {
     addSupportExceptionReason("Platform", "Platform in Tech Preview", message);
   }
   targetCapacity = +capacityRangeSlider.value;
-  const cephFSActive = (<HTMLInputElement>$("#serviceDisableCephFS")[0])
-    .checked;
-  const nooBaaActive = (<HTMLInputElement>$("#serviceDisableNooBaa")[0])
-    .checked;
-  const rgwActive = (<HTMLInputElement>$("#serviceDisableRGW")[0]).checked;
-  const nvmeTuning = (<HTMLInputElement>$("#TuneForNVMe")[0]).checked;
+  const cephFSActive = (<HTMLInputElement>$("#cephFSActive")[0]).checked;
+  const nooBaaActive = (<HTMLInputElement>$("#nooBaaActive")[0]).checked;
+  const rgwActive = (<HTMLInputElement>$("#rgwActive")[0]).checked;
+  const nvmeTuning = (<HTMLInputElement>$("#nvmeTuning")[0]).checked;
 
   cluster = new classes.Cluster(
     platform,
@@ -94,7 +92,7 @@ function updatePlanning() {
   window.history.replaceState(
     {},
     "",
-    `?platform=${platform}&diskSize=${diskSizeRangeSlider.value}&totalCapacity=${capacityRangeSlider.value}&nodeCPU=${nodeCPURangeSlider.value}&nodeMemory=${nodeMemoryRangeSlider.value}`
+    `?platform=${platform}&diskSize=${diskSizeRangeSlider.value}&totalCapacity=${capacityRangeSlider.value}&nodeCPU=${nodeCPURangeSlider.value}&nodeMemory=${nodeMemoryRangeSlider.value}&deploymentType=${deploymentType}&cephFSActive=${cephFSActive}&nooBaaActive=${nooBaaActive}&rgwActive=${rgwActive}&nvmeTuning=${nvmeTuning}`
   );
 
   cluster.draw();
@@ -115,7 +113,12 @@ function setInputs(
   diskSize: string,
   totalCapacity: string,
   nodeCPU: string,
-  nodeMemory: string
+  nodeMemory: string,
+  deploymentType: string,
+  cephFSActive: string,
+  nooBaaActive: string,
+  rgwActive: string,
+  nvmeTuning: string
 ) {
   platform = platformLocal;
   targetCapacity = +totalCapacity;
@@ -124,35 +127,56 @@ function setInputs(
   (<HTMLInputElement>$("#capacityRange")[0]).value = totalCapacity;
   (<HTMLInputElement>$("#nodeCPU")[0]).value = nodeCPU;
   (<HTMLInputElement>$("#nodeMemory")[0]).value = nodeMemory;
-  updatePlanning();
+  (<HTMLInputElement>$("#cephFSActive")[0]).checked = JSON.parse(cephFSActive);
+  (<HTMLInputElement>$("#nooBaaActive")[0]).checked = JSON.parse(nooBaaActive);
+  (<HTMLInputElement>$("#rgwActive")[0]).checked = JSON.parse(rgwActive);
+  (<HTMLInputElement>$("#nvmeTuning")[0]).checked = JSON.parse(nvmeTuning);
+
+  console.log(`Type: ${deploymentType}`);
+  const checkboxes = $("input[name=deploymentType]");
+  for (let index = 0; index < checkboxes.length; index++) {
+    const checkbox = <HTMLInputElement>checkboxes[index];
+    checkbox.checked = false;
+    if (checkbox.parentElement != null) {
+      checkbox.parentElement.classList.remove("active");
+      checkbox.parentElement.classList.remove("focus");
+    }
+  }
+  // Click implies updatePlanning()
+  $(`#${deploymentType}Mode`)[0].click();
 }
 
 $(function () {
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  (<any>$(".notServiceDisable")).on("click change", function () {
+  (<any>$(".notServiceDisable")).on("click", function () {
     (<any>$("#TuningServiceDisable")).collapse("hide");
     (<any>$(".serviceDisableCheckBox")).prop("checked", true);
     updatePlanning();
   });
-  (<any>$(".serviceDisable")).on("click change", function () {
+  (<any>$(".serviceDisable")).on("click", function () {
     (<any>$("#TuningServiceDisable")).collapse("show");
     updatePlanning();
   });
   (<any>$(".serviceDisableCheckBox")).on("click change", function () {
     updatePlanning();
   });
-  (<any>$("#TuneForNVMe")).on("click change", function () {
+  (<any>$("#nvmeTuning")).on("click change", function () {
     updatePlanning();
   });
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
   const searchString = window.location.search.split("?");
-  if (searchString.length > 1 && searchString[1].split("&").length == 5) {
+  if (searchString.length > 1 && searchString[1].split("&").length == 10) {
     let platform = "",
       diskSize = "",
       totalCapacity = "",
       nodeCPU = "",
-      nodeMemory = "";
+      nodeMemory = "",
+      deploymentType = "",
+      cephFSActive = "",
+      nooBaaActive = "",
+      rgwActive = "",
+      nvmeTuning = "";
     searchString[1].split("&").forEach((searchString) => {
       switch (searchString.split("=")[0]) {
         case "platform":
@@ -170,9 +194,37 @@ $(function () {
         case "nodeMemory":
           nodeMemory = searchString.split("=")[1];
           break;
+        case "deploymentType":
+          deploymentType = searchString.split("=")[1];
+          break;
+        case "cephFSActive":
+          cephFSActive = searchString.split("=")[1];
+          break;
+        case "nooBaaActive":
+          nooBaaActive = searchString.split("=")[1];
+          break;
+        case "rgwActive":
+          rgwActive = searchString.split("=")[1];
+          break;
+        case "nvmeTuning":
+          nvmeTuning = searchString.split("=")[1];
+          break;
       }
     });
-    setInputs(platform, diskSize, totalCapacity, nodeCPU, nodeMemory);
+    setInputs(
+      platform,
+      diskSize,
+      totalCapacity,
+      nodeCPU,
+      nodeMemory,
+      deploymentType,
+      cephFSActive,
+      nooBaaActive,
+      rgwActive,
+      nvmeTuning
+    );
+  } else {
+    $("#standardMode")[0].click();
   }
 
   $("#nodeCPU").on("change", function () {

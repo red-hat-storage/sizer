@@ -283,8 +283,8 @@
                     name="deploymentType"
                     class="notServiceDisable"
                     value="standard"
+                    id="standardMode"
                     autocomplete="off"
-                    checked
                   />
                   Standard
                 </label>
@@ -294,6 +294,7 @@
                     name="deploymentType"
                     class="notServiceDisable"
                     value="compact"
+                    id="compactMode"
                     autocomplete="off"
                   />
                   Compact
@@ -304,6 +305,7 @@
                     name="deploymentType"
                     class="notServiceDisable"
                     value="minimal"
+                    id="minimalMode"
                     autocomplete="off"
                   />
                   Minimal
@@ -313,7 +315,8 @@
                     type="radio"
                     name="deploymentType"
                     class="serviceDisable"
-                    value="standard"
+                    value="serviceDisable"
+                    id="serviceDisableMode"
                     autocomplete="off"
                   />
                   Service Disable
@@ -324,6 +327,7 @@
                     name="deploymentType"
                     class="notServiceDisable"
                     value="external"
+                    id="externalMode"
                     autocomplete="off"
                   />
                   External
@@ -336,9 +340,9 @@
                       class="form-check-input serviceDisableCheckBox"
                       type="checkbox"
                       checked
-                      id="serviceDisableCephFS"
+                      id="cephFSActive"
                     />
-                    <label class="form-check-label" for="serviceDisableCephFS"
+                    <label class="form-check-label" for="cephFSActive"
                       >Shared File System</label
                     >
                   </li>
@@ -347,9 +351,9 @@
                       class="form-check-input serviceDisableCheckBox"
                       type="checkbox"
                       checked
-                      id="serviceDisableNooBaa"
+                      id="nooBaaActive"
                     />
-                    <label class="form-check-label" for="serviceDisableNooBaa"
+                    <label class="form-check-label" for="nooBaaActive"
                       >Multi Cloud Gateway Object Services</label
                     >
                   </li>
@@ -358,9 +362,9 @@
                       class="form-check-input serviceDisableCheckBox"
                       type="checkbox"
                       checked
-                      id="serviceDisableRGW"
+                      id="rgwActive"
                     />
-                    <label class="form-check-label" for="serviceDisableRGW"
+                    <label class="form-check-label" for="rgwActive"
                       >RADOS Gateway Object Services</label
                     >
                   </li>
@@ -373,9 +377,9 @@
                   class="form-check-input"
                   type="checkbox"
                   value=""
-                  id="TuneForNVMe"
+                  id="nvmeTuning"
                 />
-                <label class="form-check-label" for="TuneForNVMe">
+                <label class="form-check-label" for="nvmeTuning">
                   Tune for NVMe OSDs
                 </label>
               </div>
