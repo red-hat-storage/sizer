@@ -304,7 +304,7 @@ export class ReplicaSet {
               <h4 class="card-header text-center">${nodeLabel}</h4>
               <h6 class="card-header text-center">${node.getFittingNodeSize()}</h6>
               <div class="row justify-content-md-start pl-4">
-                <div class="col-4 p-2 mr-0 pr-0">
+                <div class="col p-2 mr-0 pr-0">
                   <img
                   class="card-img-top img-disk"
                   src="assets/Icon-Red_Hat-Hardware-Storage-A-Red-RGB.png"
