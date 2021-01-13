@@ -50,6 +50,9 @@ function updatePlanning() {
   }
 
   const disk = new classes.Disk(+diskSizeRangeSlider.value);
+  const deploymentType = (<HTMLInputElement>(
+    $('input[name="deploymentType"]:checked')[0]
+  )).value;
 
   // Evaluate if config needs a support exception
   if (+diskSizeRangeSlider.value > 4) {

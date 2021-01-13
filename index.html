@@ -265,6 +265,12 @@
                     <p class="font-weight-bold">Service Disable mode</p>
                     will allow to unselect features of OCS
                   </li>
+                  <li class="list-group-item">
+                    <p class="font-weight-bold">External mode</p>
+                    use this to leverage an external OCS cluster for OpenShift
+                    storage<br />
+                    External nodes are not be part of the OpenShift cluster
+                  </li>
                 </ul>
                 Note that compact and minimal mode will decrease the possible
                 maximum capacity!
@@ -306,11 +312,21 @@
                   <input
                     type="radio"
                     name="deploymentType"
-                    value="standard"
                     class="serviceDisable"
+                    value="standard"
                     autocomplete="off"
                   />
                   Service Disable
+                </label>
+                <label class="btn btn-info">
+                  <input
+                    type="radio"
+                    name="deploymentType"
+                    class="notServiceDisable"
+                    value="external"
+                    autocomplete="off"
+                  />
+                  External
                 </label>
               </div>
               <div class="collapse" id="TuningServiceDisable">

@@ -33,7 +33,6 @@ export class Cluster {
     this.nooBaaActive = nooBaaActive;
     this.rgwActive = rgwActive;
     this.nvmeTuning = nvmeTuning;
-    // this.calculateIOPs(platform, diskType)
     this.canvas = <HTMLInputElement>$("#canvas-container")[0];
     this.canvas.innerHTML = "";
     this.replicaSets = [
@@ -41,10 +40,22 @@ export class Cluster {
         this.platform,
         Cluster.replicaCount,
         this.nodeCPU,
-        this.nodeMemory
+        this.nodeMemory,
+        // First ReplicaSet is always internal
+        false
       ),
     ];
-    // this.addReplicaSet();
+    if (deploymentType == "external") {
+      // I know... we could reorder adding the Pods and make this shorter
+      // but this mimiks the way Pods are added and reordering it for
+      // non-external deployments would result in different
+      // CPU&Mem calculations.
+      this.addService(new NooBaa_DB(this.deploymentType));
+      this.addService(new NooBaa_Endpoint(this.deploymentType));
+      this.addService(new NooBaa_core(this.deploymentType));
+      this.addReplicaSet();
+      nooBaaActive = false;
+    }
     this.addService(new Ceph_MGR(this.deploymentType));
     this.addService(new Ceph_MON(this.deploymentType));
     if (rgwActive) {
@@ -74,7 +85,8 @@ export class Cluster {
         this.platform,
         Cluster.replicaCount,
         this.nodeCPU,
-        this.nodeMemory
+        this.nodeMemory,
+        this.deploymentType == "external"
       )
     );
   }
@@ -179,16 +191,19 @@ export class Cluster {
 export class ReplicaSet {
   replicaCount: number;
   platform: string;
+  external: boolean;
   nodes: Array<Node>;
 
   constructor(
     platform: string,
     replicaCount: number,
     nodeCPU: number,
-    nodeMemory: number
+    nodeMemory: number,
+    external: boolean
   ) {
     this.replicaCount = replicaCount;
     this.platform = platform;
+    this.external = external;
     this.nodes = [];
     for (let i = 0; i < this.replicaCount; i++) {
       switch (this.platform) {
@@ -269,12 +284,17 @@ export class ReplicaSet {
   }
 
   draw(cardDeck: HTMLDivElement): void {
+    const nodeLabel = this.external ? "External node" : "OpenShift node";
     this.nodes.forEach((node) => {
       const card = document.createElement("div");
       card.classList.add("card");
+      if (this.external) {
+        card.classList.add("text-white");
+        card.classList.add("bg-dark");
+      }
       card.innerHTML = `
-              <h4 class="card-header text-center">OpenShift node</h4>
-              <h6 class="card-header text-center bg-white">${node.getFittingNodeSize()}</h6>
+              <h4 class="card-header text-center">${nodeLabel}</h4>
+              <h6 class="card-header text-center">${node.getFittingNodeSize()}</h6>
               <div class="row">
                 <div class="col pt-3 mr-0 pr-0">
                   <img
