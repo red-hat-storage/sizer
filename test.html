@@ -72,34 +72,36 @@
         >
       </div>
     </div>
-    <div class="custom-container">
-      <div class="content-header">
-        <p
+    <div class="container mw-100">
+      <div class="row justify-content-md-center p-3">
+        <div
           id="supportExceptionWarning"
           class="header--content header--warn medium d-none"
         >
           This cluster is not within the regular support limits. You will need a
           support exception!<br />
-          Check the
-          <a
-            style="background-color: white"
-            href="https://access.redhat.com/articles/5001441"
-            >support matrix</a
-          >
-          or
-          <a
-            style="background-color: white"
-            href="https://tools.apps.cee.redhat.com/support-exceptions/add"
-            >open a support exception ticket</a
-          >
-        </p>
-        <p class="header--content medium">
+          <div class="row justify-content-md-center">
+            <div class="col-">
+              Check the
+              <a
+                style="background-color: white"
+                href="https://access.redhat.com/articles/5001441"
+                >support matrix</a
+              >
+              or&nbsp;
+            </div>
+            <div class="col-" id="supportExceptionLink">
+              open a support exception ticket
+            </div>
+          </div>
+        </div>
+        <div class="my-2 p-3 bg-dark text-white medium w-100">
           This tool can be used to take the expected cluster size and building
           block parameters and tell you how you need to set up your nodes to get
           the desired cluster capacity.<br />
           You will also get relevant SKU information to know how much this will
           cost you.
-        </p>
+        </div>
       </div>
       <div class="body-container">
         <div class="body-lhs">
@@ -256,8 +258,6 @@
     ></script>
 
     <script src="./main-bundle.js"></script>
-
-    <!-- <script src="lib/main.js"></script>
-    <script src="lib/draw.js"></script> -->
+    <script src="./assets/redhat.js"></script>
   </body>
 </html>
