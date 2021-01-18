@@ -56,6 +56,8 @@ export class Cluster {
       this.addService(new NooBaa_core(this.deploymentType));
       this.addReplicaSet();
       nooBaaActive = false;
+    } else if (deploymentType == "compact") {
+      this.replicaSets[0].addOCPService(2, 8);
     }
     this.addService(new Ceph_MGR(this.deploymentType));
     this.addService(new Ceph_MON(this.deploymentType));
@@ -243,6 +245,13 @@ export class ReplicaSet {
     }
   }
 
+  addOCPService(cpuUnits: number, memory: number): void {
+    // A per-node "cost" that we should add to the nodes
+    this.nodes.forEach((node) => {
+      node.addOCPService(cpuUnits, memory);
+    });
+  }
+
   addService(service: Service): boolean {
     let serviceAddRefused = false;
     switch (Object.getPrototypeOf(service).constructor) {
@@ -316,7 +325,19 @@ export class ReplicaSet {
         card.classList.add("text-white");
         card.classList.add("bg-dark");
       }
-      card.innerHTML = `
+      let ocpServiceCostBlock = "";
+      if (node.ocpCPUUnits > 0 || node.ocpMemory > 0) {
+        ocpServiceCostBlock = `
+            <p class="card-text">OCP services consume:
+
+            <h5 class="pl-3">
+              ${node.ocpCPUUnits} CPU units<br />
+              ${node.ocpMemory}GB RAM
+            </h5></p>
+        `;
+      }
+      card.innerHTML =
+        `
               <h4 class="card-header text-center">${nodeLabel}</h4>
               <h6 class="card-header text-center">${node.getFittingNodeSize()}</h6>
               <div class="row justify-content-md-start pl-4">
@@ -338,6 +359,9 @@ export class ReplicaSet {
                   ${node.getUsedCPU()} CPU units<br />
                   ${node.getUsedMemory()}GB RAM
                 </h5></p>
+              ` +
+        ocpServiceCostBlock +
+        `
               </div>
               </div>
               `;
@@ -350,6 +374,9 @@ export abstract class Node {
   maxDisks: number;
   cpuUnits: number;
   memory: number;
+  // OCP "cost" that we need to take into account for sizing
+  ocpCPUUnits: number;
+  ocpMemory: number;
   services: Array<Service>;
 
   constructor(maxDisks = 0, cpuUnits = 0, memory = 0) {
@@ -358,6 +385,8 @@ export abstract class Node {
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
+    this.ocpCPUUnits = 0;
+    this.ocpMemory = 0;
   }
 
   getUsedMemory(): number {
@@ -376,8 +405,10 @@ export abstract class Node {
   }
   canIAddService(service: Service): boolean {
     if (
-      this.getUsedCPU() + service.requiredCPU > this.cpuUnits ||
-      this.getUsedMemory() + service.requiredMemory > this.memory
+      this.getUsedCPU() + this.ocpCPUUnits + service.requiredCPU >
+        this.cpuUnits ||
+      this.getUsedMemory() + this.ocpMemory + service.requiredMemory >
+        this.memory
     ) {
       return false;
     }
@@ -388,6 +419,10 @@ export abstract class Node {
       return false;
     }
     return true;
+  }
+  addOCPService(cpuUnits: number, memory: number): void {
+    this.ocpCPUUnits += cpuUnits;
+    this.ocpMemory += memory;
   }
   addService(service: Service): boolean {
     if (this.canIAddService(service)) {
