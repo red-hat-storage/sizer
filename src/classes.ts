@@ -1,3 +1,4 @@
+import * as main from "./main";
 export class Cluster {
   replicaSets: Array<ReplicaSet>;
   platform: string;
@@ -42,7 +43,7 @@ export class Cluster {
         this.nodeCPU,
         this.nodeMemory,
         // First ReplicaSet is always internal
-        false
+        this.deploymentType == "external" ? "internal" : this.deploymentType
       ),
     ];
     if (deploymentType == "external") {
@@ -86,7 +87,7 @@ export class Cluster {
         Cluster.replicaCount,
         this.nodeCPU,
         this.nodeMemory,
-        this.deploymentType == "external"
+        this.deploymentType
       )
     );
   }
@@ -98,6 +99,11 @@ export class Cluster {
     if (!targetSet.addService(service)) {
       // If the set refuses to add the service
       // it is probably already full - then add a new set
+      // UNLESS we are using compact mode
+      if (this.deploymentType == "compact") {
+        main.compactWarn();
+        return;
+      }
       this.addReplicaSet();
       this.addService(service);
     }
@@ -198,19 +204,19 @@ export class Cluster {
 export class ReplicaSet {
   replicaCount: number;
   platform: string;
-  external: boolean;
   nodes: Array<Node>;
+  deploymentType: string;
 
   constructor(
     platform: string,
     replicaCount: number,
     nodeCPU: number,
     nodeMemory: number,
-    external: boolean
+    deploymentType: string
   ) {
     this.replicaCount = replicaCount;
     this.platform = platform;
-    this.external = external;
+    this.deploymentType = deploymentType;
     this.nodes = [];
     for (let i = 0; i < this.replicaCount; i++) {
       switch (this.platform) {
@@ -291,12 +297,22 @@ export class ReplicaSet {
   }
 
   draw(cardDeck: HTMLDivElement): void {
-    const nodeLabel = this.external ? "External node" : "OpenShift node";
+    const nodeLabel = (function (deploymentType) {
+      switch (deploymentType) {
+        case "external":
+          return "External node";
+        case "compact":
+          return "OpenShift master";
+        default:
+          return "OpenShift node";
+      }
+    })(this.deploymentType);
+
     this.nodes.forEach((node) => {
       const card = document.createElement("div");
       card.classList.add("card");
       card.classList.add("md-auto");
-      if (this.external) {
+      if (this.deploymentType == "external") {
         card.classList.add("text-white");
         card.classList.add("bg-dark");
       }

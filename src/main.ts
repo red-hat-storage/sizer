@@ -21,6 +21,9 @@ function updatePlanning() {
   const nodeCPURangeSlider = <HTMLInputElement>$("#nodeCPU")[0];
   const nodeMemoryRangeSlider = <HTMLInputElement>$("#nodeMemory")[0];
 
+  const banner = $("#compactSizeWarning")[0];
+  banner.classList.add("d-none");
+
   diskSizeRangeSlider.disabled = false;
   for (let i = 0; i < manualNodeRangeViews.length; i++) {
     const node = manualNodeRangeViews[i];
@@ -96,6 +99,12 @@ function updatePlanning() {
   );
 
   cluster.draw();
+}
+
+// comapctWarn is called by the cluster if more than three nodes are required, but we are running with compact mode
+export function compactWarn(): void {
+  const banner = $("#compactSizeWarning")[0];
+  banner.classList.remove("d-none");
 }
 
 function setUpRange(range: HTMLInputElement, valueLabel: HTMLElement): void {

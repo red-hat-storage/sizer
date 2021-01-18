@@ -82,6 +82,15 @@
           </div>
           <div id="supportExceptionAccordion" class="pt-3"></div>
         </div>
+        <div
+          id="compactSizeWarning"
+          class="my-2 p-3 bg-danger medium text-white font-weight-bold text-center medium d-none w-100"
+        >
+          You requested a compact cluster, but the capacity is not reachable
+          with the set disk size and node resources.<br />
+          Either reduce the required capacity or increase the disk size or node
+          resources.
+        </div>
         <div class="my-2 p-3 bg-dark text-white medium w-100">
           This tool can be used to take the expected cluster size and building
           block parameters and tell you how you need to set up your nodes to get
