@@ -9,15 +9,6 @@
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-G4ETCF6QL5"
     ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-G4ETCF6QL5");
-    </script>
     <!-- Bootstrap -->
     <link
       rel="stylesheet"
@@ -257,7 +248,36 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="./main-bundle.js"></script>
-    <script src="./assets/redhat.js"></script>
+    <script>
+      let path = "production/";
+      let secureRoot = "https://storage.cloud.google.com/sizer.ocs.ninja";
+      if (window.location.href.includes("beta")) {
+        path = "beta/";
+      } else if (
+        !["sizer.ocs.ninja", "storage.googleapis.com"].includes(
+          window.location.host
+        )
+      ) {
+        path = "";
+        secureRoot = ".";
+      } else {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-G4ETCF6QL5");
+      }
+      const mainBundle = document.createElement("script");
+      mainBundle.setAttribute("src", `./${path}main-bundle.js`);
+      document.head.appendChild(mainBundle);
+      const redHatModifications = document.createElement("script");
+      redHatModifications.setAttribute(
+        "src",
+        `${secureRoot}/${path}assets/redhat.js`
+      );
+      document.head.appendChild(redHatModifications);
+    </script>
   </body>
 </html>
