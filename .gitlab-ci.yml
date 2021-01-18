@@ -44,6 +44,7 @@ push-to-google-storage:
     - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
     - /google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
     - rm /tmp/key.json
+    - GCP_DIR="production/"
     - if [[ "$CI_COMMIT_BRANCH" == "develop" ]]; then GCP_DIR="beta/"; fi
     - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/*.html" "gs://${GCS_BUCKET}/${GCP_DIR}"
     - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/lib/*" "gs://${GCS_BUCKET}/${GCP_DIR}"
