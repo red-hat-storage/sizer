@@ -249,16 +249,12 @@
     ></script>
 
     <script>
-      let path = "production/";
       let secureRoot = "https://storage.cloud.google.com/sizer.ocs.ninja";
-      if (window.location.href.includes("beta")) {
-        path = "beta/";
-      } else if (
+      if (
         !["sizer.ocs.ninja", "storage.googleapis.com"].includes(
           window.location.host
         )
       ) {
-        path = "";
         secureRoot = ".";
       } else {
         window.dataLayer = window.dataLayer || [];
@@ -270,13 +266,10 @@
         gtag("config", "G-G4ETCF6QL5");
       }
       const mainBundle = document.createElement("script");
-      mainBundle.setAttribute("src", `./${path}assets/main-bundle.js`);
+      mainBundle.setAttribute("src", `./main-bundle.js`);
       document.head.appendChild(mainBundle);
       const redHatModifications = document.createElement("script");
-      redHatModifications.setAttribute(
-        "src",
-        `${secureRoot}/${path}assets/redhat.js`
-      );
+      redHatModifications.setAttribute("src", `${secureRoot}/assets/redhat.js`);
       document.head.appendChild(redHatModifications);
     </script>
   </body>
