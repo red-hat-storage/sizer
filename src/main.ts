@@ -8,6 +8,7 @@ let targetCapacity = 501;
 
 function updatePlanning() {
   const supportExceptionBanner = $("#supportExceptionWarning")[0];
+  const supportExceptionAccordion = $("#supportExceptionAccordion")[0];
   const resultScreen = $("#resultScreen")[0];
   const advancedResultScreen = $("#advancedResultScreen")[0];
   const SKUScreen = $("#SKUScreen")[0];
@@ -25,6 +26,7 @@ function updatePlanning() {
     node.classList.add("d-none");
   }
   supportExceptionBanner.classList.add("d-none");
+  supportExceptionAccordion.innerHTML = "";
 
   platform = platformSelector.value;
   switch (platform) {
@@ -47,13 +49,16 @@ function updatePlanning() {
   }
 
   const disk = new classes.Disk(+diskSizeRangeSlider.value);
-  if (
-    +diskSizeRangeSlider.value > 4 ||
-    platform == "vmPreview" ||
-    platform == "azure" ||
-    platform == "gcp"
-  ) {
-    supportExceptionBanner.classList.remove("d-none");
+
+  // Evaluate if config needs a support exception
+  if (+diskSizeRangeSlider.value > 4) {
+    const message = `Currently we only test disk sizes up to 4TB. While we do not expect any issues with larger disks, we do not currently test this and thus you will need to request a support exception.`;
+    addSupportExceptionReason("DiskSize", "Disk exceeds 4TB", message);
+  }
+  if (platform == "vmPreview" || platform == "azure" || platform == "gcp") {
+    const message = `You selected a platform that is currently in tech-preview. While we are confident with the results of our testing so far, not all disaster scenarios have been tested and you will need to request a support exception to run on this platform in production.<br>
+    We also use these support exceptions to learn about the demand for the various platforms and to priorities which platform will be fully supported next.`;
+    addSupportExceptionReason("Platform", "Platform in Tech Preview", message);
   }
   targetCapacity = +capacityRangeSlider.value;
   cluster = new classes.Cluster(
@@ -187,3 +192,56 @@ $(function () {
   }
   updatePlanning();
 });
+
+function addSupportExceptionReason(
+  id: string,
+  title: string,
+  message: string
+): void {
+  id = `SupportException${id}`;
+  const supportExceptionBanner = $("#supportExceptionWarning")[0];
+  supportExceptionBanner.classList.remove("d-none");
+
+  const target = <HTMLDivElement>$("#supportExceptionAccordion")[0];
+  const row = document.createElement("div");
+  row.classList.add("row", "px-4");
+
+  const column = document.createElement("div");
+  column.classList.add("col");
+  row.appendChild(column);
+
+  const card = document.createElement("div");
+  card.classList.add("card");
+  column.appendChild(card);
+
+  const cardHeader = document.createElement("div");
+  cardHeader.classList.add("card-header", "p-0");
+  cardHeader.id = `${id}Heading`;
+  cardHeader.innerHTML = `
+  <h5 class="mb-0">
+  <button
+  class="btn btn-link collapsed"
+  data-toggle="collapse"
+  data-target="#${id}"
+  aria-expanded="false"
+  aria-controls="${id}"
+  >
+  ${title}
+  </button>
+  </h5>
+  `;
+  card.appendChild(cardHeader);
+
+  const cardBody = document.createElement("div");
+  cardBody.classList.add("collapse");
+  cardBody.id = id;
+  cardBody.setAttribute("aria-labelledby", `${id}Heading`);
+  cardBody.innerHTML = `
+  <div class="card-body text-dark">
+  ${message}
+  </div>
+  `;
+  card.appendChild(cardBody);
+
+  target.appendChild(row);
+}
