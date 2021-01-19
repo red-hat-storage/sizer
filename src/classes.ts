@@ -141,8 +141,8 @@ export class Cluster {
     }
     let message =
       "<div class='sku-block'>" +
-      `<div class='sku-block__item'>Based on your input, OCS will requires of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs</div>`;
-    message += `<div class='sku-block__item'>For the SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span></div>`;
+      `<div class='sku-block__item'>Based on your input, OCS will require of a total of ${totalCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${totalMemory} GB RAM and ${totalDisks} OSDs</div>`;
+    message += `<div class='sku-block__item'>For the Red Hat SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span></div>`;
     if (totalSKUCores <= 48) {
       message +=
         "<div class='sku-block__item'>This cluster is small enough to qualify for a StarterPack SKU!</div>";
