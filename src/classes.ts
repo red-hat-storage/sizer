@@ -649,6 +649,11 @@ export class Ceph_MDS extends Service {
   constructor(deploymentType: string) {
     super(deploymentType);
     switch (deploymentType) {
+      // https://github.com/ceph/ceph-ansible/blob/246e31c0d3c3dd16cdcf2a1e6d54e85c857ff8bd/roles/ceph-mds/defaults/main.yml#L22-L23
+      case "external":
+        this.requiredMemory = 8;
+        this.requiredCPU = 4;
+        break;
       // https://github.com/openshift/console/blob/master/frontend/packages/ceph-storage-plugin/src/components/ocs-install/ocs-request-data.ts#L26
       case "minimal":
       case "compact":
@@ -689,6 +694,8 @@ export class Ceph_MON extends Service {
   constructor(deploymentType: string) {
     super(deploymentType);
     switch (deploymentType) {
+      // https://github.com/ceph/ceph-ansible/blob/246e31c0d3c3dd16cdcf2a1e6d54e85c857ff8bd/roles/ceph-mon/defaults/main.yml#L40-L41
+      case "external":
       case "minimal":
       case "compact":
       default:
@@ -713,7 +720,11 @@ export class Ceph_OSD extends Service {
         this.requiredMemory = 5;
         this.requiredCPU = 1;
         break;
-      // "standard"
+      // https://github.com/ceph/ceph-ansible/blob/246e31c0d3c3dd16cdcf2a1e6d54e85c857ff8bd/roles/ceph-osd/defaults/main.yml#L164-L165
+      case "external":
+        this.requiredMemory = 5;
+        this.requiredCPU = 4;
+        break;
       default:
         this.requiredMemory = 5;
         this.requiredCPU = 2;
@@ -734,6 +745,11 @@ export class Ceph_RGW extends Service {
   constructor(deploymentType: string) {
     super(deploymentType);
     switch (deploymentType) {
+      // https://github.com/ceph/ceph-ansible/blob/246e31c0d3c3dd16cdcf2a1e6d54e85c857ff8bd/roles/ceph-rgw/defaults/main.yml#L83-L84
+      case "external":
+        this.requiredMemory = 4;
+        this.requiredCPU = 8;
+        break;
       // https://github.com/openshift/console/blob/master/frontend/packages/ceph-storage-plugin/src/components/ocs-install/ocs-request-data.ts#L26
       case "minimal":
       case "compact":
