@@ -59,38 +59,46 @@
       </div>
     </div>
     <div class="container mw-100">
-      <div class="row justify-content-md-center p-3">
-        <div
-          id="supportExceptionWarning"
-          class="header--content header--warn medium d-none w-100"
-        >
-          This cluster is not within the regular support limits. You will need a
-          support exception!<br />
-          <div class="row justify-content-md-center">
-            <div class="col-">
-              Check the
-              <a
-                style="background-color: white"
-                href="https://access.redhat.com/articles/5001441"
-                >support matrix</a
-              >
-              or&nbsp;
-            </div>
-            <div class="col-" id="supportExceptionLink">
-              open a support exception ticket
+      <div class="row justify-content-md-center sticky-top">
+        <div class="container">
+          <div
+            id="supportExceptionWarning"
+            class="my-2 p-3 bg-danger medium text-white font-weight-bold text-center medium d-none row"
+          >
+            <div class="container">
+              <div class="row">
+                <div class="col-">
+                  This cluster is not within the regular support limits. You
+                  will need a support exception!&nbsp;<br />
+                </div>
+                <div class="col-">
+                  Check the
+                  <a
+                    style="background-color: white"
+                    href="https://access.redhat.com/articles/5001441"
+                    >support matrix</a
+                  >
+                  or&nbsp;
+                </div>
+                <div class="col-" id="supportExceptionLink">
+                  open a support exception ticket
+                </div>
+              </div>
+              <div id="supportExceptionAccordion" class="pt-3 row"></div>
             </div>
           </div>
-          <div id="supportExceptionAccordion" class="pt-3"></div>
+          <div
+            id="compactSizeWarning"
+            class="my-2 p-3 bg-danger medium text-white font-weight-bold medium d-none row"
+          >
+            You requested a compact cluster, but the capacity is not reachable
+            with the set disk size and node resources.<br />
+            Either reduce the required capacity or increase the disk size or
+            node resources.
+          </div>
         </div>
-        <div
-          id="compactSizeWarning"
-          class="my-2 p-3 bg-danger medium text-white font-weight-bold text-center medium d-none w-100"
-        >
-          You requested a compact cluster, but the capacity is not reachable
-          with the set disk size and node resources.<br />
-          Either reduce the required capacity or increase the disk size or node
-          resources.
-        </div>
+      </div>
+      <div class="row justify-content-md-center">
         <div class="my-2 p-3 bg-dark text-white medium w-100">
           This tool can be used to take the expected cluster size and building
           block parameters and tell you how you need to set up your nodes to get
