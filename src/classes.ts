@@ -311,7 +311,7 @@ export class ReplicaSet {
         case "external":
           return "External node";
         case "compact":
-          return "OpenShift master";
+          return "OpenShift supervisor";
         default:
           return "OpenShift node";
       }

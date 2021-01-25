@@ -1,7 +1,7 @@
 # OCS Sizing Tool
 
 This repository contains the source code of the OCS 4 Sizing Tool.
-The tool is hosted on https://sizer.ocs.ninja and pushes to master automatically update this site.
+The tool is hosted on https://sizer.ocs.ninja and pushes to main automatically update this site.
 
 This tool is been kept up to date by [Brent Compton's](mailto:bcompton@redhat.com) team and is designed in a rolling release. Thus the website always refers to the latest OCS version.
 
