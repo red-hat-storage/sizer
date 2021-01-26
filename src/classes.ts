@@ -3,6 +3,7 @@ export class Cluster {
   replicaSets: Array<ReplicaSet>;
   platform: string;
   diskType: Disk;
+  targetCapacity: number;
   nodeCPU: number;
   nodeMemory: number;
   deploymentType: string;
@@ -28,6 +29,7 @@ export class Cluster {
     this.platform = platform;
     this.deploymentType = deploymentType;
     this.diskType = diskType;
+    this.targetCapacity = targetCapacity;
     this.nodeCPU = nodeCPU;
     this.nodeMemory = nodeMemory;
     this.cephFSActive = cephFSActive;
@@ -114,10 +116,18 @@ export class Cluster {
     return `
     <div class="test-result-text">
       <div class="test-result-text__line">
-        To reach the target capacity with the above constraints, we need ${
+        To reach the target capacity with the above constraints, we need <b>${
           this.replicaSets.length * Cluster.replicaCount
-        } nodes.
-      </div>
+        } nodes </b>.
+        </div>
+        <div class="test-result-text__line">
+        After deploying this you can use up to <b>${(
+          this.targetCapacity * 0.75
+        ).toFixed(2)} TB</b> before you will get a capacity alert
+        and up to ${(this.targetCapacity * 0.85).toFixed(
+          2
+        )} TB before the cluster will go into read-only mode
+        </div>
       <div class="test-result-text__line">
         Each node has ${
           this.replicaSets[0].nodes[0].cpuUnits
@@ -131,10 +141,10 @@ export class Cluster {
         The disk size in this cluster is ${this.diskType.capacity} TB
       </div>
       <div class="test-result-text__line">
-        The deployment type is ${this.deploymentType}
-      </div>
-      <div class="test-result-text__line">
-        Tuning for NVMe disks is ${this.nvmeTuning ? "active" : "not active"}
+        The deployment type is <b>${this.deploymentType}</b>.
+        Tuning for NVMe disks is <b>${
+          this.nvmeTuning ? "active" : "not active"
+        }</b>.
       </div>
     </div>
     `;
