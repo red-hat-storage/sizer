@@ -337,19 +337,28 @@ export class ReplicaSet {
         card.classList.add("text-white");
         card.classList.add("bg-dark");
       }
-      let ocpServiceCostBlock = "";
-      if (node.ocpCPUUnits > 0 || node.ocpMemory > 0) {
-        ocpServiceCostBlock = `
-            <p class="card-text">OCP services consume:
+      // let ocpServiceCostBlock = "";
+      // if (node.ocpCPUUnits > 0 || node.ocpMemory > 0) {
+      //   ocpServiceCostBlock = `
+      //       <p class="card-text">OCP services consume:
 
-            <h5 class="pl-3">
-              ${node.ocpCPUUnits} CPU units<br />
-              ${node.ocpMemory}GB RAM
-            </h5></p>
-        `;
-      }
-      card.innerHTML =
-        `
+      //       <h5 class="pl-3">
+      //         ${node.ocpCPUUnits} CPU units<br />
+      //         ${node.ocpMemory}GB RAM
+      //       </h5></p>
+      //   `;
+      // }
+      const ocsCpuPercentage = (node.getUsedCPU() / node.cpuUnits) * 100;
+      const ocpCpuPercentage = (node.ocpCPUUnits / node.cpuUnits) * 100;
+      const cpuToolTip = `Total CPU units: ${node.cpuUnits} units
+OCS consumes: ${node.getUsedCPU()} units
+OCP consumes: ${node.ocpCPUUnits} units`;
+      const ocsMemPercentage = (node.getUsedMemory() / node.memory) * 100;
+      const ocpMemPercentage = (node.ocpMemory / node.memory) * 100;
+      const memToolTip = `Total Memory:   ${node.memory} GB
+OCS consumes: ${node.getUsedMemory()} GB
+OCP consumes: ${node.ocpMemory} GB`;
+      card.innerHTML = `
               <h4 class="card-header text-center">${nodeLabel}</h4>
               <h6 class="card-header text-center">${node.getFittingNodeSize()}</h6>
               <div class="row justify-content-md-start pl-4">
@@ -365,15 +374,26 @@ export class ReplicaSet {
                 </div>
               </div>
               <div class="card-body pl-6">
-                <p class="card-text">OCS services consume:
-
-                <h5 class="pl-3">
-                  ${node.getUsedCPU()} CPU units<br />
-                  ${node.getUsedMemory()}GB RAM
-                </h5></p>
-              ` +
-        ocpServiceCostBlock +
-        `
+              <div class="container">
+                <div class="row">
+                  <label class="col-4" for="usedCPU">CPU</label>
+                  <div class="col">
+                    <div class="progress" id="usedCPU" data-toggle="tooltip" data-placement="top" title="${cpuToolTip}">
+                      <div class="progress-bar" role="progressbar" style="width: ${ocsCpuPercentage}%" aria-valuenow="${ocsCpuPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-warning" role="progressbar" style="width: ${ocpCpuPercentage}%" aria-valuenow="${ocpCpuPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-4" for="usedMem">Memory</label>
+                  <div class="col">
+                    <div class="progress" id="usedMem" data-toggle="tooltip" data-placement="top" title="${memToolTip}">
+                      <div class="progress-bar" role="progressbar" style="width: ${ocsMemPercentage}%" aria-valuenow="${ocsMemPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-warning" role="progressbar" style="width: ${ocpMemPercentage}%" aria-valuenow="${ocpMemPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               </div>
               </div>
               `;
