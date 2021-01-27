@@ -175,17 +175,17 @@ $(function () {
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
   const searchString = window.location.search.split("?");
-  if (searchString.length > 1 && searchString[1].split("&").length == 10) {
-    let platform = "",
-      diskSize = "",
-      totalCapacity = "",
-      nodeCPU = "",
-      nodeMemory = "",
-      deploymentType = "",
-      cephFSActive = "",
-      nooBaaActive = "",
-      rgwActive = "",
-      nvmeTuning = "";
+  if (searchString.length > 1 && searchString[1].split("&").length >= 5) {
+    let platform = "metal",
+      diskSize = "4",
+      totalCapacity = "10",
+      nodeCPU = "32",
+      nodeMemory = "64",
+      deploymentType = "standard",
+      cephFSActive = "true",
+      nooBaaActive = "true",
+      rgwActive = "true",
+      nvmeTuning = "false";
     searchString[1].split("&").forEach((searchString) => {
       switch (searchString.split("=")[0]) {
         case "platform":
