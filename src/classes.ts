@@ -113,6 +113,10 @@ export class Cluster {
     }
   }
   print(): string {
+    let maxDiskOutput = "";
+    if (this.platform == "awsAttached") {
+      maxDiskOutput = `and can have up to ${this.replicaSets[0].nodes[0].maxDisks} disks`;
+    }
     return `
     <div class="test-result-text">
       <div class="test-result-text__line">
@@ -133,9 +137,7 @@ export class Cluster {
           this.replicaSets[0].nodes[0].cpuUnits
         } <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${
       this.replicaSets[0].nodes[0].memory
-    } GB memory and can have up to ${
-      this.replicaSets[0].nodes[0].maxDisks
-    } disks.
+    } GB memory ${maxDiskOutput}
       </div>
       <div class="test-result-text__line">
         The disk size in this cluster is ${this.diskType.capacity} TB
