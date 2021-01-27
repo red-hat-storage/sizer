@@ -241,9 +241,81 @@ tour.addSteps([
   },
   {
     text:
-      "Finally down here you see your cluster as a picture with information on how much resources OCS will consume on each instance. Note that there is a difference between what OCS consumes (lower part) and the instance size (left part).",
+      "You can tune your OCS deployment with this button. This will also allow you to chose an advanced deployment mode.",
     attachTo: {
-      element: "#canvas",
+      element: "#TuningButton",
+      on: "top",
+    },
+    buttons: [
+      {
+        text: "Skip Tour",
+        action: tour.cancel,
+      },
+      {
+        text: "Next",
+        action: tour.next,
+      },
+    ],
+  },
+  {
+    text:
+      "Finally down here you see your cluster as a picture that you can share. Each column represents a distinct availability zone.",
+    attachTo: {
+      element: "#canvas-container",
+      on: "top",
+    },
+    buttons: [
+      {
+        text: "Skip Tour",
+        action: tour.cancel,
+      },
+      {
+        text: "Next",
+        action: tour.next,
+      },
+    ],
+  },
+  {
+    text:
+      "Each node has the same size, which is displayed here. For public cloud deployments we display our instance type recommendation.",
+    attachTo: {
+      element: ".nodeSize",
+      on: "top",
+    },
+    buttons: [
+      {
+        text: "Skip Tour",
+        action: tour.cancel,
+      },
+      {
+        text: "Next",
+        action: tour.next,
+      },
+    ],
+  },
+  {
+    text:
+      "Here we show how many disks will be used on this node. The amount of disks may vary between rows of nodes.",
+    attachTo: {
+      element: ".nodeDiskAmount",
+      on: "top",
+    },
+    buttons: [
+      {
+        text: "Skip Tour",
+        action: tour.cancel,
+      },
+      {
+        text: "Next",
+        action: tour.next,
+      },
+    ],
+  },
+  {
+    text:
+      "These bars show you how much CPU and Memory is used up by this deployment. It will estimate what OCS will use up and for compact mode also estimate what OCP will use up at least. <br>If you hover over the bars, it will show more details. <br><br>Be aware that these numbers are just estimations that also rely on the placement of the Pods in your deployment.",
+    attachTo: {
+      element: ".nodeUsedResources",
       on: "top",
     },
     buttons: [

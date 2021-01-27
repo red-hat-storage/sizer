@@ -360,7 +360,7 @@ OCS consumes: ${node.getUsedMemory()} GB
 OCP consumes: ${node.ocpMemory} GB`;
       card.innerHTML = `
               <h4 class="card-header text-center">${nodeLabel}</h4>
-              <h6 class="card-header text-center">${node.getFittingNodeSize()}</h6>
+              <h6 class="card-header text-center nodeSize">${node.getFittingNodeSize()}</h6>
               <div class="row justify-content-md-start pl-4">
                 <div class="col p-2 mr-0 pr-0">
                   <img
@@ -370,10 +370,10 @@ OCP consumes: ${node.ocpMemory} GB`;
                   />
                 </div>
                 <div class="col align-middle ml-0 pl-0" style="align-self: center;">
-                  <h1 class="">x${node.getAmountOfOSDs()}</h1>
+                  <h1 class="nodeDiskAmount">x${node.getAmountOfOSDs()}</h1>
                 </div>
               </div>
-              <div class="card-body pl-6">
+              <div class="card-body pl-6 nodeUsedResources">
               <div class="container">
                 <div class="row">
                   <label class="col-4" for="usedCPU">CPU</label>
