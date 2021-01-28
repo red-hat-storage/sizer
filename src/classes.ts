@@ -118,36 +118,30 @@ export class Cluster {
       maxDiskOutput = `and can have up to ${this.replicaSets[0].nodes[0].maxDisks} disks`;
     }
     return `
-    <div class="test-result-text">
-      <div class="test-result-text__line">
-        To reach the target capacity with the above constraints, we need <b>${
-          this.replicaSets.length * Cluster.replicaCount
-        } nodes </b>.
-        </div>
-        <div class="test-result-text__line">
-        After deploying this you can use up to <b>${(
-          this.targetCapacity * 0.75
-        ).toFixed(2)} TB</b> before you will get a capacity alert
-        and up to ${(this.targetCapacity * 0.85).toFixed(
-          2
-        )} TB before the cluster will go into read-only mode
-        </div>
-      <div class="test-result-text__line">
-        Each node has ${
-          this.replicaSets[0].nodes[0].cpuUnits
-        } <span data-toggle="tooltip" data-placement="top" title="CPU Units are the number of threads you see on the host - you get this number with nproc" style="text-decoration: underline;">CPU Units</span>, ${
-      this.replicaSets[0].nodes[0].memory
-    } GB memory ${maxDiskOutput}
-      </div>
-      <div class="test-result-text__line">
-        The disk size in this cluster is ${this.diskType.capacity} TB
-      </div>
-      <div class="test-result-text__line">
-        The deployment type is <b>${this.deploymentType}</b>.
-        Tuning for NVMe disks is <b>${
-          this.nvmeTuning ? "active" : "not active"
-        }</b>.
-      </div>
+
+      The node layout diagram below shows how to reach the target capacity* with the constraints provided. In summary:<br>
+      <div class="pl-3">
+      <strong>${
+        this.replicaSets.length * Cluster.replicaCount
+      } OCP nodes</strong> will run OCS services. (NOTE: OCP clusters often contain additional OCP worker nodes which do not run OCS services.)<br>
+      Each OCP node running OCS services has:
+      
+      <ul>
+      <li>${this.replicaSets[0].nodes[0].cpuUnits} CPU Units</li>
+      <li>${this.replicaSets[0].nodes[0].memory} GB memory</li>
+      <li>The disk size is ${this.diskType.capacity} TB</li>
+      </ul>
+      
+      The OCS deployment type is <strong>${
+        this.deploymentType
+      }</strong>. OCS tuning for NVMe disks is <strong>${
+      this.nvmeTuning ? "active" : "not active"
+    }</strong>.<br>
+      *With this target capacity you can use up to ${(
+        this.targetCapacity * 0.75
+      ).toFixed(2)} TB before receiving a capacity alert and up to ${(
+      this.targetCapacity * 0.85
+    ).toFixed(2)} TB before the cluster goes into read-only mode.
     </div>
     `;
   }

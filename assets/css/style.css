@@ -53,13 +53,6 @@
   font-weight: 500;
 }
 
-.test-result-text {
-  margin: 10px 0;
-}
-
-.test-result-text__line {
-  line-height: 1.5em;
-}
 
 .rs-block {
     margin: 10px 0 10px 10px;
