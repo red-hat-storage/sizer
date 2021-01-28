@@ -271,23 +271,31 @@
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">Compact mode</p>
-                    will deploy OCS on the supervisors. Useful if there are no
+                    Will deploy OCS on the supervisors. Useful if there are no
                     OpenShift workers in the cluster
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">Minimal mode</p>
-                    will decrease the OCS requirements to a minimum for small
+                    Will decrease the OCS requirements to a minimum for small
                     deployments
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">Service Disable mode</p>
-                    will allow to unselect features of OCS
+                    Will allow disabling of OCS features to reduce CPU/RAM
+                    resource consumption. <br /><mark>NOTE:</mark> This is an
+                    undocumented feature in OCS 4.6 that requires support
+                    exception approval. It will be documented and supported
+                    without support exception in a later OCS release.
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">External mode</p>
-                    use this to leverage an external OCS cluster for OpenShift
-                    storage<br />
-                    External nodes are not be part of the OpenShift cluster
+                    Will leverage an external OCS cluster for OpenShift storage.
+                    This external OCS cluster is actually a Red Hat Ceph cluster
+                    running on bare metal servers.
+                    <a
+                      href="https://access.redhat.com/documentation/en-us/red_hat_openshift_container_storage/4.6/html/planning_your_deployment/ocs-architecture_rhocs#external_approach"
+                      >more details</a
+                    >
                   </li>
                 </ul>
                 Note that compact and minimal mode will decrease the possible
