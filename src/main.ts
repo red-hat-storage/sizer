@@ -67,6 +67,18 @@ function updatePlanning() {
     We also use these support exceptions to learn about the demand for the various platforms and to priorities which platform will be fully supported next.`;
     addSupportExceptionReason("Platform", "Platform in Tech Preview", message);
   }
+  if (
+    deploymentType == "compact" ||
+    deploymentType == "minimal" ||
+    deploymentType == "serviceDisable"
+  ) {
+    const message = `The deployment mode you selected is currently only available as Technology Preview. This means you need a support exception to be able to get support with this mode. <br>Chose the standard deployment mode to get the most stability and be able to scale out further.`;
+    addSupportExceptionReason(
+      "DeploymentMode",
+      "Deployment Mode in Tech Preview",
+      message
+    );
+  }
   targetCapacity = +capacityRangeSlider.value;
   const cephFSActive = (<HTMLInputElement>$("#cephFSActive")[0]).checked;
   const nooBaaActive = (<HTMLInputElement>$("#nooBaaActive")[0]).checked;
