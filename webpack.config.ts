@@ -7,7 +7,13 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 const mode = process.env.MODE || "development";
 
 const Configuration: webpack.Configuration = {
-  entry: ["./src/main.ts"],
+  entry: {
+    main: "./src/main.ts",
+    worker: {
+      import: "./src/service-worker.ts",
+      filename: "service-worker.js",
+    },
+  },
   output: {
     path: path.resolve(__dirname, "lib/"),
     publicPath: "assets/",
@@ -62,6 +68,10 @@ const Configuration: webpack.Configuration = {
         ],
       },
     ],
+  },
+  devServer: {
+    hot: false,
+    liveReload: false,
   },
   plugins: [
     new CopyPlugin({

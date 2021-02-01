@@ -4,6 +4,10 @@
   font-family: "Red Hat Display", sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 .header--border {
   border-bottom: 1px solid #0d0d0d60;
 }
@@ -128,4 +132,28 @@
   height: 80px;
   /* width: 200px; */
   object-fit: contain;
+}
+
+/* Notification Box Style */
+#notification {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  padding: 1em .5em;
+  background-color: #000;
+}
+
+.notification__text {
+ color: #fff;
+}
+
+.notification__refresh {
+  color: #007bff;
+  box-shadow: none;
+  border: none;
+  font-weight: 700;
+  text-decoration: none;
+  padding: none;
+  margin: none;
+  background: none;
 }
