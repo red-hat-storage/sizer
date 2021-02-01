@@ -69,10 +69,6 @@ const Configuration: webpack.Configuration = {
       },
     ],
   },
-  devServer: {
-    hot: false,
-    liveReload: false,
-  },
   plugins: [
     new CopyPlugin({
       patterns: [

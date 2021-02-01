@@ -3,7 +3,7 @@ import * as tour from "./tour";
 import html2canvas from "html2canvas";
 
 // 2 hours
-const UPDATE_CHECK_INTERVAL = 2 * 60 * 60 * 1000;
+const UPDATE_CHECK_INTERVAL = 10 * 1000;
 
 // Registration of Service Worker
 window.onload = () => {

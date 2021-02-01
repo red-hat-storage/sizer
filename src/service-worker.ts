@@ -1,5 +1,5 @@
 const CACHE_NAME = "assets-v1";
-const VERSION = "1";
+const VERSION = "2";
 const URLS_TO_CACHE = [
   "assets/images/ocs-logo.png",
   "assets/Icon-Red_Hat-Hardware-Storage-A-Red-RGB.png",
