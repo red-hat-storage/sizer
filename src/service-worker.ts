@@ -1,4 +1,5 @@
 const CACHE_NAME = "assets-v1";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const VERSION = "2";
 const URLS_TO_CACHE = [
   "assets/images/ocs-logo.png",

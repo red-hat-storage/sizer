@@ -8,7 +8,7 @@ const UPDATE_CHECK_INTERVAL = 10 * 1000;
 // Registration of Service Worker
 window.onload = () => {
   let newWorker: ServiceWorker;
-  let refreshing: boolean = false;
+  let refreshing = false;
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("./service-worker.js")
