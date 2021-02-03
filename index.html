@@ -129,6 +129,8 @@
             <div class="form-group manualNode d-none">
               <p class="medium">Node CPU unit count</p>
               <select id="nodeCPU" class="custom-select">
+                <!-- Make sure to use values that are divisible by 4 -->
+                <!-- else the SKU calculation can be screwed up -->
                 <option value="8">8</option>
                 <option value="16">16</option>
                 <option value="32" selected="selected">32</option>

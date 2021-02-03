@@ -99,7 +99,7 @@ function updatePlanning() {
   );
   resultScreen.innerHTML = cluster.print();
   advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
-  SKUScreen.innerHTML = cluster.printSKU("  ");
+  SKUScreen.innerHTML = cluster.printSKU();
 
   const cpuUnitTooltip = $(".cpuUnitTooltip");
   for (let i = 0; i < cpuUnitTooltip.length; i++) {
