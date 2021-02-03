@@ -446,12 +446,12 @@
 
         gtag("config", "G-G4ETCF6QL5");
       }
-      const mainBundle = document.createElement("script");
-      mainBundle.setAttribute("src", `./main-bundle.js`);
-      document.head.appendChild(mainBundle);
       const redHatModifications = document.createElement("script");
       redHatModifications.setAttribute("src", `${secureRoot}/assets/redhat.js`);
+      const mainBundle = document.createElement("script");
+      mainBundle.setAttribute("src", `./main-bundle.js`);
       document.head.appendChild(redHatModifications);
+      document.head.appendChild(mainBundle);
     </script>
   </body>
 </html>
