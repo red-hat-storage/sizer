@@ -5,7 +5,7 @@ variables:
 
 default:
   image:
-    name: google/cloud-sdk:alpine
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   before_script:
     - apk update && apk add -u yarn
     - cd "$CI_PROJECT_DIR"
