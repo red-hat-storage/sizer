@@ -174,33 +174,40 @@ export class Cluster {
     let message =
       "<div>" +
       `<div>Based on your input, OCS will require of a total of ${totalCores} <button class="cpuUnitTooltip">CPU Units</button>, ${totalMemory} GB RAM and ${totalDisks} flash disks</div>`;
-    message += `<div class="pb-2">For the Red Hat SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <button class="cpuUnitTooltip">CPU Units</button></div>`;
+    message += `<div>For the Red Hat SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <button class="cpuUnitTooltip">CPU Units</button></div>`;
 
     if (totalSKUCores <= 48) {
-      message +=
-        "<div>This cluster is small enough to qualify for a StarterPack SKU!</div>";
-      message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" target="_blank" >Standard SKU version - RS00213</a></div>
+      message += `<div class="pt-2">This cluster is small enough to qualify for a StarterPack SKU!</div>`;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((window as any).redhatter as boolean) {
+        message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" target="_blank" >Standard SKU version - RS00213</a></div>
       <div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00212#product-attributes" target="_blank" >Premium SKU version - RS00212</a></div>`;
+      }
     } else {
       let showTwoThreads = true;
       if (totalSKUCores <= 96) {
-        message +=
-          "<div>This cluster is small enough to qualify for a StarterPack SKU <b>if it is build with two threads per core</b> (also known as hyper-threading)</div>";
-        message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" target="_blank" >Standard SKU version - RS00213</a></div>
-        <div class="pb-2"><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00212#product-attributes" target="_blank" >Premium SKU version - RS00212</a></div>`;
+        message += `<div class="pt-2">This cluster is small enough to qualify for a StarterPack SKU <b>if it is build with two threads per core</b> (also known as hyper-threading)</div>`;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((window as any).redhatter as boolean) {
+          message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" target="_blank" >Standard SKU version - RS00213</a></div>
+          <div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00212#product-attributes" target="_blank" >Premium SKU version - RS00212</a></div>`;
+        }
         showTwoThreads = false;
       }
 
-      message += `<div>With <b>one</b> thread per core</div><div class="pl-3">this requires a total of <b>${Math.ceil(
+      message += `<div class="pt-2">With <b>one</b> thread per core</div><div class="pl-3">this requires a total of <b>${Math.ceil(
         totalSKUCores / 2
       )}</b> RS00181 or RS00182 SKUs</div>`;
       if (showTwoThreads) {
-        message += `<div>With <b>two</b> threads per core (also known as hyper-threading)</div><div class="pl-3">this requires a total of <b>${Math.ceil(
+        message += `<div class="pt-2">With <b>two</b> threads per core (also known as hyper-threading)</div><div class="pl-3">this requires a total of <b>${Math.ceil(
           totalSKUCores / 4
         )}</b> RS00181 or RS00182 SKUs</div>`;
       }
-      message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00182#product-attributes" target="_blank" >Standard SKU version - RS00182</a></div>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((window as any).redhatter as boolean) {
+        message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00182#product-attributes" target="_blank" >Standard SKU version - RS00182</a></div>
       <div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00181#product-attributes" target="_blank" >Premium SKU version - RS00181</a></div>`;
+      }
     }
 
     return message + "</div>";
