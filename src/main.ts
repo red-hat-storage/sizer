@@ -101,6 +101,18 @@ function updatePlanning() {
   advancedResultScreen.innerHTML = cluster.printAdvanced("  ");
   SKUScreen.innerHTML = cluster.printSKU("  ");
 
+  const cpuUnitTooltip = $(".cpuUnitTooltip");
+  for (let i = 0; i < cpuUnitTooltip.length; i++) {
+    const tooltip = cpuUnitTooltip[i];
+    tooltip.setAttribute(
+      "title",
+      "CPU Units are the number of threads you see on the host - you get this number with nproc<br>Your CPU specification will list the CPU threads and cores. Threads are the number of CPU units, cores will be used for the SKU calculation.<br>Click <a href='https://www.guru99.com/cpu-core-multicore-thread.html' target='_blank'>here</a> to learn about the thread vs core difference."
+    );
+    tooltip.setAttribute("data-toggle", "tooltip");
+    tooltip.setAttribute("data-placement", "top");
+    tooltip.setAttribute("data-html", "true");
+    tooltip.setAttribute("type", "button");
+  }
   // enable tooltips
   (<any>$('[data-toggle="tooltip"]')).tooltip(); // eslint-disable-line @typescript-eslint/no-explicit-any
 
