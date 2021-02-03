@@ -173,7 +173,7 @@ export class Cluster {
     }
     let message =
       "<div>" +
-      `<div>Based on your input, OCS will require of a total of ${totalCores} <button class="cpuUnitTooltip">CPU Units</button>, ${totalMemory} GB RAM and ${totalDisks} flash disks</div>`;
+      `<div>Based on your input, OCS will require a total of ${totalCores} <button class="cpuUnitTooltip">CPU Units</button>, ${totalMemory} GB RAM and ${totalDisks} flash disks</div>`;
     message += `<div>For the Red Hat SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <button class="cpuUnitTooltip">CPU Units</button></div>`;
 
     if (totalSKUCores <= 48) {
