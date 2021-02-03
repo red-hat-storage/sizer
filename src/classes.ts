@@ -113,10 +113,6 @@ export class Cluster {
     }
   }
   print(): string {
-    let maxDiskOutput = "";
-    if (this.platform == "awsAttached") {
-      maxDiskOutput = `and can have up to ${this.replicaSets[0].nodes[0].maxDisks} disks`;
-    }
     return `
 
       The node layout diagram below shows how to reach the target capacity* with the constraints provided. In summary:<br>
