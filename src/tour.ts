@@ -239,24 +239,24 @@ tour.addSteps([
       },
     ],
   },
-  {
-    text:
-      "You can tune your OCS deployment with this button. This will also allow you to chose an advanced deployment mode.",
-    attachTo: {
-      element: "#TuningButton",
-      on: "top",
-    },
-    buttons: [
-      {
-        text: "Skip Tour",
-        action: tour.cancel,
-      },
-      {
-        text: "Next",
-        action: tour.next,
-      },
-    ],
-  },
+  // {
+  //   text:
+  //     "You can tune your OCS deployment with this button. This will also allow you to chose an advanced deployment mode.",
+  //   attachTo: {
+  //     element: "#TuningButton",
+  //     on: "top",
+  //   },
+  //   buttons: [
+  //     {
+  //       text: "Skip Tour",
+  //       action: tour.cancel,
+  //     },
+  //     {
+  //       text: "Next",
+  //       action: tour.next,
+  //     },
+  //   ],
+  // },
   {
     text:
       "Finally down here you see your cluster as a picture that you can share. Each column represents a distinct availability zone.",
