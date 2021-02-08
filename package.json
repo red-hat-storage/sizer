@@ -9,7 +9,8 @@
     "build": "yarn clean && MODE=production yarn webpack",
     "dev": "yarn clean && yarn webpack serve --port 9001",
     "lint": "eslint ./",
-    "lint-fix": "eslint ./ --fix"
+    "lint-fix": "eslint ./ --fix",
+    "update-worker": "node file-editor.js"
   },
   "repository": {
     "type": "git",
@@ -60,7 +61,11 @@
     "shepherd.js": "^8.1.0"
   },
   "lint-staged": {
-    "*.ts": "eslint"
+    "*.ts": "eslint",
+    "*": [
+      "yarn update-worker",
+      "git add --all"
+    ]
   },
   "husky": {
     "hooks": {
