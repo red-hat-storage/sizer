@@ -1,0 +1,13 @@
+.planner-dropdown {
+  min-width: 10em;
+}
+
+/* Internal button rendered by PF ; (TD) */
+.planner-dropdown > button {
+  width: 100%;
+}
+
+.planner-form {
+  min-height: 75vh;
+  margin: 1em 2em 0 2em !important;
+}

@@ -1,5 +1,5 @@
 {
-  "include": ["./src/*"],
+  "include": ["./src/*", "./index.d.ts"],
   "exclude": ["node_modules", "lib"],
   "compilerOptions": {
     "target": "es5",
@@ -8,6 +8,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx"
   }
 }

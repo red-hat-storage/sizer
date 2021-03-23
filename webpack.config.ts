@@ -1,33 +1,29 @@
 import * as webpack from "webpack";
 import * as path from "path";
 import * as os from "os";
-import CopyPlugin from "copy-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import HTMLWebpackPlugin from "html-webpack-plugin";
 
 const mode = process.env.MODE || "development";
 
 const Configuration: webpack.Configuration = {
-  entry: {
-    main: "./src/main.ts",
-    worker: {
-      import: "./src/service-worker.ts",
-      filename: "service-worker.js",
-    },
-  },
+  entry: ["./src/index.tsx"],
   output: {
     path: path.resolve(__dirname, "lib/"),
-    publicPath: "assets/",
+    publicPath: "/",
     filename: "[name]-bundle.js",
   },
   resolve: {
-    extensions: [".ts", ".js", ".json", ".html"],
-    symlinks: false,
+    extensions: [".ts", ".js", ".json", ".html", ".tsx", ".css", ".scss"],
   },
   mode: mode === "development" ? "development" : "production",
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx$|ts$/,
         use: [
           { loader: "cache-loader" },
           {
@@ -49,20 +45,116 @@ const Configuration: webpack.Configuration = {
       },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, "assets", "css"),
+        include: [
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "node_modules/patternfly"),
+          path.resolve(__dirname, "node_modules/@patternfly/patternfly"),
+          path.resolve(__dirname, "node_modules/@patternfly/react-styles/css"),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-core/dist/styles/base.css"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-core/dist/esm/@patternfly/patternfly"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-core/node_modules/@patternfly/react-styles/css"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-table/node_modules/@patternfly/react-styles/css"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css"
+          ),
+        ],
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(svg|png|jpe?g|gif)$/i,
-        include: path.resolve(__dirname, "assets"),
+        test: /\.(jpg|jpeg|png|gif)$/i,
+        include: [
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "node_modules/patternfly"),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/patternfly/assets/images"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-styles/css/assets/images"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-core/dist/styles/assets/images"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-core/node_modules/@patternfly/react-styles/css/assets/images"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-table/node_modules/@patternfly/react-styles/css/assets/images"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css/assets/images"
+          ),
+        ],
+        exclude: [path.resolve(__dirname, "assets")],
         use: [
-          {
-            loader: "file-loader",
-          },
           {
             loader: "url-loader",
             options: {
-              limit: 8192,
+              limit: 5000,
+              outputPath: "images",
+              name: "[name].[ext]",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(svg|ttf|eot|woff|woff2)$/,
+        // only process modules with this loader
+        // if they live under a 'fonts' or 'pficon' directory
+        include: [
+          path.resolve(__dirname, "node_modules/patternfly/dist/fonts"),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-core/dist/styles/assets/fonts"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-core/dist/styles/assets/pficon"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/patternfly/assets/fonts"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/patternfly/assets/pficon"
+          ),
+        ],
+        use: {
+          loader: "file-loader",
+          options: {
+            // Limit at 50k. larger files emited into separate files
+            limit: 5000,
+            outputPath: "fonts",
+            name: "[name].[ext]",
+          },
+        },
+      },
+      {
+        test: /\.(svg|png|jpe?g|gif|jpg)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "assets/[name].[ext]",
             },
           },
         ],
@@ -70,14 +162,10 @@ const Configuration: webpack.Configuration = {
     ],
   },
   plugins: [
-    new CopyPlugin({
-      patterns: [
-        { from: "./index.html", to: "index.html" },
-        { from: "./faq.html", to: "faq.html" },
-        { from: "assets", to: "assets" },
-      ],
-    }),
     new ForkTsCheckerWebpackPlugin(),
+    new HTMLWebpackPlugin({
+      template: __dirname + "/index.html",
+    }),
   ],
 };
 

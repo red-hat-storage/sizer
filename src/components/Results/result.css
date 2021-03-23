@@ -1,0 +1,24 @@
+.results-wrapper {
+  margin: 1em 2em 0 2em;
+}
+
+.left-margined {
+  margin-left: 10px;
+}
+
+.button-normalizer {
+  min-width: 10em;
+}
+
+.button-normalizer#advanced-results-button {
+  margin-right: 10px;
+}
+
+.results-general {
+  margin-top: 5px;
+}
+
+.button-bar {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

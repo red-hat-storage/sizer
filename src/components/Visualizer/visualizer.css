@@ -1,0 +1,55 @@
+.visualizer-container {
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.visualizer-body {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.nodes-visualized {
+  display: flex;
+  flex-wrap: wrap;
+  place-content: space-evenly;
+}
+
+.dark-bg {
+  background-color: var(--pf-global--BackgroundColor--dark-transparent-200);
+}
+
+.visualizer-title {
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+
+.visualizer-instance {
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+
+.visualizer-disk-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.visualizer-disk-image {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+.visualizer-disk-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.visualizer-disk-count {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
