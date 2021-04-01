@@ -300,7 +300,7 @@ $(function () {
     "click",
     function () {
       const link = document.createElement("a");
-      link.download = "OCS-Sizer.png";
+      link.download = "ODF-Sizer.png";
       html2canvas($("#canvas-container")[0]).then((canvas) => {
         canvas.id = "download-canvas";
         canvas.classList.add("d-none");

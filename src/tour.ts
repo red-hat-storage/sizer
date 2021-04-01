@@ -20,8 +20,8 @@ tour.on("complete", () => {
 
 tour.addSteps([
   {
-    title: "Welcome to the OCS Sizer",
-    text: "This tool supports OCS 4.5 onwards",
+    title: "Welcome to the ODF Sizer",
+    text: "This tool supports ODF 4.7 onwards",
     buttons: [
       {
         text: "Skip Tour",
@@ -141,7 +141,7 @@ tour.addSteps([
   },
   {
     text:
-      "At last, chose how much usable capacity you need. This will be the total usable cluster capacity in the OCS cluster",
+      "At last, chose how much usable capacity you need. This will be the total usable cluster capacity in the ODF cluster",
     attachTo: {
       element: "#clusterSizeGroup",
       on: "top",
@@ -205,7 +205,7 @@ tour.addSteps([
   },
   {
     text:
-      "A more advanced output that includes a view into how we distributed the OCS base service Pods can be toggled with this button.",
+      "A more advanced output that includes a view into how we distributed the ODF base service Pods can be toggled with this button.",
     attachTo: {
       element: "#advancedResultsButton",
       on: "top",
@@ -241,7 +241,7 @@ tour.addSteps([
   },
   // {
   //   text:
-  //     "You can tune your OCS deployment with this button. This will also allow you to chose an advanced deployment mode.",
+  //     "You can tune your ODF deployment with this button. This will also allow you to chose an advanced deployment mode.",
   //   attachTo: {
   //     element: "#TuningButton",
   //     on: "top",
@@ -313,7 +313,7 @@ tour.addSteps([
   },
   {
     text:
-      "These bars show you how much CPU and Memory is used up by this deployment. It will estimate what OCS will use up and for compact mode also estimate what OCP will use up at least. <br>If you hover over the bars, it will show more details. <br><br>Be aware that these numbers are just estimations that also rely on the placement of the Pods in your deployment.",
+      "These bars show you how much CPU and Memory is used up by this deployment. It will estimate what ODF will use up and for compact mode also estimate what OCP will use up at least. <br>If you hover over the bars, it will show more details. <br><br>Be aware that these numbers are just estimations that also rely on the placement of the Pods in your deployment.",
     attachTo: {
       element: ".nodeUsedResources",
       on: "top",

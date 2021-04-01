@@ -119,8 +119,8 @@ export class Cluster {
       <div class="pl-3">
       <strong>${
         this.replicaSets.length * Cluster.replicaCount
-      } OCP nodes</strong> will run OCS services. (NOTE: OCP clusters often contain additional OCP worker nodes which do not run OCS services.)<br>
-      Each OCP node running OCS services has:
+      } OCP nodes</strong> will run ODF services. (NOTE: OCP clusters often contain additional OCP worker nodes which do not run ODF services.)<br>
+      Each OCP node running ODF services has:
       
       <ul>
       <li>${this.replicaSets[0].nodes[0].cpuUnits} CPU Units</li>
@@ -128,9 +128,9 @@ export class Cluster {
       <li>The disk size is ${this.diskType.capacity} TB</li>
       </ul>
       
-      The OCS deployment type is <strong>${
+      The ODF deployment type is <strong>${
         this.deploymentType
-      }</strong>. OCS tuning for NVMe disks is <strong>${
+      }</strong>. ODF tuning for NVMe disks is <strong>${
       this.nvmeTuning ? "active" : "not active"
     }</strong>.<br>
       *With this target capacity you can use up to ${(
@@ -173,7 +173,7 @@ export class Cluster {
     }
     let message =
       "<div>" +
-      `<div>Based on your input, OCS will require a total of ${totalCores} <button class="cpuUnitTooltip">CPU Units</button>, ${totalMemory} GB RAM and ${totalDisks} flash disks</div>`;
+      `<div>Based on your input, ODF will require a total of ${totalCores} <button class="cpuUnitTooltip">CPU Units</button>, ${totalMemory} GB RAM and ${totalDisks} flash disks</div>`;
     message += `<div>For the Red Hat SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <button class="cpuUnitTooltip">CPU Units</button></div>`;
 
     if (totalSKUCores <= 48) {
@@ -364,12 +364,12 @@ export class ReplicaSet {
       const ocsCpuPercentage = (node.getUsedCPU() / node.cpuUnits) * 100;
       const ocpCpuPercentage = (node.ocpCPUUnits / node.cpuUnits) * 100;
       const cpuToolTip = `Total CPU units: ${node.cpuUnits} units
-OCS consumes: ${node.getUsedCPU()} units
+ODF consumes: ${node.getUsedCPU()} units
 OCP consumes: ${node.ocpCPUUnits} units`;
       const ocsMemPercentage = (node.getUsedMemory() / node.memory) * 100;
       const ocpMemPercentage = (node.ocpMemory / node.memory) * 100;
       const memToolTip = `Total Memory:   ${node.memory} GB
-OCS consumes: ${node.getUsedMemory()} GB
+ODF consumes: ${node.getUsedMemory()} GB
 OCP consumes: ${node.ocpMemory} GB`;
       card.innerHTML = `
               <h4 class="card-header text-center">${nodeLabel}</h4>

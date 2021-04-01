@@ -38,7 +38,7 @@
 
     <style></style>
 
-    <title>OCS4 Sizer</title>
+    <title>ODF4 Sizer</title>
     <!-- <script type="text/javascript" src="http://livejs.com/live.js"></script> -->
   </head>
 
@@ -48,7 +48,7 @@
       <div class="logo"></div>
       <div class="text">
         <h2>
-          <span class="light">OCS</span>
+          <span class="light">ODF</span>
           Sizing Tool
         </h2>
       </div>
@@ -100,10 +100,10 @@
       </div>
       <div class="row justify-content-md-center">
         <div class="my-2 p-3 bg-dark text-white medium w-100">
-          The purpose of the OCS Sizing Tool is to help architects design OCS
+          The purpose of the ODF Sizing Tool is to help architects design ODF
           configurations for OCP clusters. Inputs include desired cluster
           capacity and node building block parameters. Outputs include guidance
-          on how to design your OCS layout to achieve the desired cluster
+          on how to design your ODF layout to achieve the desired cluster
           capacity. Relevant Red Hat SKU information is also provided to assist
           with cost estimation.
         </div>
@@ -269,30 +269,30 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <p class="font-weight-bold">Standard</p>
-                    is the regular way to deploy OCS
+                    is the regular way to deploy ODF
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">Compact mode</p>
-                    Will deploy OCS on the supervisors. Useful if there are no
+                    Will deploy ODF on the supervisors. Useful if there are no
                     OpenShift workers in the cluster
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">Minimal mode</p>
-                    Will decrease the OCS requirements to a minimum for small
+                    Will decrease the ODF requirements to a minimum for small
                     deployments
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">Service Disable mode</p>
-                    Will allow disabling of OCS features to reduce CPU/RAM
+                    Will allow disabling of ODF features to reduce CPU/RAM
                     resource consumption. <br /><mark>NOTE:</mark> This is an
-                    undocumented feature in OCS 4.6 that requires support
+                    undocumented feature in ODF 4.6 that requires support
                     exception approval. It will be documented and supported
-                    without support exception in a later OCS release.
+                    without support exception in a later ODF release.
                   </li>
                   <li class="list-group-item">
                     <p class="font-weight-bold">External mode</p>
-                    Will leverage an external OCS cluster for OpenShift storage.
-                    This external OCS cluster is actually a Red Hat Ceph cluster
+                    Will leverage an external ODF cluster for OpenShift storage.
+                    This external ODF cluster is actually a Red Hat Ceph cluster
                     running on bare metal servers.
                     <a
                       href="https://access.redhat.com/documentation/en-us/red_hat_openshift_container_storage/4.6/html/planning_your_deployment/ocs-architecture_rhocs#external_approach"
@@ -432,9 +432,11 @@
     <script>
       let secureRoot = "https://storage.cloud.google.com/sizer.ocs.ninja";
       if (
-        !["sizer.ocs.ninja", "storage.googleapis.com"].includes(
-          window.location.host
-        )
+        ![
+          "sizer.odf.ninja",
+          "sizer.ocs.ninja",
+          "storage.googleapis.com",
+        ].includes(window.location.host)
       ) {
         secureRoot = ".";
       } else {
