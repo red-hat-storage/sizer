@@ -221,24 +221,24 @@ tour.addSteps([
       },
     ],
   },
-  {
-    text:
-      "To learn important information on how many SKUs you need for this cluster, toggle the information here",
-    attachTo: {
-      element: "#SKUResultsButton",
-      on: "top",
-    },
-    buttons: [
-      {
-        text: "Skip Tour",
-        action: tour.cancel,
-      },
-      {
-        text: "Next",
-        action: tour.next,
-      },
-    ],
-  },
+  // {
+  //   text:
+  //     "To learn important information on how many SKUs you need for this cluster, toggle the information here",
+  //   attachTo: {
+  //     element: "#SKUResultsButton",
+  //     on: "top",
+  //   },
+  //   buttons: [
+  //     {
+  //       text: "Skip Tour",
+  //       action: tour.cancel,
+  //     },
+  //     {
+  //       text: "Next",
+  //       action: tour.next,
+  //     },
+  //   ],
+  // },
   // {
   //   text:
   //     "You can tune your ODF deployment with this button. This will also allow you to chose an advanced deployment mode.",
