@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./lib",
     "build": "yarn clean && MODE=production yarn ts-node ./node_modules/webpack/bin/webpack",
-    "dev": "yarn clean && yarn ts-node ./node_modules/webpack/bin/webpack serve --port 9001"
+    "dev": "yarn clean && yarn ts-node ./node_modules/webpack/bin/webpack serve --port 9001",
+    "lint": "./node_modules/.bin/eslint --ext '.js,.ts' src/"
   },
   "repository": {
     "type": "git",
