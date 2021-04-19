@@ -22,3 +22,9 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
+.nodes-visualized {
+  display: flex;
+  flex-wrap: wrap;
+  place-content: space-evenly;
+}

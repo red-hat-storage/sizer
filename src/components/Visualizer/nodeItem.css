@@ -1,0 +1,18 @@
+.card-container {
+  max-width: 250px;
+  margin-bottom: 10px;
+}
+
+.card-container__title {
+  text-align: center;
+  padding: var(--pf-global--spacer--sm) !important;
+}
+
+.card-container__disk-section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card-container-disk-section__count {
+  margin-left: var(--pf-global--spacer--md);
+}

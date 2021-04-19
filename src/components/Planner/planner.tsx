@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   Dropdown,
   DropdownItem,
@@ -7,7 +8,6 @@ import {
   Slider,
 } from "@patternfly/react-core";
 import { CaretDownIcon } from "@patternfly/react-icons";
-import * as React from "react";
 import { Action, Payload, Platform, State } from "../../types";
 import "./planner.css";
 

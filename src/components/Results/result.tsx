@@ -1,3 +1,5 @@
+import * as React from "react";
+import Conv from "html2canvas";
 import {
   Alert,
   AlertActionCloseButton,
@@ -8,7 +10,6 @@ import {
   Title,
   TitleSizes,
 } from "@patternfly/react-core";
-import * as React from "react";
 import Cluster from "../../models/Cluster";
 import Disk from "../../models/Disk";
 import { Node } from "../../models/Node";
@@ -19,8 +20,7 @@ import {
   Platform,
   State,
 } from "../../types";
-import NodeVisualizer from "../Visualizer/visualizer";
-import Conv from "html2canvas";
+import NodeItem from "../Visualizer/nodeItem";
 import "./result.css";
 
 type ResultsProps = {
@@ -193,7 +193,7 @@ const Results: React.FC<ResultsProps> = (props) => {
       )}
       <div className="nodes-visualized" id="nodes-vis-container">
         {allNodes?.map((node, i) => (
-          <NodeVisualizer node={node} key={i} />
+          <NodeItem node={node} key={i} />
         ))}
       </div>
     </div>
