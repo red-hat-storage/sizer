@@ -194,7 +194,7 @@ const Results: React.FC<ResultsProps> = (props) => {
             Download
           </Button>
         </div>
-        <div className="nodes-visualized" id="nodes-vis-container">
+        <div id="nodes-vis-container">
           <NodesVisualResults nodes={allNodes} />
         </div>
       </div>
