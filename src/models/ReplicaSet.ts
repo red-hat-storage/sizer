@@ -19,9 +19,6 @@ import Service, {
   NooBaa_core,
 } from "./Service";
 
-const ZONES = ["us-east-1", "us-east-2", "us-east-3", "us-east-4", "us-east-5"];
-const RACKS = ["rack-0", "rack-1", "rack-2", "rack-3", "rack-4"];
-
 class ReplicaSet {
   replicaCount: number;
   platform: Platform;
@@ -42,23 +39,23 @@ class ReplicaSet {
     for (let i = 0; i < this.replicaCount; i++) {
       switch (this.platform) {
         case Platform.BAREMETAL:
-          this.nodes.push(new BareMetal(RACKS[i], 24, nodeCPU, nodeMemory));
+          this.nodes.push(new BareMetal(24, nodeCPU, nodeMemory));
           break;
         case Platform.AWSi3:
-          this.nodes.push(new AWSattached(ZONES[i]));
+          this.nodes.push(new AWSattached());
           break;
         case Platform.AWSm5:
-          this.nodes.push(new AWSEBS(ZONES[i]));
+          this.nodes.push(new AWSEBS());
           break;
         case Platform.GCP:
-          this.nodes.push(new GCP(ZONES[i]));
+          this.nodes.push(new GCP());
           break;
         case Platform.AZURE:
-          this.nodes.push(new Azure(ZONES[i]));
+          this.nodes.push(new Azure());
           break;
         case Platform.VMware:
         case Platform.RHV:
-          this.nodes.push(new VMnode(RACKS[i], 24, nodeCPU, nodeMemory));
+          this.nodes.push(new VMnode(24, nodeCPU, nodeMemory));
           break;
       }
     }

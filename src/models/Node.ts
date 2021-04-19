@@ -9,10 +9,8 @@ export abstract class Node {
   ocpCPUUnits: number;
   ocpMemory: number;
   services: Array<Service>;
-  // Zone is either AZ or Rack
-  zone: string;
 
-  constructor(zone = "", maxDisks = 0, cpuUnits = 0, memory = 0) {
+  constructor(maxDisks = 0, cpuUnits = 0, memory = 0) {
     this.services = [];
 
     this.maxDisks = maxDisks;
@@ -20,7 +18,6 @@ export abstract class Node {
     this.memory = memory;
     this.ocpCPUUnits = 0;
     this.ocpMemory = 0;
-    this.zone = zone;
   }
 
   getUsedMemory(): number {
@@ -117,12 +114,11 @@ export abstract class Node {
 }
 
 export class BareMetal extends Node {
-  constructor(zone = "", maxDisks = 24, cpuUnits = 24, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 24, memory = 64) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.zone = zone;
   }
 
   getFittingNodeSize(): string {
@@ -135,12 +131,11 @@ export class VMnode extends Node {
   // max 4 adapters = 120 disks in total (minus OS disk)
   // https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
 
-  constructor(zone = "", maxDisks = 24, cpuUnits = 40, memory = 128) {
+  constructor(maxDisks = 24, cpuUnits = 40, memory = 128) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.zone = zone;
   }
 
   getFittingNodeSize(): string {
@@ -151,12 +146,11 @@ export class VMnode extends Node {
 export class AWSattached extends Node {
   // node storage i3en.2xl
   // 2 x 2.5TB disks
-  constructor(zone = "", maxDisks = 2, cpuUnits = 8, memory = 64) {
+  constructor(maxDisks = 2, cpuUnits = 8, memory = 64) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.zone = zone;
   }
 
   getFittingNodeSize(): string {
@@ -172,12 +166,11 @@ export class AWSEBS extends Node {
 
   // Linux nodes should not have more than 40 EBS volumes
   // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
-  constructor(zone = "", maxDisks = 24, cpuUnits = 16, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.zone = zone;
   }
 
   getFittingNodeSize(): string {
@@ -190,12 +183,11 @@ export class GCP extends Node {
   // https://docs.google.com/document/d/1COHDVAVJCQovy1YKru9tZ5-GJv0cNXzVQ6t2m2c9-Jo/edit#
   // For high-IOPs n2-standard-16 is better
 
-  constructor(zone = "", maxDisks = 24, cpuUnits = 16, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.zone = zone;
   }
 
   getFittingNodeSize(): string {
@@ -206,12 +198,11 @@ export class GCP extends Node {
 export class Azure extends Node {
   // Based on our findings the D16s_v3 has a good performance and price
   // https://docs.google.com/document/d/1-SIa219F0T13Yn1MQMrsP7O1sw8Auy97GCiqfst0J74/edit#
-  constructor(zone = "", maxDisks = 24, cpuUnits = 16, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.zone = zone;
   }
 
   getFittingNodeSize(): string {
