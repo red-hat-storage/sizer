@@ -21,6 +21,8 @@ import {
   State,
 } from "../../types";
 import NodeItem from "../Visualizer/nodeItem";
+import AdvancedResultsModal from "../Modals/AdvancedResults";
+import NodesVisualResults from "./NodeResults";
 import "./result.css";
 
 type ResultsProps = {
@@ -163,64 +165,44 @@ const Results: React.FC<ResultsProps> = (props) => {
     });
   };
   return (
-    <div className="results-wrapper">
-      <div id="support-exception">
-        <SupportException state={state} />
-      </div>
-      <div>
-        <GeneralResults {...processedValues} />
-      </div>
-      <div className="button-bar">
-        <Button
-          id="advanced-results-button"
-          className="button-normalizer"
-          onClick={() => setShowAdvanced((show) => !show)}
-        >
-          {showAdvanced ? "Hide Advanced" : "Show Advanced"}
-        </Button>
-        <Button
-          id="screenshot-download"
-          className="button-normalizer"
-          onClick={() => screenshot()}
-        >
-          Download
-        </Button>
-      </div>
-      {showAdvanced && (
-        <div>
-          <AdvancedResults replicaSets={processedValues?.replicaSets} />
+    <>
+      <AdvancedResultsModal
+        onClose={() => setShowAdvanced(false)}
+        isOpen={showAdvanced}
+        replicaSets={processedValues.replicaSets}
+      />
+      <div className="results-wrapper">
+        <div id="support-exception">
+          <SupportException state={state} />
         </div>
-      )}
-      <div className="nodes-visualized" id="nodes-vis-container">
-        {allNodes?.map((node, i) => (
-          <NodeItem node={node} key={i} />
-        ))}
+        <div>
+          <GeneralResults {...processedValues} />
+        </div>
+        <div className="button-bar">
+          <Button
+            id="advanced-results-button"
+            className="button-normalizer"
+            onClick={() => setShowAdvanced((show) => !show)}
+          >
+            {showAdvanced ? "Hide Advanced" : "Show Advanced"}
+          </Button>
+          <Button
+            id="screenshot-download"
+            className="button-normalizer"
+            onClick={() => screenshot()}
+          >
+            Download
+          </Button>
+        </div>
+        <div className="nodes-visualized" id="nodes-vis-container">
+          <NodesVisualResults nodes={allNodes} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 export default Results;
-
-const AdvancedResults: React.FC<Pick<DeploymentDetails, "replicaSets">> = (
-  props
-) => {
-  const { replicaSets } = props;
-  return (
-    <div className="advanced-results left-margined">
-      {replicaSets?.map((replSet, i) => (
-        <div className="advanced-results__item left-margined" key={i}>
-          <div>
-            <Title headingLevel="h4" size="xl">
-              Node Set {(i + 1).toFixed(0)}
-            </Title>
-          </div>
-          <ReplicaSetResults nodes={replSet.nodes} />
-        </div>
-      ))}
-    </div>
-  );
-};
 
 type ReplicaSetResultsProps = {
   nodes: Node[];

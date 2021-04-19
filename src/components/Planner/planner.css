@@ -1,3 +1,12 @@
-.planner-dropdown {
-  min-width: 10em;
+.planner-form {
+  margin: 1em 2em 0 2em !important;
+  max-width: 1200px;
+}
+
+.planner-form__dropdown {
+  min-width: 15em;
+}
+
+.planner-form__dropdown > button {
+  width: 100%;
 }

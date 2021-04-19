@@ -179,8 +179,8 @@ const Planner: React.FC<PlanningGenericProps> = (props) => {
             </DropdownToggle>
           }
           dropdownItems={platformDropdownItems}
-          className="planner-dropdown"
           id="dropdown-platform"
+          className="planner-form__dropdown"
         />
       </FormGroup>
       {isUPI && <UpiPlatform state={state} dispatch={dispatch} />}
@@ -213,6 +213,7 @@ const UpiPlatform: React.FC<PlanningGenericProps> = (props) => {
       <FormGroup label="Node CPU unit count" fieldId="cpu-dropdown">
         <Dropdown
           id="cpu-dropdown"
+          className="planner-form__dropdown"
           isOpen={isCpuOpen}
           toggle={
             <DropdownToggle
@@ -224,11 +225,11 @@ const UpiPlatform: React.FC<PlanningGenericProps> = (props) => {
           }
           dropdownItems={nodeCpuCountItems}
           onSelect={onSelect("NodeCPU")}
-          className="planner-dropdown"
         />
       </FormGroup>
       <FormGroup label="Node Memory unit count" fieldId="memory-dropdown">
         <Dropdown
+          className="planner-form__dropdown"
           id="memory-dropdown"
           isOpen={isMemOpen}
           toggle={
@@ -241,7 +242,6 @@ const UpiPlatform: React.FC<PlanningGenericProps> = (props) => {
           }
           dropdownItems={nodeMemoryItems}
           onSelect={onSelect("NodeMemory")}
-          className="planner-dropdown"
         />
       </FormGroup>
     </>
