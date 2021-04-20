@@ -1,8 +1,8 @@
 import * as webpack from "webpack";
 import * as path from "path";
 import * as os from "os";
-import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
-import HTMLWebpackPlugin from "html-webpack-plugin";
+import * as ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import * as HTMLWebpackPlugin from "html-webpack-plugin";
 
 const mode = process.env.MODE || "development";
 
@@ -13,6 +13,7 @@ const Configuration: webpack.Configuration = {
     publicPath: "/",
     filename: "[name]-bundle.js",
   },
+  devtool: "cheap-module-source-map",
   resolve: {
     extensions: [".ts", ".js", ".json", ".html", ".tsx", ".css", ".scss"],
   },

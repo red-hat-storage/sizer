@@ -1,5 +1,5 @@
 import * as React from "react";
-import Cookies from "js-cookie";
+import * as Cookies from "js-cookie";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
 import Planner from "./Planner/planner";

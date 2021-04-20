@@ -2,13 +2,15 @@
   "include": ["./src/*", "./index.d.ts"],
   "exclude": ["node_modules", "lib"],
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES2016",
+    "module": "esnext",
+    "moduleResolution": "node",
     "outDir": "./lib",
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true
   }
 }

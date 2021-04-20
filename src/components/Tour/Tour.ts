@@ -1,5 +1,5 @@
 import Shepherd from "shepherd.js";
-import Cookies from "js-cookie";
+import * as Cookies from "js-cookie";
 import { Action, Payload } from "../../types";
 
 type GetSizeTour = (
