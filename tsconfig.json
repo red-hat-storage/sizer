@@ -9,8 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true
+    "jsx": "react",
+    "sourceMap": true
   }
 }
