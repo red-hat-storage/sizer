@@ -45,6 +45,15 @@ const stateToActionMap: { [key: string]: Action } = {
   rgwActive: Action.setRGWActive,
 };
 
+const urlDataSanitizer = (param: string, data: any) => {
+  if (
+    ["nooBaaActive", "cephFSActive", "rgwActive", "nvmeTuning"].includes(param)
+  ) {
+    return data === "true";
+  }
+  return data;
+};
+
 const mapStateToURL = (state: State): void => {
   const url = new URLSearchParams(window.location.search);
   Object.entries(state).forEach(([key, val]) => {
@@ -59,7 +68,7 @@ const mapURLToState = (dispatch: PlanningGenericProps["dispatch"]): void => {
     if (url.has(val)) {
       dispatch({
         type: stateToActionMap[key],
-        payload: url.get(val) as Payload,
+        payload: urlDataSanitizer(key, url.get(val)) as Payload,
       });
     }
   });
