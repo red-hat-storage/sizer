@@ -1,5 +1,5 @@
-import { Grid, GridItem, gridSpans } from "@patternfly/react-core";
 import * as React from "react";
+import { Grid, GridItem } from "@patternfly/react-core";
 import { Node } from "../../models/Node";
 import NodeItem from "../Visualizer/nodeItem";
 
@@ -11,7 +11,7 @@ const NodesVisualResults: React.FC<NodesVisualizerProps> = ({ nodes }) => {
   return nodes?.length > 0 ? (
     <Grid hasGutter>
       {nodes.map((node, i) => (
-        <GridItem key={`${i}`} sm={12} span={4}>
+        <GridItem key={`${i}`} sm={12} md={4} lg={4} xl={4} xl2={4}>
           <NodeItem key={`node-${i}`} node={node} />
         </GridItem>
       ))}

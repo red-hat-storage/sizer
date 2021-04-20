@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Modal, Title } from "@patternfly/react-core";
 import { DeploymentDetails } from "../../types";
-import { ReplicaSetResults } from "../Results/result";
+import { ReplicaSetResults } from "../Results/ReplicaSetResults";
 import "./advanced-results.css";
 
 type AdvancedResultsModalProps = {

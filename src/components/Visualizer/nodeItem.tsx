@@ -30,7 +30,7 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
   const usedDisks = node.getAmountOfOSDs();
 
   return (
-    <Card className="card-container">
+    <Card>
       <CardHeaderMain>
         <Title headingLevel="h1" className="card-container__title">
           {nodeLabel}

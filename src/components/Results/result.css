@@ -1,3 +1,4 @@
+/** Standardize padding across both pages and deprecate this style **/
 .results-wrapper {
   margin: 1em 2em 0 2em;
 }
