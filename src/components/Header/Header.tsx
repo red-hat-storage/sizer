@@ -17,8 +17,10 @@ import {
 } from "@patternfly/react-icons";
 
 const dropdownItems = [
-  <DropdownItem id="about">About</DropdownItem>,
-  <DropdownItem id="faq">
+  <DropdownItem id="about" key="about">
+    About
+  </DropdownItem>,
+  <DropdownItem id="faq" key="faq">
     <Link to="/faq" target="_blank" className="faq-link">
       FAQ <ExternalLinkSquareAltIcon />
     </Link>
