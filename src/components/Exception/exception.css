@@ -1,0 +1,7 @@
+.exception-alert__toggle {
+  background-color: var(--pf-global--palette--gold-50) !important;
+}
+
+.exception-alert__body {
+  background-color: var(--pf-global--palette--gold-50) !important;
+}

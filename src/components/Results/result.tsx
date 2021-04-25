@@ -13,9 +13,10 @@ import { DeploymentDetails, State } from "../../types";
 import AdvancedResultsModal from "../Modals/AdvancedResults";
 import SupportExceptionModal from "../Modals/SupportException";
 import NodesVisualResults from "./NodeResults";
-import { needsSupportException, SupportExceptionObject } from "./utils";
+import ExceptionAlert from "../Exception/Exception";
 import GeneralResults from "./GeneralResults";
 import "./result.css";
+import { getSupportExceptions } from "../Exception/utils";
 
 type ResultsProps = {
   state: State;
@@ -28,8 +29,7 @@ const Results: React.FC<ResultsProps> = (props) => {
     setProcessedValues,
   ] = React.useState<DeploymentDetails>({} as DeploymentDetails);
   const [showAdvanced, setShowAdvanced] = React.useState(false);
-  const [showSupportException, setShowSupportException] = React.useState(false);
-
+  const [showExceptionModal, setShowExceptionModal] = React.useState(false);
   const {
     platform,
     deploymentType,
@@ -69,21 +69,11 @@ const Results: React.FC<ResultsProps> = (props) => {
     flashSize,
   ]);
 
-  const { issue, header, message } = React.useMemo(
-    () => needsSupportException(state),
-    [state]
-  );
-
-  React.useEffect(() => {
-    if (issue != null) {
-      setShowSupportException(true);
-    }
-  }, [issue]);
-
   const allNodes = processedValues?.replicaSets?.reduce(
     (acc, curr) => [...acc, ...curr.nodes],
     [] as Node[]
   );
+
   const screenshot = () => {
     const link = document.createElement("a");
     link.download = "OCS-Sizer.png";
@@ -95,6 +85,19 @@ const Results: React.FC<ResultsProps> = (props) => {
       link.click();
     });
   };
+
+  const exceptions = React.useMemo(() => getSupportExceptions(state), [
+    JSON.stringify(state),
+  ]);
+
+  React.useEffect(() => {
+    if (exceptions?.length > 0) {
+      setShowExceptionModal(true);
+    } else {
+      setShowExceptionModal(false);
+    }
+  }, [exceptions]);
+
   return (
     <>
       <AdvancedResultsModal
@@ -102,15 +105,15 @@ const Results: React.FC<ResultsProps> = (props) => {
         isOpen={showAdvanced}
         replicaSets={processedValues.replicaSets}
       />
+      {/* Todo(bipuladh): There is no specific need for this component to be tied to results page */}
       <SupportExceptionModal
-        onClose={() => setShowSupportException(false)}
-        isOpen={showSupportException}
-        header={header}
-        message={message}
+        exceptions={exceptions}
+        isOpen={showExceptionModal}
+        onClose={() => setShowExceptionModal(false)}
       />
       <div className="results-wrapper">
         <div id="support-exception">
-          <SupportException issue={issue} header={header} message={message} />
+          <ExceptionAlert state={state} />
         </div>
         <div>
           <GeneralResults {...processedValues} />
@@ -140,41 +143,3 @@ const Results: React.FC<ResultsProps> = (props) => {
 };
 
 export default Results;
-
-const SupportException: React.FC<SupportExceptionObject> = ({
-  issue,
-  header,
-  message,
-}) => {
-  const [isOpen, setOpen] = React.useState(true);
-  React.useEffect(() => {
-    setOpen(true);
-  }, [issue, header, message]);
-
-  return isOpen && issue !== undefined ? (
-    <Alert
-      isInline
-      variant="warning"
-      title={header}
-      actionLinks={
-        <AlertActionLink
-          onClick={() =>
-            window.location.assign("https://access.redhat.com/articles/5001441")
-          }
-        >
-          Check Support Matrix
-        </AlertActionLink>
-      }
-    >
-      <div>
-        <div>{message}</div>
-        <div>
-          This cluster is not within the regular support limits. You will need a
-          support exception!
-        </div>
-      </div>
-    </Alert>
-  ) : (
-    <></>
-  );
-};
