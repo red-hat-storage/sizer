@@ -5,7 +5,7 @@ import {
   DropdownToggle,
   Form,
   FormGroup,
-  Slider,
+  NumberInput,
 } from "@patternfly/react-core";
 import { CaretDownIcon } from "@patternfly/react-icons";
 import { Action, Payload, Platform, State } from "../../types";
@@ -15,7 +15,6 @@ type PlanningGenericProps = {
   dispatch: React.Dispatch<{ type: Action; payload: Payload }>;
   state: State;
   className?: string;
-  isUPI?: boolean;
   isTour?: boolean;
 };
 
@@ -50,6 +49,11 @@ const urlDataSanitizer = (param: string, data: any) => {
     ["nooBaaActive", "cephFSActive", "rgwActive", "nvmeTuning"].includes(param)
   ) {
     return data === "true";
+  }
+  if (
+    ["nodeCPU", "nodeMemory", "flashSize", "usableCapacity"].includes(param)
+  ) {
+    return Number(data);
   }
   return data;
 };
@@ -134,18 +138,6 @@ const nodeMemoryItems = [
   </DropdownItem>,
 ];
 
-const flashSizeSteps = (() => {
-  const steps = [];
-  for (let i = 0; i <= 16; i += 0.1) {
-    steps.push(i);
-  }
-  return steps.map((step, i) => ({
-    value: +((i / 160) * 100).toFixed(2),
-    label: step.toFixed(1),
-    isLabelHidden: true,
-  }));
-})();
-
 const Planner: React.FC<PlanningGenericProps> = (props) => {
   const { dispatch, state, isTour = false } = props;
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -193,7 +185,7 @@ const Planner: React.FC<PlanningGenericProps> = (props) => {
         />
       </FormGroup>
       {isUPI && <UpiPlatform state={state} dispatch={dispatch} />}
-      <DiskSize state={state} dispatch={dispatch} isUPI={isUPI} />
+      <DiskSize state={state} dispatch={dispatch} />
     </Form>
   );
 };
@@ -257,62 +249,62 @@ const UpiPlatform: React.FC<PlanningGenericProps> = (props) => {
   );
 };
 
-const DiskSize: React.FC<PlanningGenericProps> = ({
-  state,
-  dispatch,
-  isUPI,
-}) => {
-  const [flashSlider, setFlashSlider] = React.useState(0);
-  const [flashInputValue, setFlashInputValue] = React.useState("0");
-  const setValue = (inputSource: string) => (value: number) => {
-    const type =
-      inputSource === "FlashSize"
-        ? Action.setFlashSize
-        : Action.setUsableCapacity;
-    if (inputSource === "FlashSize") {
-      const selecetedVal = flashSizeSteps.find((step) => step.value === value);
-      setFlashSlider(selecetedVal?.value || 0);
-      dispatch({
-        type,
-        payload: selecetedVal?.label as Payload,
-      });
-      setFlashInputValue(selecetedVal?.label as string);
-    } else {
-      dispatch({
-        type,
-        payload: +(value * 10).toFixed(0),
-      });
+const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
+  const disableDiskSize = state.platform === Platform.AWSi3;
+
+  const setSize = (
+    inputType: "Button" | "User",
+    type: Action.setFlashSize | Action.setUsableCapacity
+  ) => (...args: any) => {
+    const value =
+      type === Action.setFlashSize ? state.flashSize : state.usableCapacity;
+    const incrementValue = type === Action.setFlashSize ? 0.1 : 0.5;
+    if (inputType === "Button") {
+      if (args[0] === "Increment") {
+        dispatch({ type, payload: +(value + incrementValue).toFixed(1) });
+      } else if (args[0] === "Decrement" && state.flashSize) {
+        dispatch({ type, payload: +(value - incrementValue).toFixed(1) });
+      }
+    }
+    if (inputType === "User") {
+      const inputValue = args[0].currentTarget.value;
+      if (inputValue > 0.5) {
+        dispatch({ type, payload: inputValue });
+      }
     }
   };
-  const { usableCapacity } = state;
+
   return (
     <>
-      {isUPI && (
-        <FormGroup label="Flash Disk Size (TB)" fieldId="flash-slider">
-          <Slider
-            className="slider__flash"
-            currentValue={flashSlider}
-            onValueChange={setValue("FlashSize")}
-            isInputVisible
-            inputValue={+flashInputValue}
-            isInputDisabled={true}
-            inputLabel="TB"
-            isDiscrete
-            steps={flashSizeSteps}
-            id="flash-slider"
-          />
-        </FormGroup>
-      )}
+      <FormGroup label="Flash Disk Size (TB)" fieldId="flash-slider">
+        <NumberInput
+          value={state.flashSize}
+          min={0.5}
+          max={16}
+          onMinus={() => setSize("Button", Action.setFlashSize)("Decrement")}
+          onPlus={() => setSize("Button", Action.setFlashSize)("Increment")}
+          onChange={setSize("User", Action.setFlashSize)}
+          inputName="diskSize"
+          inputAriaLabel="Disk Size"
+          unit="TB"
+          isDisabled={disableDiskSize}
+        />
+      </FormGroup>
       <FormGroup label="Usable Capacity Required (TB)" fieldId="usable-slider">
-        <Slider
-          className="slider__usable"
-          currentValue={usableCapacity / 10}
-          onValueChange={setValue("Usable")}
-          isInputVisible
-          inputValue={usableCapacity}
-          inputLabel="TB"
-          isInputDisabled
-          id="usable-slider"
+        <NumberInput
+          value={state.usableCapacity}
+          min={0.5}
+          max={1000}
+          onMinus={() =>
+            setSize("Button", Action.setUsableCapacity)("Decrement")
+          }
+          onPlus={() =>
+            setSize("Button", Action.setUsableCapacity)("Increment")
+          }
+          onChange={setSize("User", Action.setUsableCapacity)}
+          inputName="diskSize"
+          inputAriaLabel="Disk Size"
+          unit="TiB"
         />
       </FormGroup>
     </>
