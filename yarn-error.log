@@ -30,7 +30,7 @@ npm manifest:
   {
     "name": "ocs-solver-backend",
     "version": "1.0.0",
-    "description": "The backend for the OCS 4 solver",
+    "description": "The backend for the ODF 4 solver",
     "main": "main.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",

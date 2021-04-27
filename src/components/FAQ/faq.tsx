@@ -54,8 +54,8 @@ const FAQ: React.FC = () => {
         </AccordionToggle>
         <AccordionContent id="3-expanded" isHidden={visibleItem !== "3"}>
           What you see is the difference between the node's available resources
-          versus the resources that are consumed by OCS services. If these two
-          differ, you know that there is room to put additional non-OCS
+          versus the resources that are consumed by ODF services. If these two
+          differ, you know that there is room to put additional non-ODF
           workloads on these nodes if you decide not to run infra nodes.
         </AccordionContent>
       </AccordionItem>
@@ -81,11 +81,11 @@ const FAQ: React.FC = () => {
           isExpanded={visibleItem === "5"}
           id="5"
         >
-          If I deploy a 3-node OCS cluster on workers, how much resources are
+          If I deploy a 3-node ODF cluster on workers, how much resources are
           needed for OCP base services?
         </AccordionToggle>
         <AccordionContent id="5-expanded" isHidden={visibleItem !== "5"}>
-          This OCS solver does not add OCP base services by default, because we
+          This ODF solver does not add OCP base services by default, because we
           do not know that overall OCP cluster size. Under normal circumstances
           you will need an additional 0.5 CPU Units and 1GB RAM for OCP base
           services.

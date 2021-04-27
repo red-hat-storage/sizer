@@ -49,7 +49,7 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           content={
             <div>
               <div>OCP uses {ocpCPU} CPU units</div>
-              <div>OCS uses {ocsCPU} CPU units</div>
+              <div>ODF uses {ocsCPU} CPU units</div>
               <div>Total {totalCPUs} CPU units</div>
             </div>
           }
@@ -66,7 +66,7 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           content={
             <div>
               <div>OCP uses {ocpMemory} GB</div>
-              <div>OCS uses {ocsMemory} GB</div>
+              <div>ODF uses {ocsMemory} GB</div>
               <div>Total {totalMemory} GB</div>
             </div>
           }

@@ -156,12 +156,12 @@ class ReplicaSet {
       const ocsCpuPercentage = (node.getUsedCPU() / node.cpuUnits) * 100;
       const ocpCpuPercentage = (node.ocpCPUUnits / node.cpuUnits) * 100;
       const cpuToolTip = `Total CPU units: ${node.cpuUnits} units
-OCS consumes: ${node.getUsedCPU()} units
+ODF consumes: ${node.getUsedCPU()} units
 OCP consumes: ${node.ocpCPUUnits} units`;
       const ocsMemPercentage = (node.getUsedMemory() / node.memory) * 100;
       const ocpMemPercentage = (node.ocpMemory / node.memory) * 100;
       const memToolTip = `Total Memory:   ${node.memory} GB
-OCS consumes: ${node.getUsedMemory()} GB
+ODF consumes: ${node.getUsedMemory()} GB
 OCP consumes: ${node.ocpMemory} GB`;
       card.innerHTML = `
               <h4 class="card-header text-center">${nodeLabel}</h4>

@@ -6,13 +6,13 @@ type AboutModalProps = {
   isOpen: boolean;
 };
 const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
-  <Modal title="About OCS Sizer" isOpen={isOpen} onClose={onClose}>
+  <Modal title="About ODF Sizer" isOpen={isOpen} onClose={onClose}>
     <TextContent>
       <Text component={TextVariants.h5}>
-        The purpose of the OCS Sizing Tool is to help architects design OCS
+        The purpose of the ODF Sizing Tool is to help architects design ODF
         configurations for OCP clusters. Inputs include desired cluster capacity
         and node building block parameters. Outputs include guidance on how to
-        design your OCS layout to achieve the desired cluster capacity. Relevant
+        design your ODF layout to achieve the desired cluster capacity. Relevant
         Red Hat SKU information is also provided to assist with cost estimation.
       </Text>
     </TextContent>

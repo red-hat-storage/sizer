@@ -76,7 +76,7 @@ const Results: React.FC<ResultsProps> = (props) => {
 
   const screenshot = () => {
     const link = document.createElement("a");
-    link.download = "OCS-Sizer.png";
+    link.download = "ODF-Sizer.png";
     const ref = document.getElementById("nodes-vis-container");
     Conv(ref as HTMLDivElement).then((c) => {
       c.id = "download-canvas";

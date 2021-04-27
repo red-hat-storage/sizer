@@ -17,12 +17,14 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
     <div className="results-general" id="results">
       <div>
         The node layout diagram below shows how to reach the target capacity*
-        with the constraints provided. In summary:
+        with the constraints provided. <br />
+        In summary:
       </div>
       <div>
-        <strong>{ocpNodes} OCP nodes</strong> will run OCS services. (NOTE: OCP
-        clusters often contain additional OCP worker nodes which do not run OCS
-        services.) Each OCP node running OCS services has:
+        <strong>{ocpNodes} OCP nodes</strong> will run ODF services. (NOTE: OCP
+        clusters often contain additional OCP worker nodes which do not run ODF
+        services.) <br />
+        Each OCP node running ODF services has:
         <List>
           <ListItem>{cpuUnits} CPU units</ListItem>
           <ListItem>{memory} GB memory</ListItem>
@@ -30,7 +32,7 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
         </List>
       </div>
       <div>
-        The OCS deployment type is <strong>{deploymentType}</strong>. OCS tuning
+        The ODF deployment type is <strong>{deploymentType}</strong>. ODF tuning
         for NVMe disks is{" "}
         <strong>{nvmeTuning ? "active" : "not active"}</strong>.
       </div>

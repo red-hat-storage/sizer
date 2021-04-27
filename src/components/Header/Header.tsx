@@ -48,7 +48,7 @@ const HeaderTools: React.FC<HeaderToolsProps> = ({ onSelect }) => {
 const Header: React.FC<HeaderToolsProps> = ({ onSelect }) => {
   return (
     <PageHeader
-      logo="OCS Sizer Tool"
+      logo="ODF Sizer Tool"
       logoProps={{ href: "/" }}
       headerTools={
         <PageHeaderTools>
