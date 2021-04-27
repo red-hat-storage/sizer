@@ -18,10 +18,10 @@ export const enum Platform {
 }
 
 export const enum DeploymentType {
-  INTERNAL = "INTERNAL",
-  EXTERNAL = "EXTERNAL",
-  COMPACT = "COMPACT",
-  MINIMAL = "MINIMAL",
+  INTERNAL = "internal",
+  EXTERNAL = "external",
+  COMPACT = "compact",
+  MINIMAL = "minimal",
 }
 
 export type State = {
