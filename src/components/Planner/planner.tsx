@@ -63,7 +63,11 @@ const mapStateToURL = (state: State): void => {
   Object.entries(state).forEach(([key, val]) => {
     url.set(stateToParamsMap[key], val as string);
   });
-  window.history.replaceState({}, "", `?${url.toString()}`);
+  window.history.replaceState(
+    {},
+    "",
+    `${window.location.href?.split("?")[0]}?${url.toString()}`
+  );
 };
 
 const mapURLToState = (dispatch: PlanningGenericProps["dispatch"]): void => {

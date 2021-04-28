@@ -1,12 +1,8 @@
 import * as React from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
-  Page,
   PageHeader,
   PageHeaderTools,
-  Tab,
-  Tabs,
-  TabTitleText,
   DropdownItem,
   Dropdown,
   DropdownToggle,
@@ -21,7 +17,7 @@ const dropdownItems = [
     About
   </DropdownItem>,
   <DropdownItem id="faq" key="faq">
-    <Link to="/faq" target="_blank" className="faq-link">
+    <Link to="./faq" target="_blank" className="faq-link">
       FAQ <ExternalLinkSquareAltIcon />
     </Link>
   </DropdownItem>,
@@ -46,10 +42,13 @@ const HeaderTools: React.FC<HeaderToolsProps> = ({ onSelect }) => {
 };
 
 const Header: React.FC<HeaderToolsProps> = ({ onSelect }) => {
+  const PUBLIC_PATH = process.env.PUBLIC_PATH
+    ? `${process.env.PUBLIC_PATH}index.html`
+    : "/";
   return (
     <PageHeader
       logo="ODF Sizer Tool"
-      logoProps={{ href: "/" }}
+      logoProps={{ href: PUBLIC_PATH }}
       headerTools={
         <PageHeaderTools>
           <HeaderTools onSelect={onSelect} />

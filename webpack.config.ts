@@ -5,12 +5,13 @@ import * as ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import * as HTMLWebpackPlugin from "html-webpack-plugin";
 
 const mode = process.env.MODE || "development";
+const publicPath = process.env.PUBLIC_PATH || "/";
 
 const Configuration: webpack.Configuration = {
   entry: ["./src/index.tsx"],
   output: {
     path: path.resolve(__dirname, "lib/"),
-    publicPath: "/",
+    publicPath,
     filename: "[name]-bundle.js",
   },
   devtool: "cheap-module-source-map",
@@ -167,6 +168,7 @@ const Configuration: webpack.Configuration = {
     new HTMLWebpackPlugin({
       template: __dirname + "/index.html",
     }),
+    new webpack.EnvironmentPlugin({ PUBLIC_PATH: "/" }),
   ],
 };
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Cookies from "js-cookie";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
 import Planner from "./Planner/planner";
 import Results from "./Results/result";
@@ -26,7 +26,7 @@ export const Sizer: React.FC = () => {
 
   React.useEffect(() => {
     const tour = getSizerTour(setTour, setActiveTab, dispatch);
-    if (!Cookies.get("SkipTour") && !window.location.pathname.includes("faq")) {
+    if (!Cookies.get("SkipTour") && !window.location.hash.includes("faq")) {
       setTour(true);
       tour.start();
     } else {
