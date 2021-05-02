@@ -71,7 +71,7 @@ const mapStateToURL = (state: State): void => {
 };
 
 const mapURLToState = (dispatch: PlanningGenericProps["dispatch"]): void => {
-  const url = new URLSearchParams(window.location.search);
+  const url = new URLSearchParams(window.location.hash.split("#/?")?.[1]);
   Object.entries(stateToParamsMap).forEach(([key, val]) => {
     if (url.has(val)) {
       dispatch({
@@ -143,24 +143,25 @@ const nodeMemoryItems = [
 ];
 
 const Planner: React.FC<PlanningGenericProps> = (props) => {
-  const { dispatch, state, isTour = false } = props;
+  const { dispatch, state, isTour = true } = props;
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
+
+  const prevValue = React.useRef<boolean>();
 
   const isUPI = [Platform.RHV, Platform.BAREMETAL, Platform.VMware].includes(
     state.platform
   );
 
   React.useEffect(() => {
-    if (!isTour) {
+    // Update the state from URL once the tour Completes
+    if (prevValue.current === true && isTour === false) {
       mapURLToState(dispatch);
+    }
+    // Update the state only if we are out of tour and the state is updates from the URL
+    if (!isTour && prevValue.current === false) {
       mapStateToURL(state);
     }
-  }, [isTour]);
-
-  React.useEffect(() => {
-    if (!isTour) {
-      mapStateToURL(state);
-    }
+    prevValue.current = isTour;
   }, [JSON.stringify(state), isTour]);
 
   const onSelect = (event?: React.SyntheticEvent<HTMLDivElement>) => {
