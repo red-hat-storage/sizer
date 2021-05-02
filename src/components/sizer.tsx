@@ -25,6 +25,12 @@ export const Sizer: React.FC = () => {
   };
 
   React.useEffect(() => {
+    if (window.location.hash === "#/") {
+      setActiveTab(0);
+    }
+  }, []);
+
+  React.useEffect(() => {
     const tour = getSizerTour(setTour, setActiveTab, dispatch);
     if (!Cookies.get("SkipTour") && !window.location.hash.includes("faq")) {
       setTour(true);
