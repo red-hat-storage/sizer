@@ -36,47 +36,49 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           {nodeLabel}
         </Title>
       </CardHeaderMain>
-      <CardTitle>{instanceType}</CardTitle>
+      <CardTitle id="instance-type">{instanceType}</CardTitle>
       <CardBody className="card-container__disk-section">
         <DatabaseIcon color="#C9190B" width="3em" height="3em" />
         <Title className="card-container-disk-section__count" headingLevel="h3">
           x {usedDisks}
         </Title>
       </CardBody>
-      <CardBody>
-        <CpuIcon /> CPU
-        <Tooltip
-          content={
-            <div>
-              <div>OCP uses {ocpCPU} CPU units</div>
-              <div>ODF uses {ocsCPU} CPU units</div>
-              <div>Total {totalCPUs} CPU units</div>
-            </div>
-          }
-        >
-          <Progress
-            value={((ocpCPU + ocsCPU) / totalCPUs) * 100}
-            measureLocation={ProgressMeasureLocation.none}
-          />
-        </Tooltip>
-      </CardBody>
-      <CardBody>
-        <MemoryIcon /> Memory{" "}
-        <Tooltip
-          content={
-            <div>
-              <div>OCP uses {ocpMemory} GB</div>
-              <div>ODF uses {ocsMemory} GB</div>
-              <div>Total {totalMemory} GB</div>
-            </div>
-          }
-        >
-          <Progress
-            value={((ocpMemory + ocsMemory) / totalMemory) * 100}
-            measureLocation={ProgressMeasureLocation.none}
-          />
-        </Tooltip>
-      </CardBody>
+      <div id="resource-bars">
+        <CardBody>
+          <CpuIcon /> CPU
+          <Tooltip
+            content={
+              <div>
+                <div>OCP uses {ocpCPU} CPU units</div>
+                <div>ODF uses {ocsCPU} CPU units</div>
+                <div>Total {totalCPUs} CPU units</div>
+              </div>
+            }
+          >
+            <Progress
+              value={((ocpCPU + ocsCPU) / totalCPUs) * 100}
+              measureLocation={ProgressMeasureLocation.none}
+            />
+          </Tooltip>
+        </CardBody>
+        <CardBody>
+          <MemoryIcon /> Memory{" "}
+          <Tooltip
+            content={
+              <div>
+                <div>OCP uses {ocpMemory} GB</div>
+                <div>ODF uses {ocsMemory} GB</div>
+                <div>Total {totalMemory} GB</div>
+              </div>
+            }
+          >
+            <Progress
+              value={((ocpMemory + ocsMemory) / totalMemory) * 100}
+              measureLocation={ProgressMeasureLocation.none}
+            />
+          </Tooltip>
+        </CardBody>
+      </div>
       <CardFooter> 16 CPUs | 128 GB RAM</CardFooter>
     </Card>
   );

@@ -122,7 +122,7 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
       text:
         "Now select how large each disk is. We assume all disks will be of equal size.",
       attachTo: {
-        element: "#flash-slider",
+        element: "#flash-input",
         on: "top",
       },
       buttons: [
@@ -140,7 +140,7 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
       text:
         "At last, chose how much usable capacity you need. This will be the total usable cluster capacity in the ODF cluster",
       attachTo: {
-        element: "#usable-slider",
+        element: "#usable-input",
         on: "top",
       },
       buttons: [
@@ -156,9 +156,9 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
     },
     {
       text:
-        "When your configuration is out of the regular support limits, we will show a banner here",
+        "When your configuration is out of the regular support limits, we will show a modal here",
       attachTo: {
-        element: "#support-exception",
+        element: "#support-exception-modal",
         on: "bottom",
       },
       buttons: [
@@ -241,7 +241,7 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
       text:
         "Each node has the same size, which is displayed here. For public cloud deployments we display our instance type recommendation.",
       attachTo: {
-        element: ".visualizer-instance",
+        element: "#instance-type",
         on: "top",
       },
       buttons: [
@@ -259,7 +259,7 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
       text:
         "Here we show how many disks will be used on this node. The amount of disks may vary between rows of nodes.",
       attachTo: {
-        element: ".visualizer-disk-wrapper",
+        element: ".card-container-disk-section__count",
         on: "top",
       },
       buttons: [
@@ -277,7 +277,7 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
       text:
         "These bars show you how much CPU and Memory is used up by this deployment. It will estimate what ODF will use up and for compact mode also estimate what OCP will use up at least. <br>If you hover over the bars, it will show more details. <br><br>Be aware that these numbers are just estimations that also rely on the placement of the Pods in your deployment.",
       attachTo: {
-        element: ".visualizer-resource-progress",
+        element: "#resource-bars",
         on: "top",
       },
       buttons: [

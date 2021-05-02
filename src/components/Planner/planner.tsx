@@ -281,7 +281,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
 
   return (
     <>
-      <FormGroup label="Flash Disk Size (TB)" fieldId="flash-slider">
+      <FormGroup label="Flash Disk Size (TB)" fieldId="flash-input">
         <NumberInput
           value={state.flashSize}
           min={0.5}
@@ -292,10 +292,11 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
           inputName="diskSize"
           inputAriaLabel="Disk Size"
           unit="TB"
+          id="flash-input"
           isDisabled={disableDiskSize}
         />
       </FormGroup>
-      <FormGroup label="Usable Capacity Required (TB)" fieldId="usable-slider">
+      <FormGroup label="Usable Capacity Required (TB)" fieldId="usable-input">
         <NumberInput
           value={state.usableCapacity}
           min={0.5}
@@ -310,6 +311,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
           inputName="diskSize"
           inputAriaLabel="Disk Size"
           unit="TiB"
+          id="usable-input"
         />
       </FormGroup>
     </>

@@ -20,6 +20,7 @@ const SupportExceptionModal: React.FC<SupportExceptionModalProps> = ({
     isOpen={isOpen}
     onClose={onClose}
     titleIconVariant="danger"
+    id="support-exception-modal"
     actions={[
       <Button
         key="link"
