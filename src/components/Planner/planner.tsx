@@ -153,6 +153,10 @@ const Planner: React.FC<PlanningGenericProps> = (props) => {
   );
 
   React.useEffect(() => {
+    mapURLToState(dispatch);
+  }, []);
+
+  React.useEffect(() => {
     // Update the state from URL once the tour Completes
     if (prevValue.current === true && isTour === false) {
       mapURLToState(dispatch);
