@@ -168,6 +168,10 @@ const Planner: React.FC<PlanningGenericProps> = (props) => {
     const platform = event?.currentTarget?.id as Platform;
     setDropdownOpen((open) => !open);
     dispatch({ type: Action.setPlatform, payload: platform });
+    // If more of such conditionals are required then move out this code
+    if (platform === Platform.AWSi3) {
+      dispatch({ type: Action.setFlashSize, payload: 2.5 });
+    }
   };
 
   return (
@@ -310,7 +314,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
           onChange={setSize("User", Action.setUsableCapacity)}
           inputName="diskSize"
           inputAriaLabel="Disk Size"
-          unit="TiB"
+          unit="TB"
           id="usable-input"
         />
       </FormGroup>
