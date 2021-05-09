@@ -41,7 +41,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
               />
             </div>
             <Title headingLevel="h4" className="about-image-item__name">
-              Chris Blum
+              Chris Blum (cblum@redhat.com)
             </Title>
           </div>
         </FlexItem>
@@ -54,7 +54,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
               />
             </div>
             <Title headingLevel="h4" className="about-image-item__name">
-              Bipul Adhikari
+              Bipul Adhikari (badhikar@redhat.com)
             </Title>
           </div>
         </FlexItem>
