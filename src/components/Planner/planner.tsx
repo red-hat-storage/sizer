@@ -7,7 +7,7 @@ import {
   FormGroup,
   NumberInput,
 } from "@patternfly/react-core";
-import { CaretDownIcon } from "@patternfly/react-icons";
+import { CaretDownIcon, WarningTriangleIcon } from "@patternfly/react-icons";
 import { Action, Payload, Platform, State } from "../../types";
 import "./planner.css";
 
@@ -178,9 +178,23 @@ const Planner: React.FC<PlanningGenericProps> = (props) => {
     }
   };
 
+  const isPlatformTechPreview = React.useMemo(
+    () =>
+      [Platform.RHV, Platform.AZURE, Platform.GCP].includes(state.platform)
+        ? "error"
+        : "default",
+    [state.platform]
+  );
+
   return (
     <Form className="planner-form">
-      <FormGroup fieldId="dropdown-paltform" label="Platform">
+      <FormGroup
+        fieldId="dropdown-paltform"
+        label="Platform"
+        validated={isPlatformTechPreview}
+        helperTextInvalid={`${state.platform} is currently in tech-preview.`}
+        helperTextInvalidIcon={<WarningTriangleIcon />}
+      >
         <Dropdown
           isOpen={dropdownOpen}
           onSelect={onSelect}
@@ -287,9 +301,20 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
     }
   };
 
+  const isDiskSizeTechPreview = React.useMemo(
+    () => (state.flashSize >= 4.0 ? "error" : "default"),
+    [state.flashSize]
+  );
+
   return (
     <>
-      <FormGroup label="Flash Disk Size (TB)" fieldId="flash-input">
+      <FormGroup
+        label="Flash Disk Size (TB)"
+        fieldId="flash-input"
+        validated={isDiskSizeTechPreview}
+        helperTextInvalid="Disks greater than 4TB is not tested and is still a tech preview feature."
+        helperTextInvalidIcon={<WarningTriangleIcon />}
+      >
         <NumberInput
           value={state.flashSize}
           min={0.5}
