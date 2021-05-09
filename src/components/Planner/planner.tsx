@@ -180,7 +180,9 @@ const Planner: React.FC<PlanningGenericProps> = (props) => {
 
   const isPlatformTechPreview = React.useMemo(
     () =>
-      [Platform.RHV, Platform.AZURE, Platform.GCP].includes(state.platform)
+      [Platform.RHV, Platform.AZURE, Platform.GCP, Platform.AWSi3].includes(
+        state.platform
+      )
         ? "error"
         : "default",
     [state.platform]
