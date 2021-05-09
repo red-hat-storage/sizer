@@ -96,7 +96,7 @@ const Results: React.FC<ResultsProps> = (props) => {
     } else {
       setShowExceptionModal(false);
     }
-  }, [exceptions]);
+  }, [JSON.stringify(exceptions)]);
 
   return (
     <>
