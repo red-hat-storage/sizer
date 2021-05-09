@@ -19,3 +19,7 @@
   margin-top: 25px;
   margin-bottom: 25px;
 }
+
+.about-button--padding-none {
+  padding: 0 !important;
+}

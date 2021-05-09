@@ -9,6 +9,7 @@ import {
   TitleSizes,
   Flex,
   FlexItem,
+  Button,
 } from "@patternfly/react-core";
 import "./about.css";
 
@@ -62,13 +63,23 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
       <TextContent>
         <Text component={TextVariants.h5}>
           You can support us by nominating us as{" "}
-          <Link to="red.ht/programrequest" target="_blank">
-            RedHat Champions{" "}
-          </Link>
+          <Button
+            className="about-button--padding-none"
+            key="link"
+            variant="link"
+            onClick={() => window.open("red.ht/programrequest", "_blank")}
+          >
+            RedHat Champions
+          </Button>{" "}
           or by sending us{" "}
-          <Link to="rewardzone.redhat.com" target="_blank">
+          <Button
+            className="about-button--padding-none"
+            key="link"
+            variant="link"
+            onClick={() => window.open("rewardzone.redhat.com", "_blank")}
+          >
             reward points.
-          </Link>
+          </Button>
         </Text>
       </TextContent>
     </div>
