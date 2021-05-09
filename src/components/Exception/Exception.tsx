@@ -81,7 +81,7 @@ const ExceptionAlert: React.FC<ExceptionAlertProps> = ({ state }) => {
       actionLinks={
         <AlertActionLink
           onClick={() =>
-            window.location.assign("https://access.redhat.com/articles/5001441")
+            window.open("https://access.redhat.com/articles/5001441", "_blank")
           }
         >
           Check Support Matrix

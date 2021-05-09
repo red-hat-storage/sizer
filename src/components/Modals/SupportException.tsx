@@ -26,7 +26,7 @@ const SupportExceptionModal: React.FC<SupportExceptionModalProps> = ({
         key="link"
         variant="link"
         onClick={() =>
-          window.location.assign("https://access.redhat.com/articles/5001441")
+          window.open("https://access.redhat.com/articles/5001441", "_blank")
         }
       >
         Check Support Matrix
