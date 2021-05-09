@@ -285,6 +285,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
     inputType: "Button" | "User",
     type: Action.setFlashSize | Action.setUsableCapacity
   ) => (...args: any) => {
+    const maxValue = type === Action.setFlashSize ? 16 : 1000;
     const value =
       type === Action.setFlashSize ? state.flashSize : state.usableCapacity;
     const incrementValue = type === Action.setFlashSize ? 0.1 : 0.5;
@@ -296,8 +297,8 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
       }
     }
     if (inputType === "User") {
-      const inputValue = args[0].currentTarget.value;
-      if (inputValue > 0.5) {
+      const inputValue = Number(args[0].currentTarget.value);
+      if (inputValue > 0.5 && inputValue <= maxValue) {
         dispatch({ type, payload: inputValue });
       }
     }
