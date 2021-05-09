@@ -1,0 +1,21 @@
+.about-image {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.about-image__item {
+  width: auto;
+  height: auto;
+}
+
+.about-image-item__name {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.author-section {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
