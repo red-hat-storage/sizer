@@ -11,6 +11,8 @@ import {
   FlexItem,
   Button,
 } from "@patternfly/react-core";
+import Chris from "../../../assets/images/chris.jpg";
+import Bipul from "../../../assets/images/bipul.jpg";
 import "./about.css";
 
 type AboutModalProps = {
@@ -36,10 +38,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
         <FlexItem>
           <div>
             <div className="about-image">
-              <img
-                className="about-image__item"
-                src="../../../assets/images/chris.jpg"
-              />
+              <img className="about-image__item" src={Chris} />
             </div>
             <Title headingLevel="h4" className="about-image-item__name">
               Chris Blum (cblum@redhat.com)
@@ -49,10 +48,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
         <FlexItem>
           <div>
             <div className="about-image">
-              <img
-                className="about-image__item"
-                src="../../../assets/images/bipul.jpg"
-              />
+              <img className="about-image__item" src={Bipul} />
             </div>
             <Title headingLevel="h4" className="about-image-item__name">
               Bipul Adhikari (badhikar@redhat.com)

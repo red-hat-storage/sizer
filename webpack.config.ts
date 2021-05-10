@@ -79,6 +79,7 @@ const Configuration: webpack.Configuration = {
         test: /\.(jpg|jpeg|png|gif)$/i,
         include: [
           path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "assets/images"),
           path.resolve(__dirname, "node_modules/patternfly"),
           path.resolve(
             __dirname,
@@ -105,13 +106,11 @@ const Configuration: webpack.Configuration = {
             "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css/assets/images"
           ),
         ],
-        exclude: [path.resolve(__dirname, "assets")],
         use: [
           {
             loader: "url-loader",
             options: {
               limit: 5000,
-              outputPath: "images",
               name: "[name].[ext]",
             },
           },
@@ -149,17 +148,6 @@ const Configuration: webpack.Configuration = {
             name: "[name].[ext]",
           },
         },
-      },
-      {
-        test: /\.(svg|png|jpe?g|gif|jpg)$/i,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "assets/[name].[ext]",
-            },
-          },
-        ],
       },
     ],
   },
