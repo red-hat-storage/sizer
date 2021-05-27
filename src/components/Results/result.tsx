@@ -43,19 +43,21 @@ const Results: React.FC<ResultsProps> = (props) => {
     flashSize,
   } = state;
   React.useEffect(() => {
-    const temp = new Cluster(
-      platform,
-      deploymentType,
-      new Disk(flashSize),
-      usableCapacity,
-      nodeCPU,
-      nodeMemory,
-      cephFSActive,
-      nooBaaActive,
-      rgwActive,
-      nvmeTuning
-    );
-    setProcessedValues(temp.getDetails());
+    if (flashSize !== 0 && usableCapacity !== 0) {
+      const temp = new Cluster(
+        platform,
+        deploymentType,
+        new Disk(flashSize),
+        usableCapacity,
+        nodeCPU,
+        nodeMemory,
+        cephFSActive,
+        nooBaaActive,
+        rgwActive,
+        nvmeTuning
+      );
+      setProcessedValues(temp.getDetails());
+    }
   }, [
     platform,
     deploymentType,

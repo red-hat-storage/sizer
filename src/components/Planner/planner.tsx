@@ -298,7 +298,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
     }
     if (inputType === "User") {
       const inputValue = Number(args[0].currentTarget.value);
-      if (inputValue > 0.5 && inputValue <= maxValue) {
+      if (inputValue <= maxValue) {
         dispatch({ type, payload: inputValue });
       }
     }
@@ -320,7 +320,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
       >
         <NumberInput
           value={state.flashSize}
-          min={0.5}
+          min={0}
           max={16}
           onMinus={() => setSize("Button", Action.setFlashSize)("Decrement")}
           onPlus={() => setSize("Button", Action.setFlashSize)("Increment")}
@@ -335,7 +335,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
       <FormGroup label="Usable Capacity Required (TB)" fieldId="usable-input">
         <NumberInput
           value={state.usableCapacity}
-          min={0.5}
+          min={0}
           max={1000}
           onMinus={() =>
             setSize("Button", Action.setUsableCapacity)("Decrement")
