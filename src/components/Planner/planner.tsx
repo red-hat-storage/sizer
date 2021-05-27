@@ -9,6 +9,7 @@ import {
 } from "@patternfly/react-core";
 import { CaretDownIcon, WarningTriangleIcon } from "@patternfly/react-icons";
 import { Action, Payload, Platform, State } from "../../types";
+import { TECH_PREV_PLATFORMS } from "../Exception/utils";
 import "./planner.css";
 
 type PlanningGenericProps = {
@@ -179,12 +180,7 @@ const Planner: React.FC<PlanningGenericProps> = (props) => {
   };
 
   const isPlatformTechPreview = React.useMemo(
-    () =>
-      [Platform.RHV, Platform.AZURE, Platform.GCP, Platform.AWSi3].includes(
-        state.platform
-      )
-        ? "error"
-        : "default",
+    () => (TECH_PREV_PLATFORMS.includes(state.platform) ? "error" : "default"),
     [state.platform]
   );
 
