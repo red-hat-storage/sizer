@@ -301,7 +301,7 @@ const DiskSize: React.FC<PlanningGenericProps> = ({ state, dispatch }) => {
   };
 
   const isDiskSizeTechPreview = React.useMemo(
-    () => (state.flashSize >= 4.0 ? "error" : "default"),
+    () => (state.flashSize > 4.0 ? "error" : "default"),
     [state.flashSize]
   );
 
