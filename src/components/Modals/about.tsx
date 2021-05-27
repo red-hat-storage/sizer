@@ -77,7 +77,9 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
             className="about-button--padding-none"
             key="link"
             variant="link"
-            onClick={() => window.open("rewardzone.redhat.com", "_blank")}
+            onClick={() =>
+              window.open("https://rewardzone.redhat.com", "_blank")
+            }
           >
             reward points.
           </Button>
