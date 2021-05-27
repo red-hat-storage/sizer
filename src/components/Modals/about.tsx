@@ -63,7 +63,12 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => (
             className="about-button--padding-none"
             key="link"
             variant="link"
-            onClick={() => window.open("red.ht/programrequest", "_blank")}
+            onClick={() =>
+              window.open(
+                "https://source.redhat.com/groups/public/portfolio-engagement/advocacy_programs/champions",
+                "_blank"
+              )
+            }
           >
             RedHat Champions
           </Button>{" "}
