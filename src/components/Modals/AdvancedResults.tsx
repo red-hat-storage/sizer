@@ -18,7 +18,7 @@ const AdvancedResultsModal: React.FC<AdvancedResultsModalProps> = ({
   React.useEffect(() => {
     const modal = document.getElementById("advanced-results-modal");
     const cb = (event: any) => {
-      const currentlySelected = event?.originalTarget;
+      const currentlySelected = event?.target;
       if (isOpen && !modal?.contains(currentlySelected)) onClose();
     };
     document?.addEventListener("click", cb);

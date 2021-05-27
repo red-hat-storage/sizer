@@ -18,7 +18,7 @@ const SupportExceptionModal: React.FC<SupportExceptionModalProps> = ({
   React.useEffect(() => {
     const modal = document.getElementById("support-exception-modal");
     const cb = (event: any) => {
-      const currentlySelected = event?.originalTarget;
+      const currentlySelected = event?.target;
       if (!modal?.contains(currentlySelected)) onClose();
     };
     document?.addEventListener("click", cb);
