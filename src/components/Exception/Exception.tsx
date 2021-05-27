@@ -79,13 +79,25 @@ const ExceptionAlert: React.FC<ExceptionAlertProps> = ({ state }) => {
       variant="warning"
       title="Support Exception"
       actionLinks={
-        <AlertActionLink
-          onClick={() =>
-            window.open("https://access.redhat.com/articles/5001441", "_blank")
-          }
-        >
-          Check Support Matrix
-        </AlertActionLink>
+        <React.Fragment>
+          <AlertActionLink
+            onClick={() =>
+              window.open(
+                "https://access.redhat.com/articles/4731161",
+                "_blank"
+              )
+            }
+          >
+            Supportability and Interoperability Guide
+          </AlertActionLink>
+          <AlertActionLink
+            onClick={() =>
+              window.open("https://access.redhat.com/labs/ocssi/", "_blank")
+            }
+          >
+            Supportability and Interoperability Checker
+          </AlertActionLink>
+        </React.Fragment>
       }
     >
       <div>

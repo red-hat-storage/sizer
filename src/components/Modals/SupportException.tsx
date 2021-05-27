@@ -38,10 +38,19 @@ const SupportExceptionModal: React.FC<SupportExceptionModalProps> = ({
           key="link"
           variant="link"
           onClick={() =>
-            window.open("https://access.redhat.com/articles/5001441", "_blank")
+            window.open("https://access.redhat.com/articles/4731161", "_blank")
           }
         >
-          Check Support Matrix
+          Supportability and Interoperability Guide
+        </Button>,
+        <Button
+          key="link"
+          variant="link"
+          onClick={() =>
+            window.open("https://access.redhat.com/labs/ocssi/", "_blank")
+          }
+        >
+          Supportability and Interoperability Checker
         </Button>,
       ]}
     >
