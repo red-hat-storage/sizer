@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as Cookies from "js-cookie";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
 import Planner from "./Planner/planner";
 import Results from "./Results/result";
 import AboutModal from "./Modals/about";
-import FAQ from "./FAQ/faq";
+import FAQModal from "./Modals/faq";
 import Header from "./Header/Header";
 import { getSizerTour } from "./Tour/Tour";
 import { stateReducer, initialState } from "../state";
@@ -15,24 +15,26 @@ import "./shepherd.css";
 export const Sizer: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState(1);
   const [state, dispatch] = React.useReducer(stateReducer, initialState);
-  const [modalOpen, setModalOpen] = React.useState(false);
+  const [activeModal, setActiveModal] = React.useState("");
   const [isTour, setTour] = React.useState(false);
 
   const onSelect = (event?: React.SyntheticEvent<HTMLDivElement>) => {
     if (event?.currentTarget?.id === "about") {
-      setModalOpen(true);
+      setActiveModal("About");
+    } else if (event?.currentTarget?.id === "faq") {
+      setActiveModal("FAQ");
     }
   };
 
   React.useEffect(() => {
-    if (window.location.hash === "#/") {
+    if (window.location.search === "") {
       setActiveTab(0);
     }
   }, []);
 
   React.useEffect(() => {
     const tour = getSizerTour(setTour, setActiveTab, dispatch);
-    if (!Cookies.get("SkipTour") && !window.location.hash.includes("faq")) {
+    if (!Cookies.get("SkipTour") && !window.location.search.includes("faq")) {
       setTour(true);
       tour.start();
     } else {
@@ -43,7 +45,14 @@ export const Sizer: React.FC = () => {
   return (
     <Router>
       <Page header={<Header onSelect={onSelect} />} className="sizer-page">
-        <AboutModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+        <AboutModal
+          isOpen={activeModal === "About"}
+          onClose={() => setActiveModal("")}
+        />
+        <FAQModal
+          isOpen={activeModal === "FAQ"}
+          onClose={() => setActiveModal("")}
+        />
         <Switch>
           <Route exact path="/">
             <Tabs
@@ -66,9 +75,6 @@ export const Sizer: React.FC = () => {
                 <Results state={state} />
               </Tab>
             </Tabs>
-          </Route>
-          <Route path="/faq">
-            <FAQ />
           </Route>
         </Switch>
       </Page>

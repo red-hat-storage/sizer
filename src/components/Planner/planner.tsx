@@ -32,6 +32,19 @@ const stateToParamsMap: { [key: string]: string } = {
   rgwActive: "ra",
 };
 
+const legacyStateToParamsMap: { [key: string]: string } = {
+  platform: "platform",
+  nodeCPU: "nodeCPU",
+  nodeMemory: "nodeMemory",
+  flashSize: "diskSize",
+  usableCapacity: "totalCapacity",
+  deploymentType: "deploymentType",
+  nvmeTuning: "nvmeTuning",
+  cephFSActive: "cephFSActive",
+  nooBaaActive: "nooBaaActive",
+  rgwActive: "rgwActive",
+};
+
 const stateToActionMap: { [key: string]: Action } = {
   platform: Action.setPlatform,
   nodeCPU: Action.setNodeCPU,
@@ -45,7 +58,17 @@ const stateToActionMap: { [key: string]: Action } = {
   rgwActive: Action.setRGWActive,
 };
 
-const urlDataSanitizer = (param: string, data: any) => {
+const legacyPlatformMap: { [key: string]: Platform } = {
+  metal: Platform.BAREMETAL,
+  awsAttached: Platform.AWSi3,
+  awsEBS: Platform.AWSm5,
+  gcp: Platform.GCP,
+  azure: Platform.AZURE,
+  vm: Platform.VMware,
+  vmPreview: Platform.RHV,
+};
+
+const urlDataSanitizer = (param: string, data: unknown) => {
   if (
     ["nooBaaActive", "cephFSActive", "rgwActive", "nvmeTuning"].includes(param)
   ) {
@@ -56,11 +79,16 @@ const urlDataSanitizer = (param: string, data: any) => {
   ) {
     return Number(data);
   }
+  if (param === "platform") {
+    return legacyPlatformMap[data as string];
+  }
   return data;
 };
 
 const mapStateToURL = (state: State): void => {
   const url = new URLSearchParams(window.location.search);
+  // Remove legacy parameters
+  Object.values(legacyStateToParamsMap).forEach((val) => url.delete(val));
   Object.entries(state).forEach(([key, val]) => {
     url.set(stateToParamsMap[key], val as string);
   });
@@ -72,8 +100,11 @@ const mapStateToURL = (state: State): void => {
 };
 
 const mapURLToState = (dispatch: PlanningGenericProps["dispatch"]): void => {
-  const url = new URLSearchParams(window.location.hash.split("#/?")?.[1]);
-  Object.entries(stateToParamsMap).forEach(([key, val]) => {
+  const url = new URLSearchParams(window.location.search);
+  const paramsMap = url.has("platform")
+    ? legacyStateToParamsMap
+    : stateToParamsMap;
+  Object.entries(paramsMap).forEach(([key, val]) => {
     if (url.has(val)) {
       dispatch({
         type: stateToActionMap[key],

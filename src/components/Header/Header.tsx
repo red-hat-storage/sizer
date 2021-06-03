@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import {
   PageHeader,
   PageHeaderTools,
@@ -7,19 +6,14 @@ import {
   Dropdown,
   DropdownToggle,
 } from "@patternfly/react-core";
-import {
-  CaretDownIcon,
-  ExternalLinkSquareAltIcon,
-} from "@patternfly/react-icons";
+import { CaretDownIcon } from "@patternfly/react-icons";
 
 const dropdownItems = [
   <DropdownItem id="about" key="about">
     About
   </DropdownItem>,
   <DropdownItem id="faq" key="faq">
-    <Link to="./faq" target="_blank" className="faq-link">
-      FAQ <ExternalLinkSquareAltIcon />
-    </Link>
+    FAQ
   </DropdownItem>,
 ];
 
