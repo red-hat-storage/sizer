@@ -29,3 +29,10 @@
   flex-wrap: wrap;
   place-content: space-evenly;
 }
+
+.skip-to-top {
+  position: fixed !important;
+  bottom: 25px;
+  right: 50px;
+  z-index: 100;
+}

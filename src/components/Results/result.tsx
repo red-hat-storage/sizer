@@ -1,11 +1,6 @@
 import * as React from "react";
 import Conv from "html2canvas";
-import {
-  Alert,
-  AlertActionCloseButton,
-  AlertActionLink,
-  Button,
-} from "@patternfly/react-core";
+import { Button } from "@patternfly/react-core";
 import Cluster from "../../models/Cluster";
 import Disk from "../../models/Disk";
 import { Node } from "../../models/Node";
@@ -15,8 +10,10 @@ import SupportExceptionModal from "../Modals/SupportException";
 import NodesVisualResults from "./NodeResults";
 import ExceptionAlert from "../Exception/Exception";
 import GeneralResults from "./GeneralResults";
-import "./result.css";
 import { getSupportExceptions } from "../Exception/utils";
+import { useVisibilityTracker } from "../../hooks/view";
+import SkipToTop from "./SkipToTop";
+import "./result.css";
 
 type ResultsProps = {
   state: State;
@@ -100,8 +97,15 @@ const Results: React.FC<ResultsProps> = (props) => {
     }
   }, [JSON.stringify(exceptions)]);
 
+  const isDownloadButtonVisible = useVisibilityTracker("screenshot-download");
+  const scroller = React.useCallback(() => {
+    const element = document.getElementById("screenshot-download");
+    element?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, []);
+
   return (
     <>
+      {!isDownloadButtonVisible && <SkipToTop onClick={scroller} />}
       <AdvancedResultsModal
         onClose={() => setShowAdvanced(false)}
         isOpen={showAdvanced}
