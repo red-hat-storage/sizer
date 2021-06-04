@@ -54,7 +54,7 @@ export const Sizer: React.FC = () => {
           onClose={() => setActiveModal("")}
         />
         <Switch>
-          <Route exact path="/">
+          <Route path="/">
             <Tabs
               activeKey={activeTab}
               onSelect={(_e, tabIndex) => setActiveTab(tabIndex as number)}
