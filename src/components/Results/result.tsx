@@ -103,6 +103,11 @@ const Results: React.FC<ResultsProps> = (props) => {
     element?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, []);
 
+  const onAdvancedButtonClick = (event?: React.FormEvent<React.MouseEvent>) => {
+    event?.stopPropagation();
+    setShowAdvanced(true);
+  };
+
   return (
     <>
       {!isDownloadButtonVisible && <SkipToTop onClick={scroller} />}
@@ -128,7 +133,7 @@ const Results: React.FC<ResultsProps> = (props) => {
           <Button
             id="advanced-results-button"
             className="button-normalizer"
-            onClick={() => setShowAdvanced((show) => !show)}
+            onClick={onAdvancedButtonClick as any}
           >
             {showAdvanced ? "Hide Advanced" : "Show Advanced"}
           </Button>
