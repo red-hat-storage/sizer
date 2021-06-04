@@ -70,7 +70,6 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => {
             You can support us by nominating us as{" "}
             <Button
               className="about-button--padding-none"
-              key="link"
               variant="link"
               onClick={() =>
                 window.open(
@@ -84,7 +83,6 @@ const AboutModal: React.FC<AboutModalProps> = ({ onClose, isOpen }) => {
             or by sending us{" "}
             <Button
               className="about-button--padding-none"
-              key="link"
               variant="link"
               onClick={() =>
                 window.open("https://rewardzone.redhat.com", "_blank")

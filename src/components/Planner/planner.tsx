@@ -80,7 +80,7 @@ const urlDataSanitizer = (param: string, data: unknown) => {
     return Number(data);
   }
   if (param === "platform") {
-    return legacyPlatformMap[data as string];
+    return legacyPlatformMap[data as string] || (data as Platform);
   }
   return data;
 };
@@ -101,9 +101,8 @@ const mapStateToURL = (state: State): void => {
 
 const mapURLToState = (dispatch: PlanningGenericProps["dispatch"]): void => {
   const url = new URLSearchParams(window.location.search);
-  const paramsMap = url.has("platform")
-    ? legacyStateToParamsMap
-    : stateToParamsMap;
+  const legacy = url.has("platform");
+  const paramsMap = legacy ? legacyStateToParamsMap : stateToParamsMap;
   Object.entries(paramsMap).forEach(([key, val]) => {
     if (url.has(val)) {
       dispatch({

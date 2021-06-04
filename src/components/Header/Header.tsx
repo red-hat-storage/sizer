@@ -36,9 +36,10 @@ const HeaderTools: React.FC<HeaderToolsProps> = ({ onSelect }) => {
 };
 
 const Header: React.FC<HeaderToolsProps> = ({ onSelect }) => {
-  const PUBLIC_PATH = process.env.PUBLIC_PATH
-    ? `${process.env.PUBLIC_PATH}index.html`
-    : "/";
+  const PUBLIC_PATH =
+    process.env.PUBLIC_PATH !== "/"
+      ? `${process.env.PUBLIC_PATH}index.html`
+      : "/";
   return (
     <PageHeader
       logo={<Brand src={brand} alt="OpenShift Data Foundation" />}

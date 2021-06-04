@@ -25,7 +25,7 @@ const SupportExceptionModal: React.FC<SupportExceptionModalProps> = ({
       id="support-exception-modal"
       actions={[
         <Button
-          key="link"
+          key="article-link"
           variant="link"
           onClick={() =>
             window.open("https://access.redhat.com/articles/4731161", "_blank")
@@ -34,7 +34,7 @@ const SupportExceptionModal: React.FC<SupportExceptionModalProps> = ({
           Supportability and Interoperability Guide
         </Button>,
         <Button
-          key="link"
+          key="lab-link"
           variant="link"
           onClick={() =>
             window.open("https://access.redhat.com/labs/ocssi/", "_blank")
