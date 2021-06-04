@@ -1,0 +1,8 @@
+/* Overriding Patternfly CSS to align the title to the center */
+.pf-c-page__header-nav {
+  justify-content: center;
+}
+
+.header-tools {
+  min-width: 50px;
+}

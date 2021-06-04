@@ -155,6 +155,7 @@ const Configuration: webpack.Configuration = {
     new ForkTsCheckerWebpackPlugin(),
     new HTMLWebpackPlugin({
       template: __dirname + "/index.html",
+      favicon: __dirname + "/assets/images/ocs-logo.png",
     }),
     new webpack.EnvironmentPlugin({ PUBLIC_PATH: "/" }),
   ],

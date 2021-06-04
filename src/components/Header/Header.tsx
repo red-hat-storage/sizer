@@ -2,36 +2,36 @@ import * as React from "react";
 import {
   PageHeader,
   PageHeaderTools,
-  DropdownItem,
-  Dropdown,
-  DropdownToggle,
+  Brand,
+  Title,
+  Flex,
+  FlexItem,
 } from "@patternfly/react-core";
-import { CaretDownIcon } from "@patternfly/react-icons";
-
-const dropdownItems = [
-  <DropdownItem id="about" key="about">
-    About
-  </DropdownItem>,
-  <DropdownItem id="faq" key="faq">
-    FAQ
-  </DropdownItem>,
-];
+import { HelpIcon, InfoIcon } from "@patternfly/react-icons";
+import brand from "../../../assets/images/ocs-logo.png";
+import "./header.css";
 
 const HeaderTools: React.FC<HeaderToolsProps> = ({ onSelect }) => {
-  const [isOpen, setOpen] = React.useState(false);
   return (
-    <Dropdown
-      toggle={
-        <DropdownToggle
-          id="toggle-id"
-          onToggle={() => setOpen((open) => !open)}
-          toggleIndicator={CaretDownIcon}
-        ></DropdownToggle>
-      }
-      onSelect={onSelect}
-      isOpen={isOpen}
-      dropdownItems={dropdownItems}
-    />
+    <Flex
+      className="header-tools"
+      justifyContent={{ default: "justifyContentSpaceEvenly" }}
+    >
+      <FlexItem>
+        <InfoIcon
+          className="small-icon"
+          id="about"
+          onClick={() => onSelect("about")}
+        />
+      </FlexItem>
+      <FlexItem>
+        <HelpIcon
+          className="small-icon"
+          id="faq"
+          onClick={() => onSelect("faq")}
+        />
+      </FlexItem>
+    </Flex>
   );
 };
 
@@ -41,7 +41,12 @@ const Header: React.FC<HeaderToolsProps> = ({ onSelect }) => {
     : "/";
   return (
     <PageHeader
-      logo="ODF Sizer Tool"
+      logo={<Brand src={brand} alt="OpenShift Data Foundation" />}
+      topNav={
+        <Title headingLevel="h2" size="xl">
+          ODF Sizer Tool
+        </Title>
+      }
       logoProps={{ href: PUBLIC_PATH }}
       headerTools={
         <PageHeaderTools>
@@ -55,5 +60,5 @@ const Header: React.FC<HeaderToolsProps> = ({ onSelect }) => {
 export default Header;
 
 type HeaderToolsProps = {
-  onSelect: (event?: React.SyntheticEvent<HTMLDivElement>) => void;
+  onSelect: (selectedItem: string) => void;
 };

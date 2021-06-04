@@ -18,10 +18,10 @@ export const Sizer: React.FC = () => {
   const [activeModal, setActiveModal] = React.useState("");
   const [isTour, setTour] = React.useState(false);
 
-  const onSelect = (event?: React.SyntheticEvent<HTMLDivElement>) => {
-    if (event?.currentTarget?.id === "about") {
+  const onSelect = (selectedItem: string) => {
+    if (selectedItem === "about") {
       setActiveModal("About");
-    } else if (event?.currentTarget?.id === "faq") {
+    } else if (selectedItem === "faq") {
       setActiveModal("FAQ");
     }
   };
