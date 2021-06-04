@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Modal } from "@patternfly/react-core";
 import { ExceptionReport } from "../Exception/Exception";
-import { State } from "../../types";
+import { useCloseModal } from "../../hooks/modal";
 import { SupportExceptionObject } from "../Exception/utils";
 
 type SupportExceptionModalProps = {
@@ -15,17 +15,7 @@ const SupportExceptionModal: React.FC<SupportExceptionModalProps> = ({
   isOpen,
   exceptions,
 }) => {
-  React.useEffect(() => {
-    const modal = document.getElementById("support-exception-modal");
-    const cb = (event: any) => {
-      const currentlySelected = event?.target;
-      if (!modal?.contains(currentlySelected)) onClose();
-    };
-    document?.addEventListener("click", cb);
-    return () => {
-      document?.removeEventListener("click", cb);
-    };
-  });
+  useCloseModal(onClose, isOpen);
   return (
     <Modal
       title="Support Exception Required"

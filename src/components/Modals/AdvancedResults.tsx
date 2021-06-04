@@ -2,6 +2,7 @@ import * as React from "react";
 import { Modal, Title } from "@patternfly/react-core";
 import { DeploymentDetails } from "../../types";
 import { ReplicaSetResults } from "../Results/ReplicaSetResults";
+import { useCloseModal } from "../../hooks/modal";
 import "./advanced-results.css";
 
 type AdvancedResultsModalProps = {
@@ -15,24 +16,12 @@ const AdvancedResultsModal: React.FC<AdvancedResultsModalProps> = ({
   isOpen,
   replicaSets,
 }) => {
-  React.useEffect(() => {
-    const modal = document.getElementById("advanced-results-modal");
-    const cb = (event: any) => {
-      const currentlySelected = event?.target;
-      if (isOpen && !modal?.contains(currentlySelected)) onClose();
-    };
-    document?.addEventListener("click", cb);
-    return () => {
-      document?.removeEventListener("click", cb);
-    };
-  });
-
+  useCloseModal(onClose, isOpen);
   return (
     <Modal
       title="Advanced Results"
       isOpen={isOpen}
       onClose={onClose}
-      id="advanced-results-modal"
       className="advanced-modal"
     >
       <div className="advanced-results left-margined">

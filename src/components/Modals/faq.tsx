@@ -6,6 +6,7 @@ import {
   AccordionToggle,
   Modal,
 } from "@patternfly/react-core";
+import { useCloseModal } from "../../hooks/modal";
 
 type FAQModalProps = {
   onClose: () => void;
@@ -15,6 +16,7 @@ type FAQModalProps = {
 const FAQModal: React.FC<FAQModalProps> = (props) => {
   const { isOpen, onClose } = props;
   const [visibleItem, setVisibleItem] = React.useState("");
+  useCloseModal(onClose, isOpen);
   return (
     <Modal
       title="Advanced Results"
