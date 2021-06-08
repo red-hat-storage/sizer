@@ -32,7 +32,8 @@ eslint:
 build:
   stage: build
   script:
-    - yarn build
+    - if [[ "$CI_COMMIT_BRANCH" == "develop" ]]; then PRE_BUILD="beta"; fi
+    - yarn ${PRE_BUILD}build
 
 push-to-google-storage:
   stage: deploy

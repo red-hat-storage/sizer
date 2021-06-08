@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./lib",
-    "build": "yarn clean && MODE=production PUBLIC_PATH=/sizer.ocs.ninja/beta/ yarn ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack",
+    "build": "yarn clean && MODE=production PUBLIC_PATH=/ yarn ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack",
+    "betabuild": "yarn clean && MODE=production PUBLIC_PATH=/sizer.ocs.ninja/beta/ yarn ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack",
     "dev": "yarn clean && yarn ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack serve --port 9001",
     "lint": "./node_modules/.bin/eslint --ext '.js,.ts' src/"
   },
