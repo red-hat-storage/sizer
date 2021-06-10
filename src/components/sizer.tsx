@@ -11,6 +11,15 @@ import { getSizerTour } from "./Tour/Tour";
 import { stateReducer, initialState } from "../state";
 import "./sizer.css";
 import "./shepherd.css";
+import GA4React from "ga-4-react";
+
+const TRACKED_PLATFORMS = [
+  "sizer.odf.ninja",
+  "sizer.ocs.ninja",
+  "storage.googleapis.com",
+];
+const BETA_TAG = "/beta/";
+const ga4react = new GA4React("G-G4ETCF6QL5", { send_page_view: true });
 
 export const Sizer: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState(1);
@@ -29,6 +38,12 @@ export const Sizer: React.FC = () => {
   React.useEffect(() => {
     if (window.location.search === "") {
       setActiveTab(0);
+    }
+    if (
+      TRACKED_PLATFORMS.includes(window.location.host) &&
+      !window.location.pathname.includes(BETA_TAG)
+    ) {
+      ga4react.initialize();
     }
   }, []);
 
