@@ -1,7 +1,6 @@
 import * as React from "react";
 import { List, ListItem, Title, TitleSizes } from "@patternfly/react-core";
 import { Node } from "../../models/Node";
-import { Service } from "../../models/Service";
 import { Workload } from "../../models/Workload";
 
 type ServiceResultsProps = {
