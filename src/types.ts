@@ -1,10 +1,10 @@
-import ReplicaSet from "./models/ReplicaSet";
+import { Zone } from "./models/Zone";
 
 export type NodeDetails<T> = {
   usedCpuUnits: number;
   usedMemory: number;
   amountOfOSDs: number;
-  services: Array<T>;
+  workloads: Record<string, T>;
 };
 
 export const enum Platform {
@@ -56,10 +56,10 @@ export type DeploymentDetails = {
   ocpNodes: number;
   cpuUnits: number;
   memory: number;
-  capacity: number;
-  deploymentType: DeploymentType;
-  nvmeTuning: boolean;
-  warningFirst: number;
-  warningSecond: number;
-  replicaSets: ReplicaSet[];
+  diskCapacity: number;
+  // deploymentType: DeploymentType;
+  // nvmeTuning: boolean;
+  // warningFirst: number;
+  // warningSecond: number;
+  zones: Zone[];
 };

@@ -14,6 +14,7 @@ import { getSupportExceptions } from "../Exception/utils";
 import { useVisibilityTracker } from "../../hooks/view";
 import SkipToTop from "./SkipToTop";
 import "./result.css";
+import { MachineSet } from "../../models/MachineSet";
 
 type ResultsProps = {
   state: State;
@@ -42,16 +43,25 @@ const Results: React.FC<ResultsProps> = (props) => {
   React.useEffect(() => {
     if (flashSize !== 0 && usableCapacity !== 0) {
       const temp = new Cluster(
-        platform,
         deploymentType,
         new Disk(flashSize),
+        {
+          default: new MachineSet(
+            "default",
+            nodeCPU,
+            nodeMemory,
+            platform,
+            `${nodeCPU} CPU | ${nodeMemory} GB RAM`,
+            24,
+            []
+          ),
+        },
         usableCapacity,
-        nodeCPU,
-        nodeMemory,
         cephFSActive,
         nooBaaActive,
         rgwActive,
-        nvmeTuning
+        nvmeTuning,
+        []
       );
       setProcessedValues(temp.getDetails());
     }
@@ -68,7 +78,7 @@ const Results: React.FC<ResultsProps> = (props) => {
     flashSize,
   ]);
 
-  const allNodes = processedValues?.replicaSets?.reduce(
+  const allNodes = processedValues?.zones?.reduce(
     (acc, curr) => [...acc, ...curr.nodes],
     [] as Node[]
   );
@@ -114,7 +124,7 @@ const Results: React.FC<ResultsProps> = (props) => {
       <AdvancedResultsModal
         onClose={() => setShowAdvanced(false)}
         isOpen={showAdvanced}
-        replicaSets={processedValues.replicaSets}
+        replicaSets={processedValues.zones}
       />
       {/* Todo(bipuladh): There is no specific need for this component to be tied to results page */}
       <SupportExceptionModal

@@ -1,128 +1,139 @@
-import Service, { Ceph_OSD } from "./Service";
+import { Workload } from "./Workload";
 import { NodeDetails } from "../types";
 
 export abstract class Node {
   maxDisks: number;
   cpuUnits: number;
   memory: number;
-  // OCP "cost" that we need to take into account for sizing
-  ocpCPUUnits: number;
-  ocpMemory: number;
-  services: Array<Service>;
+  // String that we print for this node's size
+  nodeSize: string;
+  // Name of the machineSet that created this node
+  machineSet: string;
+  // services: Array<Service>;
+  workloads: Record<string, Workload>;
 
-  constructor(maxDisks = 0, cpuUnits = 0, memory = 0) {
-    this.services = [];
+  constructor(
+    maxDisks = 0,
+    cpuUnits = 0,
+    memory = 0,
+    nodeSize = "",
+    machineSet = ""
+  ) {
+    this.workloads = {};
 
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.ocpCPUUnits = 0;
-    this.ocpMemory = 0;
+    this.nodeSize = nodeSize;
+    this.machineSet = machineSet;
   }
 
   getUsedMemory(): number {
     let totalMemory = 0;
-    this.services.forEach((service) => {
-      totalMemory += service.requiredMemory;
-    });
+    for (const [, workload] of Object.entries(this.workloads)) {
+      totalMemory += workload.getTotalMemory();
+    }
     return totalMemory;
   }
   getUsedCPU(): number {
     let totalCores = 0;
-    this.services.forEach((service) => {
-      totalCores += service.requiredCPU;
-    });
+    for (const [, workload] of Object.entries(this.workloads)) {
+      totalCores += workload.getTotalCPU();
+    }
     return 2 * Math.round(Math.ceil(totalCores) / 2);
   }
-  canIAddService(service: Service): boolean {
-    if (
-      this.getUsedCPU() + this.ocpCPUUnits + service.requiredCPU >
-        this.cpuUnits ||
-      this.getUsedMemory() + this.ocpMemory + service.requiredMemory >
-        this.memory
-    ) {
-      return false;
+  canIAddWorkload(workload: Workload): boolean {
+    let totalCPU = 0,
+      totalMem = 0,
+      totalDisks = 0;
+    if (workload.name in this.workloads) {
+      // If we already have services from that workload
+      // we need to ensure that the same service does not already exist
+      //  and that the existing services do not dislike
+      // these new services
+      const newServiceNames = workload.getNamesOfServices();
+      for (const [, service] of Object.entries(
+        this.workloads[workload.name].services
+      )) {
+        if (service.name in newServiceNames) {
+          return false;
+        }
+        const intersection = service.avoid.filter((x) =>
+          newServiceNames.includes(x)
+        );
+        if (intersection.length > 0) {
+          return false;
+        }
+      }
+    }
+    for (const [, service] of Object.entries(workload.services)) {
+      if (service.name == "Ceph_OSD") {
+        totalDisks += 1;
+      }
+      totalMem += service.requiredMemory;
+      totalCPU += service.requiredCPU;
     }
     if (
-      service instanceof Ceph_OSD &&
-      this.getAmountOfOSDs() >= this.maxDisks
+      this.getUsedCPU() + totalCPU > this.cpuUnits ||
+      this.getUsedMemory() + totalMem > this.memory ||
+      this.getAmountOfOSDs() + totalDisks > this.maxDisks
     ) {
       return false;
     }
     return true;
   }
-  addOCPService(cpuUnits: number, memory: number): void {
-    this.ocpCPUUnits += cpuUnits;
-    this.ocpMemory += memory;
-  }
-  addService(service: Service): boolean {
-    if (this.canIAddService(service)) {
-      this.services.push(service);
+  addWorkload(workload: Workload): boolean {
+    if (!this.canIAddWorkload(workload)) {
+      return false;
+    }
+    if (workload.name in this.workloads) {
+      // We already have services from that workload
+      // So we need to append the new services to the existing workload
+      for (const [, newService] of Object.entries(workload.services)) {
+        this.workloads[workload.name].services[newService.name] = newService;
+      }
       return true;
     }
-    return false;
+    this.workloads[workload.name] = workload;
+    return true;
   }
   getAmountOfOSDs(): number {
     let osdCount = 0;
-    this.services.forEach((service) => {
-      if (service instanceof Ceph_OSD) {
-        osdCount++;
+    for (const [, workload] of Object.entries(this.workloads)) {
+      for (const [, service] of Object.entries(workload.services)) {
+        if (service.name.startsWith("Ceph_OSD")) {
+          osdCount++;
+        }
       }
-    });
+    }
     return osdCount;
   }
-  nodeHasService(service: Service): boolean {
-    this.services.forEach((nodeService) => {
-      if (nodeService instanceof Object.getPrototypeOf(service)) {
-        return true;
-      }
-    });
-    return false;
-  }
-
-  getDetails(): NodeDetails<Service> {
+  getDetails(): NodeDetails<Workload> {
     return {
       usedCpuUnits: this.getUsedCPU(),
       usedMemory: this.getUsedMemory(),
       amountOfOSDs: this.getAmountOfOSDs(),
-      services: this.services,
+      workloads: this.workloads,
     };
   }
-  /*
-  print(indentation = ""): string {
-    let message = '<div class="node-list">';
-    message += `<div class="node-list__title">${indentation} This node has ${this.getUsedCPU()}/${
-      this.cpuUnits
-    } used CPU units, ${this.getUsedMemory()}/${
-      this.memory
-    } used GB of memory and ${this.getAmountOfOSDs()}/${
-      this.maxDisks
-    } disks.</div>`;
-    message +=
-      indentation +
-      "<div class='node-list__subtitle'>SERVICES ON THIS Node:</div>";
-    this.services.forEach((service) => {
-      message += `<div class="node-list__item">${service.print(
-        indentation + indentation
-      )}</div>`;
-    });
-    message += "</div>";
-    return message;
+
+  getFittingNodeSize(): string {
+    return this.nodeSize;
   }
-*/
-  abstract getFittingNodeSize(): string;
 }
 
 export class BareMetal extends Node {
-  constructor(maxDisks = 24, cpuUnits = 24, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 24, memory = 64, machineSet = "") {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
+    this.nodeSize = `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
+    this.machineSet = machineSet;
   }
 
   getFittingNodeSize(): string {
-    return `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
+    return this.nodeSize;
   }
 }
 
@@ -131,26 +142,30 @@ export class VMnode extends Node {
   // max 4 adapters = 120 disks in total (minus OS disk)
   // https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
 
-  constructor(maxDisks = 24, cpuUnits = 40, memory = 128) {
+  constructor(maxDisks = 24, cpuUnits = 40, memory = 128, machineSet = "") {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
+    this.nodeSize = `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
+    this.machineSet = machineSet;
   }
 
   getFittingNodeSize(): string {
-    return `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
+    return this.nodeSize;
   }
 }
 
 export class AWSattached extends Node {
   // node storage i3en.2xl
   // 2 x 2.5TB disks
-  constructor(maxDisks = 2, cpuUnits = 8, memory = 64) {
+  constructor(maxDisks = 2, cpuUnits = 8, memory = 64, machineSet = "") {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
+    this.nodeSize = "i3en.2xlarge";
+    this.machineSet = machineSet;
   }
 
   getFittingNodeSize(): string {
@@ -166,15 +181,17 @@ export class AWSEBS extends Node {
 
   // Linux nodes should not have more than 40 EBS volumes
   // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
-  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64, machineSet = "") {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
+    this.nodeSize = "m5.4xlarge";
+    this.machineSet = machineSet;
   }
 
   getFittingNodeSize(): string {
-    return "m5.4xlarge";
+    return this.nodeSize;
   }
 }
 
@@ -183,29 +200,33 @@ export class GCP extends Node {
   // https://docs.google.com/document/d/1COHDVAVJCQovy1YKru9tZ5-GJv0cNXzVQ6t2m2c9-Jo/edit#
   // For high-IOPs n2-standard-16 is better
 
-  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64, machineSet = "") {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
+    this.nodeSize = "e2-standard-16";
+    this.machineSet = machineSet;
   }
 
   getFittingNodeSize(): string {
-    return "e2-standard-16";
+    return this.nodeSize;
   }
 }
 
 export class Azure extends Node {
   // Based on our findings the D16s_v3 has a good performance and price
   // https://docs.google.com/document/d/1-SIa219F0T13Yn1MQMrsP7O1sw8Auy97GCiqfst0J74/edit#
-  constructor(maxDisks = 24, cpuUnits = 16, memory = 64) {
+  constructor(maxDisks = 24, cpuUnits = 16, memory = 64, machineSet = "") {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
+    this.nodeSize = "D16s_v3";
+    this.machineSet = machineSet;
   }
 
   getFittingNodeSize(): string {
-    return "D16s_v3";
+    return this.nodeSize;
   }
 }

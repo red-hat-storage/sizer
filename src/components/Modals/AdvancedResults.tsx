@@ -8,7 +8,7 @@ import "./advanced-results.css";
 type AdvancedResultsModalProps = {
   onClose: () => void;
   isOpen: boolean;
-  replicaSets: DeploymentDetails["replicaSets"];
+  replicaSets: DeploymentDetails["zones"];
 };
 
 const AdvancedResultsModal: React.FC<AdvancedResultsModalProps> = ({

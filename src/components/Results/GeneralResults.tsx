@@ -7,11 +7,11 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
     ocpNodes,
     cpuUnits,
     memory,
-    capacity,
-    deploymentType,
-    nvmeTuning,
-    warningFirst,
-    warningSecond,
+    diskCapacity: capacity,
+    // deploymentType,
+    // nvmeTuning,
+    // warningFirst,
+    // warningSecond,
   } = props;
   return (
     <div className="results-general" id="results">
@@ -31,7 +31,7 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
           <ListItem>The disk size is {capacity} TB</ListItem>
         </List>
       </div>
-      <div>
+      {/* <div>
         The ODF deployment type is <strong>{deploymentType}</strong>. ODF tuning
         for NVMe disks is{" "}
         <strong>{nvmeTuning ? "active" : "not active"}</strong>.
@@ -41,7 +41,7 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
         TB before receiving a capactiy alert and up to{" "}
         {warningSecond?.toFixed(2)} TB before the cluster goes into read-only
         mode.
-      </div>
+      </div> */}
     </div>
   );
 };

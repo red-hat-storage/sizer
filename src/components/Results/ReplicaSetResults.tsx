@@ -1,7 +1,7 @@
 import * as React from "react";
 import { List, ListItem, Title, TitleSizes } from "@patternfly/react-core";
 import { Node } from "../../models/Node";
-import Service from "../../models/Service";
+import { Service } from "../../models/Service";
 
 type ServiceResultsProps = {
   services: Service[];
@@ -28,7 +28,8 @@ const NodeResults: React.FC<NodeResultsProps> = ({ node }) => {
       </div>
       <div>
         Services on THIS node:
-        {<ServiceResults services={node.services} />}
+        {/* TODO Fix this */}
+        {/* {<ServiceResults services={node.workloads} />} */}
       </div>
     </div>
   );
