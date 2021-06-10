@@ -1,10 +1,11 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 import Conv from "html2canvas";
 import { Button } from "@patternfly/react-core";
 import Cluster from "../../models/Cluster";
 import Disk from "../../models/Disk";
 import { Node } from "../../models/Node";
-import { DeploymentDetails, State } from "../../types";
+import { DeploymentDetails } from "../../types";
 import AdvancedResultsModal from "../Modals/AdvancedResults";
 import SupportExceptionModal from "../Modals/SupportException";
 import NodesVisualResults from "./NodeResults";
@@ -16,16 +17,12 @@ import SkipToTop from "./SkipToTop";
 import "./result.css";
 import { MachineSet } from "../../models/MachineSet";
 
-type ResultsProps = {
-  state: State;
-};
-
-const Results: React.FC<ResultsProps> = (props) => {
-  const { state } = props;
+const Results: React.FC = () => {
   const [
     processedValues,
     setProcessedValues,
   ] = React.useState<DeploymentDetails>({} as DeploymentDetails);
+  const state = useSelector((state: any) => state.ocs);
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);
   const {

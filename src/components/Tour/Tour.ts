@@ -1,14 +1,11 @@
 import Shepherd from "shepherd.js";
 import * as Cookies from "js-cookie";
-import { Action, Payload } from "../../types";
+import { setFlashSize, setTab, setTourActive } from "../../redux";
+import { Dispatch } from "@reduxjs/toolkit";
 
-type GetSizeTour = (
-  setTour: React.Dispatch<React.SetStateAction<boolean>>,
-  setActiveTab: React.Dispatch<React.SetStateAction<number>>,
-  dispatch: React.Dispatch<{ type: Action; payload: Payload }>
-) => Shepherd.Tour;
+type GetSizeTour = (dispatch: Dispatch) => Shepherd.Tour;
 
-export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
+export const getSizerTour: GetSizeTour = (dispatch) => {
   const tour = new Shepherd.Tour({
     defaultStepOptions: {
       scrollTo: true,
@@ -23,11 +20,11 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
   tour.on("complete", () => {
     console.debug("Tour completed, setting cookie");
     Cookies.set("SkipTour", "true");
-    setTour(false);
+    dispatch(setTourActive(false));
   });
 
   tour.on("cancel", () => {
-    setTour(false);
+    dispatch(setTourActive(false));
   });
 
   tour.addSteps([
@@ -79,7 +76,7 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
       ],
       when: {
         show: () => {
-          setActiveTab(0);
+          dispatch(setTab(0));
         },
       },
     },
@@ -174,12 +171,12 @@ export const getSizerTour: GetSizeTour = (setTour, setActiveTab, dispatch) => {
       when: {
         show: () => {
           // Set State to make the cluster out of regular support size
-          dispatch({ type: Action.setFlashSize, payload: 6 });
-          setActiveTab(1);
+          dispatch(setFlashSize(6));
+          dispatch(setTab(1));
         },
         hide: () => {
           // Revert it to original State
-          dispatch({ type: Action.setFlashSize, payload: 2.5 });
+          dispatch(setFlashSize(2.5));
         },
       },
     },

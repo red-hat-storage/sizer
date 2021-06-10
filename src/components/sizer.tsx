@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import * as Cookies from "js-cookie";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
@@ -8,7 +9,7 @@ import AboutModal from "./Modals/about";
 import FAQModal from "./Modals/faq";
 import Header from "./Header/Header";
 import { getSizerTour } from "./Tour/Tour";
-import { stateReducer, initialState } from "../state";
+import { store, setTab, setTourActive } from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
 import GA4React from "ga-4-react";
@@ -24,11 +25,10 @@ const ga4react = new GA4React(process.env.GAKEY || "", {
   send_page_view: true,
 });
 
-export const Sizer: React.FC = () => {
-  const [activeTab, setActiveTab] = React.useState(1);
-  const [state, dispatch] = React.useReducer(stateReducer, initialState);
+export const Sizer_: React.FC = () => {
+  const dispatch = useDispatch();
+  const activeTab = useSelector((state: any) => state.ui.activeTab);
   const [activeModal, setActiveModal] = React.useState("");
-  const [isTour, setTour] = React.useState(false);
 
   const onSelect = (selectedItem: string) => {
     if (selectedItem === "about") {
@@ -40,7 +40,7 @@ export const Sizer: React.FC = () => {
 
   React.useEffect(() => {
     if (window.location.search === "") {
-      setActiveTab(0);
+      dispatch(setTab(0));
     }
     if (
       TRACKED_PLATFORMS.includes(window.location.host) &&
@@ -51,12 +51,12 @@ export const Sizer: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    const tour = getSizerTour(setTour, setActiveTab, dispatch);
+    const tour = getSizerTour(dispatch);
     if (!Cookies.get("SkipTour") && !window.location.search.includes("faq")) {
-      setTour(true);
+      dispatch(setTourActive(true));
       tour.start();
     } else {
-      setTour(false);
+      dispatch(setTourActive(false));
     }
   }, []);
 
@@ -80,22 +80,17 @@ export const Sizer: React.FC = () => {
           <Route path="/">
             <Tabs
               activeKey={activeTab}
-              onSelect={(_e, tabIndex) => setActiveTab(tabIndex as number)}
+              onSelect={(_e, tabIndex) => dispatch(setTab(tabIndex as number))}
             >
               <Tab
                 className="sizer-section"
                 eventKey={0}
                 title={<TabTitleText>Capacity Planning</TabTitleText>}
               >
-                <Planner
-                  className="sizer-section"
-                  state={state}
-                  dispatch={dispatch}
-                  isTour={isTour}
-                />
+                <Planner />
               </Tab>
               <Tab eventKey={1} title={<TabTitleText>Results</TabTitleText>}>
-                <Results state={state} />
+                <Results />
               </Tab>
             </Tabs>
           </Route>
@@ -104,3 +99,9 @@ export const Sizer: React.FC = () => {
     </Router>
   );
 };
+
+export const Sizer: React.FC = () => (
+  <Provider store={store}>
+    <Sizer_ />
+  </Provider>
+);
