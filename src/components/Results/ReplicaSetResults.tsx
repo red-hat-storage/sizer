@@ -2,15 +2,18 @@ import * as React from "react";
 import { List, ListItem, Title, TitleSizes } from "@patternfly/react-core";
 import { Node } from "../../models/Node";
 import { Service } from "../../models/Service";
+import { Workload } from "../../models/Workload";
 
 type ServiceResultsProps = {
-  services: Service[];
+  workloads: Record<string, Workload>;
 };
-const ServiceResults: React.FC<ServiceResultsProps> = ({ services }) => (
+const ServiceResults: React.FC<ServiceResultsProps> = ({ workloads }) => (
   <List className="services left-margined">
-    {services.map((service, i) => (
-      <ListItem key={i}>{service.getDetails()}</ListItem>
-    ))}
+    {Object.entries(workloads).map((item, index) =>
+      item[1]
+        .getNamesOfServices()
+        .map((serviceName, serviceIndex) => <ListItem>{serviceName}</ListItem>)
+    )}
   </List>
 );
 
@@ -28,8 +31,7 @@ const NodeResults: React.FC<NodeResultsProps> = ({ node }) => {
       </div>
       <div>
         Services on THIS node:
-        {/* TODO Fix this */}
-        {/* {<ServiceResults services={node.workloads} />} */}
+        {<ServiceResults workloads={node.workloads} />}
       </div>
     </div>
   );
