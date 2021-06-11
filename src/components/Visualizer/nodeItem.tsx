@@ -22,9 +22,9 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
   const nodeLabel = "Openshift node";
   const instanceType = node.getFittingNodeSize();
   const totalCPUs = node.cpuUnits;
-  const ocsCPU = node.getUsedCPU();
+  const usedCPUs = node.getUsedCPU();
   const totalMemory = node.memory;
-  const ocsMemory = node.getUsedMemory();
+  const usedMemory = node.getUsedMemory();
   const usedDisks = node.getAmountOfOSDs();
 
   return (
@@ -47,13 +47,13 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           <Tooltip
             content={
               <div>
-                <div>Workloads use {ocsCPU} CPU units</div>
+                <div>Workloads use {usedCPUs} CPU units</div>
                 <div>Total {totalCPUs} CPU units</div>
               </div>
             }
           >
             <Progress
-              value={(ocsCPU / totalCPUs) * 100}
+              value={(usedCPUs / totalCPUs) * 100}
               measureLocation={ProgressMeasureLocation.none}
             />
           </Tooltip>
@@ -63,13 +63,13 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           <Tooltip
             content={
               <div>
-                <div>Workloads use {ocsMemory} GB</div>
+                <div>Workloads use {usedMemory} GB</div>
                 <div>Total {totalMemory} GB</div>
               </div>
             }
           >
             <Progress
-              value={(ocsMemory / totalMemory) * 100}
+              value={(usedMemory / totalMemory) * 100}
               measureLocation={ProgressMeasureLocation.none}
             />
           </Tooltip>
