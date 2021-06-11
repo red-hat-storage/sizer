@@ -45,16 +45,22 @@ class Cluster {
 
   getSmallestZone(ignoreZones: number[]): number {
     let smallestZone = -1;
+    let smallestZoneCPU = 0;
     for (let i = 0; i < this.zones.length; i++) {
       if (ignoreZones.includes(i)) {
         continue;
       }
       const zone = this.zones[i];
+      const currentZoneCPU = zone.getTotalUsedCPU();
       if (
         smallestZone == -1 ||
         zone.nodes.length < this.zones[smallestZone].nodes.length
+        //  ||
+        // (zone.nodes.length == this.zones[smallestZone].nodes.length &&
+        //   currentZoneCPU < smallestZoneCPU)
       ) {
         smallestZone = i;
+        smallestZoneCPU = currentZoneCPU;
       }
     }
     if (smallestZone == -1) {
@@ -178,8 +184,6 @@ class Cluster {
           }
         }
       }
-    if (!newNode.addWorkload(serviceBundle)) {
-      console.error(`We tried to add ${services} on a new node, but failed!`);
     }
     zone.nodes.push(newNode);
     return newNode;
