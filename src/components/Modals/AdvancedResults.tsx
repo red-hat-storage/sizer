@@ -8,13 +8,13 @@ import "./advanced-results.css";
 type AdvancedResultsModalProps = {
   onClose: () => void;
   isOpen: boolean;
-  replicaSets: DeploymentDetails["zones"];
+  zones: DeploymentDetails["zones"];
 };
 
 const AdvancedResultsModal: React.FC<AdvancedResultsModalProps> = ({
   onClose,
   isOpen,
-  replicaSets,
+  zones: zones,
 }) => {
   useCloseModal(onClose, isOpen);
   return (
@@ -25,14 +25,14 @@ const AdvancedResultsModal: React.FC<AdvancedResultsModalProps> = ({
       className="advanced-modal"
     >
       <div className="advanced-results left-margined">
-        {replicaSets?.map((replSet, i) => (
+        {zones?.map((zone, i) => (
           <div className="advanced-results__item left-margined" key={i}>
             <div>
               <Title headingLevel="h4" size="xl">
                 Node Set {(i + 1).toFixed(0)}
               </Title>
             </div>
-            <ReplicaSetResults nodes={replSet.nodes} />
+            <ReplicaSetResults nodes={zone.nodes} />
           </div>
         ))}
       </div>

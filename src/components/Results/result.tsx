@@ -124,7 +124,7 @@ const Results: React.FC<ResultsProps> = (props) => {
       <AdvancedResultsModal
         onClose={() => setShowAdvanced(false)}
         isOpen={showAdvanced}
-        replicaSets={processedValues.zones}
+        zones={processedValues.zones}
       />
       {/* Todo(bipuladh): There is no specific need for this component to be tied to results page */}
       <SupportExceptionModal
