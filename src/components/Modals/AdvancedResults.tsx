@@ -29,7 +29,7 @@ const AdvancedResultsModal: React.FC<AdvancedResultsModalProps> = ({
           <div className="advanced-results__item left-margined" key={i}>
             <div>
               <Title headingLevel="h4" size="xl">
-                Node Set {(i + 1).toFixed(0)}
+                Zone {(i + 1).toFixed(0)}
               </Title>
             </div>
             <ReplicaSetResults nodes={zone.nodes} />
