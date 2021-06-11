@@ -22,11 +22,9 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
   const nodeLabel = "Openshift node";
   const instanceType = node.getFittingNodeSize();
   const totalCPUs = node.cpuUnits;
-  const ocpCPU = node.ocpCPUUnits;
-  const ocsCPU = node.getUsedCPU();
+  const usedCPUs = node.getUsedCPU();
   const totalMemory = node.memory;
-  const ocpMemory = node.ocpMemory;
-  const ocsMemory = node.getUsedMemory();
+  const usedMemory = node.getUsedMemory();
   const usedDisks = node.getAmountOfOSDs();
 
   return (
@@ -49,14 +47,13 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           <Tooltip
             content={
               <div>
-                <div>OCP uses {ocpCPU} CPU units</div>
-                <div>ODF uses {ocsCPU} CPU units</div>
+                <div>Workloads use {usedCPUs} CPU units</div>
                 <div>Total {totalCPUs} CPU units</div>
               </div>
             }
           >
             <Progress
-              value={((ocpCPU + ocsCPU) / totalCPUs) * 100}
+              value={(usedCPUs / totalCPUs) * 100}
               measureLocation={ProgressMeasureLocation.none}
             />
           </Tooltip>
@@ -66,20 +63,22 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           <Tooltip
             content={
               <div>
-                <div>OCP uses {ocpMemory} GB</div>
-                <div>ODF uses {ocsMemory} GB</div>
+                <div>Workloads use {usedMemory} GB</div>
                 <div>Total {totalMemory} GB</div>
               </div>
             }
           >
             <Progress
-              value={((ocpMemory + ocsMemory) / totalMemory) * 100}
+              value={(usedMemory / totalMemory) * 100}
               measureLocation={ProgressMeasureLocation.none}
             />
           </Tooltip>
         </CardBody>
       </div>
-      <CardFooter> 16 CPUs | 128 GB RAM</CardFooter>
+      <CardFooter>
+        {" "}
+        {totalCPUs} CPUs | {totalMemory} GB RAM
+      </CardFooter>
     </Card>
   );
 };
