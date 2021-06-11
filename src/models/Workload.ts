@@ -11,17 +11,23 @@ export class Workload {
   usesMachines: string[];
   // services to run this workload
   services: Record<string, Service>;
+  // amount of persistent storage (in TB)
+  // this workload is expected to consume
+  // Used for ODF sizing
+  storageCapacityRequired: number;
 
   constructor(
     name: string,
     services: Record<string, Service>,
+    storageCapacityRequired: number,
     count = 1,
     usesMachines: string[] = []
   ) {
     this.name = name;
+    this.services = services;
+    this.storageCapacityRequired = storageCapacityRequired;
     this.count = count;
     this.usesMachines = usesMachines;
-    this.services = services;
   }
 
   getTotalMemory(): number {

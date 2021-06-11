@@ -112,6 +112,7 @@ class Cluster {
     const serviceBundle = new Workload(
       workload.name,
       services,
+      workload.storageCapacityRequired,
       workload.count,
       workload.usesMachines
     );
@@ -268,7 +269,7 @@ class Cluster {
     nvmeTuning = false,
     dedicatedMachineSets: string[] = []
   ): Workload {
-    const odfWorkload = new Workload("ODF", {}, 1, dedicatedMachineSets);
+    const odfWorkload = new Workload("ODF", {}, 0, 1, dedicatedMachineSets);
     odfWorkload.services["Ceph_MGR"] = new Service(
       "Ceph_MGR", //name
       1, // CPU
