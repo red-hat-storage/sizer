@@ -12,7 +12,9 @@ const ServiceResults: React.FC<ServiceResultsProps> = ({ workloads }) => (
     {Object.entries(workloads).map((item, index) =>
       item[1]
         .getNamesOfServices()
-        .map((serviceName, serviceIndex) => <ListItem>{serviceName}</ListItem>)
+        .map((serviceName, serviceIndex) => (
+          <ListItem key={index * 1000 + serviceIndex}>{serviceName}</ListItem>
+        ))
     )}
   </List>
 );
