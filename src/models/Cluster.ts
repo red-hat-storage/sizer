@@ -143,22 +143,41 @@ class Cluster {
     // First we try to figure out if the workload wants a specific machineSet
     // If the workload is not specific, we try to find a machineSet that fits our needs
     let newNode = new BareMetal();
-    if (workload.usesMachines.length > 0) {
-      newNode = this.machineSets[workload.usesMachines[0]].getNewNode();
-    } else {
+    let foundNewNode = false;
+    for (let i = 0; i < workload.usesMachines.length; i++) {
+      const machineset = this.machineSets[workload.usesMachines[i]];
+      newNode = machineset.getNewNode();
+
+      if (newNode.addWorkload(serviceBundle)) {
+        foundNewNode = true;
+        break;
+      }
+    }
+    if (!foundNewNode) {
       // Look if there is a machineSet for this workload, then use that
       for (const [, machineSet] of Object.entries(this.machineSets)) {
         if (machineSet.onlyFor.includes(workload.name)) {
           newNode = machineSet.getNewNode();
+
+          if (newNode.addWorkload(serviceBundle)) {
+            foundNewNode = true;
+            break;
+          }
         }
       }
+    }
+    if (!foundNewNode) {
       // Use a generic workload to get a new node
       for (const [, machineSet] of Object.entries(this.machineSets)) {
         if (machineSet.onlyFor.length == 0) {
           newNode = machineSet.getNewNode();
+
+          if (newNode.addWorkload(serviceBundle)) {
+            foundNewNode = true;
+            break;
+          }
         }
       }
-    }
     if (!newNode.addWorkload(serviceBundle)) {
       console.error(`We tried to add ${services} on a new node, but failed!`);
     }
