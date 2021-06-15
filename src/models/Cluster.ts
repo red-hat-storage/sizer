@@ -82,12 +82,13 @@ class Cluster {
   // Private method, only called by addWorkload() which handles the workload count
   private addServicesOfWorkload(workload: Workload): void {
     const handledServices: string[] = [];
+
     for (const [name, service] of Object.entries(workload.services)) {
       if (handledServices.includes(name)) {
         continue;
       }
-      const serviceBundle: Record<string, Service> = {};
-      serviceBundle[service.name] = service;
+      const serviceBundle = [];
+      serviceBundle.push(service);
       // The services in the serviceBundle might have different zones settings
       // We chose to look for the highest zone setting and deploy some services more often than requested
       // So that these services are actually deployed together all the time
@@ -97,7 +98,7 @@ class Cluster {
         const colocatedService = workload.services[colocatedServiceName];
         // We assume that service names are checked when we import the workload
         // Else this could fail when the name is not actually in the service dict
-        serviceBundle[colocatedService.name] = colocatedService;
+        serviceBundle.push(colocatedService);
         handledServices.push(colocatedServiceName);
         bundleZones = Math.max(bundleZones, colocatedService.zones);
       }
@@ -110,11 +111,7 @@ class Cluster {
     }
   }
 
-  addServicesInZone(
-    services: Record<string, Service>,
-    workload: Workload,
-    zone: Zone
-  ): Node {
+  addServicesInZone(services: Service[], workload: Workload, zone: Zone): Node {
     const serviceBundle = new Workload(
       workload.name,
       services,
@@ -292,7 +289,7 @@ class Cluster {
     nvmeTuning = false,
     dedicatedMachineSets: string[] = []
   ): Workload {
-    const odfWorkload = new Workload("ODF", {}, 0, 1, dedicatedMachineSets);
+    const odfWorkload = new Workload("ODF", [], 0, 1, dedicatedMachineSets);
     odfWorkload.services["Ceph_MGR"] = new Service(
       "Ceph_MGR", //name
       1, // CPU
