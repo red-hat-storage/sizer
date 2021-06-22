@@ -5,16 +5,19 @@ import { MachineSet } from "./MachineSet";
 import Disk from "./Disk";
 import { BareMetal, Node } from "./Node";
 import { Zone } from "./Zone";
+import { generateRandomString } from "./util";
 
 class Cluster {
   diskType: Disk;
-  machineSets: Record<string, MachineSet>;
+  machineSets: {
+    [machineSetName: string]: MachineSet;
+  };
   zones: Zone[];
 
   constructor(
     deploymentType: DeploymentType,
     diskType: Disk,
-    machineSets: Record<string, MachineSet>,
+    machineSets: MachineSet[],
     usableCapacity: number,
     cephFSActive = true,
     nooBaaActive = true,
@@ -23,10 +26,14 @@ class Cluster {
     workloads: Workload[] = []
   ) {
     this.diskType = diskType;
-    this.machineSets = machineSets;
+    this.machineSets = machineSets.reduce((acc, curr) => {
+      acc[curr.name] = curr;
+      return acc;
+    }, {} as Cluster["machineSets"]);
+
     this.zones = [];
 
-    const odfWorkload = this.getODFWorkload(
+    const odfWorkload = generateODFWorkload(
       usableCapacity,
       diskType,
       deploymentType,
@@ -43,32 +50,37 @@ class Cluster {
     });
   }
 
-  getSmallestZone(ignoreZones: number[]): number {
-    let smallestZone = -1;
-    let smallestZoneCPU = 0;
-    for (let i = 0; i < this.zones.length; i++) {
-      if (ignoreZones.includes(i)) {
-        continue;
+  addZone(nodes: Node[] = []): Zone {
+    const zoneIds = this.zones.map((zone) => zone.zoneId);
+    let id = "";
+    let unique = false;
+    while (!unique) {
+      id = generateRandomString();
+      if (!zoneIds.includes(id)) {
+        unique = true;
       }
-      const zone = this.zones[i];
-      const currentZoneCPU = zone.getTotalUsedCPU();
+    }
+    const zone = new Zone(nodes, id);
+    this.zones.push(zone);
+    return zone;
+  }
+
+  getSmallestZone(ignoreZones: string[]): Zone {
+    const viableZones = this.zones.filter(
+      (zone) => !ignoreZones.includes(zone.zoneId)
+    );
+    if (viableZones.length === 0) {
+      return this.addZone();
+    }
+    return viableZones.reduce((smallestZone, currentZone) => {
       if (
-        smallestZone == -1 ||
-        zone.nodes.length < this.zones[smallestZone].nodes.length
-        //  ||
-        // (zone.nodes.length == this.zones[smallestZone].nodes.length &&
-        //   currentZoneCPU < smallestZoneCPU)
+        !smallestZone ||
+        currentZone.nodes.length < smallestZone.nodes.length
       ) {
-        smallestZone = i;
-        smallestZoneCPU = currentZoneCPU;
+        return currentZone;
       }
-    }
-    if (smallestZone == -1) {
-      // We reach this if all zones are in the ignore list
-      // then we just add a zone to our zone list
-      return this.zones.push(new Zone([])) - 1;
-    }
-    return smallestZone;
+      return smallestZone;
+    }, (null as unknown) as Zone);
   }
 
   addWorkload(workload: Workload): void {
@@ -82,33 +94,36 @@ class Cluster {
   // Private method, only called by addWorkload() which handles the workload count
   private addServicesOfWorkload(workload: Workload): void {
     const handledServices: string[] = [];
-
-    for (const [name, service] of Object.entries(workload.services)) {
-      if (handledServices.includes(name)) {
-        continue;
+    Object.entries(workload.services).forEach(([name, service]) => {
+      if (!handledServices.includes(name)) {
+        // The services in the serviceBundle might have different zones settings
+        // We chose to look for the highest zone setting and deploy some services more often than requested
+        // So that these services are actually deployed together all the time
+        const { serviceBundle, serviceBundleZones } = service.runsWith.reduce(
+          ({ serviceBundle, serviceBundleZones }, colocatedServiceName) => {
+            const colocatedService = workload.services[colocatedServiceName];
+            // We assume that service names are checked when we import the workload
+            // Else this could fail when the name is not actually in the service dict
+            serviceBundle.push(colocatedService);
+            handledServices.push(colocatedServiceName);
+            return {
+              serviceBundle,
+              serviceBundleZones: Math.max(
+                serviceBundleZones,
+                colocatedService.zones
+              ),
+            };
+          },
+          { serviceBundle: [service], serviceBundleZones: service.zones }
+        );
+        const usedZones: string[] = [];
+        for (let i = 0; i < serviceBundleZones; i++) {
+          const zone = this.getSmallestZone(usedZones);
+          usedZones.push(zone.zoneId);
+          this.addServicesInZone(serviceBundle, workload, zone);
+        }
       }
-      const serviceBundle = [];
-      serviceBundle.push(service);
-      // The services in the serviceBundle might have different zones settings
-      // We chose to look for the highest zone setting and deploy some services more often than requested
-      // So that these services are actually deployed together all the time
-      let bundleZones = service.zones;
-      for (let i = 0; i < service.runsWith.length; i++) {
-        const colocatedServiceName = service.runsWith[i];
-        const colocatedService = workload.services[colocatedServiceName];
-        // We assume that service names are checked when we import the workload
-        // Else this could fail when the name is not actually in the service dict
-        serviceBundle.push(colocatedService);
-        handledServices.push(colocatedServiceName);
-        bundleZones = Math.max(bundleZones, colocatedService.zones);
-      }
-      const usedZones: number[] = [];
-      for (let i = 0; i < bundleZones; i++) {
-        const zoneIndex = this.getSmallestZone(usedZones);
-        usedZones.push(zoneIndex);
-        this.addServicesInZone(serviceBundle, workload, this.zones[zoneIndex]);
-      }
-    }
+    });
   }
 
   addServicesInZone(services: Service[], workload: Workload, zone: Zone): Node {
@@ -220,199 +235,141 @@ class Cluster {
       zones: this.zones,
     };
   }
+}
 
-  // Todo: Take it to the new world!
-  printSKU(): string {
-    let totalSKUCores = 0,
-      totalCores = 0,
-      totalMemory = 0,
-      totalDisks = 0;
-    this.zones.forEach((zone) => {
-      zone.nodes.forEach((node) => {
-        // SKUs cannot be shared between nodes
-        // Thus we need to round up to the next round number
-        totalCores += node.getUsedCPU();
-        totalSKUCores += node.cpuUnits;
-        totalMemory += node.getUsedMemory();
-        totalDisks += node.getAmountOfOSDs();
-      });
-    });
-    let message =
-      "<div>" +
-      `<div>Based on your input, ODF will require a total of ${totalCores} <button class="cpuUnitTooltip">CPU Units</button>, ${totalMemory} GB RAM and ${totalDisks} flash disks</div>`;
-    message += `<div>For the Red Hat SKU calculation we need to use the total instance CPU Unit count of ${totalSKUCores} <button class="cpuUnitTooltip">CPU Units</button></div>`;
-
-    if (totalSKUCores <= 48) {
-      message += `<div class="pt-2">This cluster is small enough to qualify for a StarterPack SKU!</div>`;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if ((window as any).redhatter as boolean) {
-        message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" target="_blank" >Standard SKU version - RS00213</a></div>
-      <div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00212#product-attributes" target="_blank" >Premium SKU version - RS00212</a></div>`;
-      }
-    } else {
-      let showTwoThreads = true;
-      if (totalSKUCores <= 96) {
-        message += `<div class="pt-2">This cluster is small enough to qualify for a StarterPack SKU <b>if it is build with two threads per core</b> (also known as hyper-threading)</div>`;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((window as any).redhatter as boolean) {
-          message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00213#product-attributes" target="_blank" >Standard SKU version - RS00213</a></div>
-          <div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00212#product-attributes" target="_blank" >Premium SKU version - RS00212</a></div>`;
-        }
-        showTwoThreads = false;
-      }
-
-      message += `<div class="pt-2">With <b>one</b> thread per core</div><div class="pl-3">this requires a total of <b>${Math.ceil(
-        totalSKUCores / 2
-      )}</b> RS00181 or RS00182 SKUs</div>`;
-      if (showTwoThreads) {
-        message += `<div class="pt-2">With <b>two</b> threads per core (also known as hyper-threading)</div><div class="pl-3">this requires a total of <b>${Math.ceil(
-          totalSKUCores / 4
-        )}</b> RS00181 or RS00182 SKUs</div>`;
-      }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if ((window as any).redhatter as boolean) {
-        message += `<div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00182#product-attributes" target="_blank" >Standard SKU version - RS00182</a></div>
-      <div><a href="https://offering-manager.corp.redhat.com/offerings/view/RS00181#product-attributes" target="_blank" >Premium SKU version - RS00181</a></div>`;
-      }
+export const generateODFWorkload = (
+  targetCapacity: number,
+  diskType: Disk,
+  deploymentType: DeploymentType,
+  nooBaaActive = true,
+  rgwActive = true,
+  cephFSActive = true,
+  nvmeTuning = false,
+  dedicatedMachineSets: string[] = []
+): Workload => {
+  const odfWorkload = new Workload("ODF", [], 0, 1, dedicatedMachineSets);
+  odfWorkload.services["Ceph_MGR"] = new Service(
+    "Ceph_MGR", //name
+    1, // CPU
+    3.5, // Mem
+    2, // Zones
+    [], // runsWith
+    [] //avoids
+  );
+  odfWorkload.services["Ceph_MON"] = new Service(
+    "Ceph_MON", //name
+    1, // CPU
+    2, // Mem
+    3, // Zones
+    [], // runsWith
+    [] //avoids
+  );
+  if (rgwActive) {
+    let cpu = 2;
+    let mem = 4;
+    switch (deploymentType) {
+      case DeploymentType.EXTERNAL:
+        cpu = 8;
+        mem = 4;
+        break;
+      case DeploymentType.MINIMAL:
+      case DeploymentType.COMPACT:
+        cpu = 1;
+        mem = 4;
+        break;
     }
-
-    return message + "</div>";
-  }
-
-  getODFWorkload(
-    targetCapacity: number,
-    diskType: Disk,
-    deploymentType: DeploymentType,
-    nooBaaActive = true,
-    rgwActive = true,
-    cephFSActive = true,
-    nvmeTuning = false,
-    dedicatedMachineSets: string[] = []
-  ): Workload {
-    const odfWorkload = new Workload("ODF", [], 0, 1, dedicatedMachineSets);
-    odfWorkload.services["Ceph_MGR"] = new Service(
-      "Ceph_MGR", //name
-      1, // CPU
-      3.5, // Mem
-      2, // Zones
-      [], // runsWith
-      [] //avoids
-    );
-    odfWorkload.services["Ceph_MON"] = new Service(
-      "Ceph_MON", //name
-      1, // CPU
-      2, // Mem
+    odfWorkload.services["Ceph_RGW"] = new Service(
+      "Ceph_RGW", //name
+      cpu, // CPU
+      mem, // Mem
       3, // Zones
       [], // runsWith
       [] //avoids
     );
-    if (rgwActive) {
-      let cpu = 2;
-      let mem = 4;
-      switch (deploymentType) {
-        case DeploymentType.EXTERNAL:
-          cpu = 8;
-          mem = 4;
-          break;
-        case DeploymentType.MINIMAL:
-        case DeploymentType.COMPACT:
-          cpu = 1;
-          mem = 4;
-          break;
-      }
-      odfWorkload.services["Ceph_RGW"] = new Service(
-        "Ceph_RGW", //name
-        cpu, // CPU
-        mem, // Mem
-        3, // Zones
-        [], // runsWith
-        [] //avoids
-      );
-    }
-    if (cephFSActive) {
-      let cpu = 3;
-      let mem = 8;
-      switch (deploymentType) {
-        case DeploymentType.EXTERNAL:
-          cpu = 4;
-          mem = 8;
-          break;
-        case DeploymentType.MINIMAL:
-        case DeploymentType.COMPACT:
-          cpu = 1;
-          mem = 8;
-          break;
-      }
-      odfWorkload.services["Ceph_MDS"] = new Service(
-        "Ceph_MDS", //name
-        cpu, // CPU
-        mem, // Mem
-        3, // Zones
-        [], // runsWith
-        [] //avoids
-      );
-    }
-    if (nooBaaActive) {
-      odfWorkload.services["NooBaa_DB"] = new Service(
-        "NooBaa_DB",
-        0.5,
-        4,
-        2,
-        [],
-        []
-      );
-      odfWorkload.services["NooBaa_Endpoint"] = new Service(
-        "NooBaa_Endpoint",
-        1,
-        2,
-        2,
-        [],
-        []
-      );
-      odfWorkload.services["NooBaa_core"] = new Service(
-        "NooBaa_core",
-        1,
-        4,
-        2,
-        [],
-        []
-      );
-    }
-
-    const osdsNeededForTargetCapacity = Math.ceil(
-      targetCapacity / diskType.capacity
-    );
-
-    let osdCPU = 2;
-    let osdMem = 5;
+  }
+  if (cephFSActive) {
+    let cpu = 3;
+    let mem = 8;
     switch (deploymentType) {
       case DeploymentType.EXTERNAL:
-        osdCPU = 4;
-        osdMem = 5;
+        cpu = 4;
+        mem = 8;
         break;
       case DeploymentType.MINIMAL:
       case DeploymentType.COMPACT:
-        osdCPU = 1;
-        osdMem = 5;
+        cpu = 1;
+        mem = 8;
         break;
     }
-    if (nvmeTuning) {
-      // https://docs.google.com/document/d/1zqckcf4NllPvcKEHBs4wOzReG55P_GwvxdJ-1QajreY/edit#
-      osdCPU = 5;
-    }
-    for (let i = 0; i < osdsNeededForTargetCapacity; i++) {
-      odfWorkload.services[`Ceph_OSD_${i}`] = new Service(
-        `Ceph_OSD_${i}`, //name
-        osdCPU, // CPU
-        osdMem, // Mem
-        3, // Zones
-        [], // runsWith
-        [] //avoids
-      );
-    }
-
-    return odfWorkload;
+    odfWorkload.services["Ceph_MDS"] = new Service(
+      "Ceph_MDS", //name
+      cpu, // CPU
+      mem, // Mem
+      3, // Zones
+      [], // runsWith
+      [] //avoids
+    );
   }
-}
+  if (nooBaaActive) {
+    odfWorkload.services["NooBaa_DB"] = new Service(
+      "NooBaa_DB",
+      0.5,
+      4,
+      2,
+      [],
+      []
+    );
+    odfWorkload.services["NooBaa_Endpoint"] = new Service(
+      "NooBaa_Endpoint",
+      1,
+      2,
+      2,
+      [],
+      []
+    );
+    odfWorkload.services["NooBaa_core"] = new Service(
+      "NooBaa_core",
+      1,
+      4,
+      2,
+      [],
+      []
+    );
+  }
+
+  const osdsNeededForTargetCapacity = Math.ceil(
+    targetCapacity / diskType.capacity
+  );
+
+  let osdCPU = 2;
+  let osdMem = 5;
+  switch (deploymentType) {
+    case DeploymentType.EXTERNAL:
+      osdCPU = 4;
+      osdMem = 5;
+      break;
+    case DeploymentType.MINIMAL:
+    case DeploymentType.COMPACT:
+      osdCPU = 1;
+      osdMem = 5;
+      break;
+  }
+  if (nvmeTuning) {
+    // https://docs.google.com/document/d/1zqckcf4NllPvcKEHBs4wOzReG55P_GwvxdJ-1QajreY/edit#
+    osdCPU = 5;
+  }
+  for (let i = 0; i < osdsNeededForTargetCapacity; i++) {
+    odfWorkload.services[`Ceph_OSD_${i}`] = new Service(
+      `Ceph_OSD_${i}`, //name
+      osdCPU, // CPU
+      osdMem, // Mem
+      3, // Zones
+      [], // runsWith
+      [] //avoids
+    );
+  }
+
+  return odfWorkload;
+};
 
 export default Cluster;

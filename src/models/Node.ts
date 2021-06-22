@@ -1,5 +1,6 @@
 import { Workload } from "./Workload";
 import { NodeDetails } from "../types";
+import * as _ from "lodash";
 
 export abstract class Node {
   maxDisks: number;
@@ -10,7 +11,9 @@ export abstract class Node {
   // Name of the machineSet that created this node
   machineSet: string;
   // services: Array<Service>;
-  workloads: Record<string, Workload>;
+  workloads: {
+    [workloadName: string]: Workload;
+  };
 
   constructor(
     maxDisks = 0,
@@ -29,50 +32,67 @@ export abstract class Node {
   }
 
   getUsedMemory(): number {
-    let totalMemory = 0;
-    for (const [, workload] of Object.entries(this.workloads)) {
-      totalMemory += workload.getTotalMemory();
-    }
-    return totalMemory;
+    return Object.values(this.workloads).reduce(
+      (totalMemory, workload) => (totalMemory += workload.getTotalMemory()),
+      0
+    );
   }
+
   getUsedCPU(): number {
-    let totalCores = 0;
-    for (const [, workload] of Object.entries(this.workloads)) {
-      totalCores += workload.getTotalCPU();
-    }
+    const totalCores = Object.values(this.workloads).reduce(
+      (totalCores, workload) => (totalCores += workload.getTotalCPU()),
+      0
+    );
     return 2 * Math.round(Math.ceil(totalCores) / 2);
   }
+
   canIAddWorkload(workload: Workload): boolean {
-    let totalCPU = 0,
-      totalMem = 0,
-      totalDisks = 0;
     if (workload.name in this.workloads) {
       // If we already have services from that workload
       // we need to ensure that the same service does not already exist
       //  and that the existing services do not dislike
       // these new services
+      const newServices = Object.values(workload.services);
       const newServiceNames = workload.getNamesOfServices();
-      for (const [, service] of Object.entries(
+      const existingServices = Object.values(
         this.workloads[workload.name].services
-      )) {
-        if (service.name in newServiceNames) {
-          return false;
-        }
-        const intersection = service.avoid.filter((x) =>
-          newServiceNames.includes(x)
-        );
-        if (intersection.length > 0) {
-          return false;
-        }
+      );
+      const existingServiceNames = existingServices.map(
+        (service) => service.name
+      );
+      const existingServicesAvoid = _.flatten(
+        existingServices.map((service) => service.avoid)
+      );
+      const newServicesAvoid = _.flatten(
+        newServices.map((service) => service.avoid)
+      );
+
+      if (_.intersection(newServiceNames, existingServiceNames).length > 0) {
+        return false;
+      }
+
+      if (_.intersection(newServiceNames, existingServicesAvoid).length > 0) {
+        return false;
+      }
+
+      if (_.intersection(newServicesAvoid, existingServiceNames).length > 0) {
+        return false;
       }
     }
-    for (const [, service] of Object.entries(workload.services)) {
-      if (service.name == "Ceph_OSD") {
-        totalDisks += 1;
-      }
-      totalMem += service.requiredMemory;
-      totalCPU += service.requiredCPU;
-    }
+    const { totalMem, totalCPU, totalDisks } = Object.values(
+      workload.services
+    ).reduce(
+      (acc, service) => {
+        if (service.name === "Ceph_OSD") {
+          acc.totalDisks += 1;
+        }
+        acc.totalMem += service.requiredMemory;
+        acc.totalCPU += service.requiredCPU;
+        return acc;
+      },
+      { totalMem: 0, totalCPU: 0, totalDisks: 0 }
+    );
+
     if (
       this.getUsedCPU() + totalCPU > this.cpuUnits ||
       this.getUsedMemory() + totalMem > this.memory ||
@@ -82,6 +102,7 @@ export abstract class Node {
     }
     return true;
   }
+
   addWorkload(workload: Workload): boolean {
     if (!this.canIAddWorkload(workload)) {
       return false;
@@ -89,34 +110,52 @@ export abstract class Node {
     if (workload.name in this.workloads) {
       // We already have services from that workload
       // So we need to append the new services to the existing workload
-      for (const [, newService] of Object.entries(workload.services)) {
+      /*       for (const [, newService] of Object.entries(workload.services)) {
         this.workloads[workload.name].services[newService.name] = newService;
-      }
+      } */
+      Object.values(workload.services).forEach((service) => {
+        this.workloads[workload.name].services[service.name] = service;
+      });
+
       return true;
     }
     this.workloads[workload.name] = workload;
     return true;
   }
+
   getAmountOfOSDs(): number {
-    let osdCount = 0;
+    /*     let osdCount = 0;
     for (const [, workload] of Object.entries(this.workloads)) {
       for (const [, service] of Object.entries(workload.services)) {
         if (service.name.startsWith("Ceph_OSD")) {
           osdCount++;
         }
       }
-    }
-    return osdCount;
+    } */
+    const services = _.flatten(
+      Object.values(this.workloads)
+        .map((workload) => workload.services)
+        .map((service) => Object.values(service))
+    );
+    const osdServices = services.filter(
+      (service) => service.name === "Ceph_OSD"
+    );
+    return osdServices.length;
   }
+
   getDetails(): NodeDetails<Workload> {
     return {
       usedCpuUnits: this.getUsedCPU(),
       usedMemory: this.getUsedMemory(),
       amountOfOSDs: this.getAmountOfOSDs(),
+      // We should just return workload Objects and not a hashmap
+      // Revisit this
       workloads: this.workloads,
     };
   }
 
+  // Deprecate this; Since this is just some string we can make this from getDetails itself
+  // Making strings should be a UI logic and not a business logic
   getFittingNodeSize(): string {
     return this.nodeSize;
   }

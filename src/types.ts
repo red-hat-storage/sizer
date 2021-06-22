@@ -4,7 +4,9 @@ export type NodeDetails<T> = {
   usedCpuUnits: number;
   usedMemory: number;
   amountOfOSDs: number;
-  workloads: Record<string, T>;
+  workloads: {
+    [workloadName: string]: T;
+  };
 };
 
 export const enum Platform {

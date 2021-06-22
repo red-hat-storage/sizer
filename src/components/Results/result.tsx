@@ -45,8 +45,8 @@ const Results: React.FC<ResultsProps> = (props) => {
       const temp = new Cluster(
         deploymentType,
         new Disk(flashSize),
-        {
-          default: new MachineSet(
+        [
+          new MachineSet(
             "default",
             nodeCPU,
             nodeMemory,
@@ -55,7 +55,7 @@ const Results: React.FC<ResultsProps> = (props) => {
             24,
             []
           ),
-        },
+        ],
         usableCapacity,
         cephFSActive,
         nooBaaActive,
