@@ -137,8 +137,8 @@ export abstract class Node {
         .map((workload) => workload.services)
         .map((service) => Object.values(service))
     );
-    const osdServices = services.filter(
-      (service) => service.name === "Ceph_OSD"
+    const osdServices = services.filter((service) =>
+      service.name.startsWith("Ceph_OSD")
     );
     return osdServices.length;
   }
