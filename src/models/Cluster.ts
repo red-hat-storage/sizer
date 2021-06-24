@@ -75,7 +75,9 @@ class Cluster {
     return viableZones.reduce((smallestZone, currentZone) => {
       if (
         !smallestZone ||
-        currentZone.nodes.length < smallestZone.nodes.length
+        currentZone.nodes.length < smallestZone.nodes.length ||
+        (currentZone.nodes.length == smallestZone.nodes.length &&
+          currentZone.getTotalUsedCPU() < smallestZone.getTotalUsedCPU())
       ) {
         return currentZone;
       }
@@ -209,8 +211,8 @@ class Cluster {
   }
 
   replaceWorkload(workload: Workload): void {
-    this.zones.forEach((zone) => {
-      zone.nodes.forEach((node) => {
+    this.zones.forEach((zone, zoneIndex) => {
+      zone.nodes.forEach((node, nodeIndex) => {
         Object.entries(node.workloads).forEach(
           ([nodeWorkloadName, nodeWorkload]) => {
             // nodeWorkloadName is different to nodeWorkload.name
@@ -223,7 +225,14 @@ class Cluster {
             }
           }
         );
+        // If the node is empty, remove it
+        if (Object.keys(node.workloads).length == 0) {
+          zone.nodes.splice(nodeIndex, 1);
+        }
       });
+      if (zone.nodes.length == 0) {
+        this.zones.splice(zoneIndex, 1);
+      }
     });
     this.addWorkload(workload);
   }
