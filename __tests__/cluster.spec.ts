@@ -39,7 +39,9 @@ describe.each(matrix)("Test Clusters", (testConfig) => {
   const testWorkload = new Workload(
     "test",
     [new Service("svc-Z", 0, 0, 1, [], [])],
-    0
+    0,
+    1,
+    ["default"]
   );
   const cluster = new Cluster(
     testConfig.deploymentType,
@@ -47,8 +49,8 @@ describe.each(matrix)("Test Clusters", (testConfig) => {
     [
       new MachineSet("default", 8, 64, testConfig.platform, "", 24, []),
       new MachineSet("odf", 8, 64, testConfig.platform, "", 24, [
-        "ODF-0",
-        "svc-Z-0",
+        "ODF",
+        "svc-Z",
       ]),
     ],
     2.5,
@@ -76,14 +78,14 @@ describe.each(matrix)("Test Clusters", (testConfig) => {
         break;
       case DeploymentType.COMPACT:
       case DeploymentType.MINIMAL:
-        expect(ocpNodes).toBe(3);
-        expect(cpuUnits).toBe(3 * 8);
-        expect(memory).toBe(3 * 64);
+        expect(ocpNodes).toBe(4);
+        expect(cpuUnits).toBe(4 * 8);
+        expect(memory).toBe(4 * 64);
         break;
       default:
-        expect(ocpNodes).toBe(6);
-        expect(cpuUnits).toBe(6 * 8);
-        expect(memory).toBe(6 * 64);
+        expect(ocpNodes).toBe(7);
+        expect(cpuUnits).toBe(7 * 8);
+        expect(memory).toBe(7 * 64);
         break;
     }
     expect(diskCapacity).toBe(2.5);
@@ -101,7 +103,6 @@ describe.each(matrix)("Test Clusters", (testConfig) => {
       true,
       ["odf"]
     );
-    newODFWorkload.name = "ODF-0";
     cluster.replaceWorkload(newODFWorkload);
 
     const {
@@ -113,20 +114,20 @@ describe.each(matrix)("Test Clusters", (testConfig) => {
     } = cluster.getDetails();
     switch (testConfig.deploymentType) {
       case DeploymentType.EXTERNAL:
-        expect(ocpNodes).toBe(18);
-        expect(cpuUnits).toBe(18 * 8);
-        expect(memory).toBe(18 * 64);
+        expect(ocpNodes).toBe(10);
+        expect(cpuUnits).toBe(10 * 8);
+        expect(memory).toBe(10 * 64);
         break;
       case DeploymentType.COMPACT:
       case DeploymentType.MINIMAL:
-        expect(ocpNodes).toBe(3);
-        expect(cpuUnits).toBe(3 * 8);
-        expect(memory).toBe(3 * 64);
+        expect(ocpNodes).toBe(8);
+        expect(cpuUnits).toBe(8 * 8);
+        expect(memory).toBe(8 * 64);
         break;
       default:
-        expect(ocpNodes).toBe(9);
-        expect(cpuUnits).toBe(9 * 8);
-        expect(memory).toBe(9 * 64);
+        expect(ocpNodes).toBe(10);
+        expect(cpuUnits).toBe(10 * 8);
+        expect(memory).toBe(10 * 64);
         break;
     }
     expect(diskCapacity).toBe(2.5);

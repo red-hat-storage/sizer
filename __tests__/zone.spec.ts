@@ -17,7 +17,7 @@ describe("Test Zones", () => {
       [new Service("a", 3, 3, 3, [], [])],
       0
     );
-    zone.nodes[0].addWorkload(workload);
+    zone.nodes[0].addWorkload(workload, workload.name);
     // ( 2 * round(ceil(3) / 2)) = 4
     expect(zone.getTotalUsedCPU()).toEqual(4);
   });
