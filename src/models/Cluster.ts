@@ -298,7 +298,7 @@ export const generateODFWorkload = (
       "Ceph_RGW", //name
       cpu, // CPU
       mem, // Mem
-      3, // Zones
+      2, // Zones
       [], // runsWith
       [] //avoids
     );
@@ -321,7 +321,7 @@ export const generateODFWorkload = (
       "Ceph_MDS", //name
       cpu, // CPU
       mem, // Mem
-      3, // Zones
+      2, // Zones
       [], // runsWith
       [] //avoids
     );
