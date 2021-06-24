@@ -103,23 +103,23 @@ export abstract class Node {
     return true;
   }
 
-  addWorkload(workload: Workload): boolean {
+  addWorkload(workload: Workload, workloadName: string): boolean {
     if (!this.canIAddWorkload(workload)) {
       return false;
     }
-    if (workload.name in this.workloads) {
+    if (workloadName in this.workloads) {
       // We already have services from that workload
       // So we need to append the new services to the existing workload
       /*       for (const [, newService] of Object.entries(workload.services)) {
-        this.workloads[workload.name].services[newService.name] = newService;
+        this.workloads[workloadName].services[newService.name] = newService;
       } */
       Object.values(workload.services).forEach((service) => {
-        this.workloads[workload.name].services[service.name] = service;
+        this.workloads[workloadName].services[service.name] = service;
       });
 
       return true;
     }
-    this.workloads[workload.name] = workload;
+    this.workloads[workloadName] = workload;
     return true;
   }
 

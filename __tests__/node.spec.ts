@@ -53,7 +53,7 @@ describe.each(nodes)("Test Node common Methods", (node) => {
       servicesWithDuplicates,
       3
     );
-    node.addWorkload(workload);
+    node.addWorkload(workload, workload.name);
     expect(node.canIAddWorkload(similarWorkLoad)).toBeFalsy();
     expect(node.canIAddWorkload(workload)).toBeFalsy();
   });
@@ -64,7 +64,7 @@ describe.each(nodes)("Test Node common Methods", (node) => {
      */
     let servicesWithAvoid = [new Service("C", 3, 3, 3, [], ["A"])];
     const workload = new Workload("deployment-A", servicesWithAvoid, 3);
-    node.addWorkload(workload);
+    node.addWorkload(workload, workload.name);
     let unsuitableWorkload = new Workload("deployment-A", services, 3);
     expect(node.canIAddWorkload(unsuitableWorkload)).toBeFalsy();
     /**
@@ -78,13 +78,13 @@ describe.each(nodes)("Test Node common Methods", (node) => {
   it(`test getAmountOfOSDs ${node.constructor.name}`, () => {
     const cephOSDService = new Service("Ceph_OSD", 6, 6, 3, [], []);
     const simpleWorkload = new Workload("ceph-osd", [cephOSDService], 3);
-    expect(node.addWorkload(simpleWorkload)).toBeTruthy;
+    expect(node.addWorkload(simpleWorkload, simpleWorkload.name)).toBeTruthy;
     expect(node.getAmountOfOSDs()).toEqual(1);
   });
 
   it(`Test getDetails ${node.constructor.name}`, () => {
     const workload = new Workload("deployment-A", services, 3);
-    node.addWorkload(workload);
+    node.addWorkload(workload, workload.name);
     const {
       usedCpuUnits,
       usedMemory,

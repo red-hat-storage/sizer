@@ -86,13 +86,15 @@ class Cluster {
   addWorkload(workload: Workload): void {
     for (let i = 0; i < workload.count; i++) {
       // Ensure that the workload name is unambiguous
-      workload.name += `-${i}`;
-      this.addServicesOfWorkload(workload);
+      this.addServicesOfWorkload(workload, `${workload.name}-${i}`);
     }
   }
 
   // Private method, only called by addWorkload() which handles the workload count
-  private addServicesOfWorkload(workload: Workload): void {
+  private addServicesOfWorkload(
+    workload: Workload,
+    workloadName: string
+  ): void {
     const handledServices: string[] = [];
     Object.entries(workload.services).forEach(([name, service]) => {
       if (!handledServices.includes(name)) {
@@ -120,13 +122,18 @@ class Cluster {
         for (let i = 0; i < serviceBundleZones; i++) {
           const zone = this.getSmallestZone(usedZones);
           usedZones.push(zone.zoneId);
-          this.addServicesInZone(serviceBundle, workload, zone);
+          this.addServicesInZone(serviceBundle, workload, workloadName, zone);
         }
       }
     });
   }
 
-  addServicesInZone(services: Service[], workload: Workload, zone: Zone): Node {
+  addServicesInZone(
+    services: Service[],
+    workload: Workload,
+    workloadName: string,
+    zone: Zone
+  ): Node {
     const serviceBundle = new Workload(
       workload.name,
       services,
@@ -152,7 +159,7 @@ class Cluster {
         continue;
       }
       // when we reach this, the node is suitable for this service/workload - now we have to figure out if our services fit on the node
-      if (!node.addWorkload(serviceBundle)) {
+      if (!node.addWorkload(serviceBundle, workloadName)) {
         continue;
       }
       return node;
@@ -166,7 +173,7 @@ class Cluster {
       const machineset = this.machineSets[workload.usesMachines[i]];
       newNode = machineset.getNewNode();
 
-      if (newNode.addWorkload(serviceBundle)) {
+      if (newNode.addWorkload(serviceBundle, workloadName)) {
         foundNewNode = true;
         break;
       }
@@ -177,7 +184,7 @@ class Cluster {
         if (machineSet.onlyFor.includes(workload.name)) {
           newNode = machineSet.getNewNode();
 
-          if (newNode.addWorkload(serviceBundle)) {
+          if (newNode.addWorkload(serviceBundle, workloadName)) {
             foundNewNode = true;
             break;
           }
@@ -190,7 +197,7 @@ class Cluster {
         if (machineSet.onlyFor.length == 0) {
           newNode = machineSet.getNewNode();
 
-          if (newNode.addWorkload(serviceBundle)) {
+          if (newNode.addWorkload(serviceBundle, workloadName)) {
             foundNewNode = true;
             break;
           }
@@ -204,9 +211,18 @@ class Cluster {
   replaceWorkload(workload: Workload): void {
     this.zones.forEach((zone) => {
       zone.nodes.forEach((node) => {
-        if (workload.name in node.workloads) {
-          delete node.workloads[workload.name];
-        }
+        Object.entries(node.workloads).forEach(
+          ([nodeWorkloadName, nodeWorkload]) => {
+            // nodeWorkloadName is different to nodeWorkload.name
+            // nodeWorkloadName includes the counter variable where
+            // nodeWorkload.name is the original name that was supplied by the user
+            // By searching for nodeWorkload.name we get all possible workloads that were once created
+            // with that original name (via count)
+            if (workload.name == nodeWorkload.name) {
+              delete node.workloads[nodeWorkloadName];
+            }
+          }
+        );
       });
     });
     this.addWorkload(workload);
