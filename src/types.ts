@@ -26,39 +26,11 @@ export const enum DeploymentType {
   MINIMAL = "minimal",
 }
 
-export type State = {
-  platform: Platform;
-  nodeCPU: number;
-  nodeMemory: number;
-  flashSize: number;
-  usableCapacity: number;
-  deploymentType: DeploymentType;
-  nvmeTuning: boolean;
-  cephFSActive: boolean;
-  nooBaaActive: boolean;
-  rgwActive: boolean;
-};
-
-export enum Action {
-  setPlatform = "setPlatform",
-  setNodeCPU = "setNodeCPU",
-  setNodeMemory = "setNodeMemory",
-  setFlashSize = "setFlashSize",
-  setUsableCapacity = "setUsableCapacity",
-  setDeploymentType = "setDeploymentType",
-  setNVMeTuning = "setNVMeTuning",
-  setCephFSActive = "setCephFSActive",
-  setNooBaaActive = "setNooBaaActive",
-  setRGWActive = "setRGWActive",
-}
-
-export type Payload = State[keyof State];
-
 export type DeploymentDetails = {
   ocpNodes: number;
   cpuUnits: number;
   memory: number;
-  diskCapacity: number;
+  diskCapacity?: number;
   // deploymentType: DeploymentType;
   // nvmeTuning: boolean;
   // warningFirst: number;

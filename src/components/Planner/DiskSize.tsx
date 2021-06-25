@@ -2,22 +2,23 @@ import * as React from "react";
 import { FormGroup, NumberInput } from "@patternfly/react-core";
 import { WarningTriangleIcon } from "@patternfly/react-icons";
 import { useSelector, useDispatch } from "react-redux";
-import { setFlashSize, setUsableCapacity } from "../../redux";
+import { setFlashSize, setUsableCapacity, Store } from "../../redux";
 import { Platform } from "../../types";
 
 const DiskSize: React.FC = () => {
-  const state = useSelector((state: any) => state.ocs);
+  const ocsState = useSelector((state: Store) => state.ocs);
+  const platform = useSelector((state: Store) => state.cluster.platform);
+
   const dispatch = useDispatch();
-  const disableDiskSize = state.platform === Platform.AWSi3;
 
   const increment = (
     action: typeof setFlashSize | typeof setUsableCapacity
   ) => () => {
     let payload = 0;
     if (action === setFlashSize) {
-      payload = state.flashSize + 0.1;
+      payload = ocsState.flashSize + 0.1;
     } else {
-      payload = state.usableCapacity + 1;
+      payload = ocsState.usableCapacity + 1;
     }
     payload = +payload.toFixed(1);
     dispatch(action(payload));
@@ -28,9 +29,9 @@ const DiskSize: React.FC = () => {
   ) => () => {
     let payload = 0;
     if (action === setFlashSize) {
-      payload = state.flashSize - 0.1;
+      payload = ocsState.flashSize - 0.1;
     } else {
-      payload = state.usableCapacity - 1;
+      payload = ocsState.usableCapacity - 1;
     }
     payload = +payload.toFixed(1);
     dispatch(action(payload));
@@ -49,9 +50,11 @@ const DiskSize: React.FC = () => {
   };
 
   const isDiskSizeTechPreview = React.useMemo(
-    () => (state.flashSize > 4.0 ? "error" : "default"),
-    [state.flashSize]
+    () => (ocsState.flashSize > 4.0 ? "error" : "default"),
+    [ocsState.flashSize]
   );
+
+  const disableDiskSize = platform === Platform.AWSm5;
 
   return (
     <>
@@ -63,7 +66,7 @@ const DiskSize: React.FC = () => {
         helperTextInvalidIcon={<WarningTriangleIcon />}
       >
         <NumberInput
-          value={state.flashSize}
+          value={ocsState.flashSize}
           min={0}
           max={16}
           onMinus={decrement(setFlashSize)}
@@ -78,7 +81,7 @@ const DiskSize: React.FC = () => {
       </FormGroup>
       <FormGroup label="Usable Capacity Required (TB)" fieldId="usable-input">
         <NumberInput
-          value={state.usableCapacity}
+          value={ocsState.usableCapacity}
           min={0}
           max={1000}
           onMinus={decrement(setUsableCapacity)}

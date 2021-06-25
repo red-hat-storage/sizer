@@ -1,4 +1,4 @@
-class Disk {
+export class Disk {
   capacity: number;
   iops = 0;
   constructor(capacity: number) {

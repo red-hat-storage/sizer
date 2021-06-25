@@ -51,7 +51,13 @@ const Configuration: webpack.Configuration = {
         include: [
           path.resolve(__dirname, "src"),
           path.resolve(__dirname, "node_modules/patternfly"),
+          path.resolve(__dirname, "node_modules/monaco-editor"),
           path.resolve(__dirname, "node_modules/@patternfly/patternfly"),
+          path.resolve(__dirname, "node_modules/@patternfly/react-code-editor"),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-code-editor/node_modules/@patternfly"
+          ),
           path.resolve(__dirname, "node_modules/@patternfly/react-styles/css"),
           path.resolve(
             __dirname,
@@ -82,6 +88,11 @@ const Configuration: webpack.Configuration = {
           path.resolve(__dirname, "src"),
           path.resolve(__dirname, "assets/images"),
           path.resolve(__dirname, "node_modules/patternfly"),
+          path.resolve(__dirname, "node_modules/@patternfly/react-code-editor"),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-code-editor/node_modules/@patternfly"
+          ),
           path.resolve(
             __dirname,
             "node_modules/@patternfly/patternfly/assets/images"
@@ -123,6 +134,7 @@ const Configuration: webpack.Configuration = {
         // if they live under a 'fonts' or 'pficon' directory
         include: [
           path.resolve(__dirname, "node_modules/patternfly/dist/fonts"),
+          path.resolve(__dirname, "node_modules/monaco-editor"),
           path.resolve(
             __dirname,
             "node_modules/@patternfly/react-core/dist/styles/assets/fonts"

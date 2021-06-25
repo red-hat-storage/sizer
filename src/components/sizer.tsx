@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import * as Cookies from "js-cookie";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
 import Planner from "./Planner/planner";
@@ -8,11 +7,12 @@ import Results from "./Results/result";
 import AboutModal from "./Modals/about";
 import FAQModal from "./Modals/faq";
 import Header from "./Header/Header";
-import { getSizerTour } from "./Tour/Tour";
-import { store, setTab, setTourActive } from "../redux";
+import { store, setTab, Store } from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
 import GA4React from "ga-4-react";
+import Compute from "./Compute/compute";
+import WorkloadPage from "./Workload/workloads";
 
 const TRACKED_PLATFORMS = [
   "sizer.odf.ninja",
@@ -27,7 +27,7 @@ const ga4react = new GA4React(process.env.GAKEY || "", {
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
-  const activeTab = useSelector((state: any) => state.ui.activeTab);
+  const activeTab = useSelector((state: Store) => state.ui.activeTab);
   const [activeModal, setActiveModal] = React.useState("");
 
   const onSelect = (selectedItem: string) => {
@@ -50,7 +50,7 @@ export const Sizer_: React.FC = () => {
     }
   }, []);
 
-  React.useEffect(() => {
+  /*   React.useEffect(() => {
     const tour = getSizerTour(dispatch);
     if (!Cookies.get("SkipTour") && !window.location.search.includes("faq")) {
       dispatch(setTourActive(true));
@@ -59,6 +59,7 @@ export const Sizer_: React.FC = () => {
       dispatch(setTourActive(false));
     }
   }, []);
+ */
 
   const HeaderComponent =
     process.env.DEPLOYMENT_MODE !== "lab" ? (
@@ -82,12 +83,18 @@ export const Sizer_: React.FC = () => {
               activeKey={activeTab}
               onSelect={(_e, tabIndex) => dispatch(setTab(tabIndex as number))}
             >
+              <Tab eventKey={3} title={<TabTitleText>Compute </TabTitleText>}>
+                <Compute />
+              </Tab>
               <Tab
                 className="sizer-section"
                 eventKey={0}
                 title={<TabTitleText>Capacity Planning</TabTitleText>}
               >
                 <Planner />
+              </Tab>
+              <Tab eventKey={4} title={<TabTitleText>Workloads </TabTitleText>}>
+                <WorkloadPage />
               </Tab>
               <Tab eventKey={1} title={<TabTitleText>Results</TabTitleText>}>
                 <Results />

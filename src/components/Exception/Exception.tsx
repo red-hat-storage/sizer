@@ -7,12 +7,14 @@ import {
   Alert,
   AlertActionLink,
 } from "@patternfly/react-core";
-import { State } from "../../types";
 import { SupportExceptionObject, getSupportExceptions } from "./utils";
 import "./exception.css";
+import { Platform, DeploymentType } from "../../types";
 
 type ExceptionAlertProps = {
-  state: State;
+  platform: Platform;
+  flashSize: number;
+  deployment: DeploymentType;
 };
 
 type ExceptionReportProps = {
@@ -58,12 +60,17 @@ export const ExceptionReport: React.FC<ExceptionReportProps> = ({
   );
 };
 
-const ExceptionAlert: React.FC<ExceptionAlertProps> = ({ state }) => {
+const ExceptionAlert: React.FC<ExceptionAlertProps> = ({
+  platform,
+  deployment,
+  flashSize,
+}) => {
   const [isOpen, setOpen] = React.useState(false);
 
-  const exceptions = React.useMemo(() => getSupportExceptions(state), [
-    JSON.stringify(state),
-  ]);
+  const exceptions = React.useMemo(
+    () => getSupportExceptions(flashSize, platform, deployment),
+    [flashSize, platform, deployment]
+  );
 
   React.useEffect(() => {
     if (exceptions.length > 0) {

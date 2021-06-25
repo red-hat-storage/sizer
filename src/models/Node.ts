@@ -1,4 +1,9 @@
-import { Workload } from "./Workload";
+import {
+  getNamesOfServices,
+  getTotalCPU,
+  getTotalMemory,
+  Workload,
+} from "./Workload";
 import { NodeDetails } from "../types";
 import * as _ from "lodash";
 
@@ -33,14 +38,14 @@ export abstract class Node {
 
   getUsedMemory(): number {
     return Object.values(this.workloads).reduce(
-      (totalMemory, workload) => (totalMemory += workload.getTotalMemory()),
+      (totalMemory, workload) => (totalMemory += getTotalMemory(workload)),
       0
     );
   }
 
   getUsedCPU(): number {
     const totalCores = Object.values(this.workloads).reduce(
-      (totalCores, workload) => (totalCores += workload.getTotalCPU()),
+      (totalCores, workload) => (totalCores += getTotalCPU(workload)),
       0
     );
     return 2 * Math.round(Math.ceil(totalCores) / 2);
@@ -53,7 +58,7 @@ export abstract class Node {
       //  and that the existing services do not dislike
       // these new services
       const newServices = Object.values(workload.services);
-      const newServiceNames = workload.getNamesOfServices();
+      const newServiceNames = getNamesOfServices(workload);
       const existingServices = Object.values(
         this.workloads[workload.name].services
       );
@@ -114,7 +119,7 @@ export abstract class Node {
         this.workloads[workloadName].services[newService.name] = newService;
       } */
       Object.values(workload.services).forEach((service) => {
-        this.workloads[workloadName].services[service.name] = service;
+        this.workloads[workloadName].services.push(service);
       });
 
       return true;

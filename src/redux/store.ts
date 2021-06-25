@@ -1,8 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { uiReducer, ocsReducer } from "./reducers";
+import {
+  uiReducer,
+  ocsReducer,
+  workloadReducer,
+  machineSetReducer,
+  clusterReducer,
+} from "./reducers";
 
 const store = configureStore({
-  reducer: { ui: uiReducer, ocs: ocsReducer },
+  reducer: {
+    ui: uiReducer,
+    ocs: ocsReducer,
+    workload: workloadReducer,
+    machineSet: machineSetReducer,
+    cluster: clusterReducer,
+  },
 });
 
-export { store };
+type Store = ReturnType<typeof store.getState>;
+
+export { store, Store };

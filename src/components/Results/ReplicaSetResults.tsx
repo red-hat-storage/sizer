@@ -1,19 +1,17 @@
 import * as React from "react";
 import { List, ListItem, Title, TitleSizes } from "@patternfly/react-core";
 import { Node } from "../../models/Node";
-import { Workload } from "../../models/Workload";
+import { Workload, getNamesOfServices } from "../../models/Workload";
 
 type ServiceResultsProps = {
-  workloads: Record<string, Workload>;
+  workloads: Workload[];
 };
 const ServiceResults: React.FC<ServiceResultsProps> = ({ workloads }) => (
   <List className="services left-margined">
     {Object.entries(workloads).map((item, index) =>
-      item[1]
-        .getNamesOfServices()
-        .map((serviceName, serviceIndex) => (
-          <ListItem key={index * 1000 + serviceIndex}>{serviceName}</ListItem>
-        ))
+      getNamesOfServices(item[1]).map((serviceName, serviceIndex) => (
+        <ListItem key={index * 1000 + serviceIndex}>{serviceName}</ListItem>
+      ))
     )}
   </List>
 );
@@ -32,7 +30,7 @@ const NodeResults: React.FC<NodeResultsProps> = ({ node }) => {
       </div>
       <div>
         Services on THIS node:
-        {<ServiceResults workloads={node.workloads} />}
+        {<ServiceResults workloads={Object.values(node.workloads)} />}
       </div>
     </div>
   );

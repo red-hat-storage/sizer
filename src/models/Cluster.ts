@@ -1,53 +1,45 @@
-import { DeploymentDetails, DeploymentType } from "../types";
+import * as _ from "lodash";
+import { DeploymentDetails, Platform } from "../types";
 import { Service } from "./Service";
 import { Workload } from "./Workload";
-import { MachineSet } from "./MachineSet";
-import Disk from "./Disk";
+import { getNewNode, MachineSet } from "./MachineSet";
 import { BareMetal, Node } from "./Node";
 import { Zone } from "./Zone";
 import { generateRandomString } from "./util";
 
 class Cluster {
-  diskType: Disk;
   machineSets: {
     [machineSetName: string]: MachineSet;
   };
   zones: Zone[];
+  platform: Platform;
 
-  constructor(
-    deploymentType: DeploymentType,
-    diskType: Disk,
-    machineSets: MachineSet[],
-    usableCapacity: number,
-    cephFSActive = true,
-    nooBaaActive = true,
-    rgwActive = true,
-    nvmeTuning = true,
-    workloads: Workload[] = []
-  ) {
-    this.diskType = diskType;
-    this.machineSets = machineSets.reduce((acc, curr) => {
-      acc[curr.name] = curr;
-      return acc;
-    }, {} as Cluster["machineSets"]);
-
+  constructor(platform: Platform) {
+    this.machineSets = {};
     this.zones = [];
+    this.platform = platform;
 
-    const odfWorkload = generateODFWorkload(
+    /*     const odfWorkload = getODFWorkload(
       usableCapacity,
-      diskType,
       deploymentType,
       nooBaaActive,
       rgwActive,
       cephFSActive,
       nvmeTuning,
       []
-    );
-    this.addWorkload(odfWorkload);
+    ); */
+  }
 
-    workloads.forEach((workload) => {
-      this.addWorkload(workload);
-    });
+  setMachineSetsAndWorkloads(
+    machineSets: MachineSet[],
+    workloads: Workload[]
+  ): void {
+    this.machineSets = machineSets.reduce((acc, curr) => {
+      acc[curr.name] = curr;
+      return acc;
+    }, {} as Cluster["machineSets"]);
+    this.zones = [];
+    workloads.forEach((wl) => this.addWorkload(wl));
   }
 
   addZone(nodes: Node[] = []): Zone {
@@ -105,16 +97,19 @@ class Cluster {
         // So that these services are actually deployed together all the time
         const { serviceBundle, serviceBundleZones } = service.runsWith.reduce(
           ({ serviceBundle, serviceBundleZones }, colocatedServiceName) => {
-            const colocatedService = workload.services[colocatedServiceName];
+            const colocatedService = _.find(
+              workload.services,
+              (s) => s.name === colocatedServiceName
+            );
             // We assume that service names are checked when we import the workload
             // Else this could fail when the name is not actually in the service dict
-            serviceBundle.push(colocatedService);
+            serviceBundle.push(colocatedService as Service);
             handledServices.push(colocatedServiceName);
             return {
               serviceBundle,
               serviceBundleZones: Math.max(
                 serviceBundleZones,
-                colocatedService.zones
+                (colocatedService as Service).zones
               ),
             };
           },
@@ -136,19 +131,13 @@ class Cluster {
     workloadName: string,
     zone: Zone
   ): Node {
-    const serviceBundle = new Workload(
-      workload.name,
-      services,
-      workload.storageCapacityRequired,
-      workload.count,
-      workload.usesMachines
-    );
+    const serviceBundle: Workload = Object.assign({}, workload, { services });
     for (let i = 0; i < zone.nodes.length; i++) {
       const node = zone.nodes[i];
       // if the workload is machineset specific and this node is not of that machineset, skip the node
       if (
-        workload.usesMachines.length > 0 &&
-        !workload.usesMachines.includes(node.machineSet)
+        workload?.usesMachines?.length > 0 &&
+        !workload?.usesMachines?.includes(node.machineSet)
       ) {
         continue;
       }
@@ -171,9 +160,9 @@ class Cluster {
     // If the workload is not specific, we try to find a machineSet that fits our needs
     let newNode = new BareMetal();
     let foundNewNode = false;
-    for (let i = 0; i < workload.usesMachines.length; i++) {
-      const machineset = this.machineSets[workload.usesMachines[i]];
-      newNode = machineset.getNewNode();
+    for (let i = 0; i < workload?.usesMachines?.length; i++) {
+      const machineset = this.machineSets[workload?.usesMachines[i]];
+      newNode = getNewNode(machineset, this.platform);
 
       if (newNode.addWorkload(serviceBundle, workloadName)) {
         foundNewNode = true;
@@ -184,7 +173,7 @@ class Cluster {
       // Look if there is a machineSet for this workload, then use that
       for (const [, machineSet] of Object.entries(this.machineSets)) {
         if (machineSet.onlyFor.includes(workload.name)) {
-          newNode = machineSet.getNewNode();
+          newNode = getNewNode(machineSet, this.platform);
 
           if (newNode.addWorkload(serviceBundle, workloadName)) {
             foundNewNode = true;
@@ -197,7 +186,7 @@ class Cluster {
       // Use a generic workload to get a new node
       for (const [, machineSet] of Object.entries(this.machineSets)) {
         if (machineSet.onlyFor.length == 0) {
-          newNode = machineSet.getNewNode();
+          newNode = getNewNode(machineSet, this.platform);
 
           if (newNode.addWorkload(serviceBundle, workloadName)) {
             foundNewNode = true;
@@ -252,7 +241,6 @@ class Cluster {
       ocpNodes: totalNodes,
       cpuUnits: totalCPU,
       memory: totalMem,
-      diskCapacity: this.diskType.capacity,
       // deploymentType: this.odfDeploymentType,
       // nvmeTuning: this.nvmeTuning,
       // warningFirst: this.targetCapacity * 0.75,
@@ -261,140 +249,5 @@ class Cluster {
     };
   }
 }
-
-export const generateODFWorkload = (
-  targetCapacity: number,
-  diskType: Disk,
-  deploymentType: DeploymentType,
-  nooBaaActive = true,
-  rgwActive = true,
-  cephFSActive = true,
-  nvmeTuning = false,
-  dedicatedMachineSets: string[] = []
-): Workload => {
-  const odfWorkload = new Workload("ODF", [], 0, 1, dedicatedMachineSets);
-  odfWorkload.services["Ceph_MGR"] = new Service(
-    "Ceph_MGR", //name
-    1, // CPU
-    3.5, // Mem
-    2, // Zones
-    [], // runsWith
-    [] //avoids
-  );
-  odfWorkload.services["Ceph_MON"] = new Service(
-    "Ceph_MON", //name
-    1, // CPU
-    2, // Mem
-    3, // Zones
-    [], // runsWith
-    [] //avoids
-  );
-  if (rgwActive) {
-    let cpu = 2;
-    let mem = 4;
-    switch (deploymentType) {
-      case DeploymentType.EXTERNAL:
-        cpu = 8;
-        mem = 4;
-        break;
-      case DeploymentType.MINIMAL:
-      case DeploymentType.COMPACT:
-        cpu = 1;
-        mem = 4;
-        break;
-    }
-    odfWorkload.services["Ceph_RGW"] = new Service(
-      "Ceph_RGW", //name
-      cpu, // CPU
-      mem, // Mem
-      2, // Zones
-      [], // runsWith
-      [] //avoids
-    );
-  }
-  if (cephFSActive) {
-    let cpu = 3;
-    let mem = 8;
-    switch (deploymentType) {
-      case DeploymentType.EXTERNAL:
-        cpu = 4;
-        mem = 8;
-        break;
-      case DeploymentType.MINIMAL:
-      case DeploymentType.COMPACT:
-        cpu = 1;
-        mem = 8;
-        break;
-    }
-    odfWorkload.services["Ceph_MDS"] = new Service(
-      "Ceph_MDS", //name
-      cpu, // CPU
-      mem, // Mem
-      2, // Zones
-      [], // runsWith
-      [] //avoids
-    );
-  }
-  if (nooBaaActive) {
-    odfWorkload.services["NooBaa_DB"] = new Service(
-      "NooBaa_DB",
-      0.5,
-      4,
-      2,
-      [],
-      []
-    );
-    odfWorkload.services["NooBaa_Endpoint"] = new Service(
-      "NooBaa_Endpoint",
-      1,
-      2,
-      2,
-      [],
-      []
-    );
-    odfWorkload.services["NooBaa_core"] = new Service(
-      "NooBaa_core",
-      1,
-      4,
-      2,
-      [],
-      []
-    );
-  }
-
-  const osdsNeededForTargetCapacity = Math.ceil(
-    targetCapacity / diskType.capacity
-  );
-
-  let osdCPU = 2;
-  let osdMem = 5;
-  switch (deploymentType) {
-    case DeploymentType.EXTERNAL:
-      osdCPU = 4;
-      osdMem = 5;
-      break;
-    case DeploymentType.MINIMAL:
-    case DeploymentType.COMPACT:
-      osdCPU = 1;
-      osdMem = 5;
-      break;
-  }
-  if (nvmeTuning) {
-    // https://docs.google.com/document/d/1zqckcf4NllPvcKEHBs4wOzReG55P_GwvxdJ-1QajreY/edit#
-    osdCPU = 5;
-  }
-  for (let i = 0; i < osdsNeededForTargetCapacity; i++) {
-    odfWorkload.services[`Ceph_OSD_${i}`] = new Service(
-      `Ceph_OSD_${i}`, //name
-      osdCPU, // CPU
-      osdMem, // Mem
-      3, // Zones
-      [], // runsWith
-      [] //avoids
-    );
-  }
-
-  return odfWorkload;
-};
 
 export default Cluster;
