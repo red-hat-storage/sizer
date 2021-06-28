@@ -16,7 +16,7 @@ export type MachineSet = {
   // Number of memory in GB per node of this set
   memory: number;
   // The size of the nodes, use this for public cloud instance types
-  nodeSize: string;
+  instanceName: string;
   // Number of usable disks per node of this set
   // Default is 24
   numberOfDisks: number;
@@ -37,20 +37,22 @@ export const getNewNode = (
         machineSet.memory,
         machineSet.name
       );
-    case Platform.AWSi3:
-      return new AWSattached(
-        machineSet.numberOfDisks,
-        machineSet.cpu,
-        machineSet.memory,
-        machineSet.name
-      );
-    case Platform.AWSm5:
-      return new AWSEBS(
-        machineSet.numberOfDisks,
-        machineSet.cpu,
-        machineSet.memory,
-        machineSet.name
-      );
+    case Platform.AWS:
+      if (machineSet.instanceName.includes("i3")) {
+        return new AWSattached(
+          machineSet.numberOfDisks,
+          machineSet.cpu,
+          machineSet.memory,
+          machineSet.name
+        );
+      } else {
+        return new AWSEBS(
+          machineSet.numberOfDisks,
+          machineSet.cpu,
+          machineSet.memory,
+          machineSet.name
+        );
+      }
     case Platform.GCP:
       return new GCP(
         machineSet.numberOfDisks,

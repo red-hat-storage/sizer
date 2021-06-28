@@ -11,12 +11,11 @@ export type NodeDetails<T> = {
 
 export const enum Platform {
   BAREMETAL = "BareMetal",
-  AWSi3 = "AWSi3",
-  AWSm5 = "AWSm5",
   GCP = "GCP",
   AZURE = "AZURE",
   VMware = "VMware",
   RHV = "RHV",
+  AWS = "AWS",
 }
 
 export const enum DeploymentType {
@@ -36,4 +35,12 @@ export type DeploymentDetails = {
   // warningFirst: number;
   // warningSecond: number;
   zones: Zone[];
+};
+
+export type Instance = {
+  name: string;
+  memory: number;
+  cpuUnits: number;
+  instanceStorage?: number;
+  default?: boolean;
 };

@@ -19,16 +19,14 @@ import {
 } from "@patternfly/react-core";
 import MachineSetCard from "./MachineSetCard";
 import { Platform } from "../../types";
+import "./compute.css";
 
 const platformDropdownItems = [
   <DropdownItem key="BareMetal" id="BareMetal">
     BareMetal
   </DropdownItem>,
-  <DropdownItem key="AWS-i3" id="AWSi3">
-    AWS i3en.2xl using local NVMe
-  </DropdownItem>,
-  <DropdownItem key="AWS-m5" id="AWSm5">
-    AWS m5 nodes using EBS
+  <DropdownItem key="AWS" id="AWS">
+    AWS
   </DropdownItem>,
   <DropdownItem key="GCP" id="GCP">
     GCP with e2-standard-16 instances
@@ -60,7 +58,7 @@ const Compute: React.FC = () => {
 
   const [isPlatOpen, setPlatOpen] = React.useState(false);
   return (
-    <div className="results-wrapper">
+    <div className="page--margin">
       <Title headingLevel="h1">Configure MachineSets</Title>
       <TextContent>
         <Text component={TextVariants.p}>
@@ -68,7 +66,7 @@ const Compute: React.FC = () => {
           used by workloads.
         </Text>
       </TextContent>
-      <Form>
+      <Form className="create-form--margin">
         <FormGroup fieldId="dropdown-paltform" label="Platform">
           <Dropdown
             isOpen={isPlatOpen}

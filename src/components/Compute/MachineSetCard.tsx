@@ -23,7 +23,7 @@ type MachineSetCardProps = {
 };
 
 const MachineSetCard: React.FC<MachineSetCardProps> = ({
-  machineSet: { name, cpu, memory, nodeSize, numberOfDisks, onlyFor },
+  machineSet: { name, cpu, memory, instanceName, numberOfDisks, onlyFor },
 }) => {
   const dispatch = useDispatch();
   const removeMS = () => {
@@ -54,7 +54,7 @@ const MachineSetCard: React.FC<MachineSetCardProps> = ({
           </FlexItem>
           <FlexItem>
             <Title headingLevel="h6" size="md">
-              NodeSize: {nodeSize}
+              Instance: {instanceName}
             </Title>
           </FlexItem>
           <FlexItem>

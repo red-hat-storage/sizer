@@ -23,6 +23,7 @@
   "homepage": "https://gitlab.consulting.redhat.com/red-hat-data-services/ocs-solver#readme",
   "devDependencies": {
     "@types/babel__core": "^7.1.15",
+    "@types/classnames": "^2.3.1",
     "@types/fabric": "^3.6.9",
     "@types/jest": "^26.0.23",
     "@types/jquery": "^3.5.4",
@@ -78,6 +79,7 @@
     "@patternfly/react-styles": "^4.8.5",
     "@reduxjs/toolkit": "^1.5.1",
     "@types/react-router-dom": "^5.1.7",
+    "classnames": "^2.3.1",
     "ga-4-react": "^0.1.281",
     "html2canvas": "^1.0.0-rc.7",
     "js-yaml": "^4.1.0",

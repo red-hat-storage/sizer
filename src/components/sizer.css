@@ -8,3 +8,12 @@
 .faq-link {
   color: unset;
 }
+
+.create-form--margin {
+  margin-top: var(--pf-global--spacer--sm) !important;
+  margin-bottom: var(--pf-global--spacer--xl) !important;
+}
+
+.page--margin {
+  margin: 2em !important;
+}

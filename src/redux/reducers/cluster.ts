@@ -2,7 +2,7 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 import { Platform } from "../../types";
 
 const defaultState = {
-  platform: Platform.AWSm5,
+  platform: Platform.AWS,
 };
 
 const setPlatform = createAction<Platform>("SET_PLATFORM");

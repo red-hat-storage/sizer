@@ -6,7 +6,7 @@ export type SupportExceptionObject = {
   message: string;
 };
 
-export const TECH_PREV_PLATFORMS = [Platform.RHV, Platform.GCP, Platform.AWSi3];
+export const TECH_PREV_PLATFORMS = [Platform.RHV, Platform.GCP];
 
 export const getSupportExceptions: (
   flashSize: number,

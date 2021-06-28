@@ -54,7 +54,7 @@ const DiskSize: React.FC = () => {
     [ocsState.flashSize]
   );
 
-  const disableDiskSize = platform === Platform.AWSm5;
+  const disableDiskSize = platform === Platform.AWS;
 
   return (
     <>

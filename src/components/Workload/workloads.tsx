@@ -20,15 +20,17 @@ const WorkloadPage: React.FC = () => {
   const workloads = useSelector((store: Store) => store.workload);
 
   return (
-    <div className="results-wrapper">
+    <div className="page--margin">
       <WorkloadCreate />
-      <Title headingLevel="h1">Configure Workloads</Title>
-      <TextContent>
-        <Text component={TextVariants.p}>
-          Use this section to configure Workloads. These Workloads will be run
-          in the Cluster.
-        </Text>
-      </TextContent>
+      <div className="create-form--margin">
+        <Title headingLevel="h1">Configure Workloads</Title>
+        <TextContent>
+          <Text component={TextVariants.p}>
+            Use this section to configure Workloads. These Workloads will be run
+            in the Cluster.
+          </Text>
+        </TextContent>
+      </div>
       <Grid hasGutter>
         <GridItem rowSpan={2} span={3}>
           <CreateCard

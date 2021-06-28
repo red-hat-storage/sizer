@@ -31,7 +31,7 @@ const StoragePage: React.FC = () => {
     dispatch(setTab(1));
   };
   return (
-    <Form className="planner-form">
+    <div className="page--margin">
       <Title headingLevel="h1">Configure ODF Storage</Title>
       <TextContent>
         <Text component={TextVariants.p}>
@@ -40,13 +40,15 @@ const StoragePage: React.FC = () => {
           workloads.
         </Text>
       </TextContent>
-      <DiskSize />
-      <ActionGroup>
-        <Button variant="primary" onClick={onClick}>
-          Create
-        </Button>
-      </ActionGroup>
-    </Form>
+      <Form className="create-form--margin">
+        <DiskSize />
+        <ActionGroup>
+          <Button variant="primary" onClick={onClick}>
+            Create
+          </Button>
+        </ActionGroup>
+      </Form>
+    </div>
   );
 };
 

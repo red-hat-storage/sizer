@@ -1,0 +1,13 @@
+.compute-create__form {
+  margin-top: var(--pf-global--spacer--sm) !important;
+  margin-bottom: var(--pf-global--spacer--xl) !important;
+}
+
+.compute-ms-create__form--cloud {
+  margin-bottom: 15em !important;
+}
+
+.compute-ms-create-form__select .pf-c-select__menu {
+  max-height: 25vh !important;
+  overflow-y: scroll;
+}

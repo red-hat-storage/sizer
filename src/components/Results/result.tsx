@@ -90,7 +90,7 @@ const Results: React.FC = () => {
         isOpen={showExceptionModal}
         onClose={() => setShowExceptionModal(false)}
       />
-      <div className="results-wrapper">
+      <div className="page--margin">
         <div id="support-exception">
           <ExceptionAlert
             platform={platform}
