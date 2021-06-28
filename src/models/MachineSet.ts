@@ -77,3 +77,32 @@ export const getNewNode = (
       );
   }
 };
+
+export const getDefaultMachineSet = (platform: Platform): MachineSet => {
+  let set: MachineSet = {
+    name: "default",
+    cpu: 16,
+    memory: 64,
+    numberOfDisks: 24,
+    instanceName: "",
+    onlyFor: [],
+  };
+  switch (platform) {
+    case Platform.BAREMETAL:
+      set.cpu = 24;
+      set.instanceName = `${set.cpu} CPU units | ${set.memory} GB RAM`;
+    case Platform.AWS:
+      // As default assume not using local disks
+      set.instanceName = "m5.4xlarge";
+    case Platform.GCP:
+      set.instanceName = "e2-standard-16";
+    case Platform.AZURE:
+      set.instanceName = "D16s_v3";
+    case Platform.VMware:
+    case Platform.RHV:
+      set.cpu = 40;
+      set.memory = 128;
+      set.instanceName = `${set.cpu} CPU units | ${set.memory} GB RAM`;
+  }
+  return set;
+};
