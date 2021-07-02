@@ -29,10 +29,10 @@ const platformDropdownItems = [
     AWS
   </DropdownItem>,
   <DropdownItem key="GCP" id="GCP">
-    GCP with e2-standard-16 instances
+    GCP
   </DropdownItem>,
   <DropdownItem key="Azure" id="AZURE">
-    Azure with D16s_v3 instances
+    Azure
   </DropdownItem>,
   <DropdownItem key="VMware" id="VMware">
     VMs in VMware
