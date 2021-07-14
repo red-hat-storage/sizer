@@ -41,5 +41,5 @@ export const initialState: State = {
   nvmeTuning: false,
   cephFSActive: true,
   nooBaaActive: true,
-  rgwActive: false,
+  rgwActive: true,
 };
