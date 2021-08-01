@@ -7,6 +7,10 @@ variables:
 default:
   image:
     name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+  before_script:
+    - apk update && apk add -u npm
+    - cd "$CI_PROJECT_DIR"
+    - npm install
   artifacts:
     paths:
       - "*.html"

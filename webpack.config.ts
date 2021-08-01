@@ -6,8 +6,7 @@ import * as HTMLWebpackPlugin from "html-webpack-plugin";
 
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
-const deploymentMode = process.env.DEPLOYMENT_MODE || "";
-const GAKEY = deploymentMode === "lab" ? "G-NLHEWXQTBG" : "G-G4ETCF6QL5";
+const deploymentMode = process.env.DEPLOYMENT_MODE || "lab";
 
 const Configuration: webpack.Configuration = {
   entry: ["./src/index.tsx"],
@@ -157,14 +156,15 @@ const Configuration: webpack.Configuration = {
     new ForkTsCheckerWebpackPlugin(),
     new HTMLWebpackPlugin({
       template:
+       
         __dirname +
-        (deploymentMode === "lab" ? "/lab-index.html" : "/index.html"),
+        (deploymentMode === "lab" ? "/lab-index.html" :
+        (deploymentMode === "lab" ? "/lab-index.html" : "/index.html")),
       favicon: __dirname + "/assets/images/ocs-logo.png",
     }),
     new webpack.EnvironmentPlugin({
       PUBLIC_PATH: "/",
       DEPLOYMENT_MODE: deploymentMode,
-      GAKEY,
     }),
   ],
 };
