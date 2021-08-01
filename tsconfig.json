@@ -1,11 +1,11 @@
 {
   "include": ["./src/*", "./index.d.ts"],
-  "exclude": ["node_modules", "lib"],
+  "exclude": ["node_modules", "build"],
   "compilerOptions": {
     "target": "ES2016",
     "module": "esnext",
     "moduleResolution": "node",
-    "outDir": "./lib",
+    "outDir": "./build",
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,

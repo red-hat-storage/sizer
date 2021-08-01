@@ -9,15 +9,15 @@ This tool is been kept up to date by [Brent Compton's](mailto:bcompton@redhat.co
 
 ### Requirements
 
-The requirements are managed with yarn. If you do not have yarn yet, please [install it on your platform](https://classic.yarnpkg.com/en/docs/install/#debian-stable).
+The requirements are managed with npm. If you do not have npm yet, please [install it on your platform](https://nodejs.org/en/download/).
 
-Afterwards all dependencies can be installed via `yarn install` from within the root of this repository.
+Afterwards all dependencies can be installed via `npm install` from within the root of this repository.
 
 ### Building the code
 
-If you want to build the code in a one-off way, you can do so with `yarn build`. This will create the lib folder with the static site.
+If you want to build the code in a one-off way, you can do so with `npm run build`. This will create the build folder with the static site.
 
 ### Developing with the code
 
-To develop it is handy to use the `yarn dev` feature that will automatically rebuild the code when there are changes to the source code.
-Running `yarn dev` will spawn a server on http://localhost:9001 that you can visit to see the site with your code changes. When the code is rebuild, the browser will automatically refresh the site for you.
+To develop it is handy to use the `npm run dev` feature that will automatically rebuild the code when there are changes to the source code.
+Running `npm run dev` will spawn a server on http://localhost:9001 that you can visit to see the site with your code changes. When the code is rebuild, the browser will automatically refresh the site for you.

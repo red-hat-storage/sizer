@@ -57,9 +57,14 @@ export const Sizer: React.FC = () => {
     }
   }, []);
 
+  const HeaderComponent =
+    process.env.DEPLOYMENT_MODE !== "lab" ? (
+      <Header onSelect={onSelect} />
+    ) : null;
+
   return (
     <Router>
-      <Page header={<Header onSelect={onSelect} />} className="sizer-page">
+      <Page header={HeaderComponent} className="sizer-page">
         <AboutModal
           isOpen={activeModal === "About"}
           onClose={() => setActiveModal("")}

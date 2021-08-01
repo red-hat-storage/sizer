@@ -6,11 +6,12 @@ import * as HTMLWebpackPlugin from "html-webpack-plugin";
 
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
+const deploymentMode = process.env.DEPLOYMENT_MODE || "lab";
 
 const Configuration: webpack.Configuration = {
   entry: ["./src/index.tsx"],
   output: {
-    path: path.resolve(__dirname, "lib/"),
+    path: path.resolve(__dirname, "build/"),
     publicPath,
     filename: "[name]-bundle.js",
   },
@@ -154,10 +155,15 @@ const Configuration: webpack.Configuration = {
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new HTMLWebpackPlugin({
-      template: __dirname + "/index.html",
+      template:
+        __dirname +
+        (deploymentMode === "lab" ? "/lab-index.html" : "/index.html"),
       favicon: __dirname + "/assets/images/ocs-logo.png",
     }),
-    new webpack.EnvironmentPlugin({ PUBLIC_PATH: "/" }),
+    new webpack.EnvironmentPlugin({
+      PUBLIC_PATH: "/",
+      DEPLOYMENT_MODE: deploymentMode,
+    }),
   ],
 };
 

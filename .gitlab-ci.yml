@@ -7,13 +7,13 @@ default:
   image:
     name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
   before_script:
-    - apk update && apk add -u yarn
+    - apk update && apk add -u npm
     - cd "$CI_PROJECT_DIR"
-    - yarn install
+    - npm install
   artifacts:
     paths:
       - "*.html"
-      - lib/
+      - build/
     expire_in: 1 month
   cache:
     paths:
@@ -33,7 +33,7 @@ build:
   stage: build
   script:
     - if [[ "$CI_COMMIT_BRANCH" == "develop" ]]; then PRE_BUILD="beta"; fi
-    - yarn ${PRE_BUILD}build
+    - npm run ${PRE_BUILD}build-upstream
 
 push-to-google-storage:
   stage: deploy
@@ -41,7 +41,7 @@ push-to-google-storage:
     - main
     - develop
   script:
-    - ls -al && ls -al lib
+    - ls -al && ls -al build
     - echo -n "${GCS_SA_KEY}" | base64 -d > /tmp/key.json
     - /google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/key.json --project="${GCS_PROJECT}"
     - rm /tmp/key.json
