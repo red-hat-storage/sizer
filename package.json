@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./build",
     "build": "npm run clean && MODE=production DEPLOYMENT_MODE=lab PUBLIC_PATH=/labs/ocsst ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack",
-    "build-upstream": "npm run clean && MODE=production PUBLIC_PATH=/labs/ocsst ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack",
+    "build-upstream": "npm run clean && MODE=production ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack",
     "betabuild-upstream": "npm run clean && MODE=production PUBLIC_PATH=/sizer.ocs.ninja/beta/ npm run ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack",
     "dev": "npm run clean && ts-node -O '{\"module\": \"commonjs\"}' ./node_modules/webpack/bin/webpack serve --port 9001",
     "lint": "./node_modules/.bin/eslint --ext '.js,.ts' src/"
