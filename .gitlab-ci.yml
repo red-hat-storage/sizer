@@ -47,7 +47,7 @@ push-to-google-storage:
     - rm /tmp/key.json
     - if [[ "$CI_COMMIT_BRANCH" == "develop" ]]; then GCP_DIR="beta/"; fi
     - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/*.html" "gs://${GCS_BUCKET}/${GCP_DIR}"
-    - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/lib/*" "gs://${GCS_BUCKET}/${GCP_DIR}"
+    - /google-cloud-sdk/bin/gsutil -m cp -r "${CI_PROJECT_DIR}/build/*" "gs://${GCS_BUCKET}/${GCP_DIR}"
     # Make all files public
     - /google-cloud-sdk/bin/gsutil -m acl set -r "${CI_PROJECT_DIR}/gsutil-public.json" "gs://${GCS_BUCKET}/${GCP_DIR}**"
     # Make the redhat specific file only accessible for the Red Hat domain
