@@ -6,7 +6,7 @@ import * as HTMLWebpackPlugin from "html-webpack-plugin";
 
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
-const deploymentMode = process.env.DEPLOYMENT_MODE || "lab";
+const deploymentMode = process.env.DEPLOYMENT_MODE || "";
 
 const Configuration: webpack.Configuration = {
   entry: ["./src/index.tsx"],
