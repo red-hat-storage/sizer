@@ -10,3 +10,8 @@
 .planner-form__dropdown > button {
   width: 100%;
 }
+
+/* Required for labspace */
+.pf-c-number-input input {
+  margin-bottom: 0px !important;
+}
