@@ -17,6 +17,7 @@ const TRACKED_PLATFORMS = [
   "sizer.odf.ninja",
   "sizer.ocs.ninja",
   "storage.googleapis.com",
+  "access.redhat.com",
 ];
 const BETA_TAG = "/beta/";
 const ga4react = new GA4React("G-G4ETCF6QL5", { send_page_view: true });
