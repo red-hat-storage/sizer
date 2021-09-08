@@ -7,6 +7,7 @@ import * as HTMLWebpackPlugin from "html-webpack-plugin";
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
 const deploymentMode = process.env.DEPLOYMENT_MODE || "";
+const GAKEY = deploymentMode === "lab" ? "G-NLHEWXQTBG" : "G-G4ETCF6QL5";
 
 const Configuration: webpack.Configuration = {
   entry: ["./src/index.tsx"],
@@ -163,6 +164,7 @@ const Configuration: webpack.Configuration = {
     new webpack.EnvironmentPlugin({
       PUBLIC_PATH: "/",
       DEPLOYMENT_MODE: deploymentMode,
+      GAKEY,
     }),
   ],
 };

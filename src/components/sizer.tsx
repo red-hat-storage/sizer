@@ -20,7 +20,9 @@ const TRACKED_PLATFORMS = [
   "access.redhat.com",
 ];
 const BETA_TAG = "/beta/";
-const ga4react = new GA4React("G-G4ETCF6QL5", { send_page_view: true });
+const ga4react = new GA4React(process.env.GAKEY || "", {
+  send_page_view: true,
+});
 
 export const Sizer: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState(1);
