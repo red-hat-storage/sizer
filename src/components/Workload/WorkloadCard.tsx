@@ -1,18 +1,3 @@
-import {
-  Card,
-  CardHeader,
-  CardActions,
-  CardBody,
-  Flex,
-  FlexItem,
-  Title,
-} from "@patternfly/react-core";
-import {
-  CloseIcon,
-  CpuIcon,
-  MemoryIcon,
-  ClusterIcon,
-} from "@patternfly/react-icons";
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -22,6 +7,7 @@ import {
   getNamesOfServices,
 } from "../../models";
 import { removeWorkload } from "../../redux";
+import { Card, CardItem } from "../Generic/CardItem";
 
 type WorkloadCardProps = {
   workload: Workload;
@@ -34,39 +20,13 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({ workload }) => {
   const totalCPU = getTotalCPU(workload);
   const services = getNamesOfServices(workload);
 
-  const removeWL = () => {
-    dispatch(removeWorkload(workload.name));
-  };
+  const removeWL = (name: string) => () => dispatch(removeWorkload(name));
+
   return (
-    <Card>
-      <CardHeader>
-        {workload.name}
-        <CardActions>
-          <CloseIcon onClick={removeWL} />
-        </CardActions>
-      </CardHeader>
-      <CardBody>
-        <Flex direction={{ default: "column" }}>
-          <FlexItem>
-            <ClusterIcon />
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              <CpuIcon />: {totalCPU}
-            </Title>
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              <MemoryIcon />: {totalMemory}
-            </Title>
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              Services: {services.join(", ")}
-            </Title>
-          </FlexItem>
-        </Flex>
-      </CardBody>
+    <Card cardType="Workload" itemName={workload.name} remove={removeWL}>
+      <CardItem title="CPU" value={`${totalCPU} units`} />
+      <CardItem title="Memory Used" value={`${totalMemory} GB`} />
+      <CardItem title="Services" value={services.join(", ")} />
     </Card>
   );
 };

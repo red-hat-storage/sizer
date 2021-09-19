@@ -1,77 +1,34 @@
-import {
-  Card,
-  CardActions,
-  CardBody,
-  CardHeader,
-  Flex,
-  FlexItem,
-  Title,
-} from "@patternfly/react-core";
-import {
-  CloseIcon,
-  CpuIcon,
-  MemoryIcon,
-  ServerIcon,
-} from "@patternfly/react-icons";
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { MachineSet } from "../../models";
 import { removeMachineSet } from "../../redux";
+import { Card, CardItem } from "../Generic/CardItem";
 
 type MachineSetCardProps = {
   machineSet: MachineSet;
+  disableDeletion?: boolean;
 };
 
 const MachineSetCard: React.FC<MachineSetCardProps> = ({
   machineSet: { name, cpu, memory, instanceName, numberOfDisks, onlyFor },
+  disableDeletion = false,
 }) => {
   const dispatch = useDispatch();
-  const removeMS = () => {
-    dispatch(removeMachineSet(name));
-  };
+  const removeMS = (name: string) => () => dispatch(removeMachineSet(name));
   return (
-    <Card>
-      <CardHeader>
-        {name}
-        <CardActions>
-          <CloseIcon onClick={removeMS} />
-        </CardActions>
-      </CardHeader>
-      <CardBody>
-        <Flex direction={{ default: "column" }}>
-          <FlexItem>
-            <ServerIcon />
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              <CpuIcon />: {cpu}
-            </Title>
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              <MemoryIcon />: {memory}
-            </Title>
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              Instance: {instanceName}
-            </Title>
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              Number of Disks: {numberOfDisks}
-            </Title>
-          </FlexItem>
-          <FlexItem>
-            <Title headingLevel="h6" size="md">
-              Only for:{" "}
-            </Title>
-            {onlyFor.map((item) => (
-              <dl key={item}>item</dl>
-            ))}
-          </FlexItem>
-        </Flex>
-      </CardBody>
+    <Card
+      cardType="MachineSet"
+      itemName={name}
+      remove={removeMS}
+      disableDeletion={disableDeletion}
+    >
+      <CardItem title="CPU" value={cpu} />
+      <CardItem title="Memory" value={memory} />
+      <CardItem title="Instance" value={instanceName} />
+      <CardItem title="Number of Disks" value={numberOfDisks} />
+      {onlyFor.length > 0 && (
+        <CardItem title="Only For (Workloads)" value={onlyFor.join(", ")} />
+      )}
     </Card>
   );
 };

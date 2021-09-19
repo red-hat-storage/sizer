@@ -4850,7 +4850,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
 
 const isDefault = (item: Instance) => item.default === true;
 
-export const defaultInstancces: { [platform in Platform]: Instance } = (() => ({
+export const defaultInstances: { [platform in Platform]: Instance } = (() => ({
   [Platform.AWS]: platformInstanceMap.AWS.find(isDefault) as Instance,
   [Platform.AZURE]: platformInstanceMap.AZURE.find(isDefault) as Instance,
   [Platform.GCP]: platformInstanceMap.GCP.find(isDefault) as Instance,

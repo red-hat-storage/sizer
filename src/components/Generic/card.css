@@ -1,0 +1,9 @@
+.generic-card {
+  padding: 1px;
+}
+
+.generic-card__header {
+  border-bottom: 1px solid var(--pf-global--palette--black-200);
+  padding-bottom: var(--pf-global--spacer--xs);
+  margin-bottom: var(--pf-global--spacer--sm) !important;
+}

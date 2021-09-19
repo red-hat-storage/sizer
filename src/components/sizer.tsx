@@ -83,20 +83,20 @@ export const Sizer_: React.FC = () => {
               activeKey={activeTab}
               onSelect={(_e, tabIndex) => dispatch(setTab(tabIndex as number))}
             >
-              <Tab eventKey={3} title={<TabTitleText>Compute </TabTitleText>}>
+              <Tab eventKey={0} title={<TabTitleText>Compute</TabTitleText>}>
                 <Compute />
               </Tab>
               <Tab
                 className="sizer-section"
-                eventKey={0}
-                title={<TabTitleText>Capacity Planning</TabTitleText>}
+                eventKey={1}
+                title={<TabTitleText>Storage</TabTitleText>}
               >
                 <Planner />
               </Tab>
-              <Tab eventKey={4} title={<TabTitleText>Workloads </TabTitleText>}>
+              <Tab eventKey={2} title={<TabTitleText>Workloads</TabTitleText>}>
                 <WorkloadPage />
               </Tab>
-              <Tab eventKey={1} title={<TabTitleText>Results</TabTitleText>}>
+              <Tab eventKey={3} title={<TabTitleText>Results</TabTitleText>}>
                 <Results />
               </Tab>
             </Tabs>

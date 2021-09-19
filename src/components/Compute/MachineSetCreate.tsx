@@ -9,7 +9,12 @@ import {
   Form,
   FormGroup,
   Modal,
+  Select,
+  SelectOption,
+  SelectOptionObject,
+  SelectVariant,
   TextInput,
+  TextInputProps,
 } from "@patternfly/react-core";
 import { CaretDownIcon } from "@patternfly/react-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +22,7 @@ import { addMachineSet, closeModal, Store } from "../../redux";
 import SelectionList from "./SelectList";
 import { Platform } from "../../types";
 import { platformInstanceMap } from "../../cloudInstance";
+import { getTotalCPU, getTotalMemory, Workload } from "../../models";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";
 
@@ -55,15 +61,18 @@ const nodeMemoryItems = [
     128
   </DropdownItem>,
 ];
+
 const MachineSetCreate: React.FC = () => {
   const dispatch = useDispatch();
   const ui = useSelector((store: Store) => store.ui);
   const platform = useSelector((store: Store) => store.cluster.platform);
+  const workloads = useSelector((store: Store) => store.workload);
+
+  const existingMachineSets = useSelector((store: Store) => store.machineSet);
 
   const [name, setName] = React.useState("");
   const [cpu, setCPU] = React.useState(0);
   const [memory, setMem] = React.useState(0);
-  const [onlyFor, setOnlyFor] = React.useState([]);
 
   const [isCpuOpen, setCpuOpen] = React.useState(false);
   const [isMemOpen, setMemOpen] = React.useState(false);
@@ -71,7 +80,27 @@ const MachineSetCreate: React.FC = () => {
 
   const [selectedInstance, setInstance] = React.useState<string>("");
 
+  const [isWorkloadListOpen, setWorkloadListOpen] = React.useState(false);
+  const [selectedWorkloads, setWorkloads] = React.useState<Workload[]>([]);
+
   const onClose = () => dispatch(closeModal());
+
+  const workloadOptions = React.useMemo(
+    () =>
+      workloads.map((workload) => {
+        const description = `${workload.name} Memory Used: ${getTotalMemory(
+          workload
+        )} CPU Used: ${getTotalCPU(workload)}`;
+        return (
+          <SelectOption
+            value={workload.name}
+            description={description}
+            key={workload.name}
+          />
+        );
+      }),
+    [JSON.stringify(workloads)]
+  );
 
   const isCloudPlatform = [Platform.AWS, Platform.AZURE, Platform.GCP].includes(
     platform
@@ -90,7 +119,7 @@ const MachineSetCreate: React.FC = () => {
         memory: !isCloudPlatform ? memory : (instance?.memory as number),
         instanceName: isCloudPlatform ? (instance?.name as string) : "",
         numberOfDisks: 24,
-        onlyFor,
+        onlyFor: selectedWorkloads.map((workload) => workload.name),
       })
     );
     onClose();
@@ -109,6 +138,32 @@ const MachineSetCreate: React.FC = () => {
     }
   };
 
+  const onSelectWorkloads = (
+    _event: React.MouseEvent | React.ChangeEvent,
+    value: string | SelectOptionObject
+  ) => {
+    const names = selectedWorkloads.map((wl) => wl.name);
+    if (names.includes(value as string)) {
+      const tempSelected = selectedWorkloads.filter((wl) => wl.name !== value);
+      setWorkloads(tempSelected);
+    } else {
+      const tempSelected = [
+        ...selectedWorkloads,
+        workloads.find((item) => item.name === value) as Workload,
+      ];
+      setWorkloads(tempSelected);
+    }
+  };
+
+  const invalidName =
+    existingMachineSets.find((ms) => ms.name === name) !== undefined;
+
+  const msNameValidation: TextInputProps["validated"] = invalidName
+    ? "error"
+    : name.length === 0
+    ? "default"
+    : "success";
+
   return (
     <Modal
       height="80vh"
@@ -117,18 +172,28 @@ const MachineSetCreate: React.FC = () => {
       onClose={onClose}
       title="Create Machine Set"
       actions={[
-        <Button key="create" variant="primary" onClick={create}>
+        <Button
+          key="create"
+          variant="primary"
+          onClick={create}
+          isDisabled={msNameValidation === "error"}
+        >
           Create
         </Button>,
       ]}
     >
-      <Form
-        className={cx({
-          "compute-ms-create__form--cloud": isCloudPlatform && isSelectListOpen,
-        })}
-      >
-        <FormGroup label="Machine Name" fieldId="machine-name">
-          <TextInput value={name} onChange={(val) => setName(val)} />
+      <Form className={cx("compute-ms-create__form--cloud")}>
+        <FormGroup
+          label="Machine Name"
+          fieldId="machine-name"
+          validated={msNameValidation}
+          helperTextInvalid="A machineset with the same name already exists"
+        >
+          <TextInput
+            value={name}
+            placeholder="Ex: hpc-machine"
+            onChange={(val) => setName(val)}
+          />
         </FormGroup>
         <FormGroup label="Instance Type" fieldId="instance-type">
           <SelectionList
@@ -139,41 +204,55 @@ const MachineSetCreate: React.FC = () => {
           />
         </FormGroup>
         {!isCloudPlatform && (
-          <FormGroup label="CPU unit count" fieldId="cpu-dropdown">
-            <Dropdown
-              id="cpu-dropdown"
-              className="planner-form__dropdown"
-              isOpen={isCpuOpen}
-              toggle={
-                <DropdownToggle
-                  onToggle={() => setCpuOpen((open) => !open)}
-                  toggleIndicator={CaretDownIcon}
-                >
-                  {String(cpu)}
-                </DropdownToggle>
-              }
-              dropdownItems={nodeCpuCountItems}
-              onSelect={onSelect("NodeCPU")}
-            />
-          </FormGroup>
+          <>
+            <FormGroup label="CPU unit count" fieldId="cpu-dropdown">
+              <Dropdown
+                id="cpu-dropdown"
+                className="planner-form__dropdown"
+                isOpen={isCpuOpen}
+                toggle={
+                  <DropdownToggle
+                    onToggle={() => setCpuOpen((open) => !open)}
+                    toggleIndicator={CaretDownIcon}
+                  >
+                    {String(cpu)}
+                  </DropdownToggle>
+                }
+                dropdownItems={nodeCpuCountItems}
+                onSelect={onSelect("NodeCPU")}
+              />
+            </FormGroup>
+            <FormGroup label="Memory unit count" fieldId="memory-dropdown">
+              <Dropdown
+                className="planner-form__dropdown"
+                id="memory-dropdown"
+                isOpen={isMemOpen}
+                toggle={
+                  <DropdownToggle
+                    onToggle={() => setMemOpen((open) => !open)}
+                    toggleIndicator={CaretDownIcon}
+                  >
+                    {String(memory)}
+                  </DropdownToggle>
+                }
+                dropdownItems={nodeMemoryItems}
+                onSelect={onSelect("NodeMemory")}
+              />
+            </FormGroup>
+          </>
         )}
-        {!isCloudPlatform && (
-          <FormGroup label="Memory unit count" fieldId="memory-dropdown">
-            <Dropdown
-              className="planner-form__dropdown"
-              id="memory-dropdown"
-              isOpen={isMemOpen}
-              toggle={
-                <DropdownToggle
-                  onToggle={() => setMemOpen((open) => !open)}
-                  toggleIndicator={CaretDownIcon}
-                >
-                  {String(memory)}
-                </DropdownToggle>
-              }
-              dropdownItems={nodeMemoryItems}
-              onSelect={onSelect("NodeMemory")}
-            />
+        {workloads.length > 0 && (
+          <FormGroup label="Dedicate to Workloads" fieldId="memory-dropdown">
+            <Select
+              variant={SelectVariant.checkbox}
+              isOpen={isWorkloadListOpen}
+              onToggle={() => setWorkloadListOpen((open) => !open)}
+              onClear={() => setWorkloads([])}
+              selections={selectedWorkloads}
+              onSelect={onSelectWorkloads}
+            >
+              {workloadOptions}
+            </Select>
           </FormGroup>
         )}
       </Form>
