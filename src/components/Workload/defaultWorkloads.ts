@@ -156,3 +156,9 @@ export const defaultWorkloadsModifierMap: {
   acc[curr.name] = curr.modifiers;
   return acc;
 }, {} as any);
+export const defaultWorkloadsNameMap: {
+  [name: string]: Workload;
+} = defaultWorkloads.reduce((acc, curr) => {
+  acc[curr.name] = curr;
+  return acc;
+}, {} as any);

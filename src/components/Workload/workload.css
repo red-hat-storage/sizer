@@ -1,3 +1,7 @@
 .workload__Modal {
   min-height: 450px;
 }
+
+.workload__dataList--center {
+  align-self: center;
+}

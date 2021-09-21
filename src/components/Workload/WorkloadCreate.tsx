@@ -2,9 +2,12 @@ import * as React from "react";
 import { CodeEditor, Language } from "@patternfly/react-code-editor";
 import {
   Alert,
-  Dropdown,
-  DropdownItem,
-  DropdownToggle,
+  DataList,
+  DataListAction,
+  DataListCell,
+  DataListItem,
+  DataListItemCells,
+  DataListItemRow,
   Modal,
   Tile,
 } from "@patternfly/react-core";
@@ -19,6 +22,7 @@ import {
   defaultWorkloads,
   defaultWorkloadsIconMap,
   defaultWorkloadsModifierMap,
+  defaultWorkloadsNameMap,
 } from "./defaultWorkloads";
 import { Button } from "@patternfly/react-code-editor/node_modules/@patternfly/react-core";
 import "./workload.css";
@@ -44,57 +48,40 @@ export const WL_MODAL_ID = "WORKLOAD_MODAL";
 type WorkloadSelectCard = {
   workloadName: string;
   workloadIcon: React.ComponentClass;
-  onClick: any;
 };
 
 const WorkloadSelectCard: React.FC<WorkloadSelectCard> = ({
   workloadName,
   workloadIcon: Icon,
-  onClick,
-}) => (
-  <Tile
-    title={workloadName}
-    icon={<Icon />}
-    onClick={onClick}
-    isStacked
-    isDisplayLarge
-  />
-);
+}) => <Tile title={workloadName} icon={<Icon />} isStacked isDisplayLarge />;
 
 const WorkloadCreate: React.FC = () => {
   const openModal = useSelector((store: Store) => store.ui.openModal);
   const dispatch = useDispatch();
 
-  const [workload, setWorkload] = React.useState<Workload>();
   const [isCustom, setCustom] = React.useState(false);
-  const [workloadModifier, setWorkLoadModifier] = React.useState("");
+  const [customWorkload, setCustomWorkload] = React.useState<Workload>();
 
   const onClose = () => {
-    setWorkload(undefined);
     setCustom(false);
     dispatch(closeModal());
   };
 
-  const onClick = (workload: Workload) => () => {
-    setCustom(false);
-    setWorkload(workload);
-    setWorkLoadModifier("");
-  };
-
-  const modifiers = workload?.name
-    ? defaultWorkloadsModifierMap[workload?.name]
-    : null;
-
-  const onCreate = () => {
-    if (workload) {
+  const onCreate = (
+    workloadName: string,
+    _workloadModifier: string,
+    workloadObject?: Workload
+  ) => () => {
+    if (workloadName) {
+      const workload = defaultWorkloadsNameMap[workloadName];
       dispatch(addWorkload(workload));
-      onClose();
+    } else if (workloadObject) {
+      dispatch(addWorkload(workloadObject));
     }
+    onClose();
   };
 
-  const isValid =
-    isValidWorkload(workload as Workload) &&
-    (modifiers ? !!workloadModifier : true);
+  const isValid = isValidWorkload(customWorkload as Workload);
 
   return (
     <Modal
@@ -105,50 +92,99 @@ const WorkloadCreate: React.FC = () => {
       height="88vh"
       minLength={20}
       width="60vw"
-      actions={[
-        <Button
-          key="save"
-          variant="primary"
-          isDisabled={!isValid}
-          onClick={onCreate}
-        >
-          Create
-        </Button>,
-      ]}
+      actions={
+        isCustom
+          ? [
+              <Button
+                key="save"
+                variant="primary"
+                isDisabled={!isValid}
+                onClick={onCreate("", "", customWorkload)}
+              >
+                Create
+              </Button>,
+            ]
+          : []
+      }
     >
       {!isCustom ? (
-        <>
-          <div>
-            {defaultWorkloads.map((workload) => (
-              <WorkloadSelectCard
-                key={workload.name}
-                workloadName={workload.name}
-                workloadIcon={defaultWorkloadsIconMap[workload.name] as any}
-                onClick={onClick(workload)}
-              />
+        <div>
+          <DataList aria-label="Default Workloads">
+            {defaultWorkloads.map((wl) => (
+              <DataListItem key={wl.name}>
+                <DataListItemRow>
+                  <DataListItemCells
+                    dataListCells={[
+                      <DataListCell
+                        key={`${wl.name}-workload-icon`}
+                        className="workload__dataList--center"
+                      >
+                        <WorkloadSelectCard
+                          workloadName={wl.name}
+                          workloadIcon={defaultWorkloadsIconMap[wl.name] as any}
+                        />
+                      </DataListCell>,
+                      <DataListCell
+                        key={`${wl.name}-workload-name`}
+                        className="workload__dataList--center"
+                      >
+                        {wl.name}
+                      </DataListCell>,
+                    ]}
+                  />
+                  <DataListAction
+                    className="workload__dataList--center"
+                    aria-label="Workload Modifiers"
+                    aria-labelledby="none"
+                    id="modifiers"
+                  >
+                    {defaultWorkloadsModifierMap[wl.name]
+                      ? defaultWorkloadsModifierMap[wl.name].map((mod) => (
+                          <Button onClick={onCreate(wl.name, mod)}>
+                            {mod}
+                          </Button>
+                        ))
+                      : null}
+                  </DataListAction>
+                </DataListItemRow>
+              </DataListItem>
             ))}
-            <WorkloadSelectCard
-              workloadName="Custom"
-              workloadIcon={EditIcon}
-              onClick={() => {
-                setCustom(true);
-                setWorkload(undefined);
-              }}
-            />
-          </div>
-          {modifiers && (
-            <div>
-              <WorkloadModifier
-                modifiers={modifiers}
-                onChange={(item: string) => setWorkLoadModifier(item)}
-                current={workloadModifier}
-              />
-            </div>
-          )}
-        </>
+            <DataListItem key="custom">
+              <DataListItemRow>
+                <DataListItemCells
+                  dataListCells={[
+                    <DataListCell
+                      key={`custom-workload-icon`}
+                      className="workload__dataList--center"
+                    >
+                      <WorkloadSelectCard
+                        workloadName="Custom"
+                        workloadIcon={EditIcon}
+                      />
+                    </DataListCell>,
+                    <DataListCell
+                      key={`custom-workload-name`}
+                      className="workload__dataList--center"
+                    >
+                      Create a custom Workload
+                    </DataListCell>,
+                  ]}
+                />
+                <DataListAction
+                  aria-label="Workload Modifiers"
+                  aria-labelledby="none"
+                  id="modifiers"
+                  className="workload__dataList--center"
+                >
+                  <Button onClick={() => setCustom(true)}>Create</Button>
+                </DataListAction>
+              </DataListItemRow>
+            </DataListItem>
+          </DataList>
+        </div>
       ) : (
         <>
-          <CustomWorkloadCreate setWorkload={setWorkload} />
+          <CustomWorkloadCreate setWorkload={setCustomWorkload} />
         </>
       )}
     </Modal>
@@ -200,43 +236,6 @@ const CustomWorkloadCreate: React.FC<CustomWorkloadCreateProps> = ({
         </Alert>
       )}
     </>
-  );
-};
-
-type WorkloadModifierProps = {
-  modifiers: string[];
-  onChange: any;
-  current?: string;
-};
-
-const WorkloadModifier: React.FC<WorkloadModifierProps> = ({
-  modifiers,
-  onChange,
-  current,
-}) => {
-  const [isOpen, setOpen] = React.useState(false);
-  const dropdownItems = modifiers.map((modifier) => (
-    <DropdownItem key={modifier} id={modifier}>
-      {modifier}
-    </DropdownItem>
-  ));
-
-  const onSelect = (event?: React.SyntheticEvent<HTMLDivElement>) => {
-    onChange(event?.currentTarget?.id);
-    setOpen(false);
-  };
-
-  return (
-    <Dropdown
-      onSelect={onSelect}
-      toggle={
-        <DropdownToggle onToggle={() => setOpen(!isOpen)}>
-          {current || "Select Modifier"}
-        </DropdownToggle>
-      }
-      isOpen={isOpen}
-      dropdownItems={dropdownItems}
-    />
   );
 };
 
