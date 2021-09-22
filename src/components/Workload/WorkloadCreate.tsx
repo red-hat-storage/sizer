@@ -47,14 +47,16 @@ services:
 export const WL_MODAL_ID = "WORKLOAD_MODAL";
 
 type WorkloadSelectCard = {
-  workloadName: string;
+  workloadName?: string;
   workloadIcon: React.ComponentClass;
 };
 
 const WorkloadSelectCard: React.FC<WorkloadSelectCard> = ({
   workloadName,
   workloadIcon: Icon,
-}) => <Tile title={workloadName} icon={<Icon />} isStacked isDisplayLarge />;
+}) => (
+  <Tile title={workloadName || ""} icon={<Icon />} isStacked isDisplayLarge />
+);
 
 const WorkloadCreate: React.FC = () => {
   const openModal = useSelector((store: Store) => store.ui.openModal);
@@ -125,7 +127,7 @@ const WorkloadCreate: React.FC = () => {
                         className="workload__dataList--center"
                       >
                         <WorkloadSelectCard
-                          workloadName={wl.name}
+                          // workloadName={wl.name}
                           workloadIcon={defaultWorkloadsIconMap[wl.name] as any}
                         />
                       </DataListCell>,
