@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as _ from "lodash";
 import { CodeEditor, Language } from "@patternfly/react-code-editor";
 import {
   Alert,
@@ -23,6 +24,7 @@ import {
   defaultWorkloadsIconMap,
   defaultWorkloadsModifierMap,
   defaultWorkloadsNameMap,
+  defaultWorkloadTransformersMap,
 } from "./defaultWorkloads";
 import { Button } from "@patternfly/react-code-editor/node_modules/@patternfly/react-core";
 import "./workload.css";
@@ -69,11 +71,15 @@ const WorkloadCreate: React.FC = () => {
 
   const onCreate = (
     workloadName: string,
-    _workloadModifier: string,
+    workloadModifier: string,
     workloadObject?: Workload
   ) => () => {
-    if (workloadName) {
-      const workload = defaultWorkloadsNameMap[workloadName];
+    if (workloadName && workloadModifier) {
+      const workload = _.assign(
+        {},
+        defaultWorkloadsNameMap[workloadName],
+        defaultWorkloadTransformersMap[workloadName][workloadModifier]
+      );
       dispatch(addWorkload(workload));
     } else if (workloadObject) {
       dispatch(addWorkload(workloadObject));

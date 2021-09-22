@@ -24,6 +24,7 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({ workload }) => {
 
   return (
     <Card cardType="Workload" itemName={workload.name} remove={removeWL}>
+      <CardItem title="Count" value={workload.count} />
       <CardItem title="CPU" value={`${totalCPU} units`} />
       <CardItem title="Memory Used" value={`${totalMemory} GB`} />
       <CardItem title="Services" value={services.join(", ")} />

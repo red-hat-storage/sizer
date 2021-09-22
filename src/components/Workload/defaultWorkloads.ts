@@ -10,7 +10,9 @@ import {
 
 type WorkloadData = Workload & {
   icon: React.ComponentClass;
-  modifiers?: string[];
+  modifiers?: {
+    [modifierName: string]: Partial<Workload>;
+  };
 };
 
 const defaultWorkloadsMap: WorkloadData[] = [
@@ -37,7 +39,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
       },
     ],
     icon: WordpressIcon,
-    modifiers: ["Large", "Medium", "Small"],
+    modifiers: { Large: { count: 3 }, Medium: { count: 2 }, Small: {} },
   },
   {
     name: "LAMP",
@@ -62,7 +64,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
       },
     ],
     icon: LinuxIcon,
-    modifiers: ["Large", "Medium", "Small"],
+    modifiers: { Large: { count: 3 }, Medium: { count: 2 }, Small: {} },
   },
   {
     name: "PostgreSQL",
@@ -87,7 +89,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
       },
     ],
     icon: DatabaseIcon,
-    modifiers: ["Large", "Medium", "Small"],
+    modifiers: { Large: { count: 3 }, Medium: { count: 2 }, Small: {} },
   },
   {
     name: "Kafka",
@@ -112,7 +114,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
       },
     ],
     icon: ApplicationsIcon,
-    modifiers: ["Large", "Medium", "Small"],
+    modifiers: { Large: { count: 3 }, Medium: { count: 2 }, Small: {} },
   },
   {
     name: "Gitlab",
@@ -137,7 +139,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
       },
     ],
     icon: GitlabIcon,
-    modifiers: ["Large", "Medium", "Small"],
+    modifiers: { Large: { count: 3 }, Medium: { count: 2 }, Small: {} },
   },
 ];
 
@@ -153,12 +155,20 @@ export const defaultWorkloadsIconMap: {
 export const defaultWorkloadsModifierMap: {
   [name: string]: string[];
 } = defaultWorkloadsMap.reduce((acc, curr) => {
-  acc[curr.name] = curr.modifiers;
+  acc[curr.name] = Object.keys(curr.modifiers || {});
   return acc;
 }, {} as any);
 export const defaultWorkloadsNameMap: {
   [name: string]: Workload;
 } = defaultWorkloads.reduce((acc, curr) => {
   acc[curr.name] = curr;
+  return acc;
+}, {} as any);
+export const defaultWorkloadTransformersMap: {
+  [name: string]: {
+    [modifierName: string]: Partial<Workload>;
+  };
+} = defaultWorkloadsMap.reduce((acc, curr) => {
+  acc[curr.name] = curr.modifiers;
   return acc;
 }, {} as any);
