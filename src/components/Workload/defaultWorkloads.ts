@@ -153,22 +153,14 @@ export const defaultWorkloadsIconMap: {
   return acc;
 }, {} as any);
 export const defaultWorkloadsModifierMap: {
-  [name: string]: string[];
+  [name: string]: { [modifierName: string]: Partial<Workload> };
 } = defaultWorkloadsMap.reduce((acc, curr) => {
-  acc[curr.name] = Object.keys(curr.modifiers || {});
+  acc[curr.name] = curr.modifiers || {};
   return acc;
 }, {} as any);
 export const defaultWorkloadsNameMap: {
   [name: string]: Workload;
 } = defaultWorkloads.reduce((acc, curr) => {
   acc[curr.name] = curr;
-  return acc;
-}, {} as any);
-export const defaultWorkloadTransformersMap: {
-  [name: string]: {
-    [modifierName: string]: Partial<Workload>;
-  };
-} = defaultWorkloadsMap.reduce((acc, curr) => {
-  acc[curr.name] = curr.modifiers;
   return acc;
 }, {} as any);

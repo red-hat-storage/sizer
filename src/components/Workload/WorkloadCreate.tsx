@@ -24,7 +24,6 @@ import {
   defaultWorkloadsIconMap,
   defaultWorkloadsModifierMap,
   defaultWorkloadsNameMap,
-  defaultWorkloadTransformersMap,
 } from "./defaultWorkloads";
 import { Button } from "@patternfly/react-code-editor/node_modules/@patternfly/react-core";
 import "./workload.css";
@@ -71,14 +70,14 @@ const WorkloadCreate: React.FC = () => {
 
   const onCreate = (
     workloadName: string,
-    workloadModifier: string,
+    workloadModifier: Partial<Workload>,
     workloadObject?: Workload
   ) => () => {
     if (workloadName && workloadModifier) {
       const workload = _.assign(
         {},
         defaultWorkloadsNameMap[workloadName],
-        defaultWorkloadTransformersMap[workloadName][workloadModifier]
+        workloadModifier
       );
       dispatch(addWorkload(workload));
     } else if (workloadObject) {
@@ -105,7 +104,7 @@ const WorkloadCreate: React.FC = () => {
                 key="save"
                 variant="primary"
                 isDisabled={!isValid}
-                onClick={onCreate("", "", customWorkload)}
+                onClick={onCreate("", {}, customWorkload)}
               >
                 Create
               </Button>,
@@ -145,9 +144,11 @@ const WorkloadCreate: React.FC = () => {
                     id="modifiers"
                   >
                     {defaultWorkloadsModifierMap[wl.name]
-                      ? defaultWorkloadsModifierMap[wl.name].map((mod) => (
-                          <Button onClick={onCreate(wl.name, mod)}>
-                            {mod}
+                      ? Object.entries(
+                          defaultWorkloadsModifierMap[wl.name]
+                        ).map(([modifierName, modifierObject]) => (
+                          <Button onClick={onCreate(wl.name, modifierObject)}>
+                            {modifierName}
                           </Button>
                         ))
                       : null}
