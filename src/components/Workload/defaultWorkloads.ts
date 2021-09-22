@@ -1,4 +1,5 @@
 import * as _ from "lodash";
+import { DeepPartial } from "@reduxjs/toolkit";
 import { Workload } from "../../models";
 import {
   WordpressIcon,
@@ -11,7 +12,7 @@ import {
 type WorkloadData = Workload & {
   icon: React.ComponentClass;
   modifiers?: {
-    [modifierName: string]: Partial<Workload>;
+    [modifierName: string]: DeepPartial<Workload>;
   };
 };
 
@@ -39,7 +40,11 @@ const defaultWorkloadsMap: WorkloadData[] = [
       },
     ],
     icon: WordpressIcon,
-    modifiers: { Large: { count: 3 }, Medium: { count: 2 }, Small: {} },
+    modifiers: {
+      Large: { count: 1, services: [{ name: "wordpress", requiredCPU: 6 }] },
+      Medium: { count: 2 },
+      Small: {},
+    },
   },
   {
     name: "LAMP",

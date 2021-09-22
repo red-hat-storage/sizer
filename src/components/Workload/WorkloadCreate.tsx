@@ -16,7 +16,7 @@ import { EditIcon } from "@patternfly/react-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addWorkload, closeModal, Store } from "../../redux";
-import { isValidWorkload } from "./util";
+import { applyModifier, isValidWorkload } from "./util";
 import * as jsyaml from "js-yaml";
 import { Workload } from "../../models";
 import {
@@ -76,8 +76,7 @@ const WorkloadCreate: React.FC = () => {
     workloadObject?: Workload
   ) => () => {
     if (workloadName && workloadModifier) {
-      const workload = _.assign(
-        {},
+      const workload = applyModifier(
         defaultWorkloadsNameMap[workloadName],
         workloadModifier
       );
