@@ -22,8 +22,8 @@ const CreateCard: React.FC<CreateCard> = ({
   className,
 }) => {
   return (
-    <Card className={className}>
-      <CardBody>
+    <Card className={`${className} generic-card`}>
+      <CardBody className="create-card">
         <EmptyState>
           <EmptyStateIcon icon={Icon} />
           <Title headingLevel="h4" size="lg">

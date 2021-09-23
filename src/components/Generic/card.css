@@ -1,9 +1,18 @@
 .generic-card {
   padding: 1px;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .generic-card__header {
   border-bottom: 1px solid var(--pf-global--palette--black-200);
   padding-bottom: var(--pf-global--spacer--xs);
   margin-bottom: var(--pf-global--spacer--sm) !important;
+}
+
+.create-card {
+  display: flex !important;
+  align-content: center;
+  align-items: center;
+  place-content: center;
 }
