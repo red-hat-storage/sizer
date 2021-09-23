@@ -36,14 +36,9 @@ const Results: React.FC = () => {
   // Handles popover visibility
   const [isVisible, setVisible] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
-
-  const prevState = React.useRef<Store>({} as Store);
+  const [prevState, setPrevState] = React.useState({});
 
   const cluster = React.useMemo(() => new Cluster(platform), [platform]);
-
-  React.useEffect(() => {
-    prevState.current = state;
-  }, [state]);
 
   React.useEffect(() => {
     cluster.setMachineSetsAndWorkloads(machineSets, workloads);
@@ -98,7 +93,7 @@ const Results: React.FC = () => {
   const shouldOpen = () => {
     setVisible(true);
     const shouldUpdateLink =
-      JSON.stringify(prevState.current) !== JSON.stringify(state);
+      JSON.stringify(prevState) !== JSON.stringify(state);
     if (!link || (link && shouldUpdateLink)) {
       setLoading(true);
       // Create a gist from the state
@@ -113,6 +108,7 @@ const Results: React.FC = () => {
             content: JSON.stringify(subState),
           },
         },
+        public: true,
       })
         .then((response) => {
           setLink(response.data.id || "");
@@ -123,6 +119,7 @@ const Results: React.FC = () => {
           setLoading(false);
         });
     }
+    setPrevState(state);
   };
 
   return (
@@ -180,7 +177,7 @@ const Results: React.FC = () => {
                     You can use the following link to share your configuration:{" "}
                   </div>
                   <ClipboardCopy isReadOnly hoverTip="Copy" clickTip="Copied">
-                    {`${window.location.origin}/?state=${link}`}
+                    {`${window.location.origin}?state=${link}`}
                   </ClipboardCopy>
                 </div>
               )
