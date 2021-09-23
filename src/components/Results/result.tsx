@@ -3,7 +3,12 @@ import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import Conv from "html2canvas";
 import { request } from "@octokit/request";
-import { Button, Popover } from "@patternfly/react-core";
+import {
+  Button,
+  ClipboardCopy,
+  Popover,
+  Spinner,
+} from "@patternfly/react-core";
 import Cluster from "../../models/Cluster";
 import { Node } from "../../models/Node";
 import AdvancedResultsModal from "../Modals/AdvancedResults";
@@ -30,8 +35,15 @@ const Results: React.FC = () => {
   const [link, setLink] = React.useState("");
   // Handles popover visibility
   const [isVisible, setVisible] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
+
+  const prevState = React.useRef<Store>({} as Store);
 
   const cluster = React.useMemo(() => new Cluster(platform), [platform]);
+
+  React.useEffect(() => {
+    prevState.current = state;
+  }, [state]);
 
   React.useEffect(() => {
     cluster.setMachineSetsAndWorkloads(machineSets, workloads);
@@ -85,7 +97,10 @@ const Results: React.FC = () => {
 
   const shouldOpen = () => {
     setVisible(true);
-    if (!link) {
+    const shouldUpdateLink =
+      JSON.stringify(prevState.current) !== JSON.stringify(state);
+    if (!link || (link && shouldUpdateLink)) {
+      setLoading(true);
       // Create a gist from the state
       const subState = _.omit(state, "ui");
       const fileName = "state.json";
@@ -101,8 +116,12 @@ const Results: React.FC = () => {
       })
         .then((response) => {
           setLink(response.data.id || "");
+          setLoading(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
     }
   };
 
@@ -150,7 +169,22 @@ const Results: React.FC = () => {
             isVisible={isVisible}
             shouldOpen={shouldOpen}
             shouldClose={() => setVisible(false)}
-            bodyContent={<>{`${window.location.origin}/?state=${link}`}</>}
+            bodyContent={
+              isLoading ? (
+                <div>
+                  <Spinner isSVG />
+                </div>
+              ) : (
+                <div>
+                  <div>
+                    You can use the following link to share your configuration:{" "}
+                  </div>
+                  <ClipboardCopy isReadOnly hoverTip="Copy" clickTip="Copied">
+                    {`${window.location.origin}/?state=${link}`}
+                  </ClipboardCopy>
+                </div>
+              )
+            }
           >
             <Button className="button-normalizer">Get Sharing Link</Button>
           </Popover>
