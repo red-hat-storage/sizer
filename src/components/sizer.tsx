@@ -2,12 +2,24 @@ import * as React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
+import { request } from "@octokit/request";
 import Planner from "./Planner/planner";
 import Results from "./Results/result";
 import AboutModal from "./Modals/about";
 import FAQModal from "./Modals/faq";
 import Header from "./Header/Header";
-import { store, setTab, Store } from "../redux";
+import {
+  store,
+  setTab,
+  Store,
+  clearAllMachines,
+  addMachineSet,
+  addWorkload,
+  setFlashSize,
+  setUsableCapacity,
+  setDeploymentType,
+  setDedicatedMachines,
+} from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
 import GA4React from "ga-4-react";
@@ -47,6 +59,33 @@ export const Sizer_: React.FC = () => {
       !window.location.pathname.includes(BETA_TAG)
     ) {
       ga4react.initialize();
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const gistID = urlSearchParams.get("state");
+    if (gistID) {
+      request("GET /gists/{gist_id}", {
+        gist_id: gistID,
+      })
+        .then((response) => {
+          const serializedState = response.data.files?.["state.json"]?.content;
+          const parsedState: Omit<Store, "ui"> = JSON.parse(
+            JSON.parse(serializedState || "")
+          );
+          // Set machineSets
+          dispatch(clearAllMachines());
+          parsedState.machineSet.forEach((ms) => dispatch(addMachineSet(ms)));
+          // Add workloads
+          parsedState.workload.forEach((wl) => dispatch(addWorkload(wl)));
+          // Configure OCS
+          dispatch(setFlashSize(parsedState.ocs.flashSize));
+          dispatch(setUsableCapacity(parsedState.ocs.usableCapacity));
+          dispatch(setDeploymentType(parsedState.ocs.deploymentType));
+          dispatch(setDedicatedMachines(parsedState.ocs.dedicatedMachines));
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 

@@ -34,4 +34,10 @@ const ocsReducer = createReducer(defaultState, (builder) => {
     });
 });
 
-export { setFlashSize, setUsableCapacity, setDeploymentType, ocsReducer };
+export {
+  setFlashSize,
+  setUsableCapacity,
+  setDeploymentType,
+  setDedicatedMachines,
+  ocsReducer,
+};
