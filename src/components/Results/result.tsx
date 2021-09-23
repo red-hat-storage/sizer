@@ -1,7 +1,9 @@
 import * as React from "react";
+import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import Conv from "html2canvas";
-import { Button } from "@patternfly/react-core";
+import { request } from "@octokit/request";
+import { Button, Popover } from "@patternfly/react-core";
 import Cluster from "../../models/Cluster";
 import { Node } from "../../models/Node";
 import AdvancedResultsModal from "../Modals/AdvancedResults";
@@ -14,15 +16,20 @@ import { useVisibilityTracker } from "../../hooks/view";
 import SkipToTop from "./SkipToTop";
 import "./result.css";
 import { Store } from "../../redux";
+import { GH_TOKEN } from "../../constants";
 
 const Results: React.FC = () => {
   const ocsState = useSelector((store: Store) => store.ocs);
   const workloads = useSelector((store: Store) => store.workload);
   const machineSets = useSelector((store: Store) => store.machineSet);
   const platform = useSelector((store: Store) => store.cluster.platform);
+  const state = useSelector((store: Store) => store);
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);
+  const [link, setLink] = React.useState("");
+  // Handles popover visibility
+  const [isVisible, setVisible] = React.useState(false);
 
   const cluster = React.useMemo(() => new Cluster(platform), [platform]);
 
@@ -76,6 +83,29 @@ const Results: React.FC = () => {
     setShowAdvanced(true);
   };
 
+  const shouldOpen = () => {
+    setVisible(true);
+    if (!link) {
+      // Create a gist from the state
+      const subState = _.omit(state, "ui");
+      const fileName = "state.json";
+      request("POST /gists", {
+        headers: {
+          authorization: `token ${GH_TOKEN}`,
+        },
+        files: {
+          [fileName]: {
+            content: JSON.stringify(subState),
+          },
+        },
+      })
+        .then((response) => {
+          setLink(response.data.id || "");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <>
       {!isDownloadButtonVisible && <SkipToTop onClick={scroller} />}
@@ -116,6 +146,14 @@ const Results: React.FC = () => {
           >
             Download
           </Button>
+          <Popover
+            isVisible={isVisible}
+            shouldOpen={shouldOpen}
+            shouldClose={() => setVisible(false)}
+            bodyContent={<>{`${window.location.origin}/?state=${link}`}</>}
+          >
+            <Button className="button-normalizer">Get Sharing Link</Button>
+          </Popover>
         </div>
         <div id="nodes-vis-container">
           <NodesVisualResults nodes={allNodes} />

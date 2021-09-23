@@ -72,7 +72,7 @@ export const Sizer_: React.FC = () => {
         .then((response) => {
           const serializedState = response.data.files?.["state.json"]?.content;
           const parsedState: Omit<Store, "ui"> = JSON.parse(
-            JSON.parse(serializedState || "")
+            serializedState || ""
           );
           // Set machineSets
           dispatch(clearAllMachines());
