@@ -45,14 +45,13 @@ export const getNewNode = (
           machineSet.memory,
           machineSet.name
         );
-      } else {
-        return new AWSEBS(
-          machineSet.numberOfDisks,
-          machineSet.cpu,
-          machineSet.memory,
-          machineSet.name
-        );
       }
+      return new AWSEBS(
+        machineSet.numberOfDisks,
+        machineSet.cpu,
+        machineSet.memory,
+        machineSet.name
+      );
     case Platform.GCP:
       return new GCP(
         machineSet.numberOfDisks,
