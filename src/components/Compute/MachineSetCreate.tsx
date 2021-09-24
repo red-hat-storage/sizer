@@ -248,7 +248,7 @@ const MachineSetCreate: React.FC = () => {
               isOpen={isWorkloadListOpen}
               onToggle={() => setWorkloadListOpen((open) => !open)}
               onClear={() => setWorkloads([])}
-              selections={selectedWorkloads}
+              selections={selectedWorkloads.map((wl) => wl.name)}
               onSelect={onSelectWorkloads}
             >
               {workloadOptions}
