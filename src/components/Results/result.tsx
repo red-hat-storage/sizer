@@ -105,7 +105,7 @@ const Results: React.FC = () => {
         },
         files: {
           [fileName]: {
-            content: JSON.stringify(coreState),
+            content: JSON.stringify(coreState, null, 2),
           },
         },
         public: true,
