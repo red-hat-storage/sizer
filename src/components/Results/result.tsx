@@ -28,7 +28,7 @@ const Results: React.FC = () => {
   const workloads = useSelector((store: Store) => store.workload);
   const machineSets = useSelector((store: Store) => store.machineSet);
   const platform = useSelector((store: Store) => store.cluster.platform);
-  const state = useSelector((store: Store) => store);
+  const coreState = useSelector((store: Store) => _.omit(store, "ui"));
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);
@@ -36,7 +36,6 @@ const Results: React.FC = () => {
   // Handles popover visibility
   const [isVisible, setVisible] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
-  const [prevState, setPrevState] = React.useState({});
 
   const cluster = React.useMemo(() => new Cluster(platform), [platform]);
 
@@ -92,12 +91,13 @@ const Results: React.FC = () => {
 
   const shouldOpen = () => {
     setVisible(true);
-    const shouldUpdateLink =
-      JSON.stringify(prevState) !== JSON.stringify(state);
-    if (!link || (link && shouldUpdateLink)) {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const gistID = urlSearchParams.get("state");
+    if (gistID) {
+      setLink(gistID);
+    } else {
       setLoading(true);
       // Create a gist from the state
-      const subState = _.omit(state, "ui");
       const fileName = "state.json";
       request("POST /gists", {
         headers: {
@@ -105,7 +105,7 @@ const Results: React.FC = () => {
         },
         files: {
           [fileName]: {
-            content: JSON.stringify(subState),
+            content: JSON.stringify(coreState),
           },
         },
         public: true,
@@ -113,13 +113,20 @@ const Results: React.FC = () => {
         .then((response) => {
           setLink(response.data.id || "");
           setLoading(false);
+          window.history.replaceState(
+            null,
+            "",
+            `${window.location.pathname.substring(
+              0,
+              window.location.pathname.length - 1
+            )}?state=${response.data.id}`
+          );
         })
         .catch((err) => {
           console.log(err);
           setLoading(false);
         });
     }
-    setPrevState(state);
   };
 
   return (
@@ -177,7 +184,12 @@ const Results: React.FC = () => {
                     You can use the following link to share your configuration:{" "}
                   </div>
                   <ClipboardCopy isReadOnly hoverTip="Copy" clickTip="Copied">
-                    {`${window.location.origin}?state=${link}`}
+                    {`${
+                      window.location.origin
+                    }${window.location.pathname.substring(
+                      0,
+                      window.location.pathname.length - 1
+                    )}?state=${link}`}
                   </ClipboardCopy>
                 </div>
               )

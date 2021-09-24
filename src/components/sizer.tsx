@@ -25,6 +25,7 @@ import "./shepherd.css";
 import GA4React from "ga-4-react";
 import Compute from "./Compute/compute";
 import WorkloadPage from "./Workload/workloads";
+import * as _ from "lodash";
 
 const TRACKED_PLATFORMS = [
   "sizer.odf.ninja",
@@ -41,6 +42,8 @@ export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
   const activeTab = useSelector((state: Store) => state.ui.activeTab);
   const [activeModal, setActiveModal] = React.useState("");
+  const coreState = useSelector((state: Store) => _.omit(state, "ui"));
+  const prevState = React.useRef<Omit<Store, "ui">>();
 
   const onSelect = (selectedItem: string) => {
     if (selectedItem === "about") {
@@ -88,6 +91,17 @@ export const Sizer_: React.FC = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+
+  // Removes search query when the state get's changed.
+  React.useEffect(() => {
+    if (
+      prevState.current &&
+      JSON.stringify(prevState.current) !== JSON.stringify(coreState)
+    ) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+    prevState.current = coreState;
+  }, [JSON.stringify(coreState)]);
 
   /*   React.useEffect(() => {
     const tour = getSizerTour(dispatch);
