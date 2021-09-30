@@ -3,6 +3,7 @@ import * as _ from "lodash";
 import { CodeEditor, Language } from "@patternfly/react-code-editor";
 import {
   Alert,
+  Checkbox,
   DataList,
   DataListAction,
   DataListCell,
@@ -10,13 +11,17 @@ import {
   DataListItemCells,
   DataListItemRow,
   Modal,
+  Select,
+  SelectOption,
+  SelectOptionObject,
+  SelectVariant,
   Tile,
 } from "@patternfly/react-core";
 import { EditIcon } from "@patternfly/react-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addWorkload, closeModal, Store } from "../../redux";
-import { applyModifier, isValidWorkload } from "./util";
+import { applyModifier, isValidWorkload, makeId } from "./util";
 import * as jsyaml from "js-yaml";
 import { Workload } from "../../models";
 import {
@@ -60,10 +65,14 @@ const WorkloadSelectCard: React.FC<WorkloadSelectCard> = ({
 
 const WorkloadCreate: React.FC = () => {
   const openModal = useSelector((store: Store) => store.ui.openModal);
+  const machines = useSelector((store: Store) => store.machineSet);
   const dispatch = useDispatch();
 
   const [isCustom, setCustom] = React.useState(false);
   const [customWorkload, setCustomWorkload] = React.useState<Workload>();
+  const [isDedicated, setDedicated] = React.useState(false);
+  const [usesMachines, setMachines] = React.useState<string[]>([]);
+  const [isOpen, setOpen] = React.useState(false);
 
   const onClose = () => {
     setCustom(false);
@@ -80,11 +89,36 @@ const WorkloadCreate: React.FC = () => {
         defaultWorkloadsNameMap[workloadName],
         workloadModifier
       );
+      workload.uid = makeId(5);
+      workload.usesMachines = usesMachines ? usesMachines : [];
       dispatch(addWorkload(workload));
     } else if (workloadObject) {
+      workloadObject.uid = makeId(5);
+      workloadObject.usesMachines = usesMachines ? usesMachines : [];
       dispatch(addWorkload(workloadObject));
     }
     onClose();
+  };
+
+  const machineOptions = React.useMemo(
+    () =>
+      machines.map((machine) => {
+        const description = machine.onlyFor
+          ? `Machine is dedicated for: ${machine.onlyFor.join(",")}`
+          : null;
+        return (
+          <SelectOption
+            value={machine.name}
+            key={machine.name}
+            description={description}
+          />
+        );
+      }),
+    [JSON.stringify(machines)]
+  );
+
+  const onSelectMachines = (_event: any, machine: SelectOptionObject) => {
+    setMachines([...usesMachines, machine as string]);
   };
 
   const isValid = isValidWorkload(customWorkload as Workload);
@@ -113,6 +147,27 @@ const WorkloadCreate: React.FC = () => {
           : []
       }
     >
+      <div>
+        <Checkbox
+          label="Dedicate this workload to a MachineSet"
+          isChecked={isDedicated}
+          onChange={() => setDedicated((s) => !s)}
+          id="checkbox-dedicated"
+        />
+        {isDedicated && (
+          <Select
+            maxLength={100}
+            variant={SelectVariant.checkbox}
+            isOpen={isOpen}
+            onToggle={() => setOpen((o) => !o)}
+            onClear={() => setMachines([])}
+            selections={usesMachines.map((m) => m)}
+            onSelect={onSelectMachines}
+          >
+            {machineOptions}
+          </Select>
+        )}
+      </div>
       {!isCustom ? (
         <div>
           <DataList aria-label="Default Workloads">

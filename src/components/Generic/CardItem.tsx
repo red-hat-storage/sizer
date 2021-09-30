@@ -8,7 +8,7 @@ import {
   FlexItem,
   Title,
 } from "@patternfly/react-core";
-import { CloseIcon } from "@patternfly/react-icons";
+import { CloseIcon, EditIcon } from "@patternfly/react-icons";
 import "./card.css";
 
 type CardItemProps = {
@@ -20,8 +20,10 @@ type CardProps = {
   children: React.ReactNode;
   cardType: string;
   itemName: string;
+  itemId?: string;
   remove: (name: string) => () => void;
   disableDeletion?: boolean;
+  edit?: () => void;
 };
 
 export const CardItem: React.FC<CardItemProps> = ({ title, value }) => (
@@ -37,12 +39,18 @@ export const CardItem: React.FC<CardItemProps> = ({ title, value }) => (
 
 export const Card: React.FC<CardProps> = ({
   itemName,
+  itemId,
   cardType,
   disableDeletion = false,
   remove,
+  edit,
   children,
 }) => {
-  const onClick = React.useMemo(() => remove(itemName), [itemName, remove]);
+  const onClick = React.useMemo(() => remove(itemId ? itemId : itemName), [
+    itemName,
+    remove,
+    itemId,
+  ]);
 
   return (
     <PfCard className="generic-card">
@@ -51,6 +59,7 @@ export const Card: React.FC<CardProps> = ({
           {itemName} {cardType}
         </Title>
         <CardActions>
+          {edit && <EditIcon onClick={edit} />}
           {!disableDeletion && <CloseIcon onClick={onClick} />}
         </CardActions>
       </CardHeader>

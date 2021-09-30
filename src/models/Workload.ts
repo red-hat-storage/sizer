@@ -1,6 +1,7 @@
 import { Service } from "./Service";
 
 export type Workload = {
+  uid?: string;
   name: string;
   count: number;
   usesMachines: string[];

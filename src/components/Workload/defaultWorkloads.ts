@@ -9,7 +9,7 @@ import {
   ApplicationsIcon,
 } from "@patternfly/react-icons";
 
-type WorkloadData = Workload & {
+type WorkloadData = Omit<Workload, "uid"> & {
   icon: React.ComponentClass;
   modifiers?: {
     [modifierName: string]: DeepPartial<Workload>;
@@ -228,9 +228,10 @@ const defaultWorkloadsMap: WorkloadData[] = [
   },
 ];
 
-export const defaultWorkloads: Workload[] = defaultWorkloadsMap.map((wl) =>
-  _.omit(wl, ["icon", "modifiers"])
-);
+export const defaultWorkloads: Omit<
+  Workload,
+  "uid"
+>[] = defaultWorkloadsMap.map((wl) => _.omit(wl, ["icon", "modifiers"]));
 export const defaultWorkloadsIconMap: {
   [name: string]: React.ReactNode;
 } = defaultWorkloadsMap.reduce((acc, curr) => {
