@@ -102,23 +102,21 @@ const WorkloadCreate: React.FC = () => {
 
   const machineOptions = React.useMemo(
     () =>
-      machines.map((machine) => {
-        const description = machine.onlyFor
-          ? `Machine is dedicated for: ${machine.onlyFor.join(",")}`
-          : null;
-        return (
-          <SelectOption
-            value={machine.name}
-            key={machine.name}
-            description={description}
-          />
-        );
-      }),
+      machines
+        .filter((machine) => machine.onlyFor.length === 0)
+        .map((machine) => {
+          return <SelectOption value={machine.name} key={machine.name} />;
+        }),
     [JSON.stringify(machines)]
   );
 
   const onSelectMachines = (_event: any, machine: SelectOptionObject) => {
-    setMachines(_.uniq([...usesMachines, machine as string]));
+    if (usesMachines.includes(machine as string)) {
+      const updatedMachines = usesMachines.filter((m) => m !== machine);
+      setMachines(updatedMachines);
+    } else {
+      setMachines([...usesMachines, machine as string]);
+    }
   };
 
   const isValid = isValidWorkload(customWorkload as Workload);
