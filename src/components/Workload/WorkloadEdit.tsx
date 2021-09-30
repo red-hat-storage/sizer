@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { Workload } from "../../models";
 import { editWorkload, closeModal, Store } from "../../redux";
@@ -62,7 +63,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
   );
 
   const onSelectMachines = (_event: any, machine: SelectOptionObject) => {
-    setMachines([...usesMachines, machine as string]);
+    setMachines(_.uniq([...usesMachines, machine as string]));
   };
 
   const updateWorkload = () => {

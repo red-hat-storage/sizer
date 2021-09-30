@@ -5,3 +5,7 @@
 .workload__dataList--center {
   align-self: center;
 }
+
+.workload__checkbox {
+  margin: 2em 0;
+}

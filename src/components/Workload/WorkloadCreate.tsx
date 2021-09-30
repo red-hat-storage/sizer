@@ -118,7 +118,7 @@ const WorkloadCreate: React.FC = () => {
   );
 
   const onSelectMachines = (_event: any, machine: SelectOptionObject) => {
-    setMachines([...usesMachines, machine as string]);
+    setMachines(_.uniq([...usesMachines, machine as string]));
   };
 
   const isValid = isValidWorkload(customWorkload as Workload);
@@ -147,7 +147,7 @@ const WorkloadCreate: React.FC = () => {
           : []
       }
     >
-      <div>
+      <div className="workload__checkbox">
         <Checkbox
           label="Dedicate this workload to a MachineSet"
           isChecked={isDedicated}
@@ -156,7 +156,7 @@ const WorkloadCreate: React.FC = () => {
         />
         {isDedicated && (
           <Select
-            maxLength={100}
+            width={300}
             variant={SelectVariant.checkbox}
             isOpen={isOpen}
             onToggle={() => setOpen((o) => !o)}
