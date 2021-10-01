@@ -117,10 +117,11 @@ const Results: React.FC = () => {
           window.history.replaceState(
             null,
             "",
-            `${window.location.pathname.substring(
-              0,
-              window.location.pathname.length - 1
-            )}?state=${response.data.id}`
+            getLink(
+              window.location.origin,
+              window.location.pathname,
+              response.data.id as string
+            )
           );
         })
         .catch((err) => {
