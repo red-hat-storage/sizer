@@ -22,6 +22,7 @@ import SkipToTop from "./SkipToTop";
 import "./result.css";
 import { Store } from "../../redux";
 import { GH_TOKEN } from "../../constants";
+import { getLink } from "./util";
 
 const Results: React.FC = () => {
   const ocsState = useSelector((store: Store) => store.ocs);
@@ -184,12 +185,11 @@ const Results: React.FC = () => {
                     You can use the following link to share your configuration:{" "}
                   </div>
                   <ClipboardCopy isReadOnly hoverTip="Copy" clickTip="Copied">
-                    {`${
-                      window.location.origin
-                    }${window.location.pathname.substring(
-                      0,
-                      window.location.pathname.length - 1
-                    )}?state=${link}`}
+                    {getLink(
+                      window.location.origin,
+                      window.location.pathname,
+                      link
+                    )}
                   </ClipboardCopy>
                 </div>
               )
