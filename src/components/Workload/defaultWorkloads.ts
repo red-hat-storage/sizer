@@ -24,19 +24,19 @@ const defaultWorkloadsMap: WorkloadData[] = [
     storageCapacityRequired: 50,
     services: [
       {
-        name: "wordpress",
+        name: "WordPress",
         requiredCPU: 2,
         requiredMemory: 5,
         zones: 1,
-        runsWith: ["MySQL"],
+        runsWith: ["WordPress-MySQL"],
         avoid: [],
       },
       {
-        name: "MySQL",
+        name: "WordPress-MySQL",
         requiredCPU: 1,
         requiredMemory: 2,
         zones: 1,
-        runsWith: ["wordpress"],
+        runsWith: ["WordPress"],
         avoid: [],
       },
     ],
@@ -45,14 +45,14 @@ const defaultWorkloadsMap: WorkloadData[] = [
       Small: {},
       Medium: {
         services: [
-          { name: "wordpress", requiredCPU: 3, requiredMemory: 7 },
-          { name: "MySQL", requiredCPU: 2, requiredMemory: 3 },
+          { name: "WordPress", requiredCPU: 3, requiredMemory: 7 },
+          { name: "WordPress-MySQL", requiredCPU: 2, requiredMemory: 3 },
         ],
       },
       Large: {
         services: [
-          { name: "wordpress", requiredCPU: 4, requiredMemory: 10 },
-          { name: "MySQL", requiredCPU: 3, requiredMemory: 5 },
+          { name: "WordPress", requiredCPU: 4, requiredMemory: 10 },
+          { name: "WordPress-MySQL", requiredCPU: 3, requiredMemory: 5 },
         ],
       },
     },
@@ -64,7 +64,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
     storageCapacityRequired: 30,
     services: [
       {
-        name: "Apache",
+        name: "LAMP-Apache",
         requiredCPU: 1,
         requiredMemory: 1,
         zones: 1,
@@ -72,7 +72,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
         avoid: [],
       },
       {
-        name: "MySQL",
+        name: "LAMP-MySQL",
         requiredCPU: 1,
         requiredMemory: 2,
         zones: 1,
@@ -84,10 +84,10 @@ const defaultWorkloadsMap: WorkloadData[] = [
     modifiers: {
       Small: {},
       Medium: {
-        services: [{ name: "MySQL", requiredCPU: 2, requiredMemory: 3 }],
+        services: [{ name: "LAMP-MySQL", requiredCPU: 2, requiredMemory: 3 }],
       },
       Large: {
-        services: [{ name: "MySQL", requiredCPU: 3, requiredMemory: 5 }],
+        services: [{ name: "LAMP-MySQL", requiredCPU: 3, requiredMemory: 5 }],
       },
     },
   },
@@ -164,7 +164,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
     storageCapacityRequired: 200,
     services: [
       {
-        name: "PostgreSQL",
+        name: "Gitlab-PostgreSQL",
         requiredCPU: 3,
         requiredMemory: 5,
         zones: 1,
@@ -172,7 +172,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
         avoid: [],
       },
       {
-        name: "Redis",
+        name: "Gitlab-Redis",
         requiredCPU: 1,
         requiredMemory: 2,
         zones: 1,
@@ -180,7 +180,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
         avoid: [],
       },
       {
-        name: "MinIO",
+        name: "Gitlab-MinIO",
         requiredCPU: 1,
         requiredMemory: 2,
         zones: 1,
@@ -188,7 +188,7 @@ const defaultWorkloadsMap: WorkloadData[] = [
         avoid: [],
       },
       {
-        name: "Prometheus",
+        name: "Gitlab-Prometheus",
         requiredCPU: 1,
         requiredMemory: 1,
         zones: 1,
@@ -209,18 +209,18 @@ const defaultWorkloadsMap: WorkloadData[] = [
       Small: {},
       Medium: {
         services: [
-          { name: "PostgreSQL", requiredCPU: 3, requiredMemory: 7 },
-          { name: "Redis", requiredCPU: 1, requiredMemory: 5 },
-          { name: "MinIO", requiredCPU: 2, requiredMemory: 7 },
+          { name: "Gitlab-PostgreSQL", requiredCPU: 3, requiredMemory: 7 },
+          { name: "Gitlab-Redis", requiredCPU: 1, requiredMemory: 5 },
+          { name: "Gitlab-MinIO", requiredCPU: 2, requiredMemory: 7 },
           { name: "Gitlab", requiredCPU: 5, requiredMemory: 20 },
         ],
       },
       Large: {
         services: [
-          { name: "PostgreSQL", requiredCPU: 3, requiredMemory: 7 },
-          { name: "Redis", requiredCPU: 2, requiredMemory: 7 },
-          { name: "MinIO", requiredCPU: 3, requiredMemory: 10 },
-          { name: "Prometheus", requiredCPU: 2, requiredMemory: 3 },
+          { name: "Gitlab-PostgreSQL", requiredCPU: 3, requiredMemory: 7 },
+          { name: "Gitlab-Redis", requiredCPU: 2, requiredMemory: 7 },
+          { name: "Gitlab-MinIO", requiredCPU: 3, requiredMemory: 10 },
+          { name: "Gitlab-Prometheus", requiredCPU: 2, requiredMemory: 3 },
           { name: "Gitlab", requiredCPU: 5, requiredMemory: 22 },
         ],
       },
