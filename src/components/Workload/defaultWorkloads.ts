@@ -117,32 +117,76 @@ const defaultWorkloadsMap: WorkloadData[] = [
       },
     },
   },
+  // Sizing info from
+  // https://docs.google.com/document/d/1P02sMeLLGyIcfefc6TvdLklXPwTRE61hwRE9nREHbSA/edit#
+  // Contact: Keith Babo kbabo@redhat.com
   {
     name: "Kafka",
     count: 1,
     usesMachines: [],
-    storageCapacityRequired: 100,
+    storageCapacityRequired: 1000,
     services: [
       {
         name: "Kafka-Zookeeper",
-        requiredCPU: 3,
-        requiredMemory: 10,
+        requiredCPU: 4,
+        requiredMemory: 8,
         zones: 3,
         runsWith: [],
         avoid: [],
       },
       {
-        name: "Kafka",
-        requiredCPU: 3,
-        requiredMemory: 10,
+        name: "Kafka-Broker",
+        requiredCPU: 12,
+        requiredMemory: 64,
         zones: 3,
+        runsWith: [],
+        avoid: [],
+      },
+      {
+        name: "Kafka-Connect",
+        requiredCPU: 2,
+        requiredMemory: 3,
+        zones: 2,
+        runsWith: [],
+        avoid: [],
+      },
+      {
+        name: "Kafka-Operator",
+        requiredCPU: 1,
+        requiredMemory: 1,
+        zones: 1,
         runsWith: [],
         avoid: [],
       },
       {
         name: "Kafka-Entity",
-        requiredCPU: 3,
-        requiredMemory: 10,
+        requiredCPU: 2,
+        requiredMemory: 2,
+        zones: 1,
+        runsWith: [],
+        avoid: [],
+      },
+      {
+        name: "Kafka-Bridge",
+        requiredCPU: 4,
+        // ~100 consumer&producer
+        requiredMemory: 8,
+        zones: 1,
+        runsWith: [],
+        avoid: [],
+      },
+      {
+        name: "Kafka-Service-Registry",
+        requiredCPU: 1,
+        requiredMemory: 1.5,
+        zones: 1,
+        runsWith: [],
+        avoid: [],
+      },
+      {
+        name: "Kafka-Cruise-Control",
+        requiredCPU: 1,
+        requiredMemory: 0.5,
         zones: 1,
         runsWith: [],
         avoid: [],
@@ -150,11 +194,88 @@ const defaultWorkloadsMap: WorkloadData[] = [
     ],
     icon: ApplicationsIcon,
     modifiers: {
-      Small: {},
-      Medium: {
-        services: [{ name: "PostgreSQL", requiredCPU: 5, requiredMemory: 10 }],
+      Dev: {
+        services: [
+          {
+            name: "Kafka-Zookeeper",
+            requiredCPU: 0.5,
+            requiredMemory: 1,
+            zones: 1,
+          },
+          {
+            name: "Kafka-Broker",
+            requiredCPU: 1,
+            requiredMemory: 2,
+            zones: 1,
+          },
+          {
+            name: "Kafka-Connect",
+            requiredCPU: 0,
+            requiredMemory: 0,
+            zones: 0,
+          },
+          {
+            name: "Kafka-Operator",
+            requiredCPU: 0.5,
+            requiredMemory: 0.3,
+          },
+          {
+            name: "Kafka-Entity",
+            requiredCPU: 0.5,
+            requiredMemory: 0.5,
+          },
+          {
+            name: "Kafka-Bridge",
+            requiredCPU: 1,
+            // ~10 consumer&producer
+            requiredMemory: 0.8,
+          },
+          {
+            name: "Kafka-Service-Registry",
+            requiredCPU: 0.3,
+            requiredMemory: 1,
+          },
+          {
+            name: "Kafka-Cruise-Control",
+            requiredCPU: 0,
+            requiredMemory: 0,
+            zones: 0,
+          },
+        ],
       },
-      Large: {},
+      Small: {},
+      Large: {
+        services: [
+          {
+            name: "Kafka-Zookeeper",
+            requiredMemory: 16,
+            zones: 5,
+          },
+          {
+            name: "Kafka-Entity",
+            requiredCPU: 4,
+            requiredMemory: 4,
+          },
+          {
+            name: "Kafka-Bridge",
+            requiredCPU: 8,
+            // ~1000 consumer&producer
+            requiredMemory: 80,
+            zones: 2,
+          },
+          {
+            name: "Kafka-Service-Registry",
+            requiredCPU: 2,
+            requiredMemory: 2,
+            zones: 2,
+          },
+          {
+            name: "Kafka-Cruise-Control",
+            requiredCPU: 2,
+            requiredMemory: 2,
+          },
+        ],
+      },
     },
   },
   {
