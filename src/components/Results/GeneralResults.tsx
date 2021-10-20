@@ -7,7 +7,7 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
     ocpNodes,
     cpuUnits,
     memory,
-    diskCapacity: capacity,
+    diskCapacity,
     // deploymentType,
     // nvmeTuning,
     // warningFirst,
@@ -28,7 +28,7 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
         <List>
           <ListItem>{cpuUnits} CPU units</ListItem>
           <ListItem>{memory} GB memory</ListItem>
-          <ListItem>The disk size is {capacity} TB</ListItem>
+          <ListItem>The disk size is {diskCapacity} TB</ListItem>
         </List>
       </div>
       {/* <div>
