@@ -201,7 +201,10 @@ const WorkloadCreate: React.FC = () => {
                       ? Object.entries(
                           defaultWorkloadsModifierMap[wl.name]
                         ).map(([modifierName, modifierObject]) => (
-                          <Button onClick={onCreate(wl.name, modifierObject)}>
+                          <Button
+                            key={`${wl.name}-workload-btn-${modifierName}`}
+                            onClick={onCreate(wl.name, modifierObject)}
+                          >
                             {modifierName}
                           </Button>
                         ))
