@@ -55,6 +55,7 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
             <Progress
               value={(usedCPUs / totalCPUs) * 100}
               measureLocation={ProgressMeasureLocation.none}
+              aria-label="CPU"
             />
           </Tooltip>
         </CardBody>
@@ -71,6 +72,7 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
             <Progress
               value={(usedMemory / totalMemory) * 100}
               measureLocation={ProgressMeasureLocation.none}
+              aria-label="Memory"
             />
           </Tooltip>
         </CardBody>
