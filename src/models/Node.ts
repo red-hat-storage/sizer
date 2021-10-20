@@ -36,6 +36,10 @@ export abstract class Node {
     this.machineSet = machineSet;
   }
 
+  getFittingNodeSize(): string {
+    return this.nodeSize;
+  }
+
   getUsedMemory(): number {
     return Object.values(this.workloads).reduce(
       (totalMemory, workload) => (totalMemory += getTotalMemory(workload)),
@@ -158,26 +162,25 @@ export abstract class Node {
       workloads: this.workloads,
     };
   }
-
-  // Deprecate this; Since this is just some string we can make this from getDetails itself
-  // Making strings should be a UI logic and not a business logic
-  getFittingNodeSize(): string {
-    return this.nodeSize;
-  }
 }
 
 export class BareMetal extends Node {
-  constructor(maxDisks = 24, cpuUnits = 24, memory = 64, machineSet = "") {
+  constructor(
+    maxDisks = 24,
+    cpuUnits = 24,
+    memory = 64,
+    machineSet = "",
+    nodeSize = ""
+  ) {
     super();
+    if (nodeSize == "") {
+      nodeSize = `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
+    }
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.nodeSize = `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
+    this.nodeSize = nodeSize;
     this.machineSet = machineSet;
-  }
-
-  getFittingNodeSize(): string {
-    return this.nodeSize;
   }
 }
 
@@ -186,37 +189,22 @@ export class VMnode extends Node {
   // max 4 adapters = 120 disks in total (minus OS disk)
   // https://configmax.vmware.com/guest?vmwareproduct=vSphere&release=vSphere%207.0&categories=1-0
 
-  constructor(maxDisks = 24, cpuUnits = 40, memory = 128, machineSet = "") {
+  constructor(
+    maxDisks = 24,
+    cpuUnits = 40,
+    memory = 128,
+    machineSet = "",
+    nodeSize = ""
+  ) {
     super();
-    this.maxDisks = maxDisks;
-    this.cpuUnits = cpuUnits;
-    this.memory = memory;
-    this.nodeSize = `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
-    this.machineSet = machineSet;
-  }
-
-  getFittingNodeSize(): string {
-    return this.nodeSize;
-  }
-}
-
-export class AWSattached extends Node {
-  // node storage i3en.2xl
-  // 2 x 2.5TB disks
-  constructor(maxDisks = 2, cpuUnits = 8, memory = 64, machineSet = "") {
-    super();
-    this.maxDisks = maxDisks;
-    this.cpuUnits = cpuUnits;
-    this.memory = memory;
-    this.nodeSize = "i3en.2xlarge";
-    this.machineSet = machineSet;
-  }
-
-  getFittingNodeSize(): string {
-    if (this.getAmountOfOSDs() == 0) {
-      return "m5.2xlarge";
+    if (nodeSize == "") {
+      nodeSize = `${this.cpuUnits} CPUs | ${this.memory} GB RAM`;
     }
-    return "i3en.2xlarge";
+    this.maxDisks = maxDisks;
+    this.cpuUnits = cpuUnits;
+    this.memory = memory;
+    this.nodeSize = nodeSize;
+    this.machineSet = machineSet;
   }
 }
 
@@ -225,17 +213,19 @@ export class AWSEBS extends Node {
 
   // Linux nodes should not have more than 40 EBS volumes
   // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html#linux-specific-volume-limits
-  constructor(maxDisks = 24, cpuUnits = 16, memory = 64, machineSet = "") {
+  constructor(
+    maxDisks = 24,
+    cpuUnits = 16,
+    memory = 64,
+    machineSet = "",
+    nodeSize = "m5.4xlarge"
+  ) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.nodeSize = "m5.4xlarge";
+    this.nodeSize = nodeSize;
     this.machineSet = machineSet;
-  }
-
-  getFittingNodeSize(): string {
-    return this.nodeSize;
   }
 }
 
@@ -244,33 +234,37 @@ export class GCP extends Node {
   // https://docs.google.com/document/d/1COHDVAVJCQovy1YKru9tZ5-GJv0cNXzVQ6t2m2c9-Jo/edit#
   // For high-IOPs n2-standard-16 is better
 
-  constructor(maxDisks = 24, cpuUnits = 16, memory = 64, machineSet = "") {
+  constructor(
+    maxDisks = 24,
+    cpuUnits = 16,
+    memory = 64,
+    machineSet = "",
+    nodeSize = "e2-standard-16"
+  ) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.nodeSize = "e2-standard-16";
+    this.nodeSize = nodeSize;
     this.machineSet = machineSet;
-  }
-
-  getFittingNodeSize(): string {
-    return this.nodeSize;
   }
 }
 
 export class Azure extends Node {
   // Based on our findings the D16s_v3 has a good performance and price
   // https://docs.google.com/document/d/1-SIa219F0T13Yn1MQMrsP7O1sw8Auy97GCiqfst0J74/edit#
-  constructor(maxDisks = 24, cpuUnits = 16, memory = 64, machineSet = "") {
+  constructor(
+    maxDisks = 24,
+    cpuUnits = 16,
+    memory = 64,
+    machineSet = "",
+    nodeSize = "D16s_v3"
+  ) {
     super();
     this.maxDisks = maxDisks;
     this.cpuUnits = cpuUnits;
     this.memory = memory;
-    this.nodeSize = "D16s_v3";
+    this.nodeSize = nodeSize;
     this.machineSet = machineSet;
-  }
-
-  getFittingNodeSize(): string {
-    return this.nodeSize;
   }
 }

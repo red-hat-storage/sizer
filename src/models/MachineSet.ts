@@ -1,13 +1,5 @@
 import { Platform } from "../types";
-import {
-  Node,
-  BareMetal,
-  AWSattached,
-  AWSEBS,
-  Azure,
-  GCP,
-  VMnode,
-} from "./Node";
+import { Node, BareMetal, AWSEBS, Azure, GCP, VMnode } from "./Node";
 
 export type MachineSet = {
   name: string;
@@ -38,33 +30,28 @@ export const getNewNode = (
         machineSet.name
       );
     case Platform.AWS:
-      if (machineSet.instanceName.includes("i3")) {
-        return new AWSattached(
-          machineSet.numberOfDisks,
-          machineSet.cpu,
-          machineSet.memory,
-          machineSet.name
-        );
-      }
       return new AWSEBS(
         machineSet.numberOfDisks,
         machineSet.cpu,
         machineSet.memory,
-        machineSet.name
+        machineSet.name,
+        machineSet.instanceName
       );
     case Platform.GCP:
       return new GCP(
         machineSet.numberOfDisks,
         machineSet.cpu,
         machineSet.memory,
-        machineSet.name
+        machineSet.name,
+        machineSet.instanceName
       );
     case Platform.AZURE:
       return new Azure(
         machineSet.numberOfDisks,
         machineSet.cpu,
         machineSet.memory,
-        machineSet.name
+        machineSet.name,
+        machineSet.instanceName
       );
     case Platform.VMware:
     case Platform.RHV:
