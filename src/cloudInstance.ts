@@ -1645,7 +1645,6 @@ export const platformInstanceMap: PlatformInstanceMap = {
       memory: 64,
       cpuUnits: 16,
       instanceStorage: 0,
-      default: true,
     },
     {
       name: "m5.8xlarge",
@@ -1658,6 +1657,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       memory: 8,
       cpuUnits: 2,
       instanceStorage: 0,
+      default: true,
     },
     {
       name: "m5.metal",
@@ -1670,6 +1670,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       memory: 16,
       cpuUnits: 4,
       instanceStorage: 0,
+      controlPlane: true,
     },
     {
       name: "m5a.12xlarge",
@@ -2476,7 +2477,6 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 16,
       memory: 64,
       instanceStorage: 128,
-      default: true,
     },
     {
       name: "Standard_D16s_v4",
@@ -2501,6 +2501,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 2,
       memory: 8,
       instanceStorage: 50,
+      default: true,
     },
     {
       name: "Standard_D2_v4",
@@ -2807,6 +2808,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 8,
       memory: 32,
       instanceStorage: 64,
+      controlPlane: true,
     },
     {
       name: "Standard_D8s_v4",
@@ -4507,6 +4509,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 2,
       memory: 8,
       instanceStorage: 9000,
+      default: true,
     },
     {
       name: "n2-standard-32",
@@ -4519,6 +4522,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 4,
       memory: 16,
       instanceStorage: 9000,
+      controlPlane: true,
     },
     {
       name: "n2-standard-48",
@@ -4807,7 +4811,6 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 16,
       memory: 66,
       instanceStorage: 0,
-      default: true,
     },
     {
       name: "e2-standard-2",
@@ -4868,5 +4871,30 @@ export const defaultInstances: { [platform in Platform]: Instance } = (() => ({
     cpuUnits: 24,
     memory: 64,
     name: "default",
+  } as Instance,
+}))();
+
+const isControlPlane = (item: Instance) => item.controlPlane === true;
+
+export const controlPlaneInstances: {
+  [platform in Platform]: Instance;
+} = (() => ({
+  [Platform.AWS]: platformInstanceMap.AWS.find(isControlPlane) as Instance,
+  [Platform.AZURE]: platformInstanceMap.AZURE.find(isControlPlane) as Instance,
+  [Platform.GCP]: platformInstanceMap.GCP.find(isControlPlane) as Instance,
+  [Platform.VMware]: {
+    cpuUnits: 6,
+    memory: 16,
+    name: "controlPlane",
+  } as Instance,
+  [Platform.RHV]: {
+    cpuUnits: 6,
+    memory: 16,
+    name: "controlPlane",
+  } as Instance,
+  [Platform.BAREMETAL]: {
+    cpuUnits: 6,
+    memory: 16,
+    name: "controlPlane",
   } as Instance,
 }))();

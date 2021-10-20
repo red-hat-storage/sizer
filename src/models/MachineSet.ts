@@ -15,19 +15,25 @@ export type MachineSet = {
   // Only use this set for this particular workload
   // Default is to be used by any workload
   onlyFor: string[];
+  // Node label to apply to Nodes created with this Set
+  label: string;
 };
 
 export const getNewNode = (
   machineSet: MachineSet,
   platform: Platform
 ): Node => {
+  // if ((machineSet.label = "")) {
+  //   machineSet.label = "Worker Node";
+  // }
   switch (platform) {
     case Platform.BAREMETAL:
       return new BareMetal(
         machineSet.numberOfDisks,
         machineSet.cpu,
         machineSet.memory,
-        machineSet.name
+        machineSet.name,
+        machineSet.label
       );
     case Platform.AWS:
       return new AWSEBS(
@@ -35,7 +41,8 @@ export const getNewNode = (
         machineSet.cpu,
         machineSet.memory,
         machineSet.name,
-        machineSet.instanceName
+        machineSet.instanceName,
+        machineSet.label
       );
     case Platform.GCP:
       return new GCP(
@@ -43,7 +50,8 @@ export const getNewNode = (
         machineSet.cpu,
         machineSet.memory,
         machineSet.name,
-        machineSet.instanceName
+        machineSet.instanceName,
+        machineSet.label
       );
     case Platform.AZURE:
       return new Azure(
@@ -51,7 +59,8 @@ export const getNewNode = (
         machineSet.cpu,
         machineSet.memory,
         machineSet.name,
-        machineSet.instanceName
+        machineSet.instanceName,
+        machineSet.label
       );
     case Platform.VMware:
     case Platform.RHV:
@@ -59,7 +68,8 @@ export const getNewNode = (
         machineSet.numberOfDisks,
         machineSet.cpu,
         machineSet.memory,
-        machineSet.name
+        machineSet.name,
+        machineSet.label
       );
   }
 };

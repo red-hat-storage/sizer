@@ -19,7 +19,7 @@ type NodeItemProps = {
 };
 
 const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
-  const nodeLabel = "Openshift node";
+  const nodeLabel = node.label;
   const instanceType = node.getFittingNodeSize();
   const totalCPUs = node.cpuUnits;
   const usedCPUs = node.getUsedCPU();

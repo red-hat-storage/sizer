@@ -43,4 +43,5 @@ export type Instance = {
   cpuUnits: number;
   instanceStorage?: number;
   default?: boolean;
+  controlPlane?: boolean;
 };

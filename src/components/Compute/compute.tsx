@@ -26,7 +26,7 @@ import {
 import MachineSetCard from "./MachineSetCard";
 import { Platform } from "../../types";
 import "./compute.css";
-import { defaultInstances } from "../../cloudInstance";
+import { controlPlaneInstances, defaultInstances } from "../../cloudInstance";
 import { MachineSet } from "../../models";
 
 const platformDropdownItems = [
@@ -66,16 +66,28 @@ const Compute: React.FC = () => {
   const onSelect = (platform: Platform) => {
     dispatch(setPlatform(platform));
     dispatch(clearAllMachines());
-    const instance = defaultInstances[platform];
+    const workerInstance = defaultInstances[platform];
     const defaultMachineSet: MachineSet = {
       name: "default",
-      cpu: instance.cpuUnits,
-      memory: instance.memory,
-      instanceName: instance.name,
+      cpu: workerInstance.cpuUnits,
+      memory: workerInstance.memory,
+      instanceName: workerInstance.name,
       onlyFor: [],
       numberOfDisks: 24,
+      label: "Worker Node",
     };
     dispatch(addMachineSet(defaultMachineSet));
+    const controlInstance = controlPlaneInstances[platform];
+    const controlPlaneMachineSet: MachineSet = {
+      name: "controlPlane",
+      cpu: controlInstance.cpuUnits,
+      memory: controlInstance.memory,
+      instanceName: controlInstance.name,
+      onlyFor: ["ControlPlane"],
+      numberOfDisks: 24,
+      label: "Control Plane Node",
+    };
+    dispatch(addMachineSet(controlPlaneMachineSet));
     setPlatformDropdownOpen(false);
   };
 

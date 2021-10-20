@@ -15,7 +15,10 @@ export abstract class Node {
   nodeSize: string;
   // Name of the machineSet that created this node
   machineSet: string;
-  // services: Array<Service>;
+  // The label of the node as used by the UI
+  // This is usually Main/Worker/Infra
+  label: string;
+  // Pods of Workloads running on the Node
   workloads: {
     [workloadName: string]: Workload;
   };
@@ -25,7 +28,8 @@ export abstract class Node {
     cpuUnits = 0,
     memory = 0,
     nodeSize = "",
-    machineSet = ""
+    machineSet = "",
+    label = "Worker Node"
   ) {
     this.workloads = {};
 
@@ -34,6 +38,7 @@ export abstract class Node {
     this.memory = memory;
     this.nodeSize = nodeSize;
     this.machineSet = machineSet;
+    this.label = label;
   }
 
   getFittingNodeSize(): string {
@@ -170,7 +175,8 @@ export class BareMetal extends Node {
     cpuUnits = 24,
     memory = 64,
     machineSet = "",
-    nodeSize = ""
+    nodeSize = "",
+    label = "Worker Node"
   ) {
     super();
     if (nodeSize == "") {
@@ -181,6 +187,7 @@ export class BareMetal extends Node {
     this.memory = memory;
     this.nodeSize = nodeSize;
     this.machineSet = machineSet;
+    this.label = label;
   }
 }
 
@@ -194,7 +201,8 @@ export class VMnode extends Node {
     cpuUnits = 40,
     memory = 128,
     machineSet = "",
-    nodeSize = ""
+    nodeSize = "",
+    label = "Worker Node"
   ) {
     super();
     if (nodeSize == "") {
@@ -205,6 +213,7 @@ export class VMnode extends Node {
     this.memory = memory;
     this.nodeSize = nodeSize;
     this.machineSet = machineSet;
+    this.label = label;
   }
 }
 
@@ -218,7 +227,8 @@ export class AWSEBS extends Node {
     cpuUnits = 16,
     memory = 64,
     machineSet = "",
-    nodeSize = "m5.4xlarge"
+    nodeSize = "m5.4xlarge",
+    label = "Worker Node"
   ) {
     super();
     this.maxDisks = maxDisks;
@@ -226,6 +236,7 @@ export class AWSEBS extends Node {
     this.memory = memory;
     this.nodeSize = nodeSize;
     this.machineSet = machineSet;
+    this.label = label;
   }
 }
 
@@ -239,7 +250,8 @@ export class GCP extends Node {
     cpuUnits = 16,
     memory = 64,
     machineSet = "",
-    nodeSize = "e2-standard-16"
+    nodeSize = "e2-standard-16",
+    label = "Worker Node"
   ) {
     super();
     this.maxDisks = maxDisks;
@@ -247,6 +259,7 @@ export class GCP extends Node {
     this.memory = memory;
     this.nodeSize = nodeSize;
     this.machineSet = machineSet;
+    this.label = label;
   }
 }
 
@@ -258,7 +271,8 @@ export class Azure extends Node {
     cpuUnits = 16,
     memory = 64,
     machineSet = "",
-    nodeSize = "D16s_v3"
+    nodeSize = "D16s_v3",
+    label = "Worker Node"
   ) {
     super();
     this.maxDisks = maxDisks;
@@ -266,5 +280,6 @@ export class Azure extends Node {
     this.memory = memory;
     this.nodeSize = nodeSize;
     this.machineSet = machineSet;
+    this.label = label;
   }
 }

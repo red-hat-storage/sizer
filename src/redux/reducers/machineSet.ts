@@ -1,9 +1,10 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { defaultInstances } from "../../cloudInstance";
+import { defaultInstances, controlPlaneInstances } from "../../cloudInstance";
 import { MachineSet } from "../../models";
 import { Platform } from "../../types";
 
 const defaultAWSInstace = defaultInstances[Platform.AWS];
+const controlInstance = controlPlaneInstances[Platform.AWS];
 
 const defaultState: MachineSet[] = [
   {
@@ -13,6 +14,16 @@ const defaultState: MachineSet[] = [
     instanceName: defaultAWSInstace.name,
     numberOfDisks: 24,
     onlyFor: [],
+    label: "Worker Node",
+  },
+  {
+    name: "controlPlane",
+    cpu: controlInstance.cpuUnits,
+    memory: controlInstance.memory,
+    instanceName: controlInstance.name,
+    numberOfDisks: 24,
+    onlyFor: ["ControlPlane"],
+    label: "Control Plane Node",
   },
 ];
 
