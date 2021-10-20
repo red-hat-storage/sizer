@@ -120,6 +120,7 @@ const MachineSetCreate: React.FC = () => {
         instanceName: isCloudPlatform ? (instance?.name as string) : "",
         numberOfDisks: 24,
         onlyFor: selectedWorkloads.map((workload) => workload.name),
+        label: "Worker Node",
       })
     );
     onClose();
