@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Conv from "html2canvas";
 import { request } from "@octokit/request";
 import {
@@ -9,8 +9,6 @@ import {
   Popover,
   Spinner,
 } from "@patternfly/react-core";
-import Cluster from "../../models/Cluster";
-import { Node } from "../../models/Node";
 import AdvancedResultsModal from "../Modals/AdvancedResults";
 import SupportExceptionModal from "../Modals/SupportException";
 import NodesVisualResults from "./NodeResults";
@@ -20,16 +18,40 @@ import { getSupportExceptions } from "../Exception/utils";
 import { useVisibilityTracker } from "../../hooks/view";
 import SkipToTop from "./SkipToTop";
 import "./result.css";
-import { Store } from "../../redux";
+import { store, Store } from "../../redux";
 import { GH_TOKEN } from "../../constants";
 import { getLink } from "./util";
+import { workloadScheduler } from "../../scheduler/workloadScheduler";
+import { pruneNodes } from "../../scheduler/nodePruner";
 
 const Results: React.FC = () => {
-  const ocsState = useSelector((store: Store) => store.ocs);
-  const workloads = useSelector((store: Store) => store.workload);
-  const machineSets = useSelector((store: Store) => store.machineSet);
-  const platform = useSelector((store: Store) => store.cluster.platform);
+  const {
+    ocsState,
+    workloads,
+    machineSets,
+    platform,
+    allNodes,
+    zones,
+    services,
+  } = useSelector((store: Store) => ({
+    ocsState: store.ocs,
+    workloads: store.workload,
+    machineSets: store.machineSet,
+    platform: store.cluster.platform,
+    allNodes: store.node.nodes,
+    zones: store.zone.zones,
+    services: store.service.services,
+  }));
   const coreState = useSelector((store: Store) => _.omit(store, "ui"));
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const scheduler = workloadScheduler(store, dispatch);
+    workloads.forEach((workload) => {
+      scheduler(workload, services, machineSets);
+    });
+    pruneNodes(dispatch)(allNodes);
+  }, [JSON.stringify(workloads)]);
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);
@@ -37,17 +59,6 @@ const Results: React.FC = () => {
   // Handles popover visibility
   const [isVisible, setVisible] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
-
-  const cluster = React.useMemo(() => new Cluster(platform), [platform]);
-
-  React.useEffect(() => {
-    cluster.setMachineSetsAndWorkloads(machineSets, workloads);
-  }, [machineSets, workloads, cluster]);
-
-  const allNodes = cluster?.zones?.reduce(
-    (acc, curr) => [...acc, ...curr.nodes],
-    [] as Node[]
-  );
 
   const screenshot = () => {
     const link = document.createElement("a");
@@ -137,7 +148,7 @@ const Results: React.FC = () => {
       <AdvancedResultsModal
         onClose={() => setShowAdvanced(false)}
         isOpen={showAdvanced}
-        zones={cluster.zones}
+        zones={zones}
       />
       {/* Todo(bipuladh): There is no specific need for this component to be tied to results page */}
       <SupportExceptionModal
@@ -154,7 +165,7 @@ const Results: React.FC = () => {
           />
         </div>
         <div>
-          <GeneralResults {...cluster.getDetails()} />
+          <GeneralResults />
         </div>
         <div className="button-bar">
           <Button

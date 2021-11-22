@@ -1,18 +1,16 @@
 import * as React from "react";
 import { List, ListItem } from "@patternfly/react-core";
-import { DeploymentDetails } from "../../types";
+import { useSelector } from "react-redux";
+import { Store } from "../../redux";
+import { getTotalResourceRequirement } from "../../utils/common";
 
-const GeneralResults: React.FC<DeploymentDetails> = (props) => {
-  const {
-    ocpNodes,
-    cpuUnits,
-    memory,
-    diskCapacity,
-    // deploymentType,
-    // nvmeTuning,
-    // warningFirst,
-    // warningSecond,
-  } = props;
+const GeneralResults: React.FC = () => {
+  const { nodes, services } = useSelector((store: Store) => ({
+    nodes: store.node.nodes,
+    services: store.service.services,
+  }));
+  const { totalCPU, totalMem, totalDisks } =
+    getTotalResourceRequirement(services);
   return (
     <div className="results-general" id="results">
       <div>
@@ -21,14 +19,14 @@ const GeneralResults: React.FC<DeploymentDetails> = (props) => {
         In summary:
       </div>
       <div>
-        <strong>{ocpNodes} OCP nodes</strong> will run ODF services. (NOTE: OCP
-        clusters often contain additional OCP worker nodes which do not run ODF
-        services.) <br />
-        Each OCP node running ODF services has:
+        <strong>{nodes.length} OCP nodes</strong> will run ODF services. (NOTE:
+        OCP clusters often contain additional OCP worker nodes which do not run
+        ODF services.) <br />
+        Total ODF resource consumption is:
         <List>
-          <ListItem>{cpuUnits} CPU units</ListItem>
-          <ListItem>{memory} GB memory</ListItem>
-          <ListItem>The disk size is {diskCapacity} TB</ListItem>
+          <ListItem>{totalCPU} CPU units</ListItem>
+          <ListItem>{totalMem} GB memory</ListItem>
+          <ListItem>The disk size is {totalDisks} TB</ListItem>
         </List>
       </div>
       {/* <div>

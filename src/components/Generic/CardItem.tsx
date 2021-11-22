@@ -20,8 +20,8 @@ type CardProps = {
   children: React.ReactNode;
   cardType: string;
   itemName: string;
-  itemId?: string;
-  remove: (name: string) => () => void;
+  itemId?: number;
+  remove: () => any;
   disableDeletion?: boolean;
   edit?: () => void;
 };
@@ -39,19 +39,12 @@ export const CardItem: React.FC<CardItemProps> = ({ title, value }) => (
 
 export const Card: React.FC<CardProps> = ({
   itemName,
-  itemId,
   cardType,
   disableDeletion = false,
   remove,
   edit,
   children,
 }) => {
-  const onClick = React.useMemo(() => remove(itemId ? itemId : itemName), [
-    itemName,
-    remove,
-    itemId,
-  ]);
-
   return (
     <PfCard className="generic-card">
       <CardHeader className="generic-card__header">
@@ -60,7 +53,7 @@ export const Card: React.FC<CardProps> = ({
         </Title>
         <CardActions>
           {edit && <EditIcon onClick={edit} />}
-          {!disableDeletion && <CloseIcon onClick={onClick} />}
+          {!disableDeletion && <CloseIcon onClick={remove} />}
         </CardActions>
       </CardHeader>
       <CardBody className="generic-card__body">

@@ -16,22 +16,23 @@ import {
   SelectOptionObject,
   SelectVariant,
   Tile,
+  Button,
 } from "@patternfly/react-core";
 import { EditIcon } from "@patternfly/react-icons";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addWorkload, closeModal, Store } from "../../redux";
-import { applyModifier, isValidWorkload, makeId } from "./util";
+import { addServices, addWorkload, closeModal, Store } from "../../redux";
+import { applyModifier, isValidWorkload } from "./util";
 import * as jsyaml from "js-yaml";
-import { Workload } from "../../models";
+import { WorkloadDescriptor } from "../../models";
 import {
   defaultWorkloads,
   defaultWorkloadsIconMap,
   defaultWorkloadsModifierMap,
   defaultWorkloadsNameMap,
 } from "./defaultWorkloads";
-import { Button } from "@patternfly/react-code-editor/node_modules/@patternfly/react-core";
 import "./workload.css";
+import { getWorkloadFromDescriptors } from "../../utils/workload";
 
 /**
  * Example Workload (YAML)
@@ -69,7 +70,8 @@ const WorkloadCreate: React.FC = () => {
   const dispatch = useDispatch();
 
   const [isCustom, setCustom] = React.useState(false);
-  const [customWorkload, setCustomWorkload] = React.useState<Workload>();
+  const [customWorkload, setCustomWorkload] =
+    React.useState<WorkloadDescriptor>();
   const [isDedicated, setDedicated] = React.useState(false);
   const [usesMachines, setMachines] = React.useState<string[]>([]);
   const [isOpen, setOpen] = React.useState(false);
@@ -79,26 +81,31 @@ const WorkloadCreate: React.FC = () => {
     dispatch(closeModal());
   };
 
-  const onCreate = (
-    workloadName: string,
-    workloadModifier: Partial<Workload>,
-    workloadObject?: Workload
-  ) => () => {
-    if (workloadName && workloadModifier) {
-      const workload = applyModifier(
-        defaultWorkloadsNameMap[workloadName],
-        workloadModifier
-      );
-      workload.uid = makeId(5);
-      workload.usesMachines = usesMachines ? usesMachines : [];
-      dispatch(addWorkload(workload));
-    } else if (workloadObject) {
-      workloadObject.uid = makeId(5);
-      workloadObject.usesMachines = usesMachines ? usesMachines : [];
-      dispatch(addWorkload(workloadObject));
-    }
-    onClose();
-  };
+  const onCreate =
+    (
+      workloadName: string,
+      workloadModifier: Partial<WorkloadDescriptor>,
+      workloadObject?: WorkloadDescriptor
+    ) =>
+    () => {
+      if (workloadName && workloadModifier) {
+        const wl = applyModifier(
+          defaultWorkloadsNameMap[workloadName],
+          workloadModifier
+        );
+        wl.usesMachines = usesMachines ? usesMachines : [];
+        const { services, workload } = getWorkloadFromDescriptors(wl);
+        dispatch(addServices(services));
+        dispatch(addWorkload(workload));
+      } else if (workloadObject) {
+        workloadObject.usesMachines = usesMachines ? usesMachines : [];
+        const { services, workload } =
+          getWorkloadFromDescriptors(workloadObject);
+        dispatch(addServices(services));
+        dispatch(addWorkload(workload));
+      }
+      onClose();
+    };
 
   const machineOptions = React.useMemo(
     () =>
@@ -119,7 +126,7 @@ const WorkloadCreate: React.FC = () => {
     }
   };
 
-  const isValid = isValidWorkload(customWorkload as Workload);
+  const isValid = isValidWorkload(customWorkload as WorkloadDescriptor);
 
   return (
     <Modal
@@ -256,7 +263,9 @@ const WorkloadCreate: React.FC = () => {
 };
 
 type CustomWorkloadCreateProps = {
-  setWorkload: React.Dispatch<React.SetStateAction<Workload | undefined>>;
+  setWorkload: React.Dispatch<
+    React.SetStateAction<WorkloadDescriptor | undefined>
+  >;
 };
 
 const CustomWorkloadCreate: React.FC<CustomWorkloadCreateProps> = ({
@@ -270,7 +279,7 @@ const CustomWorkloadCreate: React.FC<CustomWorkloadCreateProps> = ({
     setError("");
     try {
       const model = jsyaml.load(val, { json: true });
-      setWorkload(model as Workload);
+      setWorkload(model as WorkloadDescriptor);
     } catch (e) {
       setError(String(e));
     }

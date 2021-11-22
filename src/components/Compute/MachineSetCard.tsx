@@ -14,7 +14,7 @@ const MachineSetCard: React.FC<MachineSetCardProps> = ({
   disableDeletion = false,
 }) => {
   const dispatch = useDispatch();
-  const removeMS = (name: string) => () => dispatch(removeMachineSet(name));
+  const removeMS = () => dispatch(removeMachineSet(name));
   return (
     <Card
       cardType="MachineSet"

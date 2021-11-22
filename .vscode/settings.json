@@ -1,4 +1,7 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "jest.jestCommandLine": "./node_modules/jest/bin/jest.js"
+  "jest.jestCommandLine": "./node_modules/jest/bin/jest.js",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

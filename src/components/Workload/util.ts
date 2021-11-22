@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import * as _ from "lodash";
-import { Workload } from "../../models";
+import { WorkloadDescriptor } from "../../models";
 
 const workloadKeys = ["name", "count", "usesMachines", "services"];
 
-export const isValidWorkload = (workload: Workload): boolean => {
+export const isValidWorkload = (workload: WorkloadDescriptor): boolean => {
   const candidateKeys = Object.keys(workload || {});
   return (
     _.intersection(workloadKeys, candidateKeys).length === workloadKeys.length
@@ -12,9 +12,9 @@ export const isValidWorkload = (workload: Workload): boolean => {
 };
 
 export const applyModifier = (
-  workload: Workload,
-  modifier: Partial<Workload>
-): Workload => {
+  workload: WorkloadDescriptor,
+  modifier: Partial<WorkloadDescriptor>
+): WorkloadDescriptor => {
   const newWorkload = _.cloneDeep(workload);
   const simpleOverrides = _.omit(modifier, ["usesMachines", "services"]);
   Object.assign(newWorkload, simpleOverrides);
@@ -38,16 +38,4 @@ export const applyModifier = (
     ...newMachines,
   ]);
   return newWorkload;
-};
-
-// Copied shamelessly from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-export const makeId = (length: number): string => {
-  let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
 };

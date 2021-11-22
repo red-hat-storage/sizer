@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Grid, GridItem } from "@patternfly/react-core";
-import { Node } from "../../models/Node";
+import { Node } from "../../types";
 import NodeItem from "../Visualizer/nodeItem";
 
 type NodesVisualizerProps = {

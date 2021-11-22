@@ -5,6 +5,9 @@ import {
   workloadReducer,
   machineSetReducer,
   clusterReducer,
+  nodeReducer,
+  zoneReducer,
+  serviceReducer,
 } from "./reducers";
 
 const store = configureStore({
@@ -14,6 +17,9 @@ const store = configureStore({
     workload: workloadReducer,
     machineSet: machineSetReducer,
     cluster: clusterReducer,
+    node: nodeReducer,
+    zone: zoneReducer,
+    service: serviceReducer,
   },
 });
 

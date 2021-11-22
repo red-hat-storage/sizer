@@ -22,7 +22,8 @@ import { addMachineSet, closeModal, Store } from "../../redux";
 import SelectionList from "./SelectList";
 import { Platform } from "../../types";
 import { platformInstanceMap } from "../../cloudInstance";
-import { getTotalCPU, getTotalMemory, Workload } from "../../models";
+import { Service, Workload } from "../../models";
+import { getWorkloadResourceConsumption } from "../../utils/workload";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";
 
@@ -67,6 +68,9 @@ const MachineSetCreate: React.FC = () => {
   const ui = useSelector((store: Store) => store.ui);
   const platform = useSelector((store: Store) => store.cluster.platform);
   const workloads = useSelector((store: Store) => store.workload);
+  const services: Service[] = useSelector(
+    (store: Store) => store.service.services
+  );
 
   const existingMachineSets = useSelector((store: Store) => store.machineSet);
 
@@ -88,9 +92,11 @@ const MachineSetCreate: React.FC = () => {
   const workloadOptions = React.useMemo(
     () =>
       workloads.map((workload) => {
-        const description = `${workload.name} Memory Used: ${getTotalMemory(
-          workload
-        )} CPU Used: ${getTotalCPU(workload)}`;
+        const { totalMem, totalCPU } = getWorkloadResourceConsumption(
+          workload,
+          services
+        );
+        const description = `${workload.name} Memory Used: ${totalMem} CPU Used: ${totalCPU}`;
         return (
           <SelectOption
             value={workload.name}
@@ -126,18 +132,17 @@ const MachineSetCreate: React.FC = () => {
     onClose();
   };
 
-  const onSelect = (dropdown: string) => (
-    event?: React.SyntheticEvent<HTMLDivElement>
-  ) => {
-    const amount = Number(event?.currentTarget?.id);
-    if (dropdown === "NodeCPU") {
-      setCPU(amount);
-      setCpuOpen(false);
-    } else {
-      setMem(amount);
-      setMemOpen(false);
-    }
-  };
+  const onSelect =
+    (dropdown: string) => (event?: React.SyntheticEvent<HTMLDivElement>) => {
+      const amount = Number(event?.currentTarget?.id);
+      if (dropdown === "NodeCPU") {
+        setCPU(amount);
+        setCpuOpen(false);
+      } else {
+        setMem(amount);
+        setMemOpen(false);
+      }
+    };
 
   const onSelectWorkloads = (
     _event: React.MouseEvent | React.ChangeEvent,

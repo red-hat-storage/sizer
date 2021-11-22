@@ -11,34 +11,39 @@ import {
   Tooltip,
 } from "@patternfly/react-core";
 import { DatabaseIcon, CpuIcon, MemoryIcon } from "@patternfly/react-icons";
-import { Node } from "../../models/Node";
+import { Node } from "../../types";
 import "./nodeItem.css";
+import { useSelector } from "react-redux";
+import { Store } from "../../redux";
+import { getTotalResourceRequirement } from "../../utils/common";
 
 type NodeItemProps = {
   node: Node;
 };
 
 const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
-  const nodeLabel = node.label;
-  const instanceType = node.getFittingNodeSize();
-  const totalCPUs = node.cpuUnits;
-  const usedCPUs = node.getUsedCPU();
-  const totalMemory = node.memory;
-  const usedMemory = node.getUsedMemory();
-  const usedDisks = node.getAmountOfOSDs();
+  const services = useSelector((store: Store) => store.service.services).filter(
+    (service) => node.services.includes(service.id as number)
+  );
+  const {
+    totalMem: usedMem,
+    totalCPU: usedCPU,
+    totalDisks,
+  } = getTotalResourceRequirement(services);
+  const instanceType = node.machineSet;
 
   return (
     <Card>
       <CardHeaderMain>
         <Title headingLevel="h1" className="card-container__title">
-          {nodeLabel}
+          TBD
         </Title>
       </CardHeaderMain>
       <CardTitle id="instance-type">{instanceType}</CardTitle>
       <CardBody className="card-container__disk-section">
         <DatabaseIcon color="#C9190B" width="3em" height="3em" />
         <Title className="card-container-disk-section__count" headingLevel="h3">
-          x {usedDisks}
+          x {totalDisks}
         </Title>
       </CardBody>
       <div id="resource-bars">
@@ -47,13 +52,13 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           <Tooltip
             content={
               <div>
-                <div>Workloads use {usedCPUs} CPU units</div>
-                <div>Total {totalCPUs} CPU units</div>
+                <div>Workloads use {usedCPU} CPU units</div>
+                <div>Total {node.cpuUnits} CPU units</div>
               </div>
             }
           >
             <Progress
-              value={(usedCPUs / totalCPUs) * 100}
+              value={(usedCPU / node.cpuUnits) * 100}
               measureLocation={ProgressMeasureLocation.none}
               aria-label="CPU"
             />
@@ -64,13 +69,13 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
           <Tooltip
             content={
               <div>
-                <div>Workloads use {usedMemory} GB</div>
-                <div>Total {totalMemory} GB</div>
+                <div>Workloads use {usedMem} GB</div>
+                <div>Total {node.memory} GB</div>
               </div>
             }
           >
             <Progress
-              value={(usedMemory / totalMemory) * 100}
+              value={(usedMem / node.memory) * 100}
               measureLocation={ProgressMeasureLocation.none}
               aria-label="Memory"
             />
@@ -79,7 +84,7 @@ const NodeItem: React.FC<NodeItemProps> = ({ node }) => {
       </div>
       <CardFooter>
         {" "}
-        {totalCPUs} CPUs | {totalMemory} GB RAM
+        {node.cpuUnits} CPUs | {node.memory} GB RAM
       </CardFooter>
     </Card>
   );

@@ -11,13 +11,26 @@ import {
 } from "@patternfly/react-core";
 import DiskSize from "./DiskSize";
 import { getODFWorkload } from "../../workloads";
-import { addWorkload, removeWorkload, setTab, Store } from "../../redux";
+import { addWorkload, addServices, setTab, Store } from "../../redux";
 import { Disk } from "../../models";
 import "./planner.css";
+import {
+  getWorkloadFromDescriptors,
+  removeWorkloadSafely,
+} from "../../utils/workload";
 
 const StoragePage: React.FC = () => {
-  const ocsState = useSelector((store: Store) => store.ocs);
+  const {
+    ocsState,
+    workloads,
+    services: existingServices,
+  } = useSelector((store: Store) => ({
+    ocsState: store.ocs,
+    workloads: store.workload,
+    services: store.service.services,
+  }));
   const dispatch = useDispatch();
+
   const onClick = () => {
     const odfWorkload = getODFWorkload(
       ocsState.usableCapacity,
@@ -25,9 +38,16 @@ const StoragePage: React.FC = () => {
       ocsState.deploymentType,
       ocsState.dedicatedMachines
     );
-    // Todo(bipuladh): Move this logic to reducer
-    dispatch(removeWorkload(odfWorkload.name));
-    dispatch(addWorkload(odfWorkload));
+
+    // Remove existing ODF Workload if already present
+    const oldWorkload = workloads.find((wl) => wl.name.includes("ODF"));
+    if (oldWorkload) {
+      removeWorkloadSafely(dispatch)(oldWorkload, existingServices);
+    }
+
+    const { services, workload } = getWorkloadFromDescriptors(odfWorkload);
+    dispatch(addServices(services));
+    dispatch(addWorkload(workload));
     dispatch(setTab(1));
   };
   return (

@@ -1,12 +1,12 @@
 import * as _ from "lodash";
 import { DeepPartial } from "@reduxjs/toolkit";
-import { Workload } from "../../models";
 import {
-  WordpressIcon,
-  LinuxIcon,
+  WorkloadDescriptor as Workload,
+  WorkloadDescriptor,
+} from "../../models";
+import {
   DatabaseIcon,
   GitlabIcon,
-  ApplicationsIcon,
   FileAltIcon,
   UndoIcon,
   NetworkWiredIcon,
@@ -14,10 +14,10 @@ import {
   EyeIcon,
 } from "@patternfly/react-icons";
 
-type WorkloadData = Omit<Workload, "uid"> & {
+type WorkloadData = Omit<WorkloadDescriptor, "uid"> & {
   icon: React.ComponentClass;
   modifiers?: {
-    [modifierName: string]: DeepPartial<Workload>;
+    [modifierName: string]: DeepPartial<WorkloadDescriptor>;
   };
 };
 
@@ -786,10 +786,8 @@ const defaultWorkloadsMap: WorkloadData[] = [
   },
 ];
 
-export const defaultWorkloads: Omit<
-  Workload,
-  "uid"
->[] = defaultWorkloadsMap.map((wl) => _.omit(wl, ["icon", "modifiers"]));
+export const defaultWorkloads: Omit<Workload, "uid">[] =
+  defaultWorkloadsMap.map((wl) => _.omit(wl, ["icon", "modifiers"]));
 export const defaultWorkloadsIconMap: {
   [name: string]: React.ReactNode;
 } = defaultWorkloadsMap.reduce((acc, curr) => {

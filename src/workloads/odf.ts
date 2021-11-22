@@ -1,5 +1,5 @@
 import Disk from "../models/Disk";
-import { Service, Workload } from "../models";
+import { Service, WorkloadDescriptor } from "../models";
 import { DeploymentType } from "../types";
 
 export const getODFWorkload = (
@@ -11,8 +11,8 @@ export const getODFWorkload = (
   rgwActive = true,
   cephFSActive = true,
   nvmeTuning = false
-): Workload => {
-  const odfWorkload: Workload = {
+): WorkloadDescriptor => {
+  const odfWorkload: WorkloadDescriptor = {
     name: "ODF",
     services: [],
     storageCapacityRequired: 0,

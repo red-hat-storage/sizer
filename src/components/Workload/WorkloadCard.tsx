@@ -1,14 +1,13 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
-import {
-  Workload,
-  getTotalMemory,
-  getTotalCPU,
-  getNamesOfServices,
-} from "../../models";
-import { removeWorkload, openModalAction } from "../../redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Workload } from "../../models";
+import { openModalAction, Store } from "../../redux";
 import WorkloadEditFormModal, { WORKLOAD_EDIT_MODAL_ID } from "./WorkloadEdit";
 import { Card, CardItem } from "../Generic/CardItem";
+import {
+  getWorkloadResourceConsumption,
+  removeWorkloadSafely,
+} from "../../utils/workload";
 
 type WorkloadCardProps = {
   workload: Workload;
@@ -16,12 +15,14 @@ type WorkloadCardProps = {
 
 const WorkloadCard: React.FC<WorkloadCardProps> = ({ workload }) => {
   const dispatch = useDispatch();
+  const services = useSelector((store: Store) => store.service.services);
 
-  const totalMemory = getTotalMemory(workload);
-  const totalCPU = getTotalCPU(workload);
-  const services = getNamesOfServices(workload);
+  const { totalMem, totalCPU } = getWorkloadResourceConsumption(
+    workload,
+    services
+  );
 
-  const removeWL = (name: string) => () => dispatch(removeWorkload(name));
+  const removeWL = () => removeWorkloadSafely(dispatch)(workload, services);
   const onEditClick = () => dispatch(openModalAction(WORKLOAD_EDIT_MODAL_ID));
   const usesMachines =
     workload.usesMachines.length > 0 ? workload.usesMachines.join(",") : null;
@@ -32,14 +33,17 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({ workload }) => {
       <Card
         cardType="Workload"
         itemName={workload.name}
-        itemId={workload.uid}
+        itemId={workload.id}
         remove={removeWL}
         edit={onEditClick}
       >
         <CardItem title="Count" value={workload.count} />
         <CardItem title="CPU" value={`${totalCPU} units`} />
-        <CardItem title="Memory Used" value={`${totalMemory} GB`} />
-        <CardItem title="Services" value={services.join(", ")} />
+        <CardItem title="Memory Used" value={`${totalMem} GB`} />
+        <CardItem
+          title="Services"
+          value={services.map((s) => s.name).join(", ")}
+        />
         {usesMachines && (
           <CardItem title="Uses Machines" value={usesMachines} />
         )}

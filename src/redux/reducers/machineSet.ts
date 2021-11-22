@@ -3,6 +3,8 @@ import { defaultInstances, controlPlaneInstances } from "../../cloudInstance";
 import { MachineSet } from "../../models";
 import { Platform } from "../../types";
 
+let MS_COUNTER = 1;
+
 const defaultAWSInstace = defaultInstances[Platform.AWS];
 const controlInstance = controlPlaneInstances[Platform.AWS];
 
@@ -34,10 +36,10 @@ const clearAllMachines = createAction("CLEAR_ALL_MACHINES");
 const machineSetReducer = createReducer(defaultState, (builder) => {
   builder
     .addCase(addMachineSet, (machines, { payload: machine }) => {
-      machines.push(machine);
+      machines.push(Object.assign({}, machine, { id: MS_COUNTER++ }));
     })
     .addCase(removeMachineSet, (machines, { payload: machineName }) => {
-      return machines.filter((item) => item.name !== machineName);
+      machines.filter((item) => item.name !== machineName);
     })
     .addCase(clearAllMachines, () => []);
 });

@@ -1,20 +1,20 @@
 import * as React from "react";
 import { Modal, Title } from "@patternfly/react-core";
-import { DeploymentDetails } from "../../types";
 import { ReplicaSetResults } from "../Results/ReplicaSetResults";
 import { useCloseModal } from "../../hooks/modal";
+import { Zone_ as Zone } from "../../models/Zone";
 import "./advanced-results.css";
 
 type AdvancedResultsModalProps = {
   onClose: () => void;
   isOpen: boolean;
-  zones: DeploymentDetails["zones"];
+  zones: Zone[];
 };
 
 const AdvancedResultsModal: React.FC<AdvancedResultsModalProps> = ({
   onClose,
   isOpen,
-  zones: zones,
+  zones,
 }) => {
   useCloseModal(onClose, isOpen);
   return (

@@ -1,18 +1,19 @@
 import * as React from "react";
 import { List, ListItem, Title, TitleSizes } from "@patternfly/react-core";
-import { Node } from "../../models/Node";
-import { Workload, getNamesOfServices } from "../../models/Workload";
+import { useSelector } from "react-redux";
+import { Store } from "../../redux";
+import { Node } from "../../types";
+import { getTotalResourceRequirement } from "../../utils/common";
+import { Service } from "../../models";
 
 type ServiceResultsProps = {
-  workloads: Workload[];
+  services: Service[];
 };
-const ServiceResults: React.FC<ServiceResultsProps> = ({ workloads }) => (
+const ServiceResults: React.FC<ServiceResultsProps> = ({ services }) => (
   <List className="services left-margined">
-    {Object.entries(workloads).map((item, index) =>
-      getNamesOfServices(item[1]).map((serviceName, serviceIndex) => (
-        <ListItem key={index * 1000 + serviceIndex}>{serviceName}</ListItem>
-      ))
-    )}
+    {services.map((service) => (
+      <ListItem key={service.id}>{service.name}</ListItem>
+    ))}
   </List>
 );
 
@@ -21,31 +22,39 @@ type NodeResultsProps = {
 };
 
 const NodeResults: React.FC<NodeResultsProps> = ({ node }) => {
+  const services = useSelector((store: Store) => store.service.services).filter(
+    (service) => node.services.includes(service.id as number)
+  );
+  const { totalMem, totalCPU, totalDisks } =
+    getTotalResourceRequirement(services);
   return (
     <div className="node-item left-margined">
       <div>
-        This node has {node.getUsedCPU()} / {node.cpuUnits} used CPU units,{" "}
-        {node.getUsedMemory()} / {node.memory} used GB of memory and{" "}
-        {node.getAmountOfOSDs()} / {node.maxDisks} disks.
+        This node has {totalCPU} / {node.cpuUnits} used CPU units, {totalMem} /{" "}
+        {node.memory} used GB of memory and {totalDisks} / {node.maxDisks}{" "}
+        disks.
       </div>
       <div>
         Services on THIS node:
-        {<ServiceResults workloads={Object.values(node.workloads)} />}
+        {<ServiceResults services={services} />}
       </div>
     </div>
   );
 };
 
 type ReplicaSetResultsProps = {
-  nodes: Node[];
+  nodes: number[];
 };
 
 export const ReplicaSetResults: React.FC<ReplicaSetResultsProps> = ({
   nodes,
 }) => {
+  const nodeObjects = useSelector((store: Store) => store.node.nodes).filter(
+    (node) => nodes.includes(node.id)
+  );
   return (
     <div className="node-list left-margined">
-      {nodes.map((node, i) => (
+      {nodeObjects.map((node, i) => (
         <React.Fragment key={i}>
           <div>
             <Title headingLevel="h5" size={TitleSizes.lg}>

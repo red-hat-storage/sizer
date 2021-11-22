@@ -66,7 +66,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
 
   const updateWorkload = () => {
     const newWorkload: Workload = {
-      uid: workload.uid,
+      id: workload.id,
       name,
       count,
       usesMachines: usesMachines ? usesMachines : [],
