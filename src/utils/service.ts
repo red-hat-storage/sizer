@@ -10,6 +10,7 @@ import {
   getNodeID,
 } from "../redux/reducers";
 import { getMachineSetForWorkload } from "./workload";
+import { getTotalResourceRequirement } from "./common";
 
 /**
  *
@@ -141,21 +142,39 @@ export const getCoplacedServices = (
   return coplacedServices;
 };
 
-export const getExclusiveServices = (services: Service[]): Service[] =>
-  services.reduce<Service[]>((acc, curr) => {
-    const { runsWith } = curr;
-    const coplacedServices = services.filter((service) =>
-      runsWith.includes(service.id as number)
-    );
-    if (coplacedServices.length > 0) {
-      acc = [...acc, ...coplacedServices];
-    }
-    return acc;
-  }, []);
-
 export const getAvoidedServiceIds = (services: Service[]): number[] =>
   services.reduce<number[]>((acc, curr) => {
     const { avoid } = curr;
     acc = [...acc, ...avoid];
     return acc;
   }, []);
+
+export const getAllCoplacedServices = (services: Service[]): Service[][] => {
+  const scheduledIDs: number[] = [];
+  const coplacedServices: Service[][] = [];
+  services.forEach((service) => {
+    if (!scheduledIDs.includes(service.id)) {
+      const coRunners: Service[] = [
+        service,
+        ...service.runsWith.map((id) =>
+          services.find((service) => service.id === id)
+        ),
+      ];
+      scheduledIDs.push(service.id);
+      service.runsWith.forEach((id) => scheduledIDs.push(id));
+      coplacedServices.push(coRunners);
+    }
+  });
+  return coplacedServices;
+};
+
+export const sortServices = (
+  serviceA: Service[],
+  serviceB: Service[]
+): number => {
+  const { totalMem: memA, totalCPU: cpuA } =
+    getTotalResourceRequirement(serviceA);
+  const { totalMem: memB, totalCPU: cpuB } =
+    getTotalResourceRequirement(serviceB);
+  return memB + cpuB - (memA + cpuA);
+};

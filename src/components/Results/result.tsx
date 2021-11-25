@@ -23,6 +23,7 @@ import { GH_TOKEN } from "../../constants";
 import { getLink } from "./util";
 import { workloadScheduler } from "../../scheduler/workloadScheduler";
 import { pruneNodes } from "../../scheduler/nodePruner";
+import { isWorkloadSchedulable } from "../../utils/workload";
 
 const Results: React.FC = () => {
   const {
@@ -47,7 +48,15 @@ const Results: React.FC = () => {
 
   React.useEffect(() => {
     const scheduler = workloadScheduler(store, dispatch);
-    workloads.forEach((workload) => {
+    const checkSchedulability = isWorkloadSchedulable(services, machineSets);
+    const schedulableWorkloads = workloads.filter((wl) =>
+      checkSchedulability(wl)
+    );
+    console.log(
+      "Unschedulable Workloads: ",
+      _.differenceWith(workloads, schedulableWorkloads)
+    );
+    schedulableWorkloads.forEach((workload) => {
       scheduler(workload, services, machineSets);
     });
     pruneNodes(dispatch)(allNodes);
