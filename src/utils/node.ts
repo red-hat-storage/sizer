@@ -8,34 +8,6 @@ import {
 import { getNodeID } from "../redux/reducers";
 
 /**
- * Checks based on memory consumption only
- *
- */
-export const canNodeAddServices__UNSAFE = (
-  node: Node,
-  candidatServices: Service[],
-  allServices: Service[]
-): boolean => {
-  const { services: existingServicesIds }: Node = node;
-  // Get all the service objects from the ids
-  const existingServices = allServices.filter((service) =>
-    existingServicesIds.includes(service.id)
-  );
-  const candidateResource = getTotalResourceRequirement(candidatServices);
-  const nodeResourceConsumption = getTotalResourceRequirement(existingServices);
-  if (
-    !canNodeSupportRequirements(
-      candidateResource,
-      nodeResourceConsumption,
-      node
-    )
-  ) {
-    return false;
-  }
-  return true;
-};
-
-/**
  *
  * @param node The node where the service needs to be added
  * @param candidate Service we want to add to this node
