@@ -34,7 +34,9 @@ stages:
 install_dependencies:
   stage: install_dependencies
   script:
+    - mkdir -p "$APK_CACHE_DIR"
     - apk --cache-dir "$APK_CACHE_DIR" update && apk --cache-dir "$APK_CACHE_DIR" add -u npm
+    - ls -al "$APK_CACHE_DIR" || true
     - cd "$CI_PROJECT_DIR"
     - npm ci
   # only:
