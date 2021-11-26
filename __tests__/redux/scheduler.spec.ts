@@ -46,6 +46,6 @@ describe("Test scheduler", () => {
       machineSet
     );
 
-    console.log(JSON.stringify(store.getState()));
+    console.trace(JSON.stringify(store.getState()));
   });
 });

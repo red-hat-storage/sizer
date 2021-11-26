@@ -88,7 +88,7 @@ export const Sizer_: React.FC = () => {
           dispatch(setDeploymentType(parsedState.ocs.deploymentType));
           dispatch(setDedicatedMachines(parsedState.ocs.dedicatedMachines));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     }
   }, []);
 
