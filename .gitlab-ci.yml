@@ -52,11 +52,10 @@ eslint:
   script:
     - ./node_modules/.bin/eslint --ext ".js,.ts" src/
 
-# unitTest:
-#   stage: test
-#   script:
-#     - npm test
-#   coverage: /All\sfiles.*?\s+(\d+.\d+)/
+unitTest:
+  stage: test
+  script:
+    - npm test
 
 build:
   stage: build
