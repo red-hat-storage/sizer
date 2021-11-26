@@ -12,7 +12,7 @@ const defaultState = {
 const addService = createAction<Service>("ADD_SERVICE");
 const addServices = createAction<Service[]>("ADD_SERVICES");
 
-const updateService = createAction<Service>("UPDATE_SERVICE");
+const editService = createAction<Service>("UPDATE_SERVICE");
 const removeServices = createAction<Service[]>("REMOVE_SERVICE");
 
 const serviceReducer = createReducer(defaultState, (builder) => {
@@ -23,7 +23,7 @@ const serviceReducer = createReducer(defaultState, (builder) => {
     .addCase(addServices, (state, { payload }) => {
       payload.forEach((item) => state.services.push(item));
     })
-    .addCase(updateService, (state, { payload }) => {
+    .addCase(editService, (state, { payload }) => {
       state.services.map((service) =>
         service.id === payload.id ? payload : service
       );
@@ -36,4 +36,4 @@ const serviceReducer = createReducer(defaultState, (builder) => {
     });
 });
 
-export { addService, addServices, removeServices, serviceReducer };
+export { addService, addServices, editService, removeServices, serviceReducer };
