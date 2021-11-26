@@ -20,13 +20,7 @@ default:
       - .npm/
     policy: pull
   before_script:
-    # - mkdir -p "$APK_CACHE_DIR" "$CI_PROJECT_DIR/.npm"
-    - ls -al "$APK_CACHE_DIR" || true
     - apk --cache-dir "$APK_CACHE_DIR" add -u npm
-    - ls -al $CI_PROJECT_DIR/node_modules || true
-    - ls -al $CI_PROJECT_DIR/node_modules/.bin || true
-    - ls -al $CI_PROJECT_DIR/.npm || true
-    - ls -al "$APK_CACHE_DIR" || true
 
 stages:
   - install_dependencies
@@ -39,12 +33,11 @@ install_dependencies:
   script:
     - mkdir -p "$APK_CACHE_DIR" "$CI_PROJECT_DIR/.npm"
     - apk --cache-dir "$APK_CACHE_DIR" add -u npm
-    - ls -al "$APK_CACHE_DIR" || true
     - cd "$CI_PROJECT_DIR"
     - npm ci --cache "$CI_PROJECT_DIR/.npm" --prefer-offline
-  # only:
-  #   changes:
-  #     - package-lock.json
+  only:
+    changes:
+      - package-lock.json
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
@@ -53,7 +46,7 @@ install_dependencies:
       - .npm/
     policy: pull-push
   # Block default script
-  # before_script: []
+  before_script: []
 
 eslint:
   stage: test
