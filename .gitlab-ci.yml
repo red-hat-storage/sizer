@@ -19,8 +19,12 @@ default:
       - "$APK_CACHE_DIR"
     policy: pull
   before_script:
-    - mkdir -p $APK_CACHE_DIR
+    - mkdir -p "$APK_CACHE_DIR"
+    - ls -al "$APK_CACHE_DIR"
     - apk --cache-dir "$APK_CACHE_DIR" add -u npm
+    - ls -al ./node_modules
+    - ls -al ./node_modules/.bin
+    - ls -al "$APK_CACHE_DIR"
 
 stages:
   - install_dependencies
