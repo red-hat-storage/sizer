@@ -2,32 +2,57 @@ variables:
   DOCKER_HOST: unix:///var/run/docker.sock
   GCS_BUCKET: sizer.ocs.ninja
   GCS_PROJECT: apt-quarter-272014
+  APK_CACHE_DIR: $CI_PROJECT_DIR/.cache/apk
 
 default:
   image:
     name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-  before_script:
-    - apk update && apk add -u npm
-    - cd "$CI_PROJECT_DIR"
-    - npm install
   artifacts:
     paths:
       - "*.html"
       - build/
     expire_in: 1 month
   cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
       - node_modules
+      - "$APK_CACHE_DIR"
+    policy: pull
+  before_script:
+    - mkdir -p $APK_CACHE_DIR
+    - apk --cache-dir "$APK_CACHE_DIR" add -u npm
 
 stages:
+  - install_dependencies
   - test
   - build
   - deploy
+
+install_dependencies:
+  stage: install_dependencies
+  script:
+    - apk --cache-dir "$APK_CACHE_DIR" update && apk --cache-dir "$APK_CACHE_DIR" add -u npm
+    - cd "$CI_PROJECT_DIR"
+    - npm ci
+  only:
+    changes:
+      - package-lock.json
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules
+    policy: pull-push
 
 eslint:
   stage: test
   script:
     - ./node_modules/.bin/eslint --ext ".js,.ts" src/
+
+# unitTest:
+#   stage: test
+#   script:
+#     - npm test
+#   coverage: /All\sfiles.*?\s+(\d+.\d+)/
 
 build:
   stage: build
