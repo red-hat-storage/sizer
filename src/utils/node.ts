@@ -5,7 +5,6 @@ import {
   canNodeSupportRequirements,
   getTotalResourceRequirement,
 } from "./common";
-import { getNodeID } from "../redux/reducers";
 
 /**
  *
