@@ -16,7 +16,11 @@ default:
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
       - node_modules
+      - "$APK_CACHE_DIR"
     policy: pull
+  before_script:
+    - mkdir -p $APK_CACHE_DIR
+    - apk --cache-dir "$APK_CACHE_DIR" add -u npm
 
 stages:
   - install_dependencies
@@ -27,7 +31,7 @@ stages:
 install_dependencies:
   stage: install_dependencies
   script:
-    - apk update && apk add -u npm
+    - apk --cache-dir "$APK_CACHE_DIR" update && apk --cache-dir "$APK_CACHE_DIR" add -u npm
     - cd "$CI_PROJECT_DIR"
     - npm ci
   only:
