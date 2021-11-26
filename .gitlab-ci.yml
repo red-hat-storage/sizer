@@ -13,7 +13,6 @@ default:
       - build/
     expire_in: 1 month
   cache:
-    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
       - node_modules/**
       - .cache/apk/**
@@ -42,11 +41,12 @@ install_dependencies:
   #   changes:
   #     - package-lock.json
   cache:
-    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
       - node_modules/**
       - .cache/apk/**
     policy: pull-push
+  # Block default script
+  before_script: []
 
 eslint:
   stage: test
