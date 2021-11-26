@@ -76,41 +76,41 @@ export const getTotalNodeMemoryConsumption = (
   return getTotalResourceRequirement(nodeServices).totalMem;
 };
 
-export const getMachineSetNodes = (machineSet: string, nodes: Node[]): Node[] =>
-  nodes.filter((node) => machineSet === node.machineSet);
+// export const getMachineSetNodes = (machineSet: string, nodes: Node[]): Node[] =>
+//   nodes.filter((node) => machineSet === node.machineSet);
 
-export const getSuitableNodesFor = (
-  workload: Workload,
-  nodes: Node[],
-  machineSets: MachineSet[]
-): Node[] => {
-  const usableMS = machineSets.filter((ms) =>
-    ms.onlyFor.length > 0 ? ms.onlyFor.includes(workload.name) : true
-  );
-  return _.flatten(usableMS.map((ms) => getMachineSetNodes(ms.name, nodes)));
-};
+// export const getSuitableNodesFor = (
+//   workload: Workload,
+//   nodes: Node[],
+//   machineSets: MachineSet[]
+// ): Node[] => {
+//   const usableMS = machineSets.filter((ms) =>
+//     ms.onlyFor.length > 0 ? ms.onlyFor.includes(workload.name) : true
+//   );
+//   return _.flatten(usableMS.map((ms) => getMachineSetNodes(ms.name, nodes)));
+// };
 
-const getNodeOfMachineSet = (machineset: MachineSet): Node => ({
-  id: getNodeID(),
-  maxDisks: machineset.numberOfDisks,
-  cpuUnits: machineset.cpu,
-  memory: machineset.memory,
-  machineSet: machineset.name,
-  services: [],
-});
+// const getNodeOfMachineSet = (machineset: MachineSet): Node => ({
+//   id: getNodeID(),
+//   maxDisks: machineset.numberOfDisks,
+//   cpuUnits: machineset.cpu,
+//   memory: machineset.memory,
+//   machineSet: machineset.name,
+//   services: [],
+// });
 
-export const getNodeForWorkload = (
-  workload: Workload,
-  machineSet: MachineSet[]
-): Node => {
-  const dedicatedMS = workload.usesMachines;
-  const candidateMS =
-    dedicatedMS.length > 0
-      ? machineSet.filter((ms) => dedicatedMS.includes(ms.name))
-      : machineSet.filter((ms) => ms.name === "default");
-  const usingMS = candidateMS[0];
-  return getNodeOfMachineSet(usingMS);
-};
+// export const getNodeForWorkload = (
+//   workload: Workload,
+//   machineSet: MachineSet[]
+// ): Node => {
+//   const dedicatedMS = workload.usesMachines;
+//   const candidateMS =
+//     dedicatedMS.length > 0
+//       ? machineSet.filter((ms) => dedicatedMS.includes(ms.name))
+//       : machineSet.filter((ms) => ms.name === "default");
+//   const usingMS = candidateMS[0];
+//   return getNodeOfMachineSet(usingMS);
+// };
 
 export const getMaxZones = (services: Service[]): number =>
   _.max(services.map((service) => service.zones));
