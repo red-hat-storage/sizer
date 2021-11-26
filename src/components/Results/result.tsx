@@ -52,7 +52,7 @@ const Results: React.FC = () => {
     const schedulableWorkloads = workloads.filter((wl) =>
       checkSchedulability(wl)
     );
-    console.log(
+    console.error(
       "Unschedulable Workloads: ",
       _.differenceWith(workloads, schedulableWorkloads)
     );
