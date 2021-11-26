@@ -38,9 +38,9 @@ install_dependencies:
     - apk --cache-dir "$APK_CACHE_DIR" update && apk --cache-dir "$APK_CACHE_DIR" add -u npm
     - cd "$CI_PROJECT_DIR"
     - npm ci
-  only:
-    changes:
-      - package-lock.json
+  # only:
+  #   changes:
+  #     - package-lock.json
   cache:
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
