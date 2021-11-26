@@ -15,8 +15,8 @@ default:
   cache:
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
-      - node_modules
-      - "$APK_CACHE_DIR"
+      - node_modules/**
+      - .cache/apk/**
     policy: pull
   before_script:
     - mkdir -p "$APK_CACHE_DIR"
@@ -44,7 +44,8 @@ install_dependencies:
   cache:
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
     paths:
-      - node_modules
+      - node_modules/**
+      - .cache/apk/**
     policy: pull-push
 
 eslint:
