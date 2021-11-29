@@ -1,5 +1,5 @@
 import { getODFWorkload } from "../../src/workloads";
-import { Disk, MachineSet } from "../../src/models";
+import { MachineSet } from "../../src/types";
 import {
   addMachineSet,
   addServices,
@@ -16,7 +16,7 @@ const { services: odfServices, workload: odfWorkload } =
   getWorkloadFromDescriptors(
     getODFWorkload(
       10,
-      new Disk(2.5),
+      2.5,
       DeploymentType.INTERNAL,
       [],
       true,
@@ -29,7 +29,7 @@ const { services: odfExternalServices, workload: odfExternalWorkload } =
   getWorkloadFromDescriptors(
     getODFWorkload(
       10,
-      new Disk(2.5),
+      2.5,
       DeploymentType.EXTERNAL,
       [],
       true,
@@ -40,16 +40,7 @@ const { services: odfExternalServices, workload: odfExternalWorkload } =
   );
 const { services: odfCompactServices, workload: odfCompactWorkload } =
   getWorkloadFromDescriptors(
-    getODFWorkload(
-      10,
-      new Disk(2.5),
-      DeploymentType.COMPACT,
-      [],
-      true,
-      true,
-      true,
-      false
-    )
+    getODFWorkload(10, 2.5, DeploymentType.COMPACT, [], true, true, true, false)
   );
 
 const store = mainStore;
@@ -75,7 +66,7 @@ describe("Test ODF schedule", () => {
     dispatch(addServices(odfServices));
     dispatch(addWorkload(odfWorkload));
     const state = store.getState();
-    const { node, zone, service, workload, machineSet } = state;
+    const { service, workload, machineSet } = state;
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
@@ -86,7 +77,7 @@ describe("Test ODF schedule", () => {
     dispatch(editServices(odfExternalServices));
     dispatch(editWorkload(odfExternalWorkload));
     const state = store.getState();
-    const { node, zone, service, workload, machineSet } = state;
+    const { service, workload, machineSet } = state;
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
@@ -97,7 +88,7 @@ describe("Test ODF schedule", () => {
     dispatch(editServices(odfCompactServices));
     dispatch(editWorkload(odfCompactWorkload));
     const state = store.getState();
-    const { node, zone, service, workload, machineSet } = state;
+    const { service, workload, machineSet } = state;
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
