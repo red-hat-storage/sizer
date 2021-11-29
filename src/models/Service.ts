@@ -15,3 +15,10 @@ export type Service = {
   // Owner of the Service basically a workloadID
   ownerReference?: number;
 };
+
+export type ServiceDescriptor = Omit<Service, "avoid" | "runsWith"> & {
+  // Coplace this Pod with these other Pods
+  runsWith: string[];
+  // Avoid placing this Pod on the same node as these Pods
+  avoid: string[];
+};

@@ -45,7 +45,5 @@ describe("Test scheduler", () => {
       service.services,
       machineSet
     );
-
-    console.trace(JSON.stringify(store.getState()));
   });
 });

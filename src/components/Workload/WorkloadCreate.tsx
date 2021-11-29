@@ -22,7 +22,7 @@ import { EditIcon } from "@patternfly/react-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addServices, addWorkload, closeModal, Store } from "../../redux";
-import { applyModifier, isValidWorkload } from "./util";
+import { applyModifier, createDuplicates, isValidWorkload } from "./util";
 import * as jsyaml from "js-yaml";
 import { WorkloadDescriptor } from "../../models";
 import {
@@ -97,12 +97,29 @@ const WorkloadCreate: React.FC = () => {
         const { services, workload } = getWorkloadFromDescriptors(wl);
         dispatch(addServices(services));
         dispatch(addWorkload(workload));
+        const workloadDescriptors = createDuplicates(wl, workload.id);
+        workloadDescriptors.forEach((wld) => {
+          const { services: serviceDup, workload: workloadDup } =
+            getWorkloadFromDescriptors(wld);
+          dispatch(addServices(serviceDup));
+          dispatch(addWorkload(workloadDup));
+        });
       } else if (workloadObject) {
         workloadObject.usesMachines = usesMachines ? usesMachines : [];
         const { services, workload } =
           getWorkloadFromDescriptors(workloadObject);
         dispatch(addServices(services));
         dispatch(addWorkload(workload));
+        const workloadDescriptors = createDuplicates(
+          workloadObject,
+          workload.id
+        );
+        workloadDescriptors.forEach((wld) => {
+          const { services: serviceDup, workload: workloadDup } =
+            getWorkloadFromDescriptors(wld);
+          dispatch(addServices(serviceDup));
+          dispatch(addWorkload(workloadDup));
+        });
       }
       onClose();
     };

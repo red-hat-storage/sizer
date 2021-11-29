@@ -1,4 +1,4 @@
-import { Service } from "./Service";
+import { ServiceDescriptor } from "./Service";
 
 export type Workload = {
   id?: number;
@@ -7,6 +7,7 @@ export type Workload = {
   usesMachines: string[];
   services: number[];
   storageCapacityRequired?: number;
+  duplicateOf?: number;
 };
 
 export type WorkloadDescriptor = {
@@ -14,6 +15,6 @@ export type WorkloadDescriptor = {
   name: string;
   count: number;
   usesMachines: string[];
-  services: Service[];
+  services: ServiceDescriptor[];
   storageCapacityRequired?: number;
 };

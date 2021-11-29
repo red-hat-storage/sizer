@@ -16,13 +16,21 @@ type WorkloadCardProps = {
 const WorkloadCard: React.FC<WorkloadCardProps> = ({ workload }) => {
   const dispatch = useDispatch();
   const services = useSelector((store: Store) => store.service.services);
+  const workloads = useSelector((store: Store) => store.workload).filter(
+    (wl) => wl.duplicateOf === workload.id
+  );
 
   const { totalMem, totalCPU } = getWorkloadResourceConsumption(
     workload,
     services
   );
 
-  const removeWL = () => removeWorkloadSafely(dispatch)(workload, services);
+  const removeWL = () => {
+    const remover = removeWorkloadSafely(dispatch);
+    remover(workload, services);
+    workloads.forEach((wl) => remover(wl, services));
+  };
+
   const onEditClick = () => dispatch(openModalAction(WORKLOAD_EDIT_MODAL_ID));
   const usesMachines =
     workload.usesMachines.length > 0 ? workload.usesMachines.join(",") : null;

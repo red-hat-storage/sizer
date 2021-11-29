@@ -69,7 +69,6 @@ export const workloadScheduler =
           const scheduleInZones: number = getMaxZones(bundle);
           _.times(scheduleInZones, (count) => {
             currentZones = store.getState().zone.zones;
-            console.debug("Zones", currentZones[count], count);
             currentNodes = store.getState().node.nodes;
             addServiceToZone(dispatch)(
               currentZones[count],

@@ -74,10 +74,6 @@ export const addServiceToZone =
     const nodesInZone: Node[] = nodes.filter((node) =>
       zone.nodes.includes(node.id)
     );
-    if (candidateServices[0].id == 2) {
-      console.debug("Service 2");
-      console.debug(nodesInZone, zone.id);
-    }
     const sortedViableNodes = sortNodesWithLeastConsumption(
       nodesInZone,
       services,
@@ -89,7 +85,6 @@ export const addServiceToZone =
       // Easy peasy add the service to top most node
       const nodeToRun = sortedViableNodes[0];
       const servicesToAdd = candidateServices.map((service) => service.id);
-      console.debug("Adding service to node", nodeToRun.id, servicesToAdd);
       dispatch(
         addServicesToNode({
           nodeID: nodeToRun.id,
@@ -107,11 +102,6 @@ export const addServiceToZone =
       );
       // Add node to the store
       dispatch(addNode(node));
-      console.debug(
-        "Adding service to node",
-        node.id,
-        candidateServices.map((s) => s.id)
-      );
       dispatch(
         addServicesToNode({
           nodeID: node.id,

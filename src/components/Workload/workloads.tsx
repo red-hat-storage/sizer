@@ -39,11 +39,13 @@ const WorkloadPage: React.FC = () => {
             type="Workload"
           />
         </GridItem>
-        {workloads.map((wl) => (
-          <GridItem key={wl.name} rowSpan={2} span={3}>
-            <WorkloadCard workload={wl} />
-          </GridItem>
-        ))}
+        {workloads
+          .filter((wl) => wl.duplicateOf === undefined)
+          .map((wl) => (
+            <GridItem key={wl.name} rowSpan={2} span={3}>
+              <WorkloadCard workload={wl} />
+            </GridItem>
+          ))}
       </Grid>
     </div>
   );

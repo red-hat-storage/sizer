@@ -114,7 +114,7 @@ const MachineSetCreate: React.FC = () => {
 
   const create = () => {
     const instance = _.find(
-      platformInstanceMap[platform as "AWS"],
+      platformInstanceMap[platform],
       (item) => item.name === selectedInstance
     );
 

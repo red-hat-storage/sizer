@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import * as _ from "lodash";
 import { WorkloadDescriptor } from "../../models";
 
@@ -38,4 +37,30 @@ export const applyModifier = (
     ...newMachines,
   ]);
   return newWorkload;
+};
+
+export const createDuplicates = (
+  workload: WorkloadDescriptor,
+  duplicateOwner: number
+): WorkloadDescriptor[] => {
+  const workloads = [];
+  _.times(workload.count - 1, (count) => {
+    const newObject = Object.assign({}, workload, {
+      name: `${workload.name}-${count + 1}`,
+      duplicateOf: duplicateOwner,
+    });
+    newObject.services = newObject.services.map((service) =>
+      Object.assign(
+        {},
+        service,
+        { name: `${service.name}-${count + 1}` },
+        {
+          runsWith: service.runsWith.map((s) => `${s}-${count + 1}`),
+          avoid: service.avoid.map((s) => `${s}-${count + 1}`),
+        }
+      )
+    );
+    workloads.push(newObject);
+  });
+  return workloads;
 };

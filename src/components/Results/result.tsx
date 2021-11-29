@@ -24,6 +24,7 @@ import { getLink } from "./util";
 import { workloadScheduler } from "../../scheduler/workloadScheduler";
 import { pruneNodes } from "../../scheduler/nodePruner";
 import { isWorkloadSchedulable } from "../../utils/workload";
+import { MachineSet, Workload } from "../../models";
 
 const Results: React.FC = () => {
   const {
@@ -48,19 +49,20 @@ const Results: React.FC = () => {
 
   React.useEffect(() => {
     const scheduler = workloadScheduler(store, dispatch);
-    const checkSchedulability = isWorkloadSchedulable(services, machineSets);
-    const schedulableWorkloads = workloads.filter((wl) =>
-      checkSchedulability(wl)
+    const checkSchedulability = isWorkloadSchedulable(
+      services,
+      machineSets.filter((ms) => ms.name !== "controlPlane")
     );
-    console.error(
-      "Unschedulable Workloads: ",
-      _.differenceWith(workloads, schedulableWorkloads)
-    );
-    schedulableWorkloads.forEach((workload) => {
-      scheduler(workload, services, machineSets);
+    const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
+      workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+    workloadSchedulability.forEach((item) => {
+      if (item[1]) {
+        // Schedule on MachineSets that can run it
+        scheduler(item[0], services, item[2]);
+      }
     });
     pruneNodes(dispatch)(allNodes);
-  }, [JSON.stringify(workloads)]);
+  }, [JSON.stringify(workloads), JSON.stringify(machineSets)]);
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);

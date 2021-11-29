@@ -1,8 +1,7 @@
 import * as React from "react";
-import * as _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { Workload } from "../../models";
-import { editWorkload, closeModal, Store } from "../../redux";
+import { closeModal, Store, addServices, addWorkload } from "../../redux";
 import {
   Modal,
   Form,
@@ -14,6 +13,12 @@ import {
   Button,
   SelectOptionObject,
 } from "@patternfly/react-core";
+import {
+  getDescriptorFromWorkload,
+  getWorkloadFromDescriptors,
+  removeWorkloadSafely,
+} from "../../utils/workload";
+import { createDuplicates } from "./util";
 
 /**
  * Editing Workload
@@ -33,8 +38,14 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const openModal = useSelector((store: Store) => store.ui.openModal);
-  const machines = useSelector((store: Store) => store.machineSet);
+  const { openModal, machines, services, workloads } = useSelector(
+    (store: Store) => ({
+      openModal: store.ui.openModal,
+      machines: store.machineSet,
+      services: store.service.services,
+      workloads: store.workload,
+    })
+  );
 
   const [name, setName] = React.useState(workload.name);
   const [count, setCount] = React.useState(workload.count);
@@ -65,15 +76,27 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
   };
 
   const updateWorkload = () => {
-    const newWorkload: Workload = {
-      id: workload.id,
-      name,
-      count,
-      usesMachines: usesMachines ? usesMachines : [],
-      services: workload.services,
-      storageCapacityRequired: storageCapacity,
-    };
-    dispatch(editWorkload(newWorkload));
+    const remover = removeWorkloadSafely(dispatch);
+    remover(workload, services);
+    const duplicateWorkloads = workloads.filter(
+      (wl) => wl.duplicateOf === workload.id
+    );
+    duplicateWorkloads.forEach((wl) => remover(wl, services));
+    const descriptor = getDescriptorFromWorkload(workload, services);
+    descriptor.count = count;
+    descriptor.usesMachines = usesMachines ? usesMachines : [];
+    descriptor.storageCapacityRequired = storageCapacity;
+    const { services: wlServices, workload: newWorkload } =
+      getWorkloadFromDescriptors(descriptor);
+    dispatch(addServices(wlServices));
+    dispatch(addWorkload(newWorkload));
+    const workloadDescriptors = createDuplicates(descriptor, newWorkload.id);
+    workloadDescriptors.forEach((wld) => {
+      const { services: serviceDup, workload: workloadDup } =
+        getWorkloadFromDescriptors(wld);
+      dispatch(addServices(serviceDup));
+      dispatch(addWorkload(workloadDup));
+    });
     dispatch(closeModal());
   };
 

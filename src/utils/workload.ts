@@ -1,7 +1,18 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import * as _ from "lodash";
 import { MS_DEFAULT_NAME } from "../constants";
-import { MachineSet, Service, Workload, WorkloadDescriptor } from "../models";
-import { removeServicesFromNodes, removeWorkload } from "../redux";
+import {
+  MachineSet,
+  Service,
+  ServiceDescriptor,
+  Workload,
+  WorkloadDescriptor,
+} from "../models";
+import {
+  generateWorkloadID,
+  removeServicesFromNodes,
+  removeWorkload,
+} from "../redux";
 import { generateServiceID, removeServices } from "../redux/reducers/service";
 import { getTotalResourceRequirement } from "./common";
 import { getAllCoplacedServices, sortServices } from "./service";
@@ -15,16 +26,50 @@ export const getWorkloadFromDescriptors = (
   workload: WorkloadDescriptor
 ): WorkloadDescriptorObjects => {
   const { services } = workload;
-  const serviceObjects: Service[] = services.map((service) =>
+  const serviceDescriptors: ServiceDescriptor[] = services.map((service) =>
     Object.assign({}, service, { id: generateServiceID() })
+  );
+  const serviceObjects: Service[] = serviceDescriptors.reduce(
+    (acc, curr, index) => {
+      const serviceObject: Partial<Service> = _.omit(curr, [
+        "avoid",
+        "runsWith",
+      ]);
+      if (!serviceDescriptors) {
+        console.log(serviceDescriptors);
+      }
+      serviceObject.avoid = curr.avoid.map(
+        (item) => serviceDescriptors.find((so) => so.name === item).id
+      );
+      serviceObject.runsWith = curr.runsWith.map(
+        (item) => serviceDescriptors.find((so) => so.name === item).id
+      );
+      acc[index] = serviceObject;
+      return acc;
+    },
+    []
   );
   const serviceIDs: number[] = serviceObjects.map(
     (service) => service.id as number
   );
   const updatedWorkload: Workload = Object.assign({}, workload, {
+    id: generateWorkloadID(),
     services: serviceIDs,
   });
   return { services: serviceObjects, workload: updatedWorkload };
+};
+
+export const getDescriptorFromWorkload = (
+  workload: Workload,
+  services: Service[]
+): WorkloadDescriptor => {
+  const { services: wlServices } = workload;
+  const serviceObjects = services
+    .filter((service) => wlServices.includes(service.id))
+    .map((service) => _.omit(service, "id"));
+  const workloadObject = _.omit(workload, ["id", "duplicateOf", "services"]);
+  Object.assign(workloadObject, { services: serviceObjects });
+  return workloadObject as WorkloadDescriptor;
 };
 
 export const getMachineSetForWorkload = (
@@ -42,7 +87,7 @@ export const getMachineSetForWorkload = (
       workload.usesMachines.includes(ms.name)
     ) as MachineSet;
   }
-  return machineSets.find((ms) => ms.name === MS_DEFAULT_NAME) as MachineSet;
+  return machineSets[0];
 };
 
 export const getWorkloadResourceConsumption = (
@@ -68,7 +113,7 @@ export const removeWorkloadSafely =
 
 export const isWorkloadSchedulable =
   (services: Service[], machineSets: MachineSet[]) =>
-  (workload: Workload): boolean => {
+  (workload: Workload): [boolean, MachineSet[]] => {
     // First check if the workload uses some machine
     const serviceObjects: Service[] = services.filter((service) =>
       workload.services.includes(service.id)
@@ -80,35 +125,34 @@ export const isWorkloadSchedulable =
       const preferredMS: MachineSet[] = machineSets.filter((ms) =>
         usesMachines.includes(ms.name)
       );
-      const canRun: boolean = preferredMS.some((ms) =>
+      const canRun = preferredMS.filter((ms) =>
         areServicesSchedulable(sortedServices[0], ms)
       );
-      if (canRun) {
-        return true;
+      if (canRun.length > 0) {
+        return [true, canRun];
       }
-      return false;
     }
     // Check if a dedicated MS is present
     const dedicatedMS: MachineSet[] = machineSets.filter((ms) =>
       ms.onlyFor.includes(workload.name)
     );
     if (dedicatedMS.length > 0) {
-      const canRun: boolean = dedicatedMS.some((ms) =>
+      const canRun = dedicatedMS.filter((ms) =>
         areServicesSchedulable(sortedServices[0], ms)
       );
-      if (canRun) {
-        return true;
+      if (canRun.length > 0) {
+        return [true, canRun];
       }
     }
 
     // Check if any of the existing MS can
-    const canRun: boolean = machineSets.some((ms) =>
+    const canRun = machineSets.filter((ms) =>
       areServicesSchedulable(sortedServices[0], ms)
     );
-    if (canRun) {
-      return true;
+    if (canRun.length > 0) {
+      return [true, canRun];
     }
-    return false;
+    return [false, null];
   };
 
 export const areServicesSchedulable = (
