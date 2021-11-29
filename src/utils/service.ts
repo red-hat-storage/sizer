@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import { MachineSet, Service, Workload, Zone_ as Zone } from "../models";
 import { Node } from "../types";
 import { canNodeAddService, getTotalNodeMemoryConsumption } from "./node";

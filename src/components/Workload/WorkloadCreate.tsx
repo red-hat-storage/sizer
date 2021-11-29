@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import { CodeEditor, Language } from "@patternfly/react-code-editor";
 import {
   Alert,

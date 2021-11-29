@@ -27,7 +27,7 @@ export const getODFWorkload = (
     zones: 2,
     runsWith: [],
     avoid: [],
-  } as Service);
+  });
   odfWorkload.services.push({
     name: "Ceph_MON", //name
     requiredCPU: 1, // CPU

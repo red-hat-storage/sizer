@@ -39,7 +39,7 @@ describe("Test scheduler", () => {
     dispatch(addServices(kafkaServices));
     dispatch(addWorkload(kafkaWorkload));
     const state = store.getState();
-    const { node, zone, service, workload, machineSet } = state;
+    const { service, workload, machineSet } = state;
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
