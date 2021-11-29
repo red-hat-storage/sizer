@@ -2,7 +2,7 @@ import * as React from "react";
 import { Modal, Title } from "@patternfly/react-core";
 import { ReplicaSetResults } from "../Results/ReplicaSetResults";
 import { useCloseModal } from "../../hooks/modal";
-import { Zone_ as Zone } from "../../models/Zone";
+import { Zone } from "../../types/Zone";
 import "./advanced-results.css";
 
 type AdvancedResultsModalProps = {

@@ -27,7 +27,7 @@ import MachineSetCard from "./MachineSetCard";
 import { Platform } from "../../types";
 import "./compute.css";
 import { controlPlaneInstances, defaultInstances } from "../../cloudInstance";
-import { MachineSet } from "../../models";
+import { MachineSet } from "../../types";
 
 const platformDropdownItems = [
   <DropdownItem key="BareMetal" id="BareMetal">
@@ -52,9 +52,8 @@ const platformDropdownItems = [
 
 const Compute: React.FC = () => {
   const dispatch = useDispatch();
-  const [isPlatformDropdownOpen, setPlatformDropdownOpen] = React.useState(
-    false
-  );
+  const [isPlatformDropdownOpen, setPlatformDropdownOpen] =
+    React.useState(false);
 
   const openCreateModal = React.useCallback(() => {
     dispatch(openModalAction(CM_MODAL_ID));

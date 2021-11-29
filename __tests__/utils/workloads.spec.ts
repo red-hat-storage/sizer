@@ -24,7 +24,7 @@ services:
     avoid: ["serviceA"]
 */
 
-import { WorkloadDescriptor } from "../../src/models";
+import { WorkloadDescriptor } from "../../src/types";
 import { getWorkloadFromDescriptors } from "../../src/utils/workload";
 
 /**

@@ -1,10 +1,8 @@
-import Disk from "../models/Disk";
-import { Service, WorkloadDescriptor } from "../models";
-import { DeploymentType } from "../types";
+import { WorkloadDescriptor, DeploymentType } from "../types";
 
 export const getODFWorkload = (
   targetCapacity: number,
-  diskType: Disk,
+  diskCapacity: number,
   deploymentType: DeploymentType,
   dedicatedMachineSets: string[] = [],
   nooBaaActive = true,
@@ -109,9 +107,7 @@ export const getODFWorkload = (
     });
   }
 
-  const osdsNeededForTargetCapacity = Math.ceil(
-    targetCapacity / diskType.capacity
-  );
+  const osdsNeededForTargetCapacity = Math.ceil(targetCapacity / diskCapacity);
 
   let osdCPU = 2;
   let osdMem = 5;

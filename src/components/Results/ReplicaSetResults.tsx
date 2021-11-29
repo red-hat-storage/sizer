@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Store } from "../../redux";
 import { Node } from "../../types";
 import { getTotalResourceRequirement } from "../../utils/common";
-import { Service } from "../../models";
+import { Service } from "../../types";
 
 type ServiceResultsProps = {
   services: Service[];

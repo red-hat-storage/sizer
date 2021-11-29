@@ -6,7 +6,7 @@
  * 3) We schedule rest of the services based on the zones
  **/
 
-import { MachineSet, Service, Workload, Zone_ as Zone } from "../models";
+import { MachineSet, Service, Workload, Zone } from "../types";
 import { Node } from "../types";
 import * as _ from "lodash";
 import { Dispatch } from "@reduxjs/toolkit";

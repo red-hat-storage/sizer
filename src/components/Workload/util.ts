@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { WorkloadDescriptor } from "../../models";
+import { WorkloadDescriptor } from "../../types";
 
 const workloadKeys = ["name", "count", "usesMachines", "services"];
 

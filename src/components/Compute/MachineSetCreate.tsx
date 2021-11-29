@@ -22,7 +22,7 @@ import { addMachineSet, closeModal, Store } from "../../redux";
 import SelectionList from "./SelectList";
 import { Platform } from "../../types";
 import { platformInstanceMap } from "../../cloudInstance";
-import { Service, Workload } from "../../models";
+import { Service, Workload } from "../../types";
 import { getWorkloadResourceConsumption } from "../../utils/workload";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";

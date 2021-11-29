@@ -12,12 +12,11 @@ import brand from "../../../assets/images/ocs-logo.png";
 import "./header.css";
 
 const HeaderTools: React.FC<HeaderToolsProps> = ({ onSelect }) => {
-  const onClick = (eventSource: string) => (
-    event: React.FormEvent<MouseEvent>
-  ) => {
-    event?.stopPropagation();
-    onSelect(eventSource);
-  };
+  const onClick =
+    (eventSource: string) => (event: React.FormEvent<MouseEvent>) => {
+      event?.stopPropagation();
+      onSelect(eventSource);
+    };
   return (
     <Flex
       className="header-tools"

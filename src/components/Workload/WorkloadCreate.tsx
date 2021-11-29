@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addServices, addWorkload, closeModal, Store } from "../../redux";
 import { applyModifier, createDuplicates, isValidWorkload } from "./util";
 import * as jsyaml from "js-yaml";
-import { WorkloadDescriptor } from "../../models";
+import { WorkloadDescriptor } from "../../types";
 import {
   defaultWorkloads,
   defaultWorkloadsIconMap,

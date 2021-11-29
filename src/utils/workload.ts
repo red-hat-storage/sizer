@@ -6,7 +6,7 @@ import {
   ServiceDescriptor,
   Workload,
   WorkloadDescriptor,
-} from "../models";
+} from "../types";
 import {
   generateWorkloadID,
   removeServicesFromNodes,

@@ -1,4 +1,4 @@
-import { MachineSet, Service, Workload, Zone_ as Zone } from "../models";
+import { MachineSet, Service, Workload, Zone } from "../types";
 import { Node } from "../types";
 import { canNodeAddService, getTotalNodeMemoryConsumption } from "./node";
 import { Dispatch } from "@reduxjs/toolkit";

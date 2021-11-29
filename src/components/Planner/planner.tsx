@@ -12,7 +12,6 @@ import {
 import DiskSize from "./DiskSize";
 import { getODFWorkload } from "../../workloads";
 import { addWorkload, addServices, setTab, Store } from "../../redux";
-import { Disk } from "../../models";
 import "./planner.css";
 import {
   getWorkloadFromDescriptors,
@@ -34,7 +33,7 @@ const StoragePage: React.FC = () => {
   const onClick = () => {
     const odfWorkload = getODFWorkload(
       ocsState.usableCapacity,
-      new Disk(ocsState.flashSize),
+      ocsState.flashSize,
       ocsState.deploymentType,
       ocsState.dedicatedMachines
     );

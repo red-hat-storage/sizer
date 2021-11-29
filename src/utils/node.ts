@@ -1,4 +1,4 @@
-import { MachineSet, Service, Workload } from "../models";
+import { MachineSet, Service, Workload } from "../types";
 import { Node } from "../types";
 import * as _ from "lodash";
 import {

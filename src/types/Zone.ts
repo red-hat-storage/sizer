@@ -1,4 +1,4 @@
-export type Zone_ = {
+export type Zone = {
   nodes: number[];
   id?: number;
 };

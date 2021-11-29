@@ -24,7 +24,7 @@ import { getLink } from "./util";
 import { workloadScheduler } from "../../scheduler/workloadScheduler";
 import { pruneNodes } from "../../scheduler/nodePruner";
 import { isWorkloadSchedulable } from "../../utils/workload";
-import { MachineSet, Workload } from "../../models";
+import { MachineSet, Workload } from "../../types";
 
 const Results: React.FC = () => {
   const {

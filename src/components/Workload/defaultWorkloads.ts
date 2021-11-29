@@ -3,7 +3,7 @@ import { DeepPartial } from "@reduxjs/toolkit";
 import {
   WorkloadDescriptor as Workload,
   WorkloadDescriptor,
-} from "../../models";
+} from "../../types";
 import {
   DatabaseIcon,
   GitlabIcon,

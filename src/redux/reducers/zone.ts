@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { Zone_ as Zone } from "../../models";
+import { Zone } from "../../types";
 
 //
 let ZONE_COUNTER = 0;

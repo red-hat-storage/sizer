@@ -1,6 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { defaultInstances, controlPlaneInstances } from "../../cloudInstance";
-import { MachineSet } from "../../models";
+import { MachineSet } from "../../types";
 import { Platform } from "../../types";
 
 let MS_COUNTER = 1;

@@ -1,5 +1,5 @@
 import { defaultWorkloads } from "../../src/components/Workload/defaultWorkloads";
-import { MachineSet, WorkloadDescriptor } from "../../src/models";
+import { MachineSet, WorkloadDescriptor } from "../../src/types";
 import {
   addMachineSet,
   addServices,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Workload } from "../../models";
+import { Workload } from "../../types";
 import { closeModal, Store, addServices, addWorkload } from "../../redux";
 import {
   Modal,

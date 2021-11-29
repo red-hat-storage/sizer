@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
-import { MachineSet } from "../../models";
+import { MachineSet } from "../../types";
 import { removeMachineSet } from "../../redux";
 import { Card, CardItem } from "../Generic/CardItem";
 

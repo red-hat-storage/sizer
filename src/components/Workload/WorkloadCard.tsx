@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Workload } from "../../models";
+import { Workload } from "../../types";
 import { openModalAction, Store } from "../../redux";
 import WorkloadEditFormModal, { WORKLOAD_EDIT_MODAL_ID } from "./WorkloadEdit";
 import { Card, CardItem } from "../Generic/CardItem";

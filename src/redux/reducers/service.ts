@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { Service } from "../../models";
+import { Service } from "../../types";
 
 let SERVICE_COUNTER = 0;
 

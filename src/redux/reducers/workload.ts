@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { Workload } from "../../models";
+import { Workload } from "../../types";
 
 let WL_COUNTER = 1;
 export const generateWorkloadID = (): number => WL_COUNTER++;
