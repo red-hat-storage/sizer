@@ -8,6 +8,7 @@ import {
   clearAllMachines,
   setPlatform,
   Store,
+  removeAllNodes,
 } from "../../redux";
 import { CaretDownIcon, ServerIcon } from "@patternfly/react-icons";
 import {
@@ -52,8 +53,9 @@ const platformDropdownItems = [
 
 const Compute: React.FC = () => {
   const dispatch = useDispatch();
-  const [isPlatformDropdownOpen, setPlatformDropdownOpen] =
-    React.useState(false);
+  const [isPlatformDropdownOpen, setPlatformDropdownOpen] = React.useState(
+    false
+  );
 
   const openCreateModal = React.useCallback(() => {
     dispatch(openModalAction(CM_MODAL_ID));
@@ -64,6 +66,7 @@ const Compute: React.FC = () => {
 
   const onSelect = (platform: Platform) => {
     dispatch(setPlatform(platform));
+    dispatch(removeAllNodes());
     dispatch(clearAllMachines());
     const workerInstance = defaultInstances[platform];
     const defaultMachineSet: MachineSet = {

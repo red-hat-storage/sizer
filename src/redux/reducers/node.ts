@@ -17,6 +17,7 @@ const addServicesToNode = createAction<{ nodeID: number; services: number[] }>(
 );
 const removeServicesFromNodes = createAction<Service[]>("REMOVE_SERVICES");
 const removeNodes = createAction<Node[]>("REMOVE_NODES");
+const removeAllNodes = createAction("REMOVE_ALL_NODES");
 
 const nodeReducer = createReducer(defaultState, (builder) => {
   builder
@@ -45,6 +46,9 @@ const nodeReducer = createReducer(defaultState, (builder) => {
     .addCase(removeNodes, (state, { payload }) => {
       const nodeIDs = payload.map((node) => node.id);
       state.nodes = state.nodes.filter((node) => !nodeIDs.includes(node.id));
+    })
+    .addCase(removeAllNodes, (state) => {
+      state.nodes = [];
     });
 });
 
@@ -54,5 +58,6 @@ export {
   addServicesToNode,
   removeServicesFromNodes,
   removeNodes,
+  removeAllNodes,
   nodeReducer,
 };
