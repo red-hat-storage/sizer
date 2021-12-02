@@ -1,4 +1,3 @@
-import { getOSDsInNode, canNodeAddService } from "../../src/utils/node";
 import { ServiceDescriptor } from "../../src/types/Service";
 import { Platform } from "../../src/types/common";
 import { pruneNodes } from "../../src/scheduler/nodePruner";
@@ -11,6 +10,8 @@ import {
 } from "../../src/redux/reducers";
 
 import { runWorkload } from "./common";
+import { isWorkloadSchedulable } from "../../src/utils/workload";
+import { MachineSet } from "../../src/types";
 
 const testServices: ServiceDescriptor[] = [
   {
@@ -42,7 +43,7 @@ const platforms = [
 
 const store = mainStore;
 const { dispatch } = store;
-
+let checkSchedulability = null;
 describe.each(platforms)("Test Node common Methods", (platform) => {
   beforeEach(() => {
     const state = store.getState();
@@ -62,11 +63,19 @@ describe.each(platforms)("Test Node common Methods", (platform) => {
       usesMachines: [],
       services: testServices,
     });
-    expect(store.getState().node.nodes.length).toEqual(3);
+    const state = store.getState();
+    checkSchedulability = isWorkloadSchedulable(
+      state.service.services,
+      state.machineSet.filter((ms) => ms.name !== "controlPlane")
+    );
+    const [isSchedulable, ,]: [boolean, MachineSet[]] = checkSchedulability(
+      store.getState().workload[0]
+    );
+    expect(isSchedulable).toBeTruthy();
   });
 
   it(`Test too-large workload ${platform}`, () => {
-    runWorkload({
+    const largeWorkload = {
       name: "smallWorkload",
       count: 1,
       usesMachines: [],
@@ -80,8 +89,17 @@ describe.each(platforms)("Test Node common Methods", (platform) => {
           runsWith: [],
         },
       ],
-    });
-    expect(store.getState().node.nodes.length).toEqual(0);
+    };
+    runWorkload(largeWorkload);
+    const state = store.getState();
+    checkSchedulability = isWorkloadSchedulable(
+      state.service.services,
+      state.machineSet.filter((ms) => ms.name !== "controlPlane")
+    );
+    const [isSchedulable, ,]: [boolean, MachineSet[]] = checkSchedulability(
+      store.getState().workload[0]
+    );
+    expect(isSchedulable).toBeFalsy();
   });
 
   // it(`Test if existing services are disallowed (canIAddWorkload) ${platform}`, () => {
