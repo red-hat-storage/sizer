@@ -25,6 +25,7 @@ import { workloadScheduler } from "../../scheduler/workloadScheduler";
 import { pruneNodes } from "../../scheduler/nodePruner";
 import { isWorkloadSchedulable } from "../../utils/workload";
 import { MachineSet, Workload } from "../../types";
+import UnschedulableWorkload from "./WorkloadSchedulerAlerts";
 
 const Results: React.FC = () => {
   const {
@@ -46,21 +47,31 @@ const Results: React.FC = () => {
   }));
   const coreState = useSelector((store: Store) => _.omit(store, "ui"));
   const dispatch = useDispatch();
+  const [unschedulableWorkloads, setUnschedulableWorkloads] = React.useState<
+    Workload[]
+  >([]);
 
   React.useEffect(() => {
+    const unschedulables = [];
     const scheduler = workloadScheduler(store, dispatch);
     const checkSchedulability = isWorkloadSchedulable(
       services,
       machineSets.filter((ms) => ms.name !== "controlPlane")
     );
-    const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
-      workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+    const workloadSchedulability: [
+      Workload,
+      boolean,
+      MachineSet[]
+    ][] = workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
     workloadSchedulability.forEach((item) => {
       if (item[1]) {
         // Schedule on MachineSets that can run it
         scheduler(item[0], services, item[2]);
+      } else {
+        unschedulables.push(item[0]);
       }
     });
+    setUnschedulableWorkloads(unschedulables);
     pruneNodes(dispatch)(allNodes);
   }, [JSON.stringify(workloads), JSON.stringify(machineSets)]);
 
@@ -220,6 +231,11 @@ const Results: React.FC = () => {
           >
             <Button className="button-normalizer">Get Sharing Link</Button>
           </Popover>
+        </div>
+        <div>
+          {unschedulableWorkloads.map((item) => (
+            <UnschedulableWorkload workload={item} key={item.id} />
+          ))}
         </div>
         <div id="nodes-vis-container">
           <NodesVisualResults nodes={allNodes} />
