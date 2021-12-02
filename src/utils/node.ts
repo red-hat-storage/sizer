@@ -69,9 +69,7 @@ export const getTotalNodeMemoryConsumption = (
   node: Node,
   services: Service[]
 ): number => {
-  const nodeServices = services.filter((service) =>
-    node.services.includes(service.id)
-  );
+  const nodeServices = getServicesInNode(node, services);
   return getTotalResourceRequirement(nodeServices).totalMem;
 };
 
