@@ -1,7 +1,7 @@
-import { WorkloadDescriptor } from "../../src/types";
-import { getWorkloadFromDescriptors } from "../../src/utils/workload";
-import { store as mainStore } from "../../src/redux/store";
-import { addServices, addWorkload } from "../../src/redux/reducers";
+import { WorkloadDescriptor } from "../src/types";
+import { getWorkloadFromDescriptors } from "../src/utils/workload";
+import { store as mainStore } from "../src/redux/store";
+import { addServices, addWorkload } from "../src/redux/reducers";
 
 const store = mainStore;
 const { dispatch } = store;

@@ -9,7 +9,7 @@ import {
   setPlatform,
 } from "../../src/redux/reducers";
 
-import { runWorkload } from "./common";
+import { runWorkload } from "../common";
 import { isWorkloadSchedulable } from "../../src/utils/workload";
 import { MachineSet } from "../../src/types";
 
