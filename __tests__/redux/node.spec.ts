@@ -1,19 +1,16 @@
-import { Node } from "../../src/types/Node";
 import { getOSDsInNode, canNodeAddService } from "../../src/utils/node";
-import { Service, ServiceDescriptor } from "../../src/types/Service";
-import { Workload, WorkloadDescriptor } from "../../src/types/Workload";
-import { Instance, Platform } from "../../src/types/common";
+import { ServiceDescriptor } from "../../src/types/Service";
+import { Platform } from "../../src/types/common";
 import { pruneNodes } from "../../src/scheduler/nodePruner";
 import { store as mainStore } from "../../src/redux/store";
 import {
   removeWorkloads,
   removeServices,
+  removeNodes,
   setPlatform,
-  addServices,
-  addWorkload,
 } from "../../src/redux/reducers";
-import { getWorkloadFromDescriptors } from "../../src/utils/workload";
-import { workloadScheduler } from "../../src/scheduler/workloadScheduler";
+
+import { runWorkload } from "./common";
 
 const testServices: ServiceDescriptor[] = [
   {
@@ -36,11 +33,11 @@ const testServices: ServiceDescriptor[] = [
 
 const platforms = [
   Platform.BAREMETAL,
-  // Platform.GCP,
-  // Platform.AZURE,
-  // Platform.VMware,
-  // Platform.RHV,
-  // Platform.AWS,
+  Platform.GCP,
+  Platform.AZURE,
+  Platform.VMware,
+  Platform.RHV,
+  Platform.AWS,
 ];
 
 const store = mainStore;
@@ -51,6 +48,7 @@ describe.each(platforms)("Test Node common Methods", (platform) => {
     const state = store.getState();
     dispatch(removeWorkloads(state.workload));
     dispatch(removeServices(state.service.services));
+    dispatch(removeNodes(state.node.nodes));
     dispatch(setPlatform(platform));
 
     pruneNodes(dispatch)(state.node.nodes);
@@ -58,30 +56,33 @@ describe.each(platforms)("Test Node common Methods", (platform) => {
 
   it(`Test fiting small workload ${platform}`, () => {
     // console.debug(state);
-    const { services: testServiceIDs, workload: testWorkloadIDs } =
-      getWorkloadFromDescriptors({
-        name: "smallWorkload",
-        count: 1,
-        usesMachines: [],
-        services: testServices,
-      });
-
-    dispatch(addServices(testServiceIDs));
-    dispatch(addWorkload(testWorkloadIDs));
-    const state = store.getState();
-    workloadScheduler(store, dispatch)(
-      state.workload[0],
-      state.service.services,
-      state.machineSet
-    );
+    runWorkload({
+      name: "smallWorkload",
+      count: 1,
+      usesMachines: [],
+      services: testServices,
+    });
     expect(store.getState().node.nodes.length).toEqual(3);
   });
 
-  // it(`Test larger workload (canIAddWorkload) ${platform}`, () => {
-  //   const largeWorkload: Workload =
-  //     ("largeWorkload", [new Service("A", 26, 172, 3, [], [])], 3);
-  //   expect(node.canIAddWorkload(largeWorkload)).toBeFalsy();
-  // });
+  it(`Test too-large workload ${platform}`, () => {
+    runWorkload({
+      name: "smallWorkload",
+      count: 1,
+      usesMachines: [],
+      services: [
+        {
+          name: "A",
+          requiredCPU: 26,
+          requiredMemory: 172,
+          zones: 3,
+          avoid: [],
+          runsWith: [],
+        },
+      ],
+    });
+    expect(store.getState().node.nodes.length).toEqual(0);
+  });
 
   // it(`Test if existing services are disallowed (canIAddWorkload) ${platform}`, () => {
   //   const workload: Workload = ("deployment-A", services, 3);
