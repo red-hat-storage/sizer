@@ -54,15 +54,9 @@ const Results: React.FC = () => {
   React.useEffect(() => {
     const unschedulables = [];
     const scheduler = workloadScheduler(store, dispatch);
-    const checkSchedulability = isWorkloadSchedulable(
-      services,
-      machineSets.filter((ms) => ms.name !== "controlPlane")
-    );
-    const workloadSchedulability: [
-      Workload,
-      boolean,
-      MachineSet[]
-    ][] = workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+    const checkSchedulability = isWorkloadSchedulable(services, machineSets);
+    const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
+      workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
     workloadSchedulability.forEach((item) => {
       if (item[1]) {
         // Schedule on MachineSets that can run it

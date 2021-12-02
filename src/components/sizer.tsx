@@ -19,6 +19,7 @@ import {
   setUsableCapacity,
   setDeploymentType,
   setDedicatedMachines,
+  addServices,
 } from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
@@ -77,9 +78,39 @@ export const Sizer_: React.FC = () => {
           const parsedState: Omit<Store, "ui"> = JSON.parse(
             serializedState || ""
           );
+          if (
+            parsedState.workload.filter((w) => w.name === "ControlPlane")
+              .length == 0
+          ) {
+            const nextServiceID =
+              Math.max.apply(
+                Math,
+                parsedState.service.services.map((s) => {
+                  return s.id;
+                })
+              ) + 1;
+            parsedState.service.services.push({
+              id: nextServiceID,
+              name: "ControlPlane",
+              requiredCPU: 4,
+              requiredMemory: 16,
+              zones: 3,
+              avoid: [],
+              runsWith: [],
+            });
+            parsedState.workload.push({
+              name: "ControlPlane",
+              count: 1,
+              usesMachines: ["controlPlane"],
+              services: [nextServiceID],
+              storageCapacityRequired: 100,
+            });
+          }
           // Set machineSets
           dispatch(clearAllMachines());
           parsedState.machineSet.forEach((ms) => dispatch(addMachineSet(ms)));
+          // Add services
+          dispatch(addServices(parsedState.service.services));
           // Add workloads
           parsedState.workload.forEach((wl) => dispatch(addWorkload(wl)));
           // Configure OCS
@@ -89,6 +120,29 @@ export const Sizer_: React.FC = () => {
           dispatch(setDedicatedMachines(parsedState.ocs.dedicatedMachines));
         })
         .catch((err) => console.error(err));
+    } else {
+      dispatch(
+        addServices([
+          {
+            id: 0,
+            name: "ControlPlane",
+            requiredCPU: 4,
+            requiredMemory: 16,
+            zones: 3,
+            avoid: [],
+            runsWith: [],
+          },
+        ])
+      );
+      dispatch(
+        addWorkload({
+          name: "ControlPlane",
+          count: 1,
+          usesMachines: ["controlPlane"],
+          services: [0],
+          storageCapacityRequired: 100,
+        })
+      );
     }
   }, []);
 
