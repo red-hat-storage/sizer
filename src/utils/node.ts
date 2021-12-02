@@ -114,3 +114,10 @@ export const getMaxZones = (services: Service[]): number =>
 
 export const getServicesInNode = (node: Node, services: Service[]): Service[] =>
   services.filter((service) => node.services.includes(service.id));
+
+export const getOSDsInNode = (node: Node, services: Service[]): number => {
+  const nodeServices = getServicesInNode(node, services);
+  return nodeServices.filter((service) =>
+    service.name.toUpperCase().includes("OSD")
+  ).length;
+};
