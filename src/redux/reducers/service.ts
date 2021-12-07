@@ -1,12 +1,22 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { Service } from "../../types";
 
-let SERVICE_COUNTER = 0;
+let SERVICE_COUNTER = 1;
 
 export const generateServiceID = (): number => SERVICE_COUNTER++;
 
 const defaultState = {
-  services: [] as Service[],
+  services: [
+    {
+      id: 0,
+      name: "ControlPlane",
+      requiredCPU: 4,
+      requiredMemory: 16,
+      zones: 3,
+      avoid: [],
+      runsWith: [],
+    },
+  ] as Service[],
 };
 
 const addService = createAction<Service>("ADD_SERVICE");

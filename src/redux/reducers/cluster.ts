@@ -12,6 +12,8 @@ const setPlatform = createAction<Platform>("SET_PLATFORM");
 const clusterReducer = createReducer(defaultState, (builder) => {
   builder.addCase(setPlatform, (state, { payload: platform }) => {
     state.platform = platform;
+    state.zones = [];
+    return state;
   });
 });
 

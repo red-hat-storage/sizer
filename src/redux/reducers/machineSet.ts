@@ -3,13 +3,14 @@ import { defaultInstances, controlPlaneInstances } from "../../cloudInstance";
 import { MachineSet } from "../../types";
 import { Platform } from "../../types";
 
-let MS_COUNTER = 1;
+let MS_COUNTER = 2;
 
 const defaultAWSInstace = defaultInstances[Platform.AWS];
 const controlInstance = controlPlaneInstances[Platform.AWS];
 
 const defaultState: MachineSet[] = [
   {
+    id: 0,
     name: "default",
     cpu: defaultAWSInstace.cpuUnits,
     memory: defaultAWSInstace.memory,
@@ -19,6 +20,7 @@ const defaultState: MachineSet[] = [
     label: "Worker Node",
   },
   {
+    id: 1,
     name: "controlPlane",
     cpu: controlInstance.cpuUnits,
     memory: controlInstance.memory,
@@ -39,7 +41,7 @@ const machineSetReducer = createReducer(defaultState, (builder) => {
       machines.push(Object.assign({}, machine, { id: MS_COUNTER++ }));
     })
     .addCase(removeMachineSet, (machines, { payload: machineName }) => {
-      machines.filter((item) => item.name !== machineName);
+      return machines.filter((item) => item.name !== machineName);
     })
     .addCase(clearAllMachines, () => []);
 });

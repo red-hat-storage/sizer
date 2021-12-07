@@ -1,5 +1,3 @@
-import { Zone } from "./Zone";
-
 export type NodeDetails<T> = {
   usedCpuUnits: number;
   usedMemory: number;
@@ -24,18 +22,6 @@ export const enum DeploymentType {
   COMPACT = "compact",
   MINIMAL = "minimal",
 }
-
-export type DeploymentDetails = {
-  ocpNodes: number;
-  cpuUnits: number;
-  memory: number;
-  diskCapacity?: number;
-  // deploymentType: DeploymentType;
-  // nvmeTuning: boolean;
-  // warningFirst: number;
-  // warningSecond: number;
-  zones: Zone[];
-};
 
 export type Instance = {
   name: string;

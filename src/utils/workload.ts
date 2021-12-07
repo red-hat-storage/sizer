@@ -99,60 +99,64 @@ export const getWorkloadResourceConsumption = (
   return getTotalResourceRequirement(workloadServices);
 };
 
-export const removeWorkloadSafely =
-  (dispatch: Dispatch) =>
-  (workload: Workload, services: Service[]): void => {
-    const terminatedServices = services.filter((service) =>
-      workload.services.includes(service.id as number)
-    );
-    dispatch(removeServicesFromNodes(terminatedServices));
-    dispatch(removeServices(terminatedServices));
-    dispatch(removeWorkload(workload));
-  };
+export const removeWorkloadSafely = (dispatch: Dispatch) => (
+  workload: Workload,
+  services: Service[]
+): void => {
+  const terminatedServices = services.filter((service) =>
+    workload.services.includes(service.id as number)
+  );
+  dispatch(removeServicesFromNodes(terminatedServices));
+  dispatch(removeServices(terminatedServices));
+  dispatch(removeWorkload(workload));
+};
 
-export const isWorkloadSchedulable =
-  (services: Service[], machineSets: MachineSet[]) =>
-  (workload: Workload): [boolean, MachineSet[]] => {
-    // First check if the workload uses some machine
-    const serviceObjects: Service[] = services.filter((service) =>
-      workload.services.includes(service.id)
+export const isWorkloadSchedulable = (
+  services: Service[],
+  machineSets: MachineSet[]
+) => (workload: Workload): [boolean, MachineSet[]] => {
+  // First check if the workload uses some machine
+  const serviceObjects: Service[] = services.filter((service) =>
+    workload.services.includes(service.id)
+  );
+  const coplacedServices = getAllCoplacedServices(serviceObjects);
+  const sortedServices = coplacedServices.sort(sortServices);
+  const { usesMachines } = workload;
+  if (usesMachines.length > 0) {
+    const preferredMS: MachineSet[] = machineSets.filter((ms) =>
+      usesMachines.includes(ms.name)
     );
-    const coplacedServices = getAllCoplacedServices(serviceObjects);
-    const sortedServices = coplacedServices.sort(sortServices);
-    const { usesMachines } = workload;
-    if (usesMachines.length > 0) {
-      const preferredMS: MachineSet[] = machineSets.filter((ms) =>
-        usesMachines.includes(ms.name)
-      );
-      const canRun = preferredMS.filter((ms) =>
-        areServicesSchedulable(sortedServices[0], ms)
-      );
-      if (canRun.length > 0) {
-        return [true, canRun];
-      }
-    }
-    // Check if a dedicated MS is present
-    const dedicatedMS: MachineSet[] = machineSets.filter((ms) =>
-      ms.onlyFor.includes(workload.name)
-    );
-    if (dedicatedMS.length > 0) {
-      const canRun = dedicatedMS.filter((ms) =>
-        areServicesSchedulable(sortedServices[0], ms)
-      );
-      if (canRun.length > 0) {
-        return [true, canRun];
-      }
-    }
-
-    // Check if any of the existing MS can
-    const canRun = machineSets.filter((ms) =>
+    const canRun = preferredMS.filter((ms) =>
       areServicesSchedulable(sortedServices[0], ms)
     );
     if (canRun.length > 0) {
       return [true, canRun];
     }
-    return [false, null];
-  };
+  }
+  // Check if a dedicated MS is present
+  const dedicatedMS: MachineSet[] = machineSets.filter((ms) =>
+    ms.onlyFor.includes(workload.name)
+  );
+  if (dedicatedMS.length > 0) {
+    const canRun = dedicatedMS.filter((ms) =>
+      areServicesSchedulable(sortedServices[0], ms)
+    );
+    if (canRun.length > 0) {
+      return [true, canRun];
+    }
+  }
+
+  // Check if any of the existing MS can
+  const canRun = machineSets.filter(
+    (ms) =>
+      (ms.onlyFor.length === 0 || ms.onlyFor.includes(workload.name)) &&
+      areServicesSchedulable(sortedServices[0], ms)
+  );
+  if (canRun.length > 0) {
+    return [true, canRun];
+  }
+  return [false, null];
+};
 
 export const areServicesSchedulable = (
   services: Service[],

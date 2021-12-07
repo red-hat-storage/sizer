@@ -49,6 +49,7 @@ const nodeReducer = createReducer(defaultState, (builder) => {
     })
     .addCase(removeAllNodes, (state) => {
       state.nodes = [];
+      return state;
     });
 });
 

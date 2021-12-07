@@ -30,6 +30,9 @@ import "./compute.css";
 import { controlPlaneInstances, defaultInstances } from "../../cloudInstance";
 import { MachineSet } from "../../types";
 
+const isDeletable = (machineName: string) =>
+  machineName !== "controlPlane" && machineName !== "default";
+
 const platformDropdownItems = [
   <DropdownItem key="BareMetal" id="BareMetal">
     BareMetal
@@ -135,7 +138,7 @@ const Compute: React.FC = () => {
           <GridItem rowSpan={2} span={3} key={machine.name}>
             <MachineSetCard
               machineSet={machine}
-              disableDeletion={machines.length === 1}
+              disableDeletion={!isDeletable(machine.name)}
             />
           </GridItem>
         ))}

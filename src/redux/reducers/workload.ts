@@ -10,7 +10,15 @@ export const generateWorkloadID = (): number => WL_COUNTER++;
  *
  */
 
-const defaultState: Workload[] = [];
+const defaultState: Workload[] = [
+  {
+    name: "ControlPlane",
+    count: 1,
+    usesMachines: ["controlPlane"],
+    services: [0],
+    storageCapacityRequired: 100,
+  },
+];
 
 const addWorkload = createAction<Workload>("ADD_WORKLOAD");
 const removeWorkload = createAction<Workload>("REMOVE_WORKLOAD");

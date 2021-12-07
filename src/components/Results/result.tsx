@@ -23,8 +23,11 @@ import { GH_TOKEN } from "../../constants";
 import { getLink } from "./util";
 import { workloadScheduler } from "../../scheduler/workloadScheduler";
 import { pruneNodes } from "../../scheduler/nodePruner";
-import { isWorkloadSchedulable } from "../../utils/workload";
-import { MachineSet, Workload } from "../../types";
+import {
+  getDescriptorFromWorkload,
+  isWorkloadSchedulable,
+} from "../../utils/workload";
+import { MachineSet, MinimalState, Workload } from "../../types";
 import UnschedulableWorkload from "./WorkloadSchedulerAlerts";
 
 const Results: React.FC = () => {
@@ -53,10 +56,19 @@ const Results: React.FC = () => {
 
   React.useEffect(() => {
     const unschedulables = [];
+    const scheduledServiceIDs: number[] = _.flatten(
+      allNodes.map((node) => node.services)
+    );
+    const candidateWorkloads: Workload[] = workloads.filter(
+      (wl) => _.intersection(scheduledServiceIDs, wl.services).length === 0
+    );
     const scheduler = workloadScheduler(store, dispatch);
     const checkSchedulability = isWorkloadSchedulable(services, machineSets);
-    const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
-      workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+    const workloadSchedulability: [
+      Workload,
+      boolean,
+      MachineSet[]
+    ][] = candidateWorkloads.map((wl) => [wl, ...checkSchedulability(wl)]);
     workloadSchedulability.forEach((item) => {
       if (item[1]) {
         // Schedule on MachineSets that can run it
@@ -66,7 +78,7 @@ const Results: React.FC = () => {
       }
     });
     setUnschedulableWorkloads(unschedulables);
-    pruneNodes(dispatch)(allNodes);
+    pruneNodes(dispatch)(store.getState().node.nodes, zones);
   }, [JSON.stringify(workloads), JSON.stringify(machineSets)]);
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);
@@ -121,6 +133,14 @@ const Results: React.FC = () => {
     setVisible(true);
     const urlSearchParams = new URLSearchParams(window.location.search);
     const gistID = urlSearchParams.get("state");
+    const MinimalState: MinimalState = {
+      workload: coreState.workload
+        .filter((wl) => wl.name !== "controlPlane")
+        .map((wl) => getDescriptorFromWorkload(wl, coreState.service.services)),
+      machineSet: coreState.machineSet,
+      ocs: coreState.ocs,
+      platform: coreState.cluster.platform,
+    };
     if (gistID) {
       setLink(gistID);
     } else {
@@ -133,7 +153,7 @@ const Results: React.FC = () => {
         },
         files: {
           [fileName]: {
-            content: JSON.stringify(coreState, null, 2),
+            content: JSON.stringify(MinimalState, null, 2),
           },
         },
         public: true,
