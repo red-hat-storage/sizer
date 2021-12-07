@@ -52,7 +52,7 @@ describe.each(platforms)("Test Node common Methods", (platform) => {
     dispatch(removeNodes(state.node.nodes));
     dispatch(setPlatform(platform));
 
-    pruneNodes(dispatch)(state.node.nodes);
+    pruneNodes(dispatch)(state.node.nodes, state.zone.zones);
   });
 
   it(`Test fiting small workload ${platform}`, () => {
