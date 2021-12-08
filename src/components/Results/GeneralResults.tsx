@@ -6,11 +6,14 @@ import { Store } from "../../redux";
 import { getTotalResourceRequirement } from "../../utils/common";
 
 const GeneralResults: React.FC = () => {
-  const { nodes, services, workload } = useSelector((store: Store) => ({
-    nodes: store.node.nodes,
-    services: store.service.services,
-    workload: store.workload.find((wl) => wl.name === "ODF"),
-  }));
+  const { nodes, services, workload, diskSize } = useSelector(
+    (store: Store) => ({
+      nodes: store.node.nodes,
+      services: store.service.services,
+      workload: store.workload.find((wl) => wl.name === "ODF"),
+      diskSize: store.ocs.flashSize,
+    })
+  );
 
   const odfServices = workload
     ? services.filter((service) => workload.services.includes(service.id))
@@ -24,9 +27,7 @@ const GeneralResults: React.FC = () => {
         (node) => _.intersection(node.services, odfServiceIDs).length > 0
       )
     : [];
-  const { totalCPU, totalMem, totalDisks } = getTotalResourceRequirement(
-    odfServices
-  );
+  const { totalCPU, totalMem } = getTotalResourceRequirement(odfServices);
   return (
     <div className="results-general" id="results">
       <div>
@@ -42,7 +43,7 @@ const GeneralResults: React.FC = () => {
         <List>
           <ListItem>{totalCPU} CPU units</ListItem>
           <ListItem>{totalMem} GB memory</ListItem>
-          <ListItem>The disk size is {totalDisks} TB</ListItem>
+          <ListItem>The disk size is {diskSize} TB</ListItem>
         </List>
       </div>
       {/* <div>
