@@ -11,3 +11,7 @@
   max-height: 25vh !important;
   overflow-y: scroll;
 }
+
+.machineset-edit__modal {
+  min-height: 50vh;
+}

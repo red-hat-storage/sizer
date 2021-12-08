@@ -22,7 +22,7 @@ type CardProps = {
   itemName: string;
   itemId?: number;
   remove: () => any;
-  disableDeletion?: boolean;
+  disableActions?: boolean;
   edit?: () => void;
 };
 
@@ -40,7 +40,7 @@ export const CardItem: React.FC<CardItemProps> = ({ title, value }) => (
 export const Card: React.FC<CardProps> = ({
   itemName,
   cardType,
-  disableDeletion = false,
+  disableActions = false,
   remove,
   edit,
   children,
@@ -52,8 +52,8 @@ export const Card: React.FC<CardProps> = ({
           {itemName} {cardType}
         </Title>
         <CardActions>
-          {edit && <EditIcon onClick={edit} />}
-          {!disableDeletion && <CloseIcon onClick={remove} />}
+          {!disableActions && edit && <EditIcon onClick={edit} />}
+          {!disableActions && <CloseIcon onClick={remove} />}
         </CardActions>
       </CardHeader>
       <CardBody className="generic-card__body">

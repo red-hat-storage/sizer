@@ -1,35 +1,49 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { MachineSet } from "../../types";
-import { removeMachineSet } from "../../redux";
+import { openModalAction, removeMachineSet } from "../../redux";
 import { Card, CardItem } from "../Generic/CardItem";
+import MachineSetEditModal, { MACHINESET_EDIT_MODAL } from "./MachineSetEdit";
 
 type MachineSetCardProps = {
   machineSet: MachineSet;
-  disableDeletion?: boolean;
+  disableActions?: boolean;
 };
 
 const MachineSetCard: React.FC<MachineSetCardProps> = ({
-  machineSet: { name, cpu, memory, instanceName, numberOfDisks, onlyFor },
-  disableDeletion = false,
+  machineSet,
+  disableActions = false,
 }) => {
+  const {
+    name,
+    cpu,
+    memory,
+    instanceName,
+    numberOfDisks,
+    onlyFor,
+  } = machineSet;
   const dispatch = useDispatch();
   const removeMS = () => dispatch(removeMachineSet(name));
+  const onEditClick = () => dispatch(openModalAction(MACHINESET_EDIT_MODAL));
   return (
-    <Card
-      cardType="MachineSet"
-      itemName={name}
-      remove={removeMS}
-      disableDeletion={disableDeletion}
-    >
-      <CardItem title="CPU" value={cpu} />
-      <CardItem title="Memory" value={memory} />
-      <CardItem title="Instance" value={instanceName} />
-      <CardItem title="Number of Disks" value={numberOfDisks} />
-      {onlyFor.length > 0 && (
-        <CardItem title="Only For (Workloads)" value={onlyFor.join(", ")} />
-      )}
-    </Card>
+    <>
+      <MachineSetEditModal machineSet={machineSet} />
+      <Card
+        cardType="MachineSet"
+        itemName={name}
+        remove={removeMS}
+        edit={onEditClick}
+        disableActions={disableActions}
+      >
+        <CardItem title="CPU" value={cpu} />
+        <CardItem title="Memory" value={memory} />
+        <CardItem title="Instance" value={instanceName} />
+        <CardItem title="Number of Disks" value={numberOfDisks} />
+        {onlyFor.length > 0 && (
+          <CardItem title="Only For (Workloads)" value={onlyFor.join(", ")} />
+        )}
+      </Card>
+    </>
   );
 };
 

@@ -14,6 +14,9 @@ import WorkloadCreate, { WL_MODAL_ID } from "./WorkloadCreate";
 import { ClusterIcon } from "@patternfly/react-icons";
 import WorkloadCard from "./WorkloadCard";
 
+const disableActions = (workloadName: string) =>
+  workloadName === "ControlPlane";
+
 const WorkloadPage: React.FC = () => {
   const dispatch = useDispatch();
   const openCreateModal = () => dispatch(openModalAction(WL_MODAL_ID));
@@ -43,7 +46,10 @@ const WorkloadPage: React.FC = () => {
           .filter((wl) => wl.duplicateOf === undefined)
           .map((wl) => (
             <GridItem key={wl.name} rowSpan={2} span={3}>
-              <WorkloadCard workload={wl} />
+              <WorkloadCard
+                workload={wl}
+                disableActions={disableActions(wl.name)}
+              />
             </GridItem>
           ))}
       </Grid>

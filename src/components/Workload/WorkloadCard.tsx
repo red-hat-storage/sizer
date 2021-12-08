@@ -11,9 +11,13 @@ import {
 
 type WorkloadCardProps = {
   workload: Workload;
+  disableActions?: boolean;
 };
 
-const WorkloadCard: React.FC<WorkloadCardProps> = ({ workload }) => {
+const WorkloadCard: React.FC<WorkloadCardProps> = ({
+  workload,
+  disableActions,
+}) => {
   const dispatch = useDispatch();
   const services = useSelector((store: Store) => store.service.services);
   const workloads = useSelector((store: Store) => store.workload).filter(
@@ -44,6 +48,7 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({ workload }) => {
         itemId={workload.id}
         remove={removeWL}
         edit={onEditClick}
+        disableActions={disableActions}
       >
         <CardItem title="Count" value={workload.count} />
         <CardItem title="CPU" value={`${totalCPU} units`} />

@@ -138,7 +138,7 @@ const Compute: React.FC = () => {
           <GridItem rowSpan={2} span={3} key={machine.name}>
             <MachineSetCard
               machineSet={machine}
-              disableDeletion={!isDeletable(machine.name)}
+              disableActions={!isDeletable(machine.name)}
             />
           </GridItem>
         ))}

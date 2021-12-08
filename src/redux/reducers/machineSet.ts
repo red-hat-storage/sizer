@@ -32,6 +32,7 @@ const defaultState: MachineSet[] = [
 ];
 
 const addMachineSet = createAction<MachineSet>("ADD_MACHINE");
+const updateMachineSet = createAction<MachineSet>("UPDATE_MACHINE");
 const removeMachineSet = createAction<string>("REMOVE_MACHINE");
 const clearAllMachines = createAction("CLEAR_ALL_MACHINES");
 
@@ -43,7 +44,17 @@ const machineSetReducer = createReducer(defaultState, (builder) => {
     .addCase(removeMachineSet, (machines, { payload: machineName }) => {
       return machines.filter((item) => item.name !== machineName);
     })
+    .addCase(updateMachineSet, (machines, { payload: machine }) => {
+      const ms = machines.find((ms) => ms.id === machine.id);
+      Object.assign(ms, machine);
+    })
     .addCase(clearAllMachines, () => []);
 });
 
-export { addMachineSet, removeMachineSet, clearAllMachines, machineSetReducer };
+export {
+  addMachineSet,
+  removeMachineSet,
+  clearAllMachines,
+  updateMachineSet,
+  machineSetReducer,
+};
