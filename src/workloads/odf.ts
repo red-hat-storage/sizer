@@ -135,6 +135,9 @@ export const getODFWorkload = (
       runsWith: [], // runsWith
       avoid: [], //avoids
     });
+    if (i > 0) {
+      odfWorkload.services[i].runsWith = [`Ceph_OSD_${i - 1}`];
+    }
   }
 
   return odfWorkload;
