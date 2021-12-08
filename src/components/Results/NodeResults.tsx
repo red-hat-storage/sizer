@@ -31,7 +31,11 @@ const NodesVisualResults: React.FC<NodesVisualizerProps> = ({ nodes }) => {
             </Flex>
             {v.map((node, index) => (
               <Flex direction={{ default: "column" }}>
-                <NodeItem key={`node-${index}`} node={node} />
+                <NodeItem
+                  key={`node-${index}`}
+                  node={node}
+                  title={`Node ${index + 1}`}
+                />
               </Flex>
             ))}
           </Flex>

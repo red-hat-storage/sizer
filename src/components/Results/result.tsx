@@ -208,6 +208,7 @@ const Results: React.FC = () => {
             id="advanced-results-button"
             className="button-normalizer"
             onClick={onAdvancedButtonClick as any}
+            isDisabled={allNodes.length === 0}
           >
             {showAdvanced ? "Hide Advanced" : "Show Advanced"}
           </Button>
@@ -215,6 +216,7 @@ const Results: React.FC = () => {
             id="screenshot-download"
             className="button-normalizer"
             onClick={() => screenshot()}
+            isDisabled={allNodes.length === 0}
           >
             Download
           </Button>
@@ -243,7 +245,12 @@ const Results: React.FC = () => {
               )
             }
           >
-            <Button className="button-normalizer">Get Sharing Link</Button>
+            <Button
+              className="button-normalizer"
+              isDisabled={allNodes.length === 0}
+            >
+              Get Sharing Link
+            </Button>
           </Popover>
         </div>
         <div>

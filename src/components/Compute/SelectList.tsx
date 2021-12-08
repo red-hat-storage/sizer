@@ -6,7 +6,9 @@ import {
   SelectVariant,
 } from "@patternfly/react-core";
 import { platformInstanceMap } from "../../cloudInstance";
-import { Instance, Platform } from "../../types";
+import { Instance } from "../../types";
+import { useSelector } from "react-redux";
+import { Store } from "../../redux";
 
 type SelectionListProps = {
   setInstance: any;
@@ -38,6 +40,8 @@ const SelectionList: React.FC<SelectionListProps> = ({
     setOpen(false);
   };
 
+  const platform = useSelector((store: Store) => store.cluster.platform);
+
   const onClear = () => {
     setInstance(null);
   };
@@ -52,7 +56,7 @@ const SelectionList: React.FC<SelectionListProps> = ({
       selections={selection}
       className="compute-ms-create-form__select"
     >
-      {platformInstanceMap[Platform.AWS].map((instance) => (
+      {platformInstanceMap[platform].map((instance) => (
         <SelectOption
           key={instance.name}
           value={instance.name}

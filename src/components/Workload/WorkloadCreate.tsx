@@ -33,6 +33,19 @@ import {
 import "./workload.css";
 import { getWorkloadFromDescriptors } from "../../utils/workload";
 
+const defaultWorkload = `name: tester
+count: 3
+usesMachines:
+  - default
+services:
+  - name: serviceA
+    requiredCPU: 5
+    requiredMemory: 16
+    zones: 3
+    runsWith: []
+    avoid: []
+`;
+
 /**
  * Example Workload (YAML)
  * 
@@ -69,8 +82,10 @@ const WorkloadCreate: React.FC = () => {
   const dispatch = useDispatch();
 
   const [isCustom, setCustom] = React.useState(false);
-  const [customWorkload, setCustomWorkload] =
-    React.useState<WorkloadDescriptor>();
+  const [
+    customWorkload,
+    setCustomWorkload,
+  ] = React.useState<WorkloadDescriptor>();
   const [isDedicated, setDedicated] = React.useState(false);
   const [usesMachines, setMachines] = React.useState<string[]>([]);
   const [isOpen, setOpen] = React.useState(false);
@@ -80,48 +95,46 @@ const WorkloadCreate: React.FC = () => {
     dispatch(closeModal());
   };
 
-  const onCreate =
-    (
-      workloadName: string,
-      workloadModifier: Partial<WorkloadDescriptor>,
-      workloadObject?: WorkloadDescriptor
-    ) =>
-    () => {
-      if (workloadName && workloadModifier) {
-        const wl = applyModifier(
-          defaultWorkloadsNameMap[workloadName],
-          workloadModifier
-        );
-        wl.usesMachines = usesMachines ? usesMachines : [];
-        const { services, workload } = getWorkloadFromDescriptors(wl);
-        dispatch(addServices(services));
-        dispatch(addWorkload(workload));
-        const workloadDescriptors = createDuplicates(wl, workload.id);
-        workloadDescriptors.forEach((wld) => {
-          const { services: serviceDup, workload: workloadDup } =
-            getWorkloadFromDescriptors(wld);
-          dispatch(addServices(serviceDup));
-          dispatch(addWorkload(workloadDup));
-        });
-      } else if (workloadObject) {
-        workloadObject.usesMachines = usesMachines ? usesMachines : [];
-        const { services, workload } =
-          getWorkloadFromDescriptors(workloadObject);
-        dispatch(addServices(services));
-        dispatch(addWorkload(workload));
-        const workloadDescriptors = createDuplicates(
-          workloadObject,
-          workload.id
-        );
-        workloadDescriptors.forEach((wld) => {
-          const { services: serviceDup, workload: workloadDup } =
-            getWorkloadFromDescriptors(wld);
-          dispatch(addServices(serviceDup));
-          dispatch(addWorkload(workloadDup));
-        });
-      }
-      onClose();
-    };
+  const onCreate = (
+    workloadName: string,
+    workloadModifier: Partial<WorkloadDescriptor>,
+    workloadObject?: WorkloadDescriptor
+  ) => () => {
+    if (workloadName && workloadModifier) {
+      const wl = applyModifier(
+        defaultWorkloadsNameMap[workloadName],
+        workloadModifier
+      );
+      wl.usesMachines = usesMachines ? usesMachines : [];
+      const { services, workload } = getWorkloadFromDescriptors(wl);
+      dispatch(addServices(services));
+      dispatch(addWorkload(workload));
+      const workloadDescriptors = createDuplicates(wl, workload.id);
+      workloadDescriptors.forEach((wld) => {
+        const {
+          services: serviceDup,
+          workload: workloadDup,
+        } = getWorkloadFromDescriptors(wld);
+        dispatch(addServices(serviceDup));
+        dispatch(addWorkload(workloadDup));
+      });
+    } else if (workloadObject) {
+      workloadObject.usesMachines = usesMachines ? usesMachines : [];
+      const { services, workload } = getWorkloadFromDescriptors(workloadObject);
+      dispatch(addServices(services));
+      dispatch(addWorkload(workload));
+      const workloadDescriptors = createDuplicates(workloadObject, workload.id);
+      workloadDescriptors.forEach((wld) => {
+        const {
+          services: serviceDup,
+          workload: workloadDup,
+        } = getWorkloadFromDescriptors(wld);
+        dispatch(addServices(serviceDup));
+        dispatch(addWorkload(workloadDup));
+      });
+    }
+    onClose();
+  };
 
   const machineOptions = React.useMemo(
     () =>
@@ -287,7 +300,7 @@ type CustomWorkloadCreateProps = {
 const CustomWorkloadCreate: React.FC<CustomWorkloadCreateProps> = ({
   setWorkload,
 }) => {
-  const [code, setCode] = React.useState("");
+  const [code, setCode] = React.useState(defaultWorkload);
   const [error, setError] = React.useState("");
 
   const onChange = (val: string) => {

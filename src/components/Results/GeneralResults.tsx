@@ -1,16 +1,32 @@
 import * as React from "react";
+import * as _ from "lodash";
 import { List, ListItem } from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 import { Store } from "../../redux";
 import { getTotalResourceRequirement } from "../../utils/common";
 
 const GeneralResults: React.FC = () => {
-  const { nodes, services } = useSelector((store: Store) => ({
+  const { nodes, services, workload } = useSelector((store: Store) => ({
     nodes: store.node.nodes,
     services: store.service.services,
+    workload: store.workload.find((wl) => wl.name === "ODF"),
   }));
-  const { totalCPU, totalMem, totalDisks } =
-    getTotalResourceRequirement(services);
+
+  const odfServices = workload
+    ? services.filter((service) => workload.services.includes(service.id))
+    : [];
+  const odfServiceIDs = workload
+    ? odfServices.map((service) => service.id)
+    : [];
+
+  const odfNodes = workload
+    ? nodes.filter(
+        (node) => _.intersection(node.services, odfServiceIDs).length > 0
+      )
+    : [];
+  const { totalCPU, totalMem, totalDisks } = getTotalResourceRequirement(
+    odfServices
+  );
   return (
     <div className="results-general" id="results">
       <div>
@@ -19,9 +35,9 @@ const GeneralResults: React.FC = () => {
         In summary:
       </div>
       <div>
-        <strong>{nodes.length} OCP nodes</strong> will run ODF services. (NOTE:
-        OCP clusters often contain additional OCP worker nodes which do not run
-        ODF services.) <br />
+        <div>
+          <strong>{odfNodes.length} OCP nodes</strong> will run ODF services.
+        </div>
         Total ODF resource consumption is:
         <List>
           <ListItem>{totalCPU} CPU units</ListItem>

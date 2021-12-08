@@ -12,7 +12,7 @@ export const getTotalResourceRequirement = (
 ): ResourceRequirement => {
   return services.reduce(
     (acc, service) => {
-      if (service.name === "Ceph_OSD") {
+      if (service.name.includes("Ceph_OSD")) {
         acc.totalDisks += 1;
       }
       acc.totalMem += service.requiredMemory;
