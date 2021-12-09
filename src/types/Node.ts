@@ -11,4 +11,6 @@ export type Node = {
   workloads?: number[];
   // An array of service ids
   services: number[];
+  // Instance Name
+  instanceName?: string;
 };

@@ -20,7 +20,7 @@ import { getSupportExceptions } from "../Exception/utils";
 import { useVisibilityTracker } from "../../hooks/view";
 import SkipToTop from "./SkipToTop";
 import "./result.css";
-import { store, Store } from "../../redux";
+import { removeAllNodes, removeAllZones, store, Store } from "../../redux";
 import { GH_TOKEN } from "../../constants";
 import { getLink } from "./util";
 import { workloadScheduler } from "../../scheduler/workloadScheduler";
@@ -59,17 +59,19 @@ const Results: React.FC = () => {
   const [isODFPresent, createODFWorkload] = useODFPresent();
 
   React.useEffect(() => {
+    dispatch(removeAllZones());
+    dispatch(removeAllNodes());
     const unschedulables = [];
-    const scheduledServiceIDs: number[] = _.flatten(
+    /*     const scheduledServiceIDs: number[] = _.flatten(
       allNodes.map((node) => node.services)
     );
     const candidateWorkloads: Workload[] = workloads.filter(
       (wl) => _.intersection(scheduledServiceIDs, wl.services).length === 0
-    );
+    ); */
     const scheduler = workloadScheduler(store, dispatch);
     const checkSchedulability = isWorkloadSchedulable(services, machineSets);
     const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
-      candidateWorkloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+      workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
     workloadSchedulability.forEach((item) => {
       if (item[1]) {
         // Schedule on MachineSets that can run it
@@ -79,7 +81,7 @@ const Results: React.FC = () => {
       }
     });
     setUnschedulableWorkloads(unschedulables);
-    pruneNodes(dispatch)(store.getState().node.nodes, zones);
+    // pruneNodes(dispatch)(store.getState().node.nodes, zones);
   }, [JSON.stringify(workloads), JSON.stringify(machineSets)]);
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);

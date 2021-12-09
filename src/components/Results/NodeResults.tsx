@@ -34,7 +34,7 @@ const NodesVisualResults: React.FC<NodesVisualizerProps> = ({ nodes }) => {
                 <NodeItem
                   key={`node-${index}`}
                   node={node}
-                  title={`Node ${index + 1}`}
+                  title={`Node ${index + 1} (${node.instanceName})`}
                 />
               </Flex>
             ))}

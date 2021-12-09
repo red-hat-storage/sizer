@@ -50,6 +50,7 @@ const getNode = (machineSet: MachineSet): Node => ({
   memory: machineSet.memory,
   machineSet: machineSet.name,
   services: [],
+  instanceName: machineSet.instanceName,
 });
 
 /**

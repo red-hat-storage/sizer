@@ -23,9 +23,9 @@ type NodeItemProps = {
 };
 
 const NodeItem: React.FC<NodeItemProps> = ({ node, title }) => {
-  const services = useSelector(
-    (store: Store) => store.service.services
-  ).filter((service) => node.services.includes(service.id as number));
+  const services = useSelector((store: Store) => store.service.services).filter(
+    (service) => node.services.includes(service.id as number)
+  );
   const {
     totalMem: usedMem,
     totalCPU: usedCPU,
@@ -36,7 +36,7 @@ const NodeItem: React.FC<NodeItemProps> = ({ node, title }) => {
   return (
     <Card>
       <CardHeaderMain>
-        <Title headingLevel="h1" className="card-container__title">
+        <Title headingLevel="h2" className="card-container__title">
           {title}
         </Title>
       </CardHeaderMain>

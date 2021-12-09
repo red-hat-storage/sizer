@@ -30,4 +30,5 @@ export type Instance = {
   instanceStorage?: number;
   default?: boolean;
   controlPlane?: boolean;
+  odfDefault?: boolean;
 };

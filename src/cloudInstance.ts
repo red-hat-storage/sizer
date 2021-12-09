@@ -1645,6 +1645,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       memory: 64,
       cpuUnits: 16,
       instanceStorage: 0,
+      odfDefault: true,
     },
     {
       name: "m5.8xlarge",
@@ -2441,6 +2442,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 16,
       memory: 64,
       instanceStorage: 400,
+      odfDefault: true,
     },
     {
       name: "Standard_D16_v4",
@@ -2538,6 +2540,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 2,
       memory: 8,
       instanceStorage: 16,
+      odfDefault: true,
     },
     {
       name: "Standard_D2s_v4",
@@ -4811,6 +4814,7 @@ export const platformInstanceMap: PlatformInstanceMap = {
       cpuUnits: 16,
       memory: 66,
       instanceStorage: 0,
+      odfDefault: true,
     },
     {
       name: "e2-standard-2",
@@ -4897,4 +4901,29 @@ export const controlPlaneInstances: {
     memory: 16,
     name: "controlPlane",
   } as Instance,
+}))();
+
+const isODFInstance = (item: Instance) => item.odfDefault === true;
+
+export const defaultODFInstances: {
+  [platform in Platform]: Instance;
+} = (() => ({
+  [Platform.AWS]: platformInstanceMap.AWS.find(isODFInstance) as Instance,
+  [Platform.AZURE]: platformInstanceMap.AZURE.find(isODFInstance) as Instance,
+  [Platform.GCP]: platformInstanceMap.GCP.find(isODFInstance) as Instance,
+  [Platform.VMware]: {
+    cpuUnits: 6,
+    memory: 16,
+    name: "controlPlane",
+  },
+  [Platform.RHV]: {
+    cpuUnits: 6,
+    memory: 16,
+    name: "controlPlane",
+  },
+  [Platform.BAREMETAL]: {
+    cpuUnits: 6,
+    memory: 16,
+    name: "controlPlane",
+  },
 }))();

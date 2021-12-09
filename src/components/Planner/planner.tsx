@@ -47,7 +47,8 @@ const StoragePage: React.FC = () => {
     const { services, workload } = getWorkloadFromDescriptors(odfWorkload);
     dispatch(addServices(services));
     dispatch(addWorkload(workload));
-    dispatch(setTab(1));
+    // Redirect users to Results Page
+    dispatch(setTab(3));
   };
   return (
     <div className="page--margin">
