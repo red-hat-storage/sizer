@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Conv from "html2canvas";
 import { request } from "@octokit/request";
 import {
+  Alert,
+  AlertActionLink,
   Button,
   ClipboardCopy,
   Popover,
@@ -28,6 +30,7 @@ import {
   isWorkloadSchedulable,
 } from "../../utils/workload";
 import { MachineSet, MinimalState, Workload } from "../../types";
+import { useODFPresent } from "../../hooks";
 import UnschedulableWorkload from "./WorkloadSchedulerAlerts";
 
 const Results: React.FC = () => {
@@ -53,6 +56,7 @@ const Results: React.FC = () => {
   const [unschedulableWorkloads, setUnschedulableWorkloads] = React.useState<
     Workload[]
   >([]);
+  const [isODFPresent, createODFWorkload] = useODFPresent();
 
   React.useEffect(() => {
     const unschedulables = [];
@@ -64,11 +68,8 @@ const Results: React.FC = () => {
     );
     const scheduler = workloadScheduler(store, dispatch);
     const checkSchedulability = isWorkloadSchedulable(services, machineSets);
-    const workloadSchedulability: [
-      Workload,
-      boolean,
-      MachineSet[]
-    ][] = candidateWorkloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+    const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
+      candidateWorkloads.map((wl) => [wl, ...checkSchedulability(wl)]);
     workloadSchedulability.forEach((item) => {
       if (item[1]) {
         // Schedule on MachineSets that can run it
@@ -201,7 +202,7 @@ const Results: React.FC = () => {
           />
         </div>
         <div>
-          <GeneralResults />
+          <GeneralResults isODFPresent={isODFPresent} />
         </div>
         <div className="button-bar">
           <Button
@@ -252,6 +253,24 @@ const Results: React.FC = () => {
               Get Sharing Link
             </Button>
           </Popover>
+        </div>
+        <div>
+          {!isODFPresent && (
+            <Alert
+              isInline
+              variant="danger"
+              title={`No Storage Cluster is available`}
+              actionLinks={
+                <>
+                  <AlertActionLink onClick={createODFWorkload}>
+                    Create ODF Cluster
+                  </AlertActionLink>
+                </>
+              }
+            >
+              Currently this OCP cluster doesn't have any ODF storage cluster.
+            </Alert>
+          )}
         </div>
         <div>
           {unschedulableWorkloads.map((item) => (

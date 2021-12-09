@@ -16,7 +16,7 @@ const defaultState: Workload[] = [
     count: 1,
     usesMachines: ["controlPlane"],
     services: [0],
-    storageCapacityRequired: 100,
+    storageCapacityRequired: 1,
   },
 ];
 
