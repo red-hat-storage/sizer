@@ -6,6 +6,7 @@ import WorkloadEditFormModal, { WORKLOAD_EDIT_MODAL_ID } from "./WorkloadEdit";
 import { Card, CardItem } from "../Generic/CardItem";
 import {
   getWorkloadResourceConsumption,
+  getWorkloadServices,
   removeWorkloadSafely,
 } from "../../utils/workload";
 
@@ -35,6 +36,8 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({
     workloads.forEach((wl) => remover(wl, services));
   };
 
+  const workloadServices = getWorkloadServices(workload, services);
+
   const onEditClick = () => dispatch(openModalAction(WORKLOAD_EDIT_MODAL_ID));
   const usesMachines =
     workload.usesMachines.length > 0 ? workload.usesMachines.join(",") : null;
@@ -55,7 +58,7 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({
         <CardItem title="Memory Used" value={`${totalMem} GB`} />
         <CardItem
           title="Services"
-          value={services.map((s) => s.name).join(", ")}
+          value={workloadServices.map((s) => s.name).join(", ")}
         />
         {usesMachines && (
           <CardItem title="Uses Machines" value={usesMachines} />
