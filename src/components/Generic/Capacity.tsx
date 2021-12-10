@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChartDonut } from "@patternfly/react-charts";
+import { ChartDonut, ChartThemeColor } from "@patternfly/react-charts";
 
 type CapacityChartProps = {
   description: string;
@@ -15,9 +15,11 @@ const CapacityChart: React.FC<CapacityChartProps> = ({
 }) => {
   const usedPercentage = (usedCapacity / totalCapacity) * 100;
   const availablePercentage = 100 - usedPercentage;
+  const themeColor =
+    usedPercentage > 100 ? ChartThemeColor.orange : ChartThemeColor.blue;
 
   return (
-    <div style={{ height: "200px", width: "350px" }}>
+    <div style={{ height: "200px", width: "420px" }}>
       <ChartDonut
         ariaDesc={description}
         constrainToVisibleArea={true}
@@ -26,8 +28,8 @@ const CapacityChart: React.FC<CapacityChartProps> = ({
           { x: "Avaiable Capacity", y: availablePercentage },
         ]}
         legendData={[
-          { name: `Used Capacity: ${usedCapacity} TiB` },
-          { name: `Total Capacity: ${totalCapacity} TiB` },
+          { name: `Estimated usage: ${usedCapacity} TiB` },
+          { name: `Available Capacity: ${totalCapacity} TiB` },
         ]}
         legendPosition="right"
         legendOrientation="vertical"
@@ -37,6 +39,7 @@ const CapacityChart: React.FC<CapacityChartProps> = ({
         labels={({ datum }) => `${datum.x}: ${datum.y}%`}
         title={`${usedPercentage} % used`}
         width={300}
+        themeColor={themeColor}
         padding={{
           bottom: 30,
           left: 5,
