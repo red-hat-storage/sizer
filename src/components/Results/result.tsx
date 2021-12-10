@@ -270,7 +270,7 @@ const Results: React.FC = () => {
                 </>
               }
             >
-              Currently this OCP cluster doesn't have any ODF storage cluster.
+              Currently this OCP cluster does not have any ODF storage cluster.
             </Alert>
           )}
         </div>

@@ -39,7 +39,7 @@ const UnschedulableWorkload: React.FC<UnschedulableWorkloadProps> = ({
           not large enough.
         </>
       ) : (
-        <>All available MachineSets are too small to run this workload,</>
+        <> All available MachineSets are too small to run this workload,</>
       )}
     </Alert>
   );

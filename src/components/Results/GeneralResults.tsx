@@ -42,37 +42,47 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
         (node) => _.intersection(node.services, odfServiceIDs).length > 0
       )
     : [];
-  const { totalCPU, totalMem } = getTotalResourceRequirement(odfServices);
+  const { totalCPU, totalMem } = getTotalResourceRequirement(services);
   return (
     <div>
       <div className="results-general" id="results">
         <div>
-          The node layout diagram below shows how to reach the target capacity*
-          with the constraints provided. <br />
+          The node layout diagram below shows how to reach the target capacity
+          of {totalCapacity} TB* with the constraints provided. <br />
           In summary:
         </div>
         <div>
           <div>
-            <strong>{odfNodes.length} OCP nodes</strong> will run ODF services.
+            <strong>{nodes.length} OCP nodes</strong> are needed to run all
+            Workloads.
           </div>
-          Total ODF resource consumption is:
+          <div>
+            {odfNodes.length} of these nodes participate in the ODF cluster.
+          </div>
+          Total cluster resource consumption is:
           <List>
-            <ListItem>{totalCPU} CPU units</ListItem>
-            <ListItem>{totalMem} GB memory</ListItem>
-            <ListItem>The disk size is {diskSize} TB</ListItem>
+            <ListItem>
+              <strong>{totalCPU} CPU units</strong>
+            </ListItem>
+            <ListItem>
+              <strong>{totalMem} GB memory</strong>
+            </ListItem>
+            <ListItem>The ODF disk size is {diskSize} TB</ListItem>
           </List>
         </div>
-        {/* <div>
+        {
+          /* <div>
         The ODF deployment type is <strong>{deploymentType}</strong>. ODF tuning
         for NVMe disks is{" "}
         <strong>{nvmeTuning ? "active" : "not active"}</strong>.
-      </div>
-      <div>
-        *With this target capacity you can use up to {warningFirst?.toFixed(2)}{" "}
-        TB before receiving a capactiy alert and up to{" "}
-        {warningSecond?.toFixed(2)} TB before the cluster goes into read-only
-        mode.
-      </div> */}
+      </div> */
+          <div>
+            *With this target capacity you can use up to{" "}
+            {(totalCapacity * 0.75).toFixed(2)} TB before receiving a capactiy
+            alert and up to {(totalCapacity * 0.85).toFixed(2)} TB before the
+            cluster goes into read-only mode.
+          </div>
+        }
       </div>
       {isODFPresent && (
         <div>
