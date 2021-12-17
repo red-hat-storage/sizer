@@ -38,9 +38,7 @@ const TRACKED_PLATFORMS = [
   "access.redhat.com",
 ];
 const BETA_TAG = "/beta/";
-const ga4react = new GA4React(process.env.GAKEY || "", {
-  send_page_view: true,
-});
+let ga4react = new GA4React("G-G4ETCF6QL5", { send_page_view: true });
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
@@ -61,10 +59,11 @@ export const Sizer_: React.FC = () => {
     if (window.location.search === "") {
       dispatch(setTab(0));
     }
-    if (
-      TRACKED_PLATFORMS.includes(window.location.host) &&
-      !window.location.pathname.includes(BETA_TAG)
-    ) {
+    if (TRACKED_PLATFORMS.includes(window.location.host)) {
+      if (window.location.pathname.includes(BETA_TAG)) {
+        // Beta GA ID
+        ga4react = new GA4React("G-2VNW0PFP8D", { send_page_view: true });
+      }
       ga4react.initialize();
     }
   }, []);
