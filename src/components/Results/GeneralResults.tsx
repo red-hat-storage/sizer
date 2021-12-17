@@ -92,7 +92,7 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
         <div>
           <CapacityChart
             title="ODF usage"
-            usedCapacity={(totalStorageRequiredInGB / 1000).toFixed(1)}
+            usedCapacity={Math.round(totalStorageRequiredInGB / 100) / 10}
             totalCapacity={totalCapacityInTB}
             description="Shows the ODF Cluster Usage"
           />
