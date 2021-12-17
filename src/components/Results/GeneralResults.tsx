@@ -11,17 +11,21 @@ type GeneralResultsProps = {
 };
 
 const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
-  const { nodes, services, workload, diskSize, totalCapacity } = useSelector(
-    (store: Store) => ({
-      nodes: store.node.nodes,
-      services: store.service.services,
-      workload: store.workload,
-      diskSize: store.ocs.flashSize,
-      totalCapacity: store.ocs.usableCapacity,
-    })
-  );
+  const {
+    nodes,
+    services,
+    workload,
+    diskSize,
+    totalCapacity: totalCapacityInTB,
+  } = useSelector((store: Store) => ({
+    nodes: store.node.nodes,
+    services: store.service.services,
+    workload: store.workload,
+    diskSize: store.ocs.flashSize,
+    totalCapacity: store.ocs.usableCapacity,
+  }));
 
-  const totalStorageUsage = workload.reduce((acc, curr) => {
+  const totalStorageRequiredInGB = workload.reduce((acc, curr) => {
     acc += curr.storageCapacityRequired || 0;
     return acc;
   }, 0);
@@ -48,7 +52,7 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
       <div className="results-general" id="results">
         <div>
           The node layout diagram below shows how to reach the target capacity
-          of {totalCapacity} TB* with the constraints provided. <br />
+          of {totalCapacityInTB} TB* with the constraints provided. <br />
           In summary:
         </div>
         <div>
@@ -78,9 +82,9 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
       </div> */
           <div>
             *With this target capacity you can use up to{" "}
-            {(totalCapacity * 0.75).toFixed(2)} TB before receiving a capactiy
-            alert and up to {(totalCapacity * 0.85).toFixed(2)} TB before the
-            cluster goes into read-only mode.
+            {(totalCapacityInTB * 0.75).toFixed(2)} TB before receiving a
+            capactiy alert and up to {(totalCapacityInTB * 0.85).toFixed(2)} TB
+            before the cluster goes into read-only mode.
           </div>
         }
       </div>
@@ -88,8 +92,8 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
         <div>
           <CapacityChart
             title="ODF usage"
-            usedCapacity={totalStorageUsage}
-            totalCapacity={totalCapacity}
+            usedCapacity={(totalStorageRequiredInGB / 1000).toFixed(1)}
+            totalCapacity={totalCapacityInTB}
             description="Shows the ODF Cluster Usage"
           />
         </div>
