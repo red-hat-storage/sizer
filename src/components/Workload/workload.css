@@ -3,7 +3,11 @@
 }
 
 .workload__dataList--center {
+  display: flex;
   align-self: center;
+  align-content: center;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .workload__checkbox {
