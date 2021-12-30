@@ -21,16 +21,16 @@ const NodesVisualResults: React.FC<NodesVisualizerProps> = ({ nodes }) => {
       flexWrap={{ default: "nowrap" }}
       className="nodeResult-item--overflow"
     >
-      {Object.entries(zoneNodeMap).map(([, v], i) => {
+      {Object.entries(zoneNodeMap).map(([zoneId, v], i) => {
         return (
-          <Flex direction={{ default: "column" }}>
+          <Flex key={zoneId} direction={{ default: "column" }}>
             <Flex alignSelf={{ default: "alignSelfCenter" }}>
               <Title headingLevel="h4" size="xl">
                 Zone-{i + 1}
               </Title>
             </Flex>
             {v.map((node, index) => (
-              <Flex direction={{ default: "column" }}>
+              <Flex key={node.id} direction={{ default: "column" }}>
                 <NodeItem
                   key={`node-${index}`}
                   node={node}
