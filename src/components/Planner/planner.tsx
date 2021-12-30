@@ -11,22 +11,35 @@ import {
 } from "@patternfly/react-core";
 import DiskSize from "./DiskSize";
 import { getODFWorkload } from "../../workloads";
-import { addWorkload, addServices, setTab, Store } from "../../redux";
+import {
+  addWorkload,
+  addServices,
+  setTab,
+  Store,
+  addMachineSet,
+} from "../../redux";
 import "./planner.css";
 import {
   getWorkloadFromDescriptors,
+  isWorkloadSchedulable,
   removeWorkloadSafely,
 } from "../../utils/workload";
+import { defaultODFInstances } from "../../cloudInstance";
+import { MachineSet } from "../../types";
 
 const StoragePage: React.FC = () => {
   const {
     ocsState,
     workloads,
     services: existingServices,
+    machineSet,
+    platform,
   } = useSelector((store: Store) => ({
     ocsState: store.ocs,
     workloads: store.workload,
     services: store.service.services,
+    machineSet: store.machineSet,
+    platform: store.cluster.platform,
   }));
   const dispatch = useDispatch();
 
@@ -45,6 +58,22 @@ const StoragePage: React.FC = () => {
     }
 
     const { services, workload } = getWorkloadFromDescriptors(odfWorkload);
+    const workloadScheduleChecker = isWorkloadSchedulable(services, machineSet);
+    const [isSchedulable] = workloadScheduleChecker(workload);
+    if (!isSchedulable) {
+      const odfInstance = defaultODFInstances[platform];
+      const odfMS: MachineSet = {
+        name: "storage",
+        cpu: odfInstance.cpuUnits,
+        memory: odfInstance.memory,
+        instanceName: odfInstance.name,
+        onlyFor: [workload.name],
+        numberOfDisks: 24,
+        label: "ODF Node",
+      };
+      dispatch(addMachineSet(odfMS));
+    }
+
     dispatch(addServices(services));
     dispatch(addWorkload(workload));
     // Redirect users to Results Page
