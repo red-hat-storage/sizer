@@ -8,6 +8,8 @@ import {
   TextVariants,
   Title,
   Text,
+  Split,
+  SplitItem,
 } from "@patternfly/react-core";
 import DiskSize from "./DiskSize";
 import { getODFWorkload } from "../../workloads";
@@ -26,6 +28,7 @@ import {
 } from "../../utils/workload";
 import { defaultODFInstances } from "../../cloudInstance";
 import { MachineSet } from "../../types";
+import CapacityChart from "../Generic/Capacity";
 
 const StoragePage: React.FC = () => {
   const {
@@ -34,12 +37,14 @@ const StoragePage: React.FC = () => {
     services: existingServices,
     machineSet,
     platform,
+    totalCapacity,
   } = useSelector((store: Store) => ({
     ocsState: store.ocs,
     workloads: store.workload,
     services: store.service.services,
     machineSet: store.machineSet,
     platform: store.cluster.platform,
+    totalCapacity: store.ocs.usableCapacity,
   }));
   const dispatch = useDispatch();
 
@@ -79,24 +84,42 @@ const StoragePage: React.FC = () => {
     // Redirect users to Results Page
     dispatch(setTab(3));
   };
+
+  const totalStorageRequiredInGB = workloads.reduce((acc, curr) => {
+    acc += curr.storageCapacityRequired || 0;
+    return acc;
+  }, 0);
+
   return (
     <div className="page--margin">
-      <Title headingLevel="h1">Configure ODF Storage</Title>
-      <TextContent>
-        <Text component={TextVariants.p}>
-          Use this section to configure storage for your cluster. You can create
-          a ODF Storage Cluster. This Storage can be consumed by your other
-          workloads.
-        </Text>
-      </TextContent>
-      <Form className="create-form--margin">
-        <DiskSize />
-        <ActionGroup>
-          <Button variant="primary" onClick={onClick}>
-            Create
-          </Button>
-        </ActionGroup>
-      </Form>
+      <Split>
+        <SplitItem>
+          <Title headingLevel="h1">Configure ODF Storage</Title>
+          <TextContent>
+            <Text component={TextVariants.p}>
+              Use this section to configure storage for your cluster. You can
+              create a ODF Storage Cluster. This Storage can be consumed by your
+              other workloads.
+            </Text>
+          </TextContent>
+          <Form className="create-form--margin">
+            <DiskSize />
+            <ActionGroup>
+              <Button variant="primary" onClick={onClick}>
+                Create
+              </Button>
+            </ActionGroup>
+          </Form>
+        </SplitItem>
+        <SplitItem>
+          <CapacityChart
+            title="ODF usage"
+            usedCapacity={Math.round(totalStorageRequiredInGB / 100) / 10}
+            totalCapacity={totalCapacity}
+            description="Shows the ODF Cluster Usage"
+          />
+        </SplitItem>
+      </Split>
     </div>
   );
 };

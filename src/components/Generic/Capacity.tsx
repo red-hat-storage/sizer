@@ -16,7 +16,11 @@ const CapacityChart: React.FC<CapacityChartProps> = ({
   const usedPercentage = (usedCapacity / totalCapacity) * 100;
   const availablePercentage = 100 - usedPercentage;
   const themeColor =
-    usedPercentage > 100 ? ChartThemeColor.orange : ChartThemeColor.blue;
+    usedPercentage > 80
+      ? usedPercentage > 90
+        ? ChartThemeColor.orange
+        : ChartThemeColor.gold
+      : ChartThemeColor.blue;
 
   return (
     <div style={{ height: "200px", width: "420px" }}>
@@ -37,7 +41,7 @@ const CapacityChart: React.FC<CapacityChartProps> = ({
         subTitlePosition="bottom"
         height={200}
         labels={({ datum }) => `${datum.x}: ${datum.y}%`}
-        title={`${usedPercentage} % used`}
+        title={`${usedPercentage.toFixed(2)} % used`}
         width={300}
         themeColor={themeColor}
         padding={{

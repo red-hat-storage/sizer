@@ -139,6 +139,7 @@ export const Sizer_: React.FC = () => {
             <Tabs
               activeKey={activeTab}
               onSelect={(_e, tabIndex) => dispatch(setTab(tabIndex as number))}
+              unmountOnExit
             >
               <Tab eventKey={0} title={<TabTitleText>Workloads</TabTitleText>}>
                 <WorkloadPage />
