@@ -20,18 +20,28 @@ import { getSupportExceptions } from "../Exception/utils";
 import { useVisibilityTracker } from "../../hooks/view";
 import SkipToTop from "./SkipToTop";
 import "./result.css";
-import { removeAllNodes, removeAllZones, store, Store } from "../../redux";
+import {
+  addServices,
+  addWorkload,
+  removeAllNodes,
+  removeAllZones,
+  setUsableCapacity,
+  store,
+  Store,
+} from "../../redux";
 import { GH_TOKEN } from "../../constants";
 import { getLink } from "./util";
 import { workloadScheduler } from "../../scheduler/workloadScheduler";
-import { pruneNodes } from "../../scheduler/nodePruner";
 import {
   getDescriptorFromWorkload,
+  getWorkloadFromDescriptors,
   isWorkloadSchedulable,
+  removeWorkloadSafely,
 } from "../../utils/workload";
 import { MachineSet, MinimalState, Workload } from "../../types";
-import { useODFPresent } from "../../hooks";
+import { useODFPresent, useStorageDetails } from "../../hooks";
 import UnschedulableWorkload from "./WorkloadSchedulerAlerts";
+import { getODFWorkload } from "../../workloads";
 
 const Results: React.FC = () => {
   const {
@@ -57,17 +67,14 @@ const Results: React.FC = () => {
     Workload[]
   >([]);
   const [isODFPresent, createODFWorkload] = useODFPresent();
+  const [, usedStorage, totalStorage] = useStorageDetails();
+
+  const showOverProvisionWarning = isODFPresent && usedStorage > totalStorage;
 
   React.useEffect(() => {
     dispatch(removeAllZones());
     dispatch(removeAllNodes());
     const unschedulables = [];
-    /*     const scheduledServiceIDs: number[] = _.flatten(
-      allNodes.map((node) => node.services)
-    );
-    const candidateWorkloads: Workload[] = workloads.filter(
-      (wl) => _.intersection(scheduledServiceIDs, wl.services).length === 0
-    ); */
     const scheduler = workloadScheduler(store, dispatch);
     const checkSchedulability = isWorkloadSchedulable(services, machineSets);
     const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
@@ -181,6 +188,28 @@ const Results: React.FC = () => {
     }
   };
 
+  const updateODFWorkload = React.useCallback(() => {
+    dispatch(setUsableCapacity(usedStorage + 5));
+    const odfWorkload = getODFWorkload(
+      usedStorage + 5,
+      ocsState.flashSize,
+      ocsState.deploymentType,
+      ocsState.dedicatedMachines
+    );
+
+    // Remove existing ODF Workload if already present
+    const oldWorkload = workloads.find((wl) => wl.name.includes("ODF"));
+    if (oldWorkload) {
+      removeWorkloadSafely(dispatch)(oldWorkload, services);
+    }
+
+    const { services: odfServices, workload } =
+      getWorkloadFromDescriptors(odfWorkload);
+
+    dispatch(addServices(odfServices));
+    dispatch(addWorkload(workload));
+  }, [dispatch, usedStorage, ocsState, workloads, services]);
+
   return (
     <>
       {!isDownloadButtonVisible && <SkipToTop onClick={scroller} />}
@@ -261,7 +290,7 @@ const Results: React.FC = () => {
             <Alert
               isInline
               variant="danger"
-              title={`No Storage Cluster is available`}
+              title="No Storage Cluster is available"
               actionLinks={
                 <>
                   <AlertActionLink onClick={createODFWorkload}>
@@ -278,6 +307,25 @@ const Results: React.FC = () => {
           {unschedulableWorkloads.map((item) => (
             <UnschedulableWorkload workload={item} key={item.id} />
           ))}
+        </div>
+        <div>
+          {showOverProvisionWarning && (
+            <Alert
+              isInline
+              variant="danger"
+              title="ODF Cluster has been overprovisioned"
+              actionLinks={
+                <>
+                  <AlertActionLink onClick={updateODFWorkload}>
+                    Increase Cluster Size
+                  </AlertActionLink>
+                </>
+              }
+            >
+              The workloads require more storage than the capacity of the
+              current ODF cluster.
+            </Alert>
+          )}
         </div>
         <div id="nodes-vis-container">
           <NodesVisualResults nodes={allNodes} />

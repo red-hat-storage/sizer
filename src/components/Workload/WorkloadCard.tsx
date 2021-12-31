@@ -1,14 +1,15 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Workload } from "../../types";
-import { openModalAction, Store } from "../../redux";
-import WorkloadEditFormModal, { WORKLOAD_EDIT_MODAL_ID } from "./WorkloadEdit";
+import { Store } from "../../redux";
+import WorkloadEditFormModal from "./WorkloadEdit";
 import { Card, CardItem } from "../Generic/CardItem";
 import {
   getWorkloadResourceConsumption,
   getWorkloadServices,
   removeWorkloadSafely,
 } from "../../utils/workload";
+import { launchModal } from "../Modals/Modals";
 
 type WorkloadCardProps = {
   workload: Workload;
@@ -38,13 +39,15 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({
 
   const workloadServices = getWorkloadServices(workload, services);
 
-  const onEditClick = () => dispatch(openModalAction(WORKLOAD_EDIT_MODAL_ID));
+  const onEditClick = React.useCallback(() => {
+    launchModal(WorkloadEditFormModal, { workload });
+  }, [workload]);
+
   const usesMachines =
     workload.usesMachines.length > 0 ? workload.usesMachines.join(",") : null;
 
   return (
     <>
-      <WorkloadEditFormModal workload={workload} />
       <Card
         cardType="Workload"
         itemName={workload.name}

@@ -56,3 +56,24 @@ export const useODFPresent: UseODFPresent = () => {
   }, [dispatch, workloads, machineSets, allServices, platform]);
   return [isODFPresent, createODFWorkload];
 };
+
+// [isODFPresent, usedStorage, totalStorage]
+type UseStorageDetails = () => [boolean, number, number];
+
+export const useStorageDetails: UseStorageDetails = () => {
+  const { workloads, clusterSize } = useSelector((store: Store) => ({
+    workloads: store.workload,
+    clusterSize: store.ocs.usableCapacity,
+  }));
+
+  const [isODFPresent, totalStorageRequested] = React.useMemo(() => {
+    const isODFPresent = !!workloads.find((wl) => wl.name.includes("ODF"));
+
+    const totalStorageRequested = workloads.reduce(
+      (acc, curr) => (acc += (curr.storageCapacityRequired || 0) / 1000),
+      0
+    );
+    return [isODFPresent, totalStorageRequested];
+  }, [JSON.stringify(workloads)]);
+  return [isODFPresent, totalStorageRequested, clusterSize];
+};

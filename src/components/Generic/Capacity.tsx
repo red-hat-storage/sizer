@@ -32,8 +32,8 @@ const CapacityChart: React.FC<CapacityChartProps> = ({
           { x: "Avaiable Capacity", y: availablePercentage },
         ]}
         legendData={[
-          { name: `Estimated usage: ${usedCapacity} TiB` },
-          { name: `Available Capacity: ${totalCapacity} TiB` },
+          { name: `Estimated usage: ${usedCapacity.toFixed(2)} TiB` },
+          { name: `Available Capacity: ${totalCapacity.toFixed(2)} TiB` },
         ]}
         legendPosition="right"
         legendOrientation="vertical"

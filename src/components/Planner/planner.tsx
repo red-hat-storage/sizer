@@ -10,6 +10,8 @@ import {
   Text,
   Split,
   SplitItem,
+  FlexItem,
+  Flex,
 } from "@patternfly/react-core";
 import DiskSize from "./DiskSize";
 import { getODFWorkload } from "../../workloads";
@@ -48,6 +50,15 @@ const StoragePage: React.FC = () => {
   }));
   const dispatch = useDispatch();
 
+  const totalStorage = React.useMemo(
+    () =>
+      workloads.reduce(
+        (acc, curr) => (acc += (curr.storageCapacityRequired || 0) / 1000),
+        0
+      ),
+    [JSON.stringify(workloads)]
+  );
+
   const onClick = () => {
     const odfWorkload = getODFWorkload(
       ocsState.usableCapacity,
@@ -85,11 +96,6 @@ const StoragePage: React.FC = () => {
     dispatch(setTab(3));
   };
 
-  const totalStorageRequiredInGB = workloads.reduce((acc, curr) => {
-    acc += curr.storageCapacityRequired || 0;
-    return acc;
-  }, 0);
-
   return (
     <div className="page--margin">
       <Split>
@@ -112,12 +118,23 @@ const StoragePage: React.FC = () => {
           </Form>
         </SplitItem>
         <SplitItem>
-          <CapacityChart
-            title="ODF usage"
-            usedCapacity={Math.round(totalStorageRequiredInGB / 100) / 10}
-            totalCapacity={totalCapacity}
-            description="Shows the ODF Cluster Usage"
-          />
+          <Flex
+            direction={{ default: "column" }}
+            alignItems={{ default: "alignItemsCenter" }}
+          >
+            <FlexItem>
+              Total Capacity requested by workloads = {totalStorage.toFixed(2)}{" "}
+              TB
+            </FlexItem>
+            <FlexItem>
+              <CapacityChart
+                title="ODF usage"
+                usedCapacity={Math.round(totalStorage)}
+                totalCapacity={totalCapacity}
+                description="Shows the ODF Cluster Usage"
+              />
+            </FlexItem>
+          </Flex>
         </SplitItem>
       </Split>
     </div>

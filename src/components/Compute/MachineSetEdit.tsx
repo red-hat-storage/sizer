@@ -2,7 +2,6 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MachineSet } from "../../types";
 import {
-  closeModal,
   removeAllNodes,
   removeAllZones,
   Store,
@@ -19,19 +18,18 @@ import {
   SelectOptionObject,
 } from "@patternfly/react-core";
 
-export const MACHINESET_EDIT_MODAL = "MS_EDIT_MODAL";
-
 type WorkloadEditModalProps = {
   machineSet: MachineSet;
+  onClose: any;
 };
 
 const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
   machineSet,
+  onClose: closeModal,
 }) => {
   const dispatch = useDispatch();
 
-  const { openModal, machines, workloads } = useSelector((store: Store) => ({
-    openModal: store.ui.openModal,
+  const { machines, workloads } = useSelector((store: Store) => ({
     machines: store.machineSet,
     workloads: store.workload,
   }));
@@ -61,25 +59,21 @@ const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
     dispatch(updateMachineSet(updateMS));
     dispatch(removeAllNodes());
     dispatch(removeAllZones());
-    dispatch(closeModal());
+    closeModal();
   };
 
   return (
     <Modal
       height="80vh"
       width="40vw"
-      isOpen={MACHINESET_EDIT_MODAL === openModal}
-      onClose={() => dispatch(closeModal())}
+      isOpen={true}
+      onClose={() => closeModal()}
       title="Edit Machine Set"
       actions={[
         <Button key="save" variant="primary" onClick={updateMS}>
           Save
         </Button>,
-        <Button
-          key="cancel"
-          variant="secondary"
-          onClick={() => dispatch(closeModal())}
-        >
+        <Button key="cancel" variant="secondary" onClick={() => closeModal()}>
           Cancel
         </Button>,
       ]}

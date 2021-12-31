@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Workload } from "../../types";
-import { closeModal, Store, addServices, addWorkload } from "../../redux";
+import { Store, addServices, addWorkload } from "../../redux";
 import {
   Modal,
   Form,
@@ -31,21 +31,21 @@ export const WORKLOAD_EDIT_MODAL_ID = "WORKLOAD_EDIT";
 
 type WorkloadEditModalProps = {
   workload: Workload;
+  onClose: any;
 };
 
 const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
   workload,
+  onClose: closeModal,
 }) => {
   const dispatch = useDispatch();
 
-  const { openModal, machines, services, workloads } = useSelector(
-    (store: Store) => ({
-      openModal: store.ui.openModal,
-      machines: store.machineSet,
-      services: store.service.services,
-      workloads: store.workload,
-    })
-  );
+  const { machines, services, workloads } = useSelector((store: Store) => ({
+    openModal: store.ui.openModal,
+    machines: store.machineSet,
+    services: store.service.services,
+    workloads: store.workload,
+  }));
 
   const [name, setName] = React.useState(workload.name);
   const [count, setCount] = React.useState(workload.count);
@@ -97,25 +97,21 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
       dispatch(addServices(serviceDup));
       dispatch(addWorkload(workloadDup));
     });
-    dispatch(closeModal());
+    closeModal();
   };
 
   return (
     <Modal
       height="80vh"
       width="40vw"
-      isOpen={WORKLOAD_EDIT_MODAL_ID === openModal}
-      onClose={() => dispatch(closeModal())}
+      isOpen={true}
+      onClose={() => closeModal()}
       title="Edit Machine Set"
       actions={[
         <Button key="save" variant="primary" onClick={updateWorkload}>
           Save
         </Button>,
-        <Button
-          key="cancel"
-          variant="secondary"
-          onClick={() => dispatch(closeModal())}
-        >
+        <Button key="cancel" variant="secondary" onClick={() => closeModal()}>
           Cancel
         </Button>,
       ]}
