@@ -29,7 +29,7 @@ const CapacityChart: React.FC<CapacityChartProps> = ({
         constrainToVisibleArea={true}
         data={[
           { x: "Used Capacity", y: usedPercentage },
-          { x: "Avaiable Capacity", y: availablePercentage },
+          { x: "Available Capacity", y: availablePercentage },
         ]}
         legendData={[
           { name: `Estimated usage: ${usedCapacity.toFixed(2)} TiB` },
