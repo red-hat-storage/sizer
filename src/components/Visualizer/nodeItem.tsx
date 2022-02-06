@@ -8,7 +8,6 @@ import {
   Progress,
   ProgressMeasureLocation,
   Title,
-  Tooltip,
 } from "@patternfly/react-core";
 import { DatabaseIcon, CpuIcon, MemoryIcon } from "@patternfly/react-icons";
 import { Node } from "../../types";
@@ -50,37 +49,19 @@ const NodeItem: React.FC<NodeItemProps> = ({ node, title }) => {
       <div id="resource-bars">
         <CardBody>
           <CpuIcon /> CPU
-          <Tooltip
-            content={
-              <div>
-                <div>Workloads use {usedCPU} CPU units</div>
-                <div>Total {node.cpuUnits} CPU units</div>
-              </div>
-            }
-          >
-            <Progress
-              value={(usedCPU / node.cpuUnits) * 100}
-              measureLocation={ProgressMeasureLocation.none}
-              aria-label="CPU"
-            />
-          </Tooltip>
+          <Progress
+            value={(usedCPU / node.cpuUnits) * 100}
+            measureLocation={ProgressMeasureLocation.none}
+            aria-label="CPU"
+          />
         </CardBody>
         <CardBody>
           <MemoryIcon /> Memory{" "}
-          <Tooltip
-            content={
-              <div>
-                <div>Workloads use {usedMem} GB</div>
-                <div>Total {node.memory} GB</div>
-              </div>
-            }
-          >
-            <Progress
-              value={(usedMem / node.memory) * 100}
-              measureLocation={ProgressMeasureLocation.none}
-              aria-label="Memory"
-            />
-          </Tooltip>
+          <Progress
+            value={(usedMem / node.memory) * 100}
+            measureLocation={ProgressMeasureLocation.none}
+            aria-label="Memory"
+          />
         </CardBody>
       </div>
       <CardFooter>
