@@ -56,9 +56,8 @@ const platformDropdownItems = [
 
 const Compute: React.FC = () => {
   const dispatch = useDispatch();
-  const [isPlatformDropdownOpen, setPlatformDropdownOpen] = React.useState(
-    false
-  );
+  const [isPlatformDropdownOpen, setPlatformDropdownOpen] =
+    React.useState(false);
 
   const openCreateModal = React.useCallback(() => {
     dispatch(openModalAction(CM_MODAL_ID));
@@ -68,31 +67,36 @@ const Compute: React.FC = () => {
   const platform = useSelector((store: Store) => store.cluster.platform);
 
   const onSelect = (platform: Platform) => {
-    dispatch(setPlatform(platform));
-    dispatch(removeAllNodes());
-    dispatch(clearAllMachines());
-    const workerInstance = defaultInstances[platform];
-    const defaultMachineSet: MachineSet = {
-      name: "default",
-      cpu: workerInstance.cpuUnits,
-      memory: workerInstance.memory,
-      instanceName: workerInstance.name,
-      onlyFor: [],
-      numberOfDisks: 24,
-      label: "Worker Node",
-    };
-    dispatch(addMachineSet(defaultMachineSet));
-    const controlInstance = controlPlaneInstances[platform];
-    const controlPlaneMachineSet: MachineSet = {
-      name: "controlPlane",
-      cpu: controlInstance.cpuUnits,
-      memory: controlInstance.memory,
-      instanceName: controlInstance.name,
-      onlyFor: ["ControlPlane"],
-      numberOfDisks: 24,
-      label: "Control Plane Node",
-    };
-    dispatch(addMachineSet(controlPlaneMachineSet));
+    const shouldChangePlatform = confirm(
+      "Changing platform will reset Nodes, MachineSets and Workloads. Are you sure you want to proceed?"
+    );
+    if (shouldChangePlatform) {
+      dispatch(setPlatform(platform));
+      dispatch(removeAllNodes());
+      dispatch(clearAllMachines());
+      const workerInstance = defaultInstances[platform];
+      const defaultMachineSet: MachineSet = {
+        name: "default",
+        cpu: workerInstance.cpuUnits,
+        memory: workerInstance.memory,
+        instanceName: workerInstance.name,
+        onlyFor: [],
+        numberOfDisks: 24,
+        label: "Worker Node",
+      };
+      dispatch(addMachineSet(defaultMachineSet));
+      const controlInstance = controlPlaneInstances[platform];
+      const controlPlaneMachineSet: MachineSet = {
+        name: "controlPlane",
+        cpu: controlInstance.cpuUnits,
+        memory: controlInstance.memory,
+        instanceName: controlInstance.name,
+        onlyFor: ["ControlPlane"],
+        numberOfDisks: 24,
+        label: "Control Plane Node",
+      };
+      dispatch(addMachineSet(controlPlaneMachineSet));
+    }
     setPlatformDropdownOpen(false);
   };
 
