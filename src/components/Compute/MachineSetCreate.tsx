@@ -80,7 +80,6 @@ const MachineSetCreate: React.FC = () => {
 
   const [isCpuOpen, setCpuOpen] = React.useState(false);
   const [isMemOpen, setMemOpen] = React.useState(false);
-  const [isSelectListOpen, setSelectListOpen] = React.useState(false);
 
   const [selectedInstance, setInstance] = React.useState<string>("");
 
@@ -167,7 +166,7 @@ const MachineSetCreate: React.FC = () => {
   const msNameValidation: TextInputProps["validated"] = invalidName
     ? "error"
     : name.length === 0
-    ? "default"
+    ? "error"
     : "success";
 
   return (
@@ -193,7 +192,11 @@ const MachineSetCreate: React.FC = () => {
           label="Machine Name"
           fieldId="machine-name"
           validated={msNameValidation}
-          helperTextInvalid="A machineset with the same name already exists"
+          helperTextInvalid={
+            name.length !== 0
+              ? "A machineset with the same name already exists"
+              : "Please enter a name"
+          }
         >
           <TextInput
             value={name}
@@ -203,8 +206,6 @@ const MachineSetCreate: React.FC = () => {
         </FormGroup>
         <FormGroup label="Instance Type" fieldId="instance-type">
           <SelectionList
-            isOpen={isSelectListOpen}
-            setOpen={setSelectListOpen}
             selection={selectedInstance}
             setInstance={setInstance}
           />
