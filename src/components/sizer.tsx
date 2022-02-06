@@ -14,12 +14,10 @@ import {
   Store,
   clearAllMachines,
   addMachineSet,
-  addWorkload,
   setFlashSize,
   setUsableCapacity,
   setDeploymentType,
   setDedicatedMachines,
-  addServices,
   setPlatform,
 } from "../redux";
 import "./sizer.css";
@@ -29,7 +27,7 @@ import Compute from "./Compute/compute";
 import WorkloadPage from "./Workload/workloads";
 import { createWorkload } from "./Workload/create";
 import * as _ from "lodash";
-import { MinimalState, WorkloadDescriptor } from "../types";
+import { MinimalState } from "../types";
 
 const TRACKED_PLATFORMS = [
   "sizer.odf.ninja",
@@ -66,6 +64,16 @@ export const Sizer_: React.FC = () => {
       }
       ga4react.initialize();
     }
+
+    const refreshListener = (ev) => {
+      ev.preventDefault();
+      ev.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", refreshListener);
+    return () => {
+      window.removeEventListener("beforeunload", refreshListener);
+    };
   }, []);
 
   React.useEffect(() => {
