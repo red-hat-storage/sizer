@@ -31,6 +31,11 @@ import {
 import { defaultODFInstances } from "../../cloudInstance";
 import { MachineSet } from "../../types";
 import CapacityChart from "../Generic/Capacity";
+import {
+  customEventPusher,
+  useGetAnalyticClientID,
+  STORAGE_CREATE,
+} from "../../analytics";
 
 const StoragePage: React.FC = () => {
   const {
@@ -58,6 +63,8 @@ const StoragePage: React.FC = () => {
       ),
     [JSON.stringify(workloads)]
   );
+
+  const clientID = useGetAnalyticClientID();
 
   const onClick = () => {
     const odfWorkload = getODFWorkload(
@@ -94,6 +101,16 @@ const StoragePage: React.FC = () => {
     dispatch(addWorkload(workload));
     // Redirect users to Results Page
     dispatch(setTab(3));
+
+    if (clientID) {
+      const params = {
+        usableCapacity: `${ocsState.usableCapacity}`,
+        // deploymentType: ocsState.deploymentType
+      };
+      customEventPusher(STORAGE_CREATE, params, clientID).catch((err) =>
+        console.error("Error sending data to analytics service", err)
+      );
+    }
   };
 
   return (

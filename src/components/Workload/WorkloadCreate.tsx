@@ -32,6 +32,12 @@ import {
 } from "./defaultWorkloads";
 import "./workload.css";
 import { getWorkloadFromDescriptors } from "../../utils/workload";
+import {
+  useGetAnalyticID,
+  customEventPusher,
+  useGetAnalyticClientID,
+} from "../../analytics";
+import { WORKLOAD_CREATE } from "../../analytics/constants";
 
 const defaultWorkload = `# An arbitraty name for this workload
 name: tester
@@ -107,11 +113,14 @@ const WorkloadCreate: React.FC = () => {
     dispatch(closeModal());
   };
 
+  const clientID = useGetAnalyticClientID();
+
   const onCreate =
     (
       workloadName: string,
       workloadModifier: Partial<WorkloadDescriptor>,
-      workloadObject?: WorkloadDescriptor
+      workloadObject?: WorkloadDescriptor,
+      modifierName?: string
     ) =>
     () => {
       if (workloadName && workloadModifier) {
@@ -147,6 +156,17 @@ const WorkloadCreate: React.FC = () => {
           dispatch(addWorkload(workloadDup));
         });
       }
+
+      if (clientID) {
+        const params = {
+          workload_name: workloadName,
+          workload_modifier: modifierName,
+        };
+        customEventPusher(WORKLOAD_CREATE, params, clientID).catch((err) =>
+          console.error("Error sending data to analytics service", err)
+        );
+      }
+
       onClose();
     };
 
@@ -253,7 +273,12 @@ const WorkloadCreate: React.FC = () => {
                         ).map(([modifierName, modifierObject]) => (
                           <Button
                             key={`${wl.name}-workload-btn-${modifierName}`}
-                            onClick={onCreate(wl.name, modifierObject)}
+                            onClick={onCreate(
+                              wl.name,
+                              modifierObject,
+                              null,
+                              modifierName
+                            )}
                           >
                             {modifierName}
                           </Button>

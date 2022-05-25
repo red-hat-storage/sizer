@@ -22,21 +22,16 @@ import {
 } from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
-import GA4React from "ga-4-react";
 import Compute from "./Compute/compute";
 import WorkloadPage from "./Workload/workloads";
 import { createWorkload } from "./Workload/create";
 import * as _ from "lodash";
 import { MinimalState } from "../types";
+import useAnalytics from "../analytics/analytics";
+import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
 
-const TRACKED_PLATFORMS = [
-  "sizer.odf.ninja",
-  "sizer.ocs.ninja",
-  "storage.googleapis.com",
-  "access.redhat.com",
-];
-const BETA_TAG = "/beta/";
-let ga4react = new GA4React("G-G4ETCF6QL5", { send_page_view: true });
+export const GAContext =
+  React.createContext<Promise<GA4ReactResolveInterface>>(null);
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
@@ -44,6 +39,10 @@ export const Sizer_: React.FC = () => {
   const [activeModal, setActiveModal] = React.useState("");
   const coreState = useSelector((state: Store) => _.omit(state, "ui"));
   const prevState = React.useRef<Omit<Store, "ui">>();
+
+  const analytics = useAnalytics();
+
+  GAContext.displayName = "GAContext";
 
   const onSelect = (selectedItem: string) => {
     if (selectedItem === "about") {
@@ -56,13 +55,6 @@ export const Sizer_: React.FC = () => {
   React.useEffect(() => {
     if (window.location.search === "") {
       dispatch(setTab(0));
-    }
-    if (TRACKED_PLATFORMS.includes(window.location.host)) {
-      if (window.location.pathname.includes(BETA_TAG)) {
-        // Beta GA ID
-        ga4react = new GA4React("G-2VNW0PFP8D", { send_page_view: true });
-      }
-      ga4react.initialize();
     }
 
     const refreshListener = (ev) => {
@@ -132,44 +124,51 @@ export const Sizer_: React.FC = () => {
     ) : null;
 
   return (
-    <Router>
-      <Page header={HeaderComponent} className="sizer-page">
-        <AboutModal
-          isOpen={activeModal === "About"}
-          onClose={() => setActiveModal("")}
-        />
-        <FAQModal
-          isOpen={activeModal === "FAQ"}
-          onClose={() => setActiveModal("")}
-        />
-        <Switch>
-          <Route path="/">
-            <Tabs
-              activeKey={activeTab}
-              onSelect={(_e, tabIndex) => dispatch(setTab(tabIndex as number))}
-              unmountOnExit
-            >
-              <Tab eventKey={0} title={<TabTitleText>Workloads</TabTitleText>}>
-                <WorkloadPage />
-              </Tab>
-              <Tab
-                className="sizer-section"
-                eventKey={1}
-                title={<TabTitleText>Storage</TabTitleText>}
+    <GAContext.Provider value={analytics}>
+      <Router>
+        <Page header={HeaderComponent} className="sizer-page">
+          <AboutModal
+            isOpen={activeModal === "About"}
+            onClose={() => setActiveModal("")}
+          />
+          <FAQModal
+            isOpen={activeModal === "FAQ"}
+            onClose={() => setActiveModal("")}
+          />
+          <Switch>
+            <Route path="/">
+              <Tabs
+                activeKey={activeTab}
+                onSelect={(_e, tabIndex) =>
+                  dispatch(setTab(tabIndex as number))
+                }
+                unmountOnExit
               >
-                <Planner />
-              </Tab>
-              <Tab eventKey={2} title={<TabTitleText>Compute</TabTitleText>}>
-                <Compute />
-              </Tab>
-              <Tab eventKey={3} title={<TabTitleText>Results</TabTitleText>}>
-                <Results />
-              </Tab>
-            </Tabs>
-          </Route>
-        </Switch>
-      </Page>
-    </Router>
+                <Tab
+                  eventKey={0}
+                  title={<TabTitleText>Workloads</TabTitleText>}
+                >
+                  <WorkloadPage />
+                </Tab>
+                <Tab
+                  className="sizer-section"
+                  eventKey={1}
+                  title={<TabTitleText>Storage</TabTitleText>}
+                >
+                  <Planner />
+                </Tab>
+                <Tab eventKey={2} title={<TabTitleText>Compute</TabTitleText>}>
+                  <Compute />
+                </Tab>
+                <Tab eventKey={3} title={<TabTitleText>Results</TabTitleText>}>
+                  <Results />
+                </Tab>
+              </Tabs>
+            </Route>
+          </Switch>
+        </Page>
+      </Router>
+    </GAContext.Provider>
   );
 };
 

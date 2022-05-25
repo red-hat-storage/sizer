@@ -24,6 +24,11 @@ import { Platform } from "../../types";
 import { platformInstanceMap } from "../../cloudInstance";
 import { Service, Workload } from "../../types";
 import { getWorkloadResourceConsumption } from "../../utils/workload";
+import {
+  customEventPusher,
+  MS_CREATE,
+  useGetAnalyticClientID,
+} from "../../analytics";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";
 
@@ -88,6 +93,8 @@ const MachineSetCreate: React.FC = () => {
 
   const onClose = () => dispatch(closeModal());
 
+  const clientID = useGetAnalyticClientID();
+
   const workloadOptions = React.useMemo(
     () =>
       workloads.map((workload) => {
@@ -117,6 +124,8 @@ const MachineSetCreate: React.FC = () => {
       (item) => item.name === selectedInstance
     );
 
+    const instanceName = isCloudPlatform ? (instance?.name as string) : "";
+
     dispatch(
       addMachineSet({
         name,
@@ -128,6 +137,15 @@ const MachineSetCreate: React.FC = () => {
         label: "Worker Node",
       })
     );
+
+    if (clientID) {
+      const params = {
+        instanceName,
+      };
+      customEventPusher(MS_CREATE, params, clientID).catch((err) =>
+        console.error("Error sending data to analytics service", err)
+      );
+    }
     onClose();
   };
 

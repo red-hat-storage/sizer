@@ -42,6 +42,14 @@ import { MachineSet, MinimalState, Workload } from "../../types";
 import { useODFPresent, useStorageDetails } from "../../hooks";
 import UnschedulableWorkload from "./WorkloadSchedulerAlerts";
 import { getODFWorkload } from "../../workloads";
+import {
+  customEventPusher,
+  DOWNLOAD_IMAGE,
+  GET_SHARING_LINK,
+  RESULTS_CLICKED,
+  SHOW_ADVANCED,
+  useGetAnalyticClientID,
+} from "../../analytics";
 
 const Results: React.FC = () => {
   const {
@@ -91,6 +99,22 @@ const Results: React.FC = () => {
     // pruneNodes(dispatch)(store.getState().node.nodes, zones);
   }, [JSON.stringify(workloads), JSON.stringify(machineSets)]);
 
+  const clientID = useGetAnalyticClientID();
+  React.useEffect(() => {
+    if (clientID) {
+      const params = {
+        platform,
+        totalStorage: `${totalStorage}`,
+        usedStorage: `${usedStorage}`,
+        nodes: `${allNodes.length}`,
+        totalWorkloads: `${workloads.length}`,
+      };
+      customEventPusher(RESULTS_CLICKED, params, clientID).catch((err) =>
+        console.error("Error sending data to analytics service", err)
+      );
+    }
+  }, [clientID]);
+
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);
   const [link, setLink] = React.useState("");
@@ -108,6 +132,11 @@ const Results: React.FC = () => {
       link.href = c.toDataURL();
       link.click();
     });
+    if (clientID) {
+      customEventPusher(DOWNLOAD_IMAGE, {}, clientID).catch((err) =>
+        console.error("Error sending data to analytics service", err)
+      );
+    }
   };
 
   const exceptions = React.useMemo(
@@ -137,6 +166,11 @@ const Results: React.FC = () => {
   const onAdvancedButtonClick = (event?: React.FormEvent<React.MouseEvent>) => {
     event?.stopPropagation();
     setShowAdvanced(true);
+    if (clientID) {
+      customEventPusher(SHOW_ADVANCED, {}, clientID).catch((err) =>
+        console.error("Error sending data to analytics service", err)
+      );
+    }
   };
 
   const shouldOpen = () => {
@@ -210,6 +244,14 @@ const Results: React.FC = () => {
     dispatch(addWorkload(workload));
   }, [dispatch, usedStorage, ocsState, workloads, services]);
 
+  const pushSharingEvent = () => {
+    if (clientID) {
+      customEventPusher(GET_SHARING_LINK, {}, clientID).catch((err) =>
+        console.error("Error sending data to analytics service", err)
+      );
+    }
+  };
+
   return (
     <>
       {!isDownloadButtonVisible && <SkipToTop onClick={scroller} />}
@@ -280,6 +322,7 @@ const Results: React.FC = () => {
             <Button
               className="button-normalizer"
               isDisabled={allNodes.length === 0}
+              onClick={pushSharingEvent}
             >
               Get Sharing Link
             </Button>

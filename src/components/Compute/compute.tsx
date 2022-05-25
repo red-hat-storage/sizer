@@ -29,6 +29,11 @@ import { Platform } from "../../types";
 import "./compute.css";
 import { controlPlaneInstances, defaultInstances } from "../../cloudInstance";
 import { MachineSet } from "../../types";
+import {
+  customEventPusher,
+  PLATFORM_CHANGE,
+  useGetAnalyticClientID,
+} from "../../analytics";
 
 const isDeletable = (machineName: string) =>
   machineName !== "controlPlane" && machineName !== "default";
@@ -66,6 +71,8 @@ const Compute: React.FC = () => {
   const machines = useSelector((store: Store) => store.machineSet);
   const platform = useSelector((store: Store) => store.cluster.platform);
 
+  const clientID = useGetAnalyticClientID();
+
   const onSelect = (platform: Platform) => {
     const shouldChangePlatform = confirm(
       "Changing platform will reset Nodes, MachineSets and Workloads. Are you sure you want to proceed?"
@@ -96,6 +103,12 @@ const Compute: React.FC = () => {
         label: "Control Plane Node",
       };
       dispatch(addMachineSet(controlPlaneMachineSet));
+      if (clientID) {
+        const params = { platform };
+        customEventPusher(PLATFORM_CHANGE, params, clientID).catch((err) =>
+          console.error("Error sending data to analytics service", err)
+        );
+      }
     }
     setPlatformDropdownOpen(false);
   };
