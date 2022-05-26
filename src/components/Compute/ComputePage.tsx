@@ -2,15 +2,8 @@ import * as React from "react";
 import CreateCard from "../Generic/CreateCard";
 import MachineSetCreate, { CM_MODAL_ID } from "./MachineSetCreate";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addMachineSet,
-  openModalAction,
-  clearAllMachines,
-  setPlatform,
-  Store,
-  removeAllNodes,
-} from "../../redux";
-import { CaretDownIcon, ServerIcon } from "@patternfly/react-icons";
+import { openModalAction, Store } from "../../redux";
+import { ServerIcon } from "@patternfly/react-icons";
 import {
   Grid,
   GridItem,
@@ -18,100 +11,22 @@ import {
   TextVariants,
   Title,
   Text,
-  Dropdown,
-  DropdownItem,
-  DropdownToggle,
   Form,
-  FormGroup,
 } from "@patternfly/react-core";
 import MachineSetCard from "./MachineSetCard";
-import { Platform } from "../../types";
+import PlatformSelector from "../Common/PlatformSelector";
 import "./compute.css";
-import { controlPlaneInstances, defaultInstances } from "../../cloudInstance";
-import { MachineSet } from "../../types";
-import {
-  customEventPusher,
-  PLATFORM_CHANGE,
-  useGetAnalyticClientID,
-} from "../../analytics";
 
 const isDeletable = (machineName: string) =>
   machineName !== "controlPlane" && machineName !== "default";
 
-const platformDropdownItems = [
-  <DropdownItem key="BareMetal" id="BareMetal">
-    BareMetal
-  </DropdownItem>,
-  <DropdownItem key="AWS" id="AWS">
-    AWS
-  </DropdownItem>,
-  <DropdownItem key="GCP" id="GCP">
-    GCP
-  </DropdownItem>,
-  <DropdownItem key="Azure" id="AZURE">
-    Azure
-  </DropdownItem>,
-  <DropdownItem key="VMware" id="VMware">
-    VMs in VMware
-  </DropdownItem>,
-  <DropdownItem key="RHV" id="RHV">
-    VMs in RHV and OpenStack
-  </DropdownItem>,
-];
-
 const Compute: React.FC = () => {
   const dispatch = useDispatch();
-  const [isPlatformDropdownOpen, setPlatformDropdownOpen] =
-    React.useState(false);
-
   const openCreateModal = React.useCallback(() => {
     dispatch(openModalAction(CM_MODAL_ID));
   }, []);
 
   const machines = useSelector((store: Store) => store.machineSet);
-  const platform = useSelector((store: Store) => store.cluster.platform);
-
-  const clientID = useGetAnalyticClientID();
-
-  const onSelect = (platform: Platform) => {
-    const shouldChangePlatform = confirm(
-      "Changing platform will reset Nodes, MachineSets and Workloads. Are you sure you want to proceed?"
-    );
-    if (shouldChangePlatform) {
-      dispatch(setPlatform(platform));
-      dispatch(removeAllNodes());
-      dispatch(clearAllMachines());
-      const workerInstance = defaultInstances[platform];
-      const defaultMachineSet: MachineSet = {
-        name: "default",
-        cpu: workerInstance.cpuUnits,
-        memory: workerInstance.memory,
-        instanceName: workerInstance.name,
-        onlyFor: [],
-        numberOfDisks: 24,
-        label: "Worker Node",
-      };
-      dispatch(addMachineSet(defaultMachineSet));
-      const controlInstance = controlPlaneInstances[platform];
-      const controlPlaneMachineSet: MachineSet = {
-        name: "controlPlane",
-        cpu: controlInstance.cpuUnits,
-        memory: controlInstance.memory,
-        instanceName: controlInstance.name,
-        onlyFor: ["ControlPlane"],
-        numberOfDisks: 24,
-        label: "Control Plane Node",
-      };
-      dispatch(addMachineSet(controlPlaneMachineSet));
-      if (clientID) {
-        const params = { platform };
-        customEventPusher(PLATFORM_CHANGE, params, clientID).catch((err) =>
-          console.error("Error sending data to analytics service", err)
-        );
-      }
-    }
-    setPlatformDropdownOpen(false);
-  };
 
   return (
     <div className="page--margin">
@@ -124,23 +39,7 @@ const Compute: React.FC = () => {
         </Text>
       </TextContent>
       <Form className="create-form--margin">
-        <FormGroup fieldId="dropdown-paltform" label="Platform">
-          <Dropdown
-            isOpen={isPlatformDropdownOpen}
-            onSelect={(event) => onSelect(event?.currentTarget.id as Platform)}
-            toggle={
-              <DropdownToggle
-                onToggle={() => setPlatformDropdownOpen((open) => !open)}
-                toggleIndicator={CaretDownIcon}
-              >
-                {platform}
-              </DropdownToggle>
-            }
-            dropdownItems={platformDropdownItems}
-            id="dropdown-platform"
-            className="planner-form__dropdown"
-          />
-        </FormGroup>
+        <PlatformSelector />
       </Form>
       <MachineSetCreate />
       <Grid hasGutter>
