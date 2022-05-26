@@ -51,7 +51,7 @@ import {
   useGetAnalyticClientID,
 } from "../../analytics";
 
-const Results: React.FC = () => {
+const ResultsPage: React.FC = () => {
   const {
     ocsState,
     workloads,
@@ -378,4 +378,4 @@ const Results: React.FC = () => {
   );
 };
 
-export default Results;
+export default ResultsPage;

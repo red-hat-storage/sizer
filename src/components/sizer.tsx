@@ -3,8 +3,8 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
 import { request } from "@octokit/request";
-import Planner from "./Planner/planner";
-import Results from "./Results/result";
+import StoragePage from "./Storage/StoragePage";
+import ResultsPage from "./Results/ResultsPage";
 import AboutModal from "./Modals/about";
 import FAQModal from "./Modals/faq";
 import Header from "./Header/Header";
@@ -22,7 +22,7 @@ import {
 } from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
-import Compute from "./Compute/compute";
+import Compute from "./Compute/ComputePage";
 import WorkloadPage from "./Workload/workloads";
 import { createWorkload } from "./Workload/create";
 import * as _ from "lodash";
@@ -155,13 +155,13 @@ export const Sizer_: React.FC = () => {
                   eventKey={1}
                   title={<TabTitleText>Storage</TabTitleText>}
                 >
-                  <Planner />
+                  <StoragePage />
                 </Tab>
                 <Tab eventKey={2} title={<TabTitleText>Compute</TabTitleText>}>
                   <Compute />
                 </Tab>
                 <Tab eventKey={3} title={<TabTitleText>Results</TabTitleText>}>
-                  <Results />
+                  <ResultsPage />
                 </Tab>
               </Tabs>
             </Route>
