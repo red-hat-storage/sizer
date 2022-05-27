@@ -29,6 +29,7 @@ import {
   MS_CREATE,
   useGetAnalyticClientID,
 } from "../../analytics";
+import { ODF_DEDICATED_MS_NAME } from "../../constants";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";
 
@@ -68,7 +69,15 @@ const nodeMemoryItems = [
   </DropdownItem>,
 ];
 
-const MachineSetCreate: React.FC = () => {
+type MachineSetCreateProps = {
+  isStoragePage?: boolean;
+  onCreate?: (msName: string) => void;
+};
+
+const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
+  isStoragePage = false,
+  onCreate,
+}) => {
   const dispatch = useDispatch();
   const ui = useSelector((store: Store) => store.ui);
   const platform = useSelector((store: Store) => store.cluster.platform);
@@ -128,12 +137,14 @@ const MachineSetCreate: React.FC = () => {
 
     dispatch(
       addMachineSet({
-        name,
+        name: isStoragePage ? ODF_DEDICATED_MS_NAME : name,
         cpu: !isCloudPlatform ? cpu : (instance?.cpuUnits as number),
         memory: !isCloudPlatform ? memory : (instance?.memory as number),
         instanceName: isCloudPlatform ? (instance?.name as string) : "",
         numberOfDisks: 24,
-        onlyFor: selectedWorkloads.map((workload) => workload.name),
+        onlyFor: isStoragePage
+          ? ["ODF"]
+          : selectedWorkloads.map((workload) => workload.name),
         label: "Worker Node",
       })
     );
@@ -146,6 +157,7 @@ const MachineSetCreate: React.FC = () => {
         console.error("Error sending data to analytics service", err)
       );
     }
+    onCreate ? onCreate(ODF_DEDICATED_MS_NAME) : null;
     onClose();
   };
 
@@ -199,29 +211,31 @@ const MachineSetCreate: React.FC = () => {
           key="create"
           variant="primary"
           onClick={create}
-          isDisabled={msNameValidation === "error"}
+          isDisabled={msNameValidation === "error" && !isStoragePage}
         >
           Create
         </Button>,
       ]}
     >
       <Form className={cx("compute-ms-create__form--cloud")}>
-        <FormGroup
-          label="Machine Name"
-          fieldId="machine-name"
-          validated={msNameValidation}
-          helperTextInvalid={
-            name.length !== 0
-              ? "A machineset with the same name already exists"
-              : "Please enter a name"
-          }
-        >
-          <TextInput
-            value={name}
-            placeholder="Ex: hpc-machine"
-            onChange={(val) => setName(val)}
-          />
-        </FormGroup>
+        {!isStoragePage && (
+          <FormGroup
+            label="Machine Name"
+            fieldId="machine-name"
+            validated={msNameValidation}
+            helperTextInvalid={
+              name.length !== 0
+                ? "A machineset with the same name already exists"
+                : "Please enter a name"
+            }
+          >
+            <TextInput
+              value={name}
+              placeholder="Ex: hpc-machine"
+              onChange={(val) => setName(val)}
+            />
+          </FormGroup>
+        )}
         <FormGroup label="Instance Type" fieldId="instance-type">
           <SelectionList
             selection={selectedInstance}
@@ -266,7 +280,7 @@ const MachineSetCreate: React.FC = () => {
             </FormGroup>
           </>
         )}
-        {workloads.length > 0 && (
+        {!isStoragePage && workloads.length > 0 && (
           <FormGroup label="Dedicate to Workloads" fieldId="memory-dropdown">
             <Select
               variant={SelectVariant.checkbox}

@@ -12,6 +12,8 @@ import {
   SplitItem,
   FlexItem,
   Flex,
+  FormGroup,
+  Checkbox,
 } from "@patternfly/react-core";
 import DiskSize from "./DiskSize";
 import { getODFWorkload } from "../../workloads";
@@ -21,6 +23,7 @@ import {
   setTab,
   Store,
   addMachineSet,
+  updateMachineSet,
 } from "../../redux";
 import "./planner.css";
 import {
@@ -36,6 +39,8 @@ import {
   useGetAnalyticClientID,
   STORAGE_CREATE,
 } from "../../analytics";
+import InstancePlanning from "./InstancePlanning";
+import MachineSetCreate from "../Compute/MachineSetCreate";
 
 const StoragePage: React.FC = () => {
   const {
@@ -54,6 +59,10 @@ const StoragePage: React.FC = () => {
     totalCapacity: store.ocs.usableCapacity,
   }));
   const dispatch = useDispatch();
+
+  const [useDedicated, setDedicated] = React.useState(false);
+
+  const [dedicatedMSName, setDedicatedMSName] = React.useState(null);
 
   const totalStorage = React.useMemo(
     () =>
@@ -81,22 +90,35 @@ const StoragePage: React.FC = () => {
     }
 
     const { services, workload } = getWorkloadFromDescriptors(odfWorkload);
-    const workloadScheduleChecker = isWorkloadSchedulable(services, machineSet);
-    const [isSchedulable] = workloadScheduleChecker(workload);
-    if (!isSchedulable) {
-      const odfInstance = defaultODFInstances[platform];
-      const odfMS: MachineSet = {
-        name: "storage",
-        cpu: odfInstance.cpuUnits,
-        memory: odfInstance.memory,
-        instanceName: odfInstance.name,
-        onlyFor: [workload.name],
-        numberOfDisks: 24,
-        label: "ODF Node",
-      };
-      dispatch(addMachineSet(odfMS));
-    }
 
+    // If the user does not care about the machineset
+    if (!useDedicated) {
+      const workloadScheduleChecker = isWorkloadSchedulable(
+        services,
+        machineSet
+      );
+      const [isSchedulable] = workloadScheduleChecker(workload);
+      if (!isSchedulable) {
+        const odfInstance = defaultODFInstances[platform];
+        const odfMS: MachineSet = {
+          name: "storage",
+          cpu: odfInstance.cpuUnits,
+          memory: odfInstance.memory,
+          instanceName: odfInstance.name,
+          onlyFor: [workload.name],
+          numberOfDisks: 24,
+          label: "ODF Node",
+        };
+        dispatch(addMachineSet(odfMS));
+      }
+    } else {
+      const selectedMS = machineSet.find((ms) => ms.name === dedicatedMSName);
+      workload.usesMachines = [selectedMS.name];
+      if (selectedMS.onlyFor.length === 0) {
+        selectedMS.onlyFor = [odfWorkload.name];
+        dispatch(updateMachineSet(selectedMS));
+      }
+    }
     dispatch(addServices(services));
     dispatch(addWorkload(workload));
     // Redirect users to Results Page
@@ -115,6 +137,7 @@ const StoragePage: React.FC = () => {
 
   return (
     <div className="page--margin">
+      <MachineSetCreate isStoragePage onCreate={setDedicatedMSName} />
       <Split>
         <SplitItem>
           <Title headingLevel="h1">Configure ODF Storage</Title>
@@ -126,6 +149,20 @@ const StoragePage: React.FC = () => {
             </Text>
           </TextContent>
           <Form className="create-form--margin">
+            <FormGroup fieldId="enable-dedicated">
+              <Checkbox
+                label="Use Dedicated MachineSet"
+                onChange={() => setDedicated((o) => !o)}
+                isChecked={useDedicated}
+                id="enable-dedicated"
+              />
+            </FormGroup>
+            {useDedicated && (
+              <InstancePlanning
+                createdMS={dedicatedMSName}
+                onSelect={setDedicatedMSName}
+              />
+            )}
             <DiskSize />
             <ActionGroup>
               <Button variant="primary" onClick={onClick}>
