@@ -1,12 +1,8 @@
 import * as React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Page, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
+import { Page, Spinner, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
 import { request } from "@octokit/request";
-import StoragePage from "./Storage/StoragePage";
-import ResultsPage from "./Results/ResultsPage";
-import AboutModal from "./Modals/about";
-import FAQModal from "./Modals/faq";
 import Header from "./Header/Header";
 import {
   store,
@@ -22,8 +18,6 @@ import {
 } from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
-import Compute from "./Compute/ComputePage";
-import WorkloadPage from "./Workload/workloads";
 import { createWorkload } from "./Workload/create";
 import * as _ from "lodash";
 import { MinimalState } from "../types";
@@ -31,9 +25,15 @@ import useAnalytics from "../analytics/analytics";
 import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
 import ErrorBoundary from "../utils/ErrorBoundary";
 
-export const GAContext = React.createContext<Promise<GA4ReactResolveInterface>>(
-  null
-);
+const LazyResultsPage = React.lazy(() => import("./Storage/StoragePage"));
+const LazyComputePage = React.lazy(() => import("./Compute/ComputePage"));
+const LazyWorkloadPage = React.lazy(() => import("./Workload/workloads"));
+const LazyStoragePage = React.lazy(() => import("./Storage/StoragePage"));
+const LazyAboutModal = React.lazy(() => import("./Modals/about"));
+const LazyFAQModal = React.lazy(() => import("./Modals/faq"));
+
+export const GAContext =
+  React.createContext<Promise<GA4ReactResolveInterface>>(null);
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
@@ -132,14 +132,22 @@ export const Sizer_: React.FC = () => {
     <GAContext.Provider value={analytics}>
       <Router>
         <Page header={HeaderComponent} className="sizer-page">
-          <AboutModal
-            isOpen={activeModal === "About"}
-            onClose={() => setActiveModal("")}
-          />
-          <FAQModal
-            isOpen={activeModal === "FAQ"}
-            onClose={() => setActiveModal("")}
-          />
+          <React.Suspense
+            fallback={<Spinner isSVG aria-label="Basic Spinner" />}
+          >
+            <LazyAboutModal
+              isOpen={activeModal === "About"}
+              onClose={() => setActiveModal("")}
+            />
+          </React.Suspense>
+          <React.Suspense
+            fallback={<Spinner isSVG aria-label="Basic Spinner" />}
+          >
+            <LazyFAQModal
+              isOpen={activeModal === "FAQ"}
+              onClose={() => setActiveModal("")}
+            />
+          </React.Suspense>
           <Switch>
             <Route path="/">
               <ErrorBoundary>
@@ -149,31 +157,48 @@ export const Sizer_: React.FC = () => {
                     dispatch(setTab(tabIndex as number))
                   }
                   unmountOnExit
+                  mountOnEnter
                 >
                   <Tab
                     eventKey={0}
                     title={<TabTitleText>Workloads</TabTitleText>}
                   >
-                    <WorkloadPage />
+                    <React.Suspense
+                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
+                    >
+                      <LazyWorkloadPage />
+                    </React.Suspense>
                   </Tab>
                   <Tab
                     className="sizer-section"
                     eventKey={1}
                     title={<TabTitleText>Storage</TabTitleText>}
                   >
-                    <StoragePage />
+                    <React.Suspense
+                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
+                    >
+                      <LazyStoragePage />
+                    </React.Suspense>
                   </Tab>
                   <Tab
                     eventKey={2}
                     title={<TabTitleText>Compute</TabTitleText>}
                   >
-                    <Compute />
+                    <React.Suspense
+                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
+                    >
+                      <LazyComputePage />
+                    </React.Suspense>
                   </Tab>
                   <Tab
                     eventKey={3}
                     title={<TabTitleText>Results</TabTitleText>}
                   >
-                    <ResultsPage />
+                    <React.Suspense
+                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
+                    >
+                      <LazyResultsPage />
+                    </React.Suspense>
                   </Tab>
                 </Tabs>
               </ErrorBoundary>
