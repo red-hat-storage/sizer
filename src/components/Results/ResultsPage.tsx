@@ -292,7 +292,7 @@ const ResultsPage: React.FC = () => {
             onClick={() => screenshot()}
             isDisabled={allNodes.length === 0}
           >
-            Download
+            Download Cluster Image
           </Button>
           <Popover
             isVisible={isVisible}
