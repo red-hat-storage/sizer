@@ -31,8 +31,9 @@ import useAnalytics from "../analytics/analytics";
 import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
 import ErrorBoundary from "../utils/ErrorBoundary";
 
-export const GAContext =
-  React.createContext<Promise<GA4ReactResolveInterface>>(null);
+export const GAContext = React.createContext<Promise<GA4ReactResolveInterface>>(
+  null
+);
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
@@ -141,39 +142,41 @@ export const Sizer_: React.FC = () => {
           />
           <Switch>
             <Route path="/">
-              <Tabs
-                activeKey={activeTab}
-                onSelect={(_e, tabIndex) =>
-                  dispatch(setTab(tabIndex as number))
-                }
-                unmountOnExit
-              >
-                <Tab
-                  eventKey={0}
-                  title={<TabTitleText>Workloads</TabTitleText>}
+              <ErrorBoundary>
+                <Tabs
+                  activeKey={activeTab}
+                  onSelect={(_e, tabIndex) =>
+                    dispatch(setTab(tabIndex as number))
+                  }
+                  unmountOnExit
                 >
-                  <ErrorBoundary>
+                  <Tab
+                    eventKey={0}
+                    title={<TabTitleText>Workloads</TabTitleText>}
+                  >
                     <WorkloadPage />
-                  </ErrorBoundary>
-                </Tab>
-                <Tab
-                  className="sizer-section"
-                  eventKey={1}
-                  title={<TabTitleText>Storage</TabTitleText>}
-                >
-                  <ErrorBoundary>
+                  </Tab>
+                  <Tab
+                    className="sizer-section"
+                    eventKey={1}
+                    title={<TabTitleText>Storage</TabTitleText>}
+                  >
                     <StoragePage />
-                  </ErrorBoundary>
-                </Tab>
-                <Tab eventKey={2} title={<TabTitleText>Compute</TabTitleText>}>
-                  <ErrorBoundary>
+                  </Tab>
+                  <Tab
+                    eventKey={2}
+                    title={<TabTitleText>Compute</TabTitleText>}
+                  >
                     <Compute />
-                  </ErrorBoundary>
-                </Tab>
-                <Tab eventKey={3} title={<TabTitleText>Results</TabTitleText>}>
-                  <ResultsPage />
-                </Tab>
-              </Tabs>
+                  </Tab>
+                  <Tab
+                    eventKey={3}
+                    title={<TabTitleText>Results</TabTitleText>}
+                  >
+                    <ResultsPage />
+                  </Tab>
+                </Tabs>
+              </ErrorBoundary>
             </Route>
           </Switch>
         </Page>
