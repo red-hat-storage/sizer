@@ -63,7 +63,6 @@ class ErrorBoundary extends React.Component<
                 clickTip="Copied"
                 variant={ClipboardCopyVariant.expansion}
                 isCode
-                isBlock
               >
                 {JSON.stringify(this.props.state)}
                 <br />
