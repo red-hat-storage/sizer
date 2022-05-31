@@ -66,12 +66,12 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
           Total cluster resource consumption is:
           <List>
             <ListItem>
-              <strong>{totalCPU} CPU units</strong>
+              <strong>{totalCPU.toFixed(2)} CPU units</strong>
             </ListItem>
             <ListItem>
-              <strong>{totalMem} GB memory</strong>
+              <strong>{totalMem.toFixed(2)} GB memory</strong>
             </ListItem>
-            <ListItem>The ODF disk size is {diskSize} TB</ListItem>
+            <ListItem>The ODF disk size is {diskSize.toFixed(2)} TB</ListItem>
           </List>
         </div>
         {
