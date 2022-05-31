@@ -83,17 +83,22 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
     );
     duplicateWorkloads.forEach((wl) => remover(wl, services));
     const descriptor = getDescriptorFromWorkload(workload, services);
+    descriptor.name = name;
     descriptor.count = count;
     descriptor.usesMachines = usesMachines ? usesMachines : [];
     descriptor.storageCapacityRequired = storageCapacity;
-    const { services: wlServices, workload: newWorkload } =
-      getWorkloadFromDescriptors(descriptor);
+    const {
+      services: wlServices,
+      workload: newWorkload,
+    } = getWorkloadFromDescriptors(descriptor);
     dispatch(addServices(wlServices));
     dispatch(addWorkload(newWorkload));
     const workloadDescriptors = createDuplicates(descriptor, newWorkload.id);
     workloadDescriptors.forEach((wld) => {
-      const { services: serviceDup, workload: workloadDup } =
-        getWorkloadFromDescriptors(wld);
+      const {
+        services: serviceDup,
+        workload: workloadDup,
+      } = getWorkloadFromDescriptors(wld);
       dispatch(addServices(serviceDup));
       dispatch(addWorkload(workloadDup));
     });
