@@ -25,15 +25,16 @@ import useAnalytics from "../analytics/analytics";
 import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
 import ErrorBoundary from "../utils/ErrorBoundary";
 
-const LazyResultsPage = React.lazy(() => import("./Storage/StoragePage"));
+const LazyResultsPage = React.lazy(() => import("./Results/ResultsPage"));
 const LazyComputePage = React.lazy(() => import("./Compute/ComputePage"));
 const LazyWorkloadPage = React.lazy(() => import("./Workload/workloads"));
 const LazyStoragePage = React.lazy(() => import("./Storage/StoragePage"));
 const LazyAboutModal = React.lazy(() => import("./Modals/about"));
 const LazyFAQModal = React.lazy(() => import("./Modals/faq"));
 
-export const GAContext =
-  React.createContext<Promise<GA4ReactResolveInterface>>(null);
+export const GAContext = React.createContext<Promise<GA4ReactResolveInterface>>(
+  null
+);
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
