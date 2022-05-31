@@ -41,6 +41,7 @@ import {
 } from "../../analytics";
 import InstancePlanning from "./InstancePlanning";
 import MachineSetCreate from "../Compute/MachineSetCreate";
+import { ODF_DEDICATED_MS_NAME } from "../../constants";
 
 const StoragePage: React.FC = () => {
   const {
@@ -74,6 +75,19 @@ const StoragePage: React.FC = () => {
   );
 
   const clientID = useGetAnalyticClientID();
+
+  React.useEffect(() => {
+    // Dedicated MachineSet for ODF
+    const hasDedicatedMS = machineSet.find(
+      (ms) => ms.name === ODF_DEDICATED_MS_NAME
+    );
+    if (hasDedicatedMS) {
+      if (!dedicatedMSName) {
+        setDedicatedMSName(ODF_DEDICATED_MS_NAME);
+        setDedicated(true);
+      }
+    }
+  }, [machineSet, setDedicatedMSName, setDedicated]);
 
   const onClick = () => {
     const odfWorkload = getODFWorkload(
