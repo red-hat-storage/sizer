@@ -85,7 +85,10 @@ export const Sizer_: React.FC = () => {
           dispatch(clearAllMachines());
           parsedState.machineSet.forEach((ms) => dispatch(addMachineSet(ms)));
           // Add workloads
-          parsedState.workload.forEach((wl) => workloadCreater(wl));
+          parsedState.workload
+            // Todo (bipuladh): Remove this filter statement once we move out of beta.
+            .filter((wl) => wl.name !== "ControlPlane")
+            .forEach((wl) => workloadCreater(wl));
           // Configure OCS
           dispatch(setFlashSize(parsedState.ocs.flashSize));
           dispatch(setUsableCapacity(parsedState.ocs.usableCapacity));
