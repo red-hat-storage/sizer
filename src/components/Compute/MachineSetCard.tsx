@@ -15,10 +15,10 @@ const MachineSetCard: React.FC<MachineSetCardProps> = ({
   machineSet,
   disableActions = false,
 }) => {
-  const { name, cpu, memory, instanceName, numberOfDisks, onlyFor } =
+  const { name, cpu, memory, instanceName, numberOfDisks, onlyFor, id } =
     machineSet;
   const dispatch = useDispatch();
-  const removeMS = () => dispatch(removeMachineSet(name));
+  const removeMS = () => dispatch(removeMachineSet(id));
   const onEditClick = () => {
     launchModal(MachineSetEditModal, { machineSet });
   };
