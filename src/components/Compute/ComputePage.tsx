@@ -24,7 +24,7 @@ const Compute: React.FC = () => {
   const dispatch = useDispatch();
   const openCreateModal = React.useCallback(() => {
     dispatch(openModalAction(CM_MODAL_ID));
-  }, []);
+  }, [dispatch]);
 
   const machines = useSelector((store: Store) => store.machineSet);
 

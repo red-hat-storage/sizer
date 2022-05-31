@@ -71,6 +71,7 @@ const StoragePage: React.FC = () => {
         (acc, curr) => (acc += (curr.storageCapacityRequired || 0) / 1000),
         0
       ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [JSON.stringify(workloads)]
   );
 
@@ -87,7 +88,7 @@ const StoragePage: React.FC = () => {
         setDedicated(true);
       }
     }
-  }, [machineSet, setDedicatedMSName, setDedicated]);
+  }, [machineSet, setDedicatedMSName, setDedicated, dedicatedMSName]);
 
   const dedicatedMS = React.useMemo(
     () => machineSet.find((ms) => ms.name === ODF_DEDICATED_MS_NAME),

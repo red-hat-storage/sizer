@@ -63,7 +63,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
         .map((machine) => {
           return <SelectOption value={machine.name} key={machine.name} />;
         }),
-    [JSON.stringify(machines)]
+    [machines]
   );
 
   const onSelectMachines = (_event: any, machine: SelectOptionObject) => {

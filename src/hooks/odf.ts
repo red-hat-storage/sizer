@@ -53,7 +53,7 @@ export const useODFPresent: UseODFPresent = () => {
         })
       );
     }
-  }, [dispatch, workloads, machineSets, allServices, platform]);
+  }, [ocs.usableCapacity, ocs.flashSize, ocs.deploymentType, ocs.dedicatedMachines, dispatch, allServices, machineSets, platform]);
   return [isODFPresent, createODFWorkload];
 };
 
@@ -74,6 +74,6 @@ export const useStorageDetails: UseStorageDetails = () => {
       0
     );
     return [isODFPresent, totalStorageRequested];
-  }, [JSON.stringify(workloads)]);
+  }, [workloads]);
   return [isODFPresent, totalStorageRequested, clusterSize];
 };

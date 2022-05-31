@@ -15,6 +15,6 @@ export const useVisibilityTracker = (elementID: string): boolean => {
     return () => {
       observer.unobserve(element as Element);
     };
-  }, []);
+  }, [elementID]);
   return isVisible;
 };

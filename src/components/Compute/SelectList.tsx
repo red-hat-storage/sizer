@@ -32,8 +32,7 @@ const SelectionList: React.FC<SelectionListProps> = ({
 
   const onSelect = (
     _event: React.MouseEvent | React.ChangeEvent<Element>,
-    selection: string | SelectOptionObject,
-    _isPlaceholder?: boolean
+    selection: string | SelectOptionObject
   ) => {
     setInstance(selection);
     setOpen(false);

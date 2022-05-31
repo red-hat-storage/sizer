@@ -59,7 +59,7 @@ export const useGetAnalyticClientID = (useDebug?: boolean): string => {
         console.log("Id for client is: ", id);
       })
     );
-  }, [analyticsID]);
+  }, [analyticsID, analytics]);
   return clientID;
 };
 
@@ -74,7 +74,7 @@ const useAnalytics: UseAnalytics = (useDebug) => {
       GA4Initialized = initialized;
       return initialized;
     }
-  }, [GA4Initialized]);
+  }, [id]);
 
   return gaItem;
 };

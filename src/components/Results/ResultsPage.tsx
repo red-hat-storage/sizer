@@ -97,7 +97,7 @@ const ResultsPage: React.FC = () => {
     });
     setUnschedulableWorkloads(unschedulables);
     // pruneNodes(dispatch)(store.getState().node.nodes, zones);
-  }, [JSON.stringify(workloads), JSON.stringify(machineSets)]);
+  }, [dispatch, machineSets, services, workloads]);
 
   const clientID = useGetAnalyticClientID();
   React.useEffect(() => {
@@ -113,7 +113,7 @@ const ResultsPage: React.FC = () => {
         console.error("Error sending data to analytics service", err)
       );
     }
-  }, [clientID]);
+  }, [allNodes.length, clientID, platform, totalStorage, usedStorage, workloads.length]);
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);
@@ -155,7 +155,7 @@ const ResultsPage: React.FC = () => {
     } else {
       setShowExceptionModal(false);
     }
-  }, [JSON.stringify(exceptions)]);
+  }, [exceptions?.length]);
 
   const isDownloadButtonVisible = useVisibilityTracker("screenshot-download");
   const scroller = React.useCallback(() => {

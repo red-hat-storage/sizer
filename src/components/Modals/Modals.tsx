@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { store } from "../../redux/store";
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const launchModal = (ModalComponent, props) => {
   const domElement = document.getElementById("modal-container");
 

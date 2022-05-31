@@ -42,6 +42,7 @@ const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
       workloads.map((workload) => {
         return <SelectOption value={workload.name} key={workload.name} />;
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [JSON.stringify(machines)]
   );
 

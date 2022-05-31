@@ -71,7 +71,7 @@ const InstanceFilter: React.FC<InstanceFilterProps> = ({
       (item) => item < maxMem,
       memoryDropdownPoints
     );
-  }, [minMem, maxMem, memoryDropdownPoints]);
+  }, [maxMem, memoryDropdownPoints]);
 
   const maxMemoryDropdownItems = React.useMemo(() => {
     return dropdownItemGenerator(
@@ -87,7 +87,7 @@ const InstanceFilter: React.FC<InstanceFilterProps> = ({
       (item) => item < maxCPU,
       cpuUnitPoints
     );
-  }, [minCPU, maxCPU, cpuUnitPoints]);
+  }, [maxCPU, cpuUnitPoints]);
 
   const maxCPUDropdownItems = React.useMemo(() => {
     return dropdownItemGenerator(
@@ -95,7 +95,7 @@ const InstanceFilter: React.FC<InstanceFilterProps> = ({
       (item) => item > minCPU,
       cpuUnitPoints
     );
-  }, [minCPU, maxCPU, memoryDropdownPoints]);
+  }, [minCPU, maxCPU, cpuUnitPoints]);
 
   const onSelect = (dropdownID: DropdownID) => (event: React.FormEvent) => {
     switch (dropdownID) {

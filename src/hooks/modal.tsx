@@ -15,5 +15,5 @@ export const useCloseModal = (onClose: () => void, isOpen: boolean): void => {
         document?.removeEventListener("click", cb as any);
       };
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 };

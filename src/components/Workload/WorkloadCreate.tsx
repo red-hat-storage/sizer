@@ -33,7 +33,6 @@ import {
 import "./workload.css";
 import { getWorkloadFromDescriptors } from "../../utils/workload";
 import {
-  useGetAnalyticID,
   customEventPusher,
   useGetAnalyticClientID,
 } from "../../analytics";
@@ -177,7 +176,7 @@ const WorkloadCreate: React.FC = () => {
         .map((machine) => {
           return <SelectOption value={machine.name} key={machine.name} />;
         }),
-    [JSON.stringify(machines)]
+    [machines]
   );
 
   const onSelectMachines = (_event: any, machine: SelectOptionObject) => {

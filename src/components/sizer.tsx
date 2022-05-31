@@ -68,7 +68,7 @@ export const Sizer_: React.FC = () => {
     return () => {
       window.removeEventListener("beforeunload", refreshListener);
     };
-  }, []);
+  }, [dispatch]);
 
   React.useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -99,7 +99,7 @@ export const Sizer_: React.FC = () => {
         })
         .catch((err) => console.error(err));
     }
-  }, []);
+  }, [dispatch]);
 
   // Removes search query when the state get's changed.
   React.useEffect(() => {
@@ -110,7 +110,7 @@ export const Sizer_: React.FC = () => {
       window.history.replaceState(null, "", window.location.pathname);
     }
     prevState.current = coreState;
-  }, [JSON.stringify(coreState)]);
+  }, [coreState]);
 
   /*   React.useEffect(() => {
     const tour = getSizerTour(dispatch);

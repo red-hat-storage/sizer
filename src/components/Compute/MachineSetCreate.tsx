@@ -120,6 +120,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
           />
         );
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [JSON.stringify(workloads)]
   );
 
