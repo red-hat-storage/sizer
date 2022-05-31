@@ -3,9 +3,15 @@ import { FormGroup, NumberInput } from "@patternfly/react-core";
 import { WarningTriangleIcon } from "@patternfly/react-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { setFlashSize, setUsableCapacity, Store } from "../../redux";
-import { Platform } from "../../types";
+import { MachineSet } from "../../types";
+import * as _ from "lodash";
+import { isCloudPlatform } from "../../utils";
 
-const DiskSize: React.FC = () => {
+type DiskSizeProps = {
+  machine?: MachineSet;
+};
+
+const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
   const ocsState = useSelector((state: Store) => state.ocs);
   const platform = useSelector((state: Store) => state.cluster.platform);
 
@@ -52,7 +58,9 @@ const DiskSize: React.FC = () => {
     [ocsState.flashSize]
   );
 
-  const disableDiskSize = platform === Platform.AWS;
+  const disableDiskSize = isCloudPlatform(platform)
+    ? machine?.instanceStorage === 0 || _.isUndefined(machine?.instanceStorage)
+    : true;
 
   return (
     <>

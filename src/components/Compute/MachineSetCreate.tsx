@@ -20,7 +20,7 @@ import { CaretDownIcon } from "@patternfly/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addMachineSet, closeModal, Store } from "../../redux";
 import SelectionList from "./SelectList";
-import { Platform } from "../../types";
+import { Instance, Platform } from "../../types";
 import { platformInstanceMap } from "../../cloudInstance";
 import { Service, Workload } from "../../types";
 import { getWorkloadResourceConsumption } from "../../utils/workload";
@@ -128,7 +128,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
   );
 
   const create = () => {
-    const instance = _.find(
+    const instance = _.find<Instance>(
       platformInstanceMap[platform],
       (item) => item.name === selectedInstance
     );
@@ -146,6 +146,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
           ? ["ODF"]
           : selectedWorkloads.map((workload) => workload.name),
         label: "Worker Node",
+        instanceStorage: instance?.instanceStorage,
       })
     );
 

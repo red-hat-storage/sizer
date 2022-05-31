@@ -89,6 +89,11 @@ const StoragePage: React.FC = () => {
     }
   }, [machineSet, setDedicatedMSName, setDedicated]);
 
+  const dedicatedMS = React.useMemo(
+    () => machineSet.find((ms) => ms.name === ODF_DEDICATED_MS_NAME),
+    [machineSet]
+  );
+
   const onClick = () => {
     const odfWorkload = getODFWorkload(
       ocsState.usableCapacity,
@@ -177,7 +182,7 @@ const StoragePage: React.FC = () => {
                 onSelect={setDedicatedMSName}
               />
             )}
-            <DiskSize />
+            <DiskSize machine={dedicatedMS} />
             <ActionGroup>
               <Button variant="primary" onClick={onClick}>
                 Create

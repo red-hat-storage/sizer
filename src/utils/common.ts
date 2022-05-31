@@ -1,4 +1,4 @@
-import { Service } from "../types";
+import { Platform, Service } from "../types";
 import { Node } from "../types";
 
 type ResourceRequirement = {
@@ -32,3 +32,6 @@ export const canNodeSupportRequirements = (
   requirements.totalMem + currentUsage.totalMem > node.memory
     ? false
     : true;
+
+export const isCloudPlatform = (platform: Platform): boolean =>
+  [Platform.AWS, Platform.AZURE, Platform.GCP].includes(platform);

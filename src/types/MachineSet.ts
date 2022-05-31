@@ -15,4 +15,6 @@ export type MachineSet = {
   onlyFor: string[];
   // Node label to apply to Nodes created with this Set
   label: string;
+  // Instance Storage is mapped from the Instances
+  instanceStorage?: number;
 };
