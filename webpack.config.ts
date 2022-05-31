@@ -4,6 +4,9 @@ import * as os from "os";
 import * as ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import * as HTMLWebpackPlugin from "html-webpack-plugin";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
 const deploymentMode = process.env.DEPLOYMENT_MODE || "lab";
@@ -79,6 +82,10 @@ const Configuration: webpack.Configuration = {
             __dirname,
             "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css"
           ),
+          path.resolve(
+            __dirname,
+            "node_modules/react-monaco-editor/node_modules/monaco-editor/"
+          ),
         ],
         use: ["style-loader", "css-loader"],
       },
@@ -151,6 +158,10 @@ const Configuration: webpack.Configuration = {
             __dirname,
             "node_modules/@patternfly/patternfly/assets/pficon"
           ),
+          path.resolve(
+            __dirname,
+            "node_modules/react-monaco-editor/node_modules/monaco-editor/esm/vs"
+          ),
         ],
         use: {
           loader: "file-loader",
@@ -158,7 +169,7 @@ const Configuration: webpack.Configuration = {
             // Limit at 50k. larger files emited into separate files
             limit: 5000,
             outputPath: "fonts",
-            name: "[name].[ext]",
+            name: "[path][name].[ext]",
           },
         },
       },
@@ -177,6 +188,9 @@ const Configuration: webpack.Configuration = {
     new webpack.EnvironmentPlugin({
       PUBLIC_PATH: "/",
       DEPLOYMENT_MODE: deploymentMode,
+    }),
+    new MonacoWebpackPlugin({
+      languages: ["yaml"],
     }),
   ],
 };
