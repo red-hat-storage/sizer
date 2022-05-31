@@ -17,7 +17,7 @@ type ErrorBoundaryState = {
 };
 
 class ErrorBoundary extends React.Component<
-  { state?: Store },
+  React.PropsWithChildren<{ state?: Store }>,
   ErrorBoundaryState
 > {
   constructor(props) {
