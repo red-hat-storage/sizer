@@ -45,7 +45,7 @@ const WorkloadPage: React.FC = () => {
         {workloads
           .filter((wl) => wl.duplicateOf === undefined)
           .map((wl) => (
-            <GridItem key={wl.name} rowSpan={2} span={3}>
+            <GridItem key={`${wl.id}`} rowSpan={2} span={3}>
               <WorkloadCard
                 workload={wl}
                 disableActions={disableActions(wl.name)}

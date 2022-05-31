@@ -51,8 +51,9 @@ const Compute: React.FC = () => {
           />
         </GridItem>
         {machines.map((machine) => (
-          <GridItem rowSpan={2} span={3} key={machine.name}>
+          <GridItem rowSpan={2} span={3} key={`${machine.id}`}>
             <MachineSetCard
+              key={`${machine.id}`}
               machineSet={machine}
               disableActions={!isDeletable(machine.name)}
             />
