@@ -163,17 +163,18 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
     onClose();
   };
 
-  const onSelect =
-    (dropdown: string) => (event?: React.SyntheticEvent<HTMLDivElement>) => {
-      const amount = Number(event?.currentTarget?.id);
-      if (dropdown === "NodeCPU") {
-        setCPU(amount);
-        setCpuOpen(false);
-      } else {
-        setMem(amount);
-        setMemOpen(false);
-      }
-    };
+  const onSelect = (dropdown: string) => (
+    event?: React.SyntheticEvent<HTMLDivElement>
+  ) => {
+    const amount = Number(event?.currentTarget?.id);
+    if (dropdown === "NodeCPU") {
+      setCPU(amount);
+      setCpuOpen(false);
+    } else {
+      setMem(amount);
+      setMemOpen(false);
+    }
+  };
 
   const onSelectWorkloads = (
     _event: React.MouseEvent | React.ChangeEvent,
@@ -213,7 +214,10 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
           key="create"
           variant="primary"
           onClick={create}
-          isDisabled={msNameValidation === "error" && !isStoragePage}
+          isDisabled={
+            (msNameValidation === "error" && !isStoragePage) ||
+            !selectedInstance
+          }
         >
           Create
         </Button>,
