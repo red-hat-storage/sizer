@@ -51,7 +51,7 @@ install_dependencies:
 eslint:
   stage: test
   script:
-    - ./node_modules/.bin/eslint --ext ".js,.ts" src/
+    - npm run lint
 
 unitTest:
   stage: test
