@@ -24,7 +24,10 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
     if (action === setFlashSize) {
       payload = ocsState.flashSize + 0.1;
     } else {
-      payload = ocsState.usableCapacity + 1;
+      payload =
+        ocsState.usableCapacity < 1
+          ? ocsState.usableCapacity + 0.1
+          : ocsState.usableCapacity + 1;
     }
     payload = +payload.toFixed(1);
     dispatch(action(payload));
@@ -37,7 +40,10 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
     if (action === setFlashSize) {
       payload = ocsState.flashSize - 0.1;
     } else {
-      payload = ocsState.usableCapacity - 1;
+      payload =
+        ocsState.usableCapacity <= 1
+          ? ocsState.usableCapacity - 0.1
+          : ocsState.usableCapacity - 1;
     }
     payload = +payload.toFixed(1);
     dispatch(action(payload));
@@ -68,7 +74,12 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
     ? machine?.instanceStorage === 0 || _.isUndefined(machine?.instanceStorage)
     : true;
 
-  const helperText = isDiskSizeZero
+  const isUsableCapacityZero = React.useMemo(
+    () => ocsState.usableCapacity === 0 || ocsState.usableCapacity < 0.1,
+    [ocsState.usableCapacity]
+  );
+
+  const diskSizeHelperText = isDiskSizeZero
     ? "Minimum disk size should be of 0.1 TB"
     : "Disks greater than 4TB is not tested and is still a tech preview feature.";
 
@@ -80,7 +91,7 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
         validated={
           isDiskSizeTechPreview || isDiskSizeZero ? "error" : "success"
         }
-        helperTextInvalid={helperText}
+        helperTextInvalid={diskSizeHelperText}
         helperTextInvalidIcon={<WarningTriangleIcon />}
       >
         <NumberInput
@@ -91,22 +102,27 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
           onPlus={increment(setFlashSize)}
           onChange={changeText(setFlashSize)}
           inputName="diskSize"
-          inputAriaLabel="Disk Size"
+          inputAriaLabel="Disk size"
           unit="TB"
           id="flash-input"
           isDisabled={disableDiskSize}
         />
       </FormGroup>
-      <FormGroup label="Usable Capacity Required (TB)" fieldId="usable-input">
+      <FormGroup
+        label="Usable Capacity Required (TB)"
+        fieldId="usable-input"
+        validated={isUsableCapacityZero ? "error" : "default"}
+        helperTextInvalid="Minimum usable capacity should be at least 0.1 TB"
+      >
         <NumberInput
           value={ocsState.usableCapacity}
-          min={0}
+          min={0.1}
           max={1000}
           onMinus={decrement(setUsableCapacity)}
           onPlus={increment(setUsableCapacity)}
           onChange={changeText(setUsableCapacity)}
-          inputName="diskSize"
-          inputAriaLabel="Disk Size"
+          inputName="usableCapacity"
+          inputAriaLabel="Usable capacity"
           unit="TB"
           id="usable-input"
         />
