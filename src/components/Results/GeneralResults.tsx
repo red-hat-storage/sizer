@@ -46,7 +46,7 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
         (node) => _.intersection(node.services, odfServiceIDs).length > 0
       )
     : [];
-  const { totalCPU, totalMem } = getTotalResourceRequirement(services);
+  const { totalCPU, totalMem } = getTotalResourceRequirement(services, true);
   return (
     <div>
       <div className="results-general" id="results">

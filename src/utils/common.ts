@@ -8,15 +8,20 @@ type ResourceRequirement = {
 };
 
 export const getTotalResourceRequirement = (
-  services: Service[]
+  services: Service[],
+  multiplyByZone?: boolean
 ): ResourceRequirement => {
   return services.reduce(
     (acc, service) => {
       if (service.name.includes("Ceph_OSD")) {
         acc.totalDisks += 1;
       }
-      acc.totalMem += service.requiredMemory;
-      acc.totalCPU += service.requiredCPU;
+      acc.totalMem += multiplyByZone
+        ? service.requiredMemory * service.zones
+        : service.requiredMemory;
+      acc.totalCPU += multiplyByZone
+        ? service.requiredCPU * service.zones
+        : service.requiredCPU;
       return acc;
     },
     { totalMem: 0, totalCPU: 0, totalDisks: 0 }
