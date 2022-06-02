@@ -15,7 +15,7 @@ const SkipToTop: React.FC<SkipToToTopProps> = ({ onClick }) => {
     <Alert
       className="skip-to-top"
       variant="info"
-      title="You have come a far way."
+      title="You scrolled down"
       actionClose={<AlertActionCloseButton onClose={() => setVisible(false)} />}
       actionLinks={
         <AlertActionLink onClick={onClick}>Scroll to Top </AlertActionLink>
