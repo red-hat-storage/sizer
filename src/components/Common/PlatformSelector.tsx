@@ -54,7 +54,7 @@ const PlatformSelector: React.FC = () => {
 
   const onSelect = (platform: Platform) => {
     const shouldChangePlatform = confirm(
-      "Changing platform will reset Nodes, MachineSets and Workloads. Are you sure you want to proceed?"
+      "Changing platform will reset Nodes & MachineSets. Are you sure you want to proceed?"
     );
     if (shouldChangePlatform) {
       dispatch(setPlatform(platform));
