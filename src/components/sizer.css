@@ -17,3 +17,17 @@
 .page--margin {
   margin: 2em !important;
 }
+
+.sizer-page .pf-c-tabs {
+  background-color: #fff;
+  padding-left: 1.75rem;
+}
+
+.sizer-page .pf-c-tabs__item-text {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.sizer-page .pf-m-current .pf-c-tabs__item-text {
+  color: var(--pf-global--active-color--100);
+}
