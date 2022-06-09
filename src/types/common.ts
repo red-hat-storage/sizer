@@ -35,6 +35,8 @@ export type Instance = {
   // Zero if no local disks available
   // Else the TB of one of the local disks
   instanceStorage?: number;
+  // Storage Type (SSD/HDD)
+  storageType?: string;
   // Number of local disks in this instance
   maxDisks?: number;
   // True if this is the default worker type

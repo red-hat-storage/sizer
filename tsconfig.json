@@ -1,5 +1,5 @@
 {
-  "include": ["./src/*", "./index.d.ts"],
+  "include": ["./src/*", "./index.d.ts", "./AWS.json", "./GCP.json"],
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
     "target": "ES2016",
@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true
   }
 }

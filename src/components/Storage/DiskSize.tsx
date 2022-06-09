@@ -4,8 +4,8 @@ import { WarningTriangleIcon } from "@patternfly/react-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { setFlashSize, setUsableCapacity, Store } from "../../redux";
 import { MachineSet } from "../../types";
-import * as _ from "lodash";
 import { isCloudPlatform } from "../../utils";
+import * as _ from "lodash";
 
 type DiskSizeProps = {
   machine?: MachineSet;
@@ -17,53 +17,52 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
 
   const dispatch = useDispatch();
 
-  const increment = (
-    action: typeof setFlashSize | typeof setUsableCapacity
-  ) => () => {
-    let payload = 0;
-    if (action === setFlashSize) {
-      payload = ocsState.flashSize + 0.1;
-    } else {
-      payload =
-        ocsState.usableCapacity < 1
-          ? ocsState.usableCapacity + 0.1
-          : ocsState.usableCapacity + 1;
-    }
-    payload = +payload.toFixed(1);
-    dispatch(action(payload));
-  };
+  const increment =
+    (action: typeof setFlashSize | typeof setUsableCapacity) => () => {
+      let payload = 0;
+      if (action === setFlashSize) {
+        payload = ocsState.flashSize + 0.1;
+      } else {
+        payload =
+          ocsState.usableCapacity < 1
+            ? ocsState.usableCapacity + 0.1
+            : ocsState.usableCapacity + 1;
+      }
+      payload = +payload.toFixed(1);
+      dispatch(action(payload));
+    };
 
-  const decrement = (
-    action: typeof setFlashSize | typeof setUsableCapacity
-  ) => () => {
-    let payload = 0;
-    if (action === setFlashSize) {
-      payload = ocsState.flashSize - 0.1;
-    } else {
-      payload =
-        ocsState.usableCapacity <= 1
-          ? ocsState.usableCapacity - 0.1
-          : ocsState.usableCapacity - 1;
-    }
-    payload = +payload.toFixed(1);
-    dispatch(action(payload));
-  };
+  const decrement =
+    (action: typeof setFlashSize | typeof setUsableCapacity) => () => {
+      let payload = 0;
+      if (action === setFlashSize) {
+        payload = ocsState.flashSize - 0.1;
+      } else {
+        payload =
+          ocsState.usableCapacity <= 1
+            ? ocsState.usableCapacity - 0.1
+            : ocsState.usableCapacity - 1;
+      }
+      payload = +payload.toFixed(1);
+      dispatch(action(payload));
+    };
 
-  const changeText = (type: typeof setFlashSize | typeof setUsableCapacity) => (
-    e: React.FormEvent<HTMLInputElement>
-  ) => {
-    const inputValue = Number(e.currentTarget.value);
-    if (type === setFlashSize && inputValue > -1 && inputValue <= 16) {
-      dispatch(setFlashSize(inputValue));
-    }
-    if (type === setUsableCapacity && inputValue > -1 && inputValue <= 1000) {
-      dispatch(setUsableCapacity(inputValue));
-    }
-  };
+  const changeText =
+    (type: typeof setFlashSize | typeof setUsableCapacity) =>
+    (e: React.FormEvent<HTMLInputElement>) => {
+      const inputValue = Number(e.currentTarget.value);
+      if (type === setFlashSize && inputValue > -1 && inputValue <= 16) {
+        dispatch(setFlashSize(inputValue));
+      }
+      if (type === setUsableCapacity && inputValue > -1 && inputValue <= 1000) {
+        dispatch(setUsableCapacity(inputValue));
+      }
+    };
 
-  const isDiskSizeTechPreview = React.useMemo(() => ocsState.flashSize > 4.0, [
-    ocsState.flashSize,
-  ]);
+  const isDiskSizeTechPreview = React.useMemo(
+    () => ocsState.flashSize > 4.0,
+    [ocsState.flashSize]
+  );
 
   const isDiskSizeZero = React.useMemo(
     () => ocsState.flashSize === 0 || ocsState.flashSize < 0.1,
@@ -71,8 +70,17 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
   );
 
   const disableDiskSize = isCloudPlatform(platform)
-    ? machine?.instanceStorage === 0 || _.isUndefined(machine?.instanceStorage)
+    ? machine?.instanceStorage !== 0 && _.isNumber(machine?.instanceStorage)
     : true;
+
+  React.useEffect(() => {
+    if (
+      machine?.instanceStorage !== 0 &&
+      _.isNumber(machine?.instanceStorage)
+    ) {
+      dispatch(setFlashSize(machine?.instanceStorage / 1000));
+    }
+  }, [machine?.instanceStorage, dispatch]);
 
   const isUsableCapacityZero = React.useMemo(
     () => ocsState.usableCapacity === 0 || ocsState.usableCapacity < 0.1,
