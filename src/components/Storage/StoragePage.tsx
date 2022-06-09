@@ -14,6 +14,7 @@ import {
   Flex,
   FormGroup,
   Checkbox,
+  Alert,
 } from "@patternfly/react-core";
 import DiskSize from "./DiskSize";
 import { getODFWorkload } from "../../workloads";
@@ -42,6 +43,7 @@ import {
 import InstancePlanning from "./InstancePlanning";
 import MachineSetCreate from "../Compute/MachineSetCreate";
 import { ODF_DEDICATED_MS_NAME } from "../../constants";
+import * as _ from "lodash";
 
 const StoragePage: React.FC = () => {
   const {
@@ -155,9 +157,22 @@ const StoragePage: React.FC = () => {
     }
   };
 
+  const needsMachineSet = _.isEmpty(dedicatedMSName);
+
   return (
     <div className="page--margin">
       <MachineSetCreate isStoragePage onCreate={setDedicatedMSName} />
+      {needsMachineSet && (
+        <Alert
+          variant="warning"
+          isInline
+          title="No dedicated MachineSet for ODF"
+        >
+          As there is no dedicated machineSet for ODF workload. The scheduler
+          will look for a MachineSet that can either support ODF or will create
+          a recommended MachineSet for the current Platform.
+        </Alert>
+      )}
       <Split>
         <SplitItem>
           <Title headingLevel="h1">Configure ODF Storage</Title>
