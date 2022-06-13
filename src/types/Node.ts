@@ -13,4 +13,7 @@ export type Node = {
   services: number[];
   // Instance Name
   instanceName?: string;
+  // Only use this set for this particular workload
+  // Default is to be used by any workload
+  onlyFor: string[];
 };

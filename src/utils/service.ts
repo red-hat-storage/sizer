@@ -51,6 +51,7 @@ const getNode = (machineSet: MachineSet): Node => ({
   machineSet: machineSet.name,
   services: [],
   instanceName: machineSet.instanceName,
+  onlyFor: machineSet.onlyFor,
 });
 
 /**

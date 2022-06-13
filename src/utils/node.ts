@@ -30,6 +30,14 @@ export const canNodeAddService = (
     return false;
   }
 
+  // Check if node is tainited
+  if (
+    !_.isEmpty(node.onlyFor) &&
+    !node.onlyFor.includes(currentWorkload.name)
+  ) {
+    return false;
+  }
+
   const { services: existingServicesIds }: Node = node;
   // Get all the service objects from the ids
   const existingServices = allServices.filter((service) =>
