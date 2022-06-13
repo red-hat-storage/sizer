@@ -32,9 +32,8 @@ const LazyStoragePage = React.lazy(() => import("./Storage/StoragePage"));
 const LazyAboutModal = React.lazy(() => import("./Modals/about"));
 const LazyFAQModal = React.lazy(() => import("./Modals/faq"));
 
-export const GAContext = React.createContext<Promise<GA4ReactResolveInterface>>(
-  null
-);
+export const GAContext =
+  React.createContext<Promise<GA4ReactResolveInterface>>(null);
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
@@ -90,7 +89,7 @@ export const Sizer_: React.FC = () => {
           // Add workloads
           parsedState.workload
             // Todo (bipuladh): Remove this filter statement once we move out of beta.
-            .filter((wl) => wl.name !== "ControlPlane")
+            .filter((wl) => wl.name.toLowerCase() !== "controlplane")
             .forEach((wl) => workloadCreater(wl));
           // Configure OCS
           dispatch(setFlashSize(parsedState.ocs.flashSize));

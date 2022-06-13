@@ -186,7 +186,7 @@ const ResultsPage: React.FC = () => {
     const gistID = urlSearchParams.get("state");
     const MinimalState: MinimalState = {
       workload: coreState.workload
-        .filter((wl) => wl.name !== "ControlPlane")
+        .filter((wl) => wl.name.toLowerCase() !== "controlplane")
         .map((wl) => getDescriptorFromWorkload(wl, coreState.service.services)),
       machineSet: coreState.machineSet,
       ocs: coreState.ocs,
