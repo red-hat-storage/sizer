@@ -14,6 +14,7 @@ import { platformInstanceMap } from "../../cloudInstance";
 type SelectionListProps = {
   setInstance: any;
   selection: string;
+  id?: string;
 };
 
 const getDescription = (instance: Instance): string => {
@@ -27,6 +28,7 @@ const getDescription = (instance: Instance): string => {
 const SelectionList: React.FC<SelectionListProps> = ({
   setInstance,
   selection,
+  id,
 }) => {
   const [isOpen, setOpen] = React.useState(false);
 
@@ -71,6 +73,7 @@ const SelectionList: React.FC<SelectionListProps> = ({
       {FilterComponent}
       {filteredInstances.length > 0 ? (
         <Select
+          id={id}
           variant={SelectVariant.typeahead}
           onToggle={(isExpanded) => setOpen(isExpanded)}
           onSelect={onSelect}

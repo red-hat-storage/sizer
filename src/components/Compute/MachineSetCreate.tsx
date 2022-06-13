@@ -203,6 +203,10 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
     ? "error"
     : "success";
 
+  const shouldDisableCreation =
+    (msNameValidation === "error" && !isStoragePage) ||
+    (isCloudPlatform ? !!selectedInstance : cpu === 0 || memory === 0);
+
   return (
     <Modal
       height="80vh"
@@ -215,10 +219,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
           key="create"
           variant="primary"
           onClick={create}
-          isDisabled={
-            (msNameValidation === "error" && !isStoragePage) ||
-            !selectedInstance
-          }
+          isDisabled={shouldDisableCreation}
         >
           Create
         </Button>,
@@ -237,18 +238,22 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
             }
           >
             <TextInput
+              id="machine-name"
               value={name}
               placeholder="Ex: hpc-machine"
               onChange={(val) => setName(val)}
             />
           </FormGroup>
         )}
-        <FormGroup label="Instance Type" fieldId="instance-type">
-          <SelectionList
-            selection={selectedInstance}
-            setInstance={setInstance}
-          />
-        </FormGroup>
+        {isCloudPlatform && (
+          <FormGroup label="Instance Type" fieldId="instance-type">
+            <SelectionList
+              id="instance-type"
+              selection={selectedInstance}
+              setInstance={setInstance}
+            />
+          </FormGroup>
+        )}
         {!isCloudPlatform && (
           <>
             <FormGroup label="CPU unit count" fieldId="cpu-dropdown">

@@ -68,7 +68,7 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({
         {usesMachines && (
           <CardItem title="Uses Machines" value={usesMachines} />
         )}
-        {storageCapacityRequested && (
+        {workload.storageCapacityRequired !== 0 && (
           <CardItem
             title="Storage Capacity requested"
             value={`${storageCapacityRequested.toFixed(3)} TB`}
