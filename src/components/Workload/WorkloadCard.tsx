@@ -46,6 +46,8 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({
   const usesMachines =
     workload.usesMachines.length > 0 ? workload.usesMachines.join(",") : null;
 
+  const storageCapacityRequested = workload.storageCapacityRequired / 1024;
+
   return (
     <>
       <Card
@@ -65,6 +67,12 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({
         />
         {usesMachines && (
           <CardItem title="Uses Machines" value={usesMachines} />
+        )}
+        {storageCapacityRequested && (
+          <CardItem
+            title="Storage Capacity requested"
+            value={`${storageCapacityRequested.toFixed(3)} TB`}
+          />
         )}
       </Card>
     </>

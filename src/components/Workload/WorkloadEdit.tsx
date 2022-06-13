@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ServiceDescriptor, Workload, WorkloadDescriptor } from "../../types";
+import { Workload, WorkloadDescriptor } from "../../types";
 import { Store, addServices, addWorkload } from "../../redux";
 import {
   Modal,
@@ -28,7 +28,7 @@ import { CodeEditor, Language } from "@patternfly/react-code-editor";
 import { ChangeHandler } from "react-monaco-editor";
 import * as jsyaml from "js-yaml";
 import * as _ from "lodash";
-import { Link } from "react-router-dom";
+import "./workloadEdit.css";
 
 /**
  * Editing Workload
@@ -253,11 +253,14 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
           </FormGroup>
           <FormGroup label="Storage Capacity" fieldId="storage-capacity">
             <TextInput
+              className="edit-workload__storage-capacity"
+              maxLength={20}
               value={storageCapacity}
               type="number"
               onChange={(val) => setStorageCapacity(Number(val))}
               min={0}
-            />
+            />{" "}
+            GB
           </FormGroup>
         </Form>
       )}

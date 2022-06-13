@@ -32,10 +32,7 @@ import {
 } from "./defaultWorkloads";
 import "./workload.css";
 import { getWorkloadFromDescriptors } from "../../utils/workload";
-import {
-  customEventPusher,
-  useGetAnalyticClientID,
-} from "../../analytics";
+import { customEventPusher, useGetAnalyticClientID } from "../../analytics";
 import { WORKLOAD_CREATE } from "../../analytics/constants";
 
 const defaultWorkload = `# An arbitraty name for this workload
@@ -45,6 +42,8 @@ count: 3
 # If this workload should always run on a particular set of machines
 usesMachines:
   - default
+# Storage that is used by this workload (Provisioned by ODF)
+storageCapacityRequired: 1000
 # A list of Services/Pods that make up this workload
 services:
   # A human friendly name for this Service
@@ -101,11 +100,14 @@ const WorkloadCreate: React.FC = () => {
   const dispatch = useDispatch();
 
   const [isCustom, setCustom] = React.useState(false);
-  const [customWorkload, setCustomWorkload] =
-    React.useState<WorkloadDescriptor>();
   const [isDedicated, setDedicated] = React.useState(false);
   const [usesMachines, setMachines] = React.useState<string[]>([]);
   const [isOpen, setOpen] = React.useState(false);
+
+  // Custom Workload State
+  const [customWorkload, setCustomWorkload] =
+    React.useState<WorkloadDescriptor>();
+  const [error, setError] = React.useState("");
 
   const onClose = () => {
     setCustom(false);
@@ -188,7 +190,8 @@ const WorkloadCreate: React.FC = () => {
     }
   };
 
-  const isValid = isValidWorkload(customWorkload as WorkloadDescriptor);
+  const isValid =
+    isValidWorkload(customWorkload as WorkloadDescriptor) && !error;
 
   return (
     <Modal
@@ -322,7 +325,11 @@ const WorkloadCreate: React.FC = () => {
         </div>
       ) : (
         <>
-          <CustomWorkloadCreate setWorkload={setCustomWorkload} />
+          <CustomWorkloadCreate
+            setWorkload={setCustomWorkload}
+            error={error}
+            setError={setError}
+          />
         </>
       )}
     </Modal>
@@ -333,13 +340,16 @@ type CustomWorkloadCreateProps = {
   setWorkload: React.Dispatch<
     React.SetStateAction<WorkloadDescriptor | undefined>
   >;
+  setError: (val: string) => void;
+  error: string;
 };
 
 const CustomWorkloadCreate: React.FC<CustomWorkloadCreateProps> = ({
   setWorkload,
+  error,
+  setError,
 }) => {
   const [code, setCode] = React.useState(defaultWorkload);
-  const [error, setError] = React.useState("");
 
   const onChange = (val: string) => {
     setCode(val);
@@ -353,6 +363,12 @@ const CustomWorkloadCreate: React.FC<CustomWorkloadCreateProps> = ({
   };
 
   const onEditorMount = (editor: any, monaco: any) => {
+    try {
+      const model = jsyaml.load(defaultWorkload, { json: true });
+      setWorkload(model as WorkloadDescriptor);
+    } catch (e) {
+      setError(String(e));
+    }
     editor.layout();
     editor.focus();
     monaco.editor.getModels()[0].updateOptions({ tabSize: 5 });
