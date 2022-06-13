@@ -197,16 +197,16 @@ export const defaultODFInstances: {
   [Platform.VMware]: {
     cpuUnits: 6,
     memory: 16,
-    name: "controlPlane",
+    name: "odfDefault",
   },
   [Platform.RHV]: {
     cpuUnits: 6,
     memory: 16,
-    name: "controlPlane",
+    name: "odfDefault",
   },
   [Platform.BAREMETAL]: {
     cpuUnits: 6,
     memory: 16,
-    name: "controlPlane",
+    name: "odfDefault",
   },
 }))();
