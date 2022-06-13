@@ -62,13 +62,21 @@ export const getDescriptorFromWorkload = (
   workload: Workload,
   services: Service[]
 ): WorkloadDescriptor => {
-  const { services: wlServices } = workload;
-  const serviceObjects = services
-    .filter((service) => wlServices.includes(service.id))
-    .map((service) => _.omit(service, "id"));
-  const workloadObject = _.omit(workload, ["id", "duplicateOf", "services"]);
-  Object.assign(workloadObject, { services: serviceObjects });
-  return workloadObject as WorkloadDescriptor;
+  const usedServices = services.filter((service) =>
+    workload.services.includes(service.id)
+  );
+  const serviceDescriptors: ServiceDescriptor[] = usedServices.map((s) => {
+    return Object.assign({}, s, {
+      runsWith: s.runsWith.map(
+        (r) => services.find((serv) => serv.id === r).name
+      ),
+      avoid: s.runsWith.map((r) => services.find((serv) => serv.id === r).name),
+    });
+  });
+  const workloadDescriptor: WorkloadDescriptor = Object.assign({}, workload, {
+    services: serviceDescriptors,
+  });
+  return workloadDescriptor;
 };
 
 export const getMachineSetForWorkload = (
