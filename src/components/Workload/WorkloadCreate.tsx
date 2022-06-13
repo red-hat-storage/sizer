@@ -62,6 +62,21 @@ services:
     runsWith: []
     # The name of services within this workload
     # that should NOT run on the same node as this service
+    avoid: ['serviceB']
+  - name: serviceB
+    # The amount of CPU units that this Pod requires
+    #  This can be fractional
+    requiredCPU: 5
+    # The amount of RAM (in GB) that this Pod requires
+    #  This can be fractional
+    requiredMemory: 16
+    # The amount of zones this spans (for clustered Pods)
+    zones: 3
+    # The name of services within this workload
+    # that should run on the same node as this service
+    runsWith: []
+    # The name of services within this workload
+    # that should NOT run on the same node as this service
     avoid: []
 `;
 

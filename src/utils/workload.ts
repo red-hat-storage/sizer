@@ -70,7 +70,7 @@ export const getDescriptorFromWorkload = (
       runsWith: s.runsWith.map(
         (r) => services.find((serv) => serv.id === r).name
       ),
-      avoid: s.runsWith.map((r) => services.find((serv) => serv.id === r).name),
+      avoid: s.avoid.map((r) => services.find((serv) => serv.id === r).name),
     });
   });
   const workloadDescriptor: WorkloadDescriptor = Object.assign({}, workload, {
