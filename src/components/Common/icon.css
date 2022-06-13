@@ -1,0 +1,9 @@
+.dedicated-icon {
+  color: #fff;
+  background-color: var(--pf-global--danger-color--100);
+  padding: 0 0.25rem;
+}
+
+.dedicated-icon--marginLeft {
+  margin-left: 0.5rem;
+}

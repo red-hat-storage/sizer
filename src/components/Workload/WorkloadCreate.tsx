@@ -34,6 +34,7 @@ import "./workload.css";
 import { getWorkloadFromDescriptors } from "../../utils/workload";
 import { customEventPusher, useGetAnalyticClientID } from "../../analytics";
 import { WORKLOAD_CREATE } from "../../analytics/constants";
+import { Dedicated } from "../Common/Icon";
 
 const defaultWorkload = `# An arbitraty name for this workload
 name: tester
@@ -173,11 +174,18 @@ const WorkloadCreate: React.FC = () => {
 
   const machineOptions = React.useMemo(
     () =>
-      machines
-        .filter((machine) => machine.onlyFor.length === 0)
-        .map((machine) => {
-          return <SelectOption value={machine.name} key={machine.name} />;
-        }),
+      machines.map((machine) => {
+        return (
+          <SelectOption
+            value={machine.name}
+            key={machine.name}
+            isDisabled={machine.onlyFor.length !== 0}
+          >
+            {machine.name}{" "}
+            {machine.onlyFor.length > 0 && <Dedicated addMarginToLeft />}
+          </SelectOption>
+        );
+      }),
     [machines]
   );
 

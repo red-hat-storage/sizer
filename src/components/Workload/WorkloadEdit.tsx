@@ -29,6 +29,7 @@ import { ChangeHandler } from "react-monaco-editor";
 import * as jsyaml from "js-yaml";
 import * as _ from "lodash";
 import "./workloadEdit.css";
+import { Dedicated } from "../Common/Icon";
 
 /**
  * Editing Workload
@@ -127,11 +128,18 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
 
   const machineOptions = React.useMemo(
     () =>
-      machines
-        .filter((machine) => machine.onlyFor.length === 0)
-        .map((machine) => {
-          return <SelectOption value={machine.name} key={machine.name} />;
-        }),
+      machines.map((machine) => {
+        return (
+          <SelectOption
+            value={machine.name}
+            key={machine.name}
+            isDisabled={machine.onlyFor.length !== 0}
+          >
+            {machine.name}{" "}
+            {machine.onlyFor.length > 0 && <Dedicated addMarginToLeft />}
+          </SelectOption>
+        );
+      }),
     [machines]
   );
 
