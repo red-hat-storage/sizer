@@ -1,16 +1,10 @@
 import { Instance, Platform } from "./types";
-// Todo (bipuladh): Fix this issue
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import awsInstances from "../AWS.json";
-// Todo (bipuladh): Fix this issue
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import gcpInstances from "../GCP.json";
-// Todo (bipuladh): Fix this issue
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import azureInstances from "../AZURE.json";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const awsInstances = require("../AWS.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const gcpInstances = require("../GCP.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const azureInstances = require("../AZURE.json");
 import * as _ from "lodash";
 
 type CloudPlatForm = Platform.AWS | Platform.AZURE | Platform.GCP;
@@ -99,7 +93,7 @@ const GCPInstances: Instance[] = gcpInstances.map((instance) => {
 
 const toTB = (memory: number) => memory / 1024;
 
-const AzureInstances: Instance[] = azureInstances.map<Instance>(
+const AzureInstances: Instance[] = azureInstances.map(
   ({ name, cpu, memory, instanceStorage, maxDisks }) => {
     return {
       name,
