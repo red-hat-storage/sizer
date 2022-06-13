@@ -31,7 +31,7 @@ const NodeResults: React.FC<NodeResultsProps> = ({ node }) => {
     <div className="node-item left-margined">
       <div>
         This node has {totalCPU} / {node.cpuUnits} used CPU units, {totalMem} /{" "}
-        {node.memory} used GB of memory and {totalDisks} / {node.maxDisks}{" "}
+        {node.memory} used GB of memory and {totalDisks} / {node.maxDisks || 24}{" "}
         disks.
       </div>
       <div>
@@ -58,7 +58,7 @@ export const ReplicaSetResults: React.FC<ReplicaSetResultsProps> = ({
         <React.Fragment key={i}>
           <div>
             <Title headingLevel="h5" size={TitleSizes.lg}>
-              Node {(i + 1).toFixed(0)}
+              Node {(i + 1).toFixed(0)} ({node.instanceName})
             </Title>
           </div>
           <NodeResults key={i} node={node} />

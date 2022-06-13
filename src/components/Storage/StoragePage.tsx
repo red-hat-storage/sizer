@@ -63,9 +63,13 @@ const StoragePage: React.FC = () => {
   }));
   const dispatch = useDispatch();
 
-  const [useDedicated, setDedicated] = React.useState(false);
+  const [useDedicated, setDedicated] = React.useState(() =>
+    machineSet.find((ms) => ms.onlyFor.includes("ODF")) ? true : false
+  );
 
-  const [dedicatedMSName, setDedicatedMSName] = React.useState(null);
+  const [dedicatedMSName, setDedicatedMSName] = React.useState(
+    () => machineSet.find((ms) => ms.onlyFor.includes("ODF"))?.name ?? null
+  );
 
   const totalStorage = React.useMemo(
     () =>

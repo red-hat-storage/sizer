@@ -144,7 +144,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
         cpu: !isCloudPlatform ? cpu : (instance?.cpuUnits as number),
         memory: !isCloudPlatform ? memory : (instance?.memory as number),
         instanceName: isCloudPlatform ? (instance?.name as string) : "",
-        numberOfDisks: 24,
+        numberOfDisks: instance.maxDisks,
         onlyFor: isStoragePage
           ? ["ODF"]
           : selectedWorkloads.map((workload) => workload.name),
@@ -205,7 +205,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
 
   const shouldDisableCreation =
     (msNameValidation === "error" && !isStoragePage) ||
-    (isCloudPlatform ? !!selectedInstance : cpu === 0 || memory === 0);
+    (isCloudPlatform ? !selectedInstance : cpu === 0 || memory === 0);
 
   return (
     <Modal

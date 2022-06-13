@@ -34,7 +34,8 @@ export const canNodeSupportRequirements = (
   node: Node
 ): boolean =>
   requirements.totalCPU + currentUsage.totalCPU > node.cpuUnits ||
-  requirements.totalMem + currentUsage.totalMem > node.memory
+  requirements.totalMem + currentUsage.totalMem > node.memory ||
+  requirements.totalDisks + currentUsage.totalDisks > node.maxDisks
     ? false
     : true;
 

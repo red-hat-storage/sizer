@@ -39,7 +39,9 @@ const NodeItem: React.FC<NodeItemProps> = ({ node, title }) => {
           {title}
         </Title>
       </CardHeaderMain>
-      <CardTitle id="instance-type">{instanceType}</CardTitle>
+      <CardTitle id="instance-type" className="card-container--alignCenter">
+        {instanceType}
+      </CardTitle>
       <CardBody className="card-container__disk-section">
         <DatabaseIcon color="#C9190B" width="3em" height="3em" />
         <Title className="card-container-disk-section__count" headingLevel="h3">

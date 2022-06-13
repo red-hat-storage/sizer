@@ -49,7 +49,6 @@ const InstancePlanning: React.FC<InstancePlanningProps> = ({
 
   const onSelected = (event, selection) => {
     if (selection === "create-option") {
-      console.log("Create Option");
       dispatch(openModalAction(CM_MODAL_ID));
     } else {
       setSelected(selection);

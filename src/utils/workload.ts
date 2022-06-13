@@ -133,7 +133,7 @@ export const isWorkloadSchedulable =
         usesMachines.includes(ms.name)
       );
       const canRun = preferredMS.filter((ms) =>
-        areServicesSchedulable(sortedServices[0], ms)
+        sortedServices.every((ser) => areServicesSchedulable(ser, ms))
       );
       if (canRun.length > 0) {
         return [true, canRun];
@@ -145,7 +145,7 @@ export const isWorkloadSchedulable =
     );
     if (dedicatedMS.length > 0) {
       const canRun = dedicatedMS.filter((ms) =>
-        areServicesSchedulable(sortedServices[0], ms)
+        sortedServices.every((ser) => areServicesSchedulable(ser, ms))
       );
       if (canRun.length > 0) {
         return [true, canRun];
@@ -156,7 +156,7 @@ export const isWorkloadSchedulable =
     const canRun = machineSets.filter(
       (ms) =>
         (ms.onlyFor.length === 0 || ms.onlyFor.includes(workload.name)) &&
-        areServicesSchedulable(sortedServices[0], ms)
+        sortedServices.every((ser) => areServicesSchedulable(ser, ms))
     );
     if (canRun.length > 0) {
       return [true, canRun];
@@ -168,8 +168,13 @@ export const areServicesSchedulable = (
   services: Service[],
   machineSet: MachineSet
 ): boolean => {
-  const { totalMem, totalCPU } = getTotalResourceRequirement(services);
-  return totalMem <= machineSet.memory && totalCPU <= machineSet.cpu;
+  const { totalMem, totalCPU, totalDisks } =
+    getTotalResourceRequirement(services);
+  return (
+    totalMem <= machineSet.memory &&
+    totalCPU <= machineSet.cpu &&
+    totalDisks <= machineSet.numberOfDisks
+  );
 };
 
 export const getWorkloadServices = (

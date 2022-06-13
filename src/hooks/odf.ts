@@ -7,6 +7,7 @@ import {
 } from "../utils/workload";
 import { addMachineSet, addServices, addWorkload, Store } from "../redux";
 import { defaultODFInstances } from "../cloudInstance";
+import { ODF_DEDICATED_MS_NAME } from "../constants";
 
 // [isODFPresent, createODFWorkload]
 type UseODFPresent = () => [boolean, () => void];
@@ -43,17 +44,27 @@ export const useODFPresent: UseODFPresent = () => {
       const instance = defaultODFInstances[platform];
       dispatch(
         addMachineSet({
-          name: "odf-default",
+          name: ODF_DEDICATED_MS_NAME,
           cpu: instance.cpuUnits,
           memory: instance.memory,
           instanceName: instance.name,
-          numberOfDisks: instance.instanceStorage,
+          numberOfDisks: instance.maxDisks,
+          instanceStorage: instance.instanceStorage,
           onlyFor: ["ODF"],
           label: "odf-default",
         })
       );
     }
-  }, [ocs.usableCapacity, ocs.flashSize, ocs.deploymentType, ocs.dedicatedMachines, dispatch, allServices, machineSets, platform]);
+  }, [
+    ocs.usableCapacity,
+    ocs.flashSize,
+    ocs.deploymentType,
+    ocs.dedicatedMachines,
+    dispatch,
+    allServices,
+    machineSets,
+    platform,
+  ]);
   return [isODFPresent, createODFWorkload];
 };
 
