@@ -29,7 +29,7 @@ import {
   store,
   Store,
 } from "../../redux";
-import { GH_TOKEN } from "../../constants";
+import { GH_TOKEN, ODF_WORKLOAD_NAME } from "../../constants";
 import { getLink } from "./util";
 import { workloadScheduler } from "../../scheduler/workloadScheduler";
 import {
@@ -241,7 +241,9 @@ const ResultsPage: React.FC = () => {
     );
 
     // Remove existing ODF Workload if already present
-    const oldWorkload = workloads.find((wl) => wl.name.includes("ODF"));
+    const oldWorkload = workloads.find((wl) =>
+      wl.name.includes(ODF_WORKLOAD_NAME)
+    );
     if (oldWorkload) {
       removeWorkloadSafely(dispatch)(oldWorkload, services);
     }

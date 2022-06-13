@@ -42,7 +42,7 @@ import {
 } from "../../analytics";
 import InstancePlanning from "./InstancePlanning";
 import MachineSetCreate from "../Compute/MachineSetCreate";
-import { ODF_DEDICATED_MS_NAME } from "../../constants";
+import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../../constants";
 import * as _ from "lodash";
 
 const StoragePage: React.FC = () => {
@@ -64,11 +64,15 @@ const StoragePage: React.FC = () => {
   const dispatch = useDispatch();
 
   const [useDedicated, setDedicated] = React.useState(() =>
-    machineSet.find((ms) => ms.onlyFor.includes("ODF")) ? true : false
+    machineSet.find((ms) => ms.onlyFor.includes(ODF_WORKLOAD_NAME))
+      ? true
+      : false
   );
 
   const [dedicatedMSName, setDedicatedMSName] = React.useState(
-    () => machineSet.find((ms) => ms.onlyFor.includes("ODF"))?.name ?? null
+    () =>
+      machineSet.find((ms) => ms.onlyFor.includes(ODF_WORKLOAD_NAME))?.name ??
+      null
   );
 
   const totalStorage = React.useMemo(
@@ -110,7 +114,9 @@ const StoragePage: React.FC = () => {
     );
 
     // Remove existing ODF Workload if already present
-    const oldWorkload = workloads.find((wl) => wl.name.includes("ODF"));
+    const oldWorkload = workloads.find((wl) =>
+      wl.name.includes(ODF_WORKLOAD_NAME)
+    );
     if (oldWorkload) {
       removeWorkloadSafely(dispatch)(oldWorkload, existingServices);
     }

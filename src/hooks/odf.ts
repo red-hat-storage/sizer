@@ -7,7 +7,7 @@ import {
 } from "../utils/workload";
 import { addMachineSet, addServices, addWorkload, Store } from "../redux";
 import { defaultODFInstances } from "../cloudInstance";
-import { ODF_DEDICATED_MS_NAME } from "../constants";
+import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../constants";
 
 // [isODFPresent, createODFWorkload]
 type UseODFPresent = () => [boolean, () => void];
@@ -23,7 +23,9 @@ export const useODFPresent: UseODFPresent = () => {
   );
   const ocs = useSelector((store: Store) => store.ocs);
   const dispatch = useDispatch();
-  const isODFPresent = !!workloads.find((workload) => workload.name === "ODF");
+  const isODFPresent = !!workloads.find(
+    (workload) => workload.name === ODF_WORKLOAD_NAME
+  );
   const createODFWorkload = React.useCallback(() => {
     const odfWorkload = getODFWorkload(
       ocs.usableCapacity,
@@ -50,8 +52,8 @@ export const useODFPresent: UseODFPresent = () => {
           instanceName: instance.name,
           numberOfDisks: instance.maxDisks,
           instanceStorage: instance.instanceStorage,
-          onlyFor: ["ODF"],
-          label: "odf-default",
+          onlyFor: [ODF_WORKLOAD_NAME],
+          label: ODF_DEDICATED_MS_NAME,
         })
       );
     }
@@ -78,7 +80,9 @@ export const useStorageDetails: UseStorageDetails = () => {
   }));
 
   const [isODFPresent, totalStorageRequested] = React.useMemo(() => {
-    const isODFPresent = !!workloads.find((wl) => wl.name.includes("ODF"));
+    const isODFPresent = !!workloads.find((wl) =>
+      wl.name.includes(ODF_WORKLOAD_NAME)
+    );
 
     const totalStorageRequested = workloads.reduce(
       (acc, curr) => (acc += (curr.storageCapacityRequired || 0) / 1000),

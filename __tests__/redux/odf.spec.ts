@@ -11,6 +11,7 @@ import { store as mainStore } from "../../src/redux/store";
 import { workloadScheduler } from "../../src/scheduler/workloadScheduler";
 import { getWorkloadFromDescriptors } from "../../src/utils/workload";
 import { DeploymentType } from "../../src/types";
+import { ODF_WORKLOAD_NAME } from "../../src/constants";
 
 const { services: odfServices, workload: odfWorkload } =
   getWorkloadFromDescriptors(
@@ -54,7 +55,7 @@ describe("Test ODF schedule", () => {
       memory: 512,
       instanceName: "m5.4xlarge",
       numberOfDisks: 2,
-      onlyFor: ["ODF"],
+      onlyFor: [ODF_WORKLOAD_NAME],
       label: "worker-us",
     };
     dispatch(addMachineSet(machineSet));

@@ -29,7 +29,7 @@ import {
   MS_CREATE,
   useGetAnalyticClientID,
 } from "../../analytics";
-import { ODF_DEDICATED_MS_NAME } from "../../constants";
+import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../../constants";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";
 
@@ -146,7 +146,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
         instanceName: isCloudPlatform ? (instance?.name as string) : "",
         numberOfDisks: instance.maxDisks,
         onlyFor: isStoragePage
-          ? ["ODF"]
+          ? [ODF_WORKLOAD_NAME]
           : selectedWorkloads.map((workload) => workload.name),
         label: "Worker Node",
         instanceStorage: instance?.instanceStorage,

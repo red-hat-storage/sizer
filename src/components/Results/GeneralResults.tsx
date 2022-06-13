@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Store } from "../../redux";
 import { getTotalResourceRequirement } from "../../utils/common";
 import CapacityChart from "../Generic/Capacity";
+import { ODF_WORKLOAD_NAME } from "../../constants";
 
 type GeneralResultsProps = {
   isODFPresent: boolean;
@@ -31,7 +32,7 @@ const GeneralResults: React.FC<GeneralResultsProps> = ({ isODFPresent }) => {
   }, 0);
 
   const odfWorkload = isODFPresent
-    ? workload.find((wl) => wl.name === "ODF")
+    ? workload.find((wl) => wl.name === ODF_WORKLOAD_NAME)
     : null;
 
   const odfServices = isODFPresent

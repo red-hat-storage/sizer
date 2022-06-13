@@ -1,3 +1,4 @@
+import { ODF_WORKLOAD_NAME } from "../constants";
 import { WorkloadDescriptor, DeploymentType } from "../types";
 
 export const getODFWorkload = (
@@ -11,13 +12,12 @@ export const getODFWorkload = (
   nvmeTuning = false
 ): WorkloadDescriptor => {
   const odfWorkload: WorkloadDescriptor = {
-    name: "ODF",
+    name: ODF_WORKLOAD_NAME,
     services: [],
     storageCapacityRequired: 0,
     usesMachines: dedicatedMachineSets,
     count: 1,
   };
-  // new Workload("ODF", [], 0, 1, dedicatedMachineSets);
   odfWorkload.services.push({
     name: "Ceph_MGR",
     requiredCPU: 1,
