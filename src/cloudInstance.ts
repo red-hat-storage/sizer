@@ -56,7 +56,6 @@ const parseAWSInstanceStorage = (
   return { maxDisks, instanceStorage, storageType };
 };
 
-console.log(awsInstances);
 const AWSInstances: Instance[] = awsInstances?.map((instance) => {
   const { maxDisks, instanceStorage, storageType } = parseAWSInstanceStorage(
     instance.instanceStorage as string | [number, number, string]
@@ -98,16 +97,15 @@ const GCPInstances: Instance[] = gcpInstances.map((instance) => {
   };
 });
 
-// The JSON file has data in MB
-const parseAzureMemory = (memory: number) => memory / 1024;
+const toTB = (memory: number) => memory / 1024;
 
 const AzureInstances: Instance[] = azureInstances.map<Instance>(
   ({ name, cpu, memory, instanceStorage, maxDisks }) => {
     return {
       name,
       cpuUnits: cpu,
-      memory: parseAzureMemory(memory),
-      instanceStorage,
+      memory: toTB(memory),
+      instanceStorage: toTB(instanceStorage),
       maxDisks,
     };
   }

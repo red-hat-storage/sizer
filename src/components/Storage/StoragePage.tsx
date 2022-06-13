@@ -170,7 +170,8 @@ const StoragePage: React.FC = () => {
         >
           As there is no dedicated machineSet for ODF workload. The scheduler
           will look for a MachineSet that can either support ODF or will create
-          a recommended MachineSet for the current Platform.
+          a recommended MachineSet for the current Platform (
+          {defaultODFInstances[platform].name}).
         </Alert>
       )}
       <Split>
