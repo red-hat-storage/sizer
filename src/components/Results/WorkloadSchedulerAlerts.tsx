@@ -4,6 +4,7 @@ import { Workload } from "../../types";
 import { removeWorkloadSafely } from "../../utils/workload";
 import { Alert, AlertActionLink } from "@patternfly/react-core";
 import * as React from "react";
+import "./workloadSchedulerAlerts.css";
 
 type UnschedulableWorkloadProps = {
   workload: Workload;
@@ -20,6 +21,7 @@ const UnschedulableWorkload: React.FC<UnschedulableWorkloadProps> = ({
   };
   return (
     <Alert
+      className="results-page__unschedulable-alert--padding"
       isInline
       variant="danger"
       title={`${workload.name} is not schedulable`}

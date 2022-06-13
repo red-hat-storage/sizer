@@ -106,20 +106,22 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
 
   const workloadOptions = React.useMemo(
     () =>
-      workloads.map((workload) => {
-        const { totalMem, totalCPU } = getWorkloadResourceConsumption(
-          workload,
-          services
-        );
-        const description = `${workload.name} Memory Used: ${totalMem} CPU Used: ${totalCPU}`;
-        return (
-          <SelectOption
-            value={workload.name}
-            description={description}
-            key={workload.name}
-          />
-        );
-      }),
+      workloads
+        .filter((workload) => !workload?.duplicateOf)
+        .map((workload) => {
+          const { totalMem, totalCPU } = getWorkloadResourceConsumption(
+            workload,
+            services
+          );
+          const description = `${workload.name} Memory Used: ${totalMem} CPU Used: ${totalCPU}`;
+          return (
+            <SelectOption
+              value={workload.name}
+              description={description}
+              key={workload.name}
+            />
+          );
+        }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [JSON.stringify(workloads)]
   );
@@ -163,18 +165,17 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
     onClose();
   };
 
-  const onSelect = (dropdown: string) => (
-    event?: React.SyntheticEvent<HTMLDivElement>
-  ) => {
-    const amount = Number(event?.currentTarget?.id);
-    if (dropdown === "NodeCPU") {
-      setCPU(amount);
-      setCpuOpen(false);
-    } else {
-      setMem(amount);
-      setMemOpen(false);
-    }
-  };
+  const onSelect =
+    (dropdown: string) => (event?: React.SyntheticEvent<HTMLDivElement>) => {
+      const amount = Number(event?.currentTarget?.id);
+      if (dropdown === "NodeCPU") {
+        setCPU(amount);
+        setCpuOpen(false);
+      } else {
+        setMem(amount);
+        setMemOpen(false);
+      }
+    };
 
   const onSelectWorkloads = (
     _event: React.MouseEvent | React.ChangeEvent,

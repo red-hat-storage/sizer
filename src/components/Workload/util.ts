@@ -1,7 +1,13 @@
 import * as _ from "lodash";
 import { WorkloadDescriptor } from "../../types";
 
-const workloadKeys = ["name", "count", "usesMachines", "services"];
+const workloadKeys = [
+  "name",
+  "count",
+  "usesMachines",
+  "services",
+  "storageCapacityRequired",
+];
 
 export const isValidWorkload = (workload: WorkloadDescriptor): boolean => {
   const candidateKeys = Object.keys(workload || {});

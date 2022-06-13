@@ -113,7 +113,14 @@ const ResultsPage: React.FC = () => {
         console.error("Error sending data to analytics service", err)
       );
     }
-  }, [allNodes.length, clientID, platform, totalStorage, usedStorage, workloads.length]);
+  }, [
+    allNodes.length,
+    clientID,
+    platform,
+    totalStorage,
+    usedStorage,
+    workloads.length,
+  ]);
 
   const [showAdvanced, setShowAdvanced] = React.useState(false);
   const [showExceptionModal, setShowExceptionModal] = React.useState(false);
@@ -347,9 +354,11 @@ const ResultsPage: React.FC = () => {
           )}
         </div>
         <div>
-          {unschedulableWorkloads.map((item) => (
-            <UnschedulableWorkload workload={item} key={item.id} />
-          ))}
+          {unschedulableWorkloads
+            .filter((item) => !item?.duplicateOf)
+            .map((item) => (
+              <UnschedulableWorkload workload={item} key={item.id} />
+            ))}
         </div>
         <div>
           {showOverProvisionWarning && (
