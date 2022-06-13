@@ -50,6 +50,8 @@ import {
   SHOW_ADVANCED,
   useGetAnalyticClientID,
 } from "../../analytics";
+import { getOCSData, getODFData, StorageClassMap } from "../../utils";
+import * as jsyaml from "js-yaml";
 
 const ResultsPage: React.FC = () => {
   const {
@@ -259,6 +261,33 @@ const ResultsPage: React.FC = () => {
     }
   };
 
+  const downloadCluster = () => {
+    const cluster = getOCSData(
+      StorageClassMap[platform],
+      String(ocsState.usableCapacity),
+      null,
+      false,
+      false,
+      null,
+      null,
+      false,
+      "",
+      false,
+      0,
+      false
+    );
+    const odfSystem = getODFData();
+    const clusterYaml = jsyaml.dump(cluster);
+    const odfYaml = jsyaml.dump(odfSystem);
+    const finalYaml = `${clusterYaml}\n-------------\n${odfYaml}`;
+    const link = document.createElement("a");
+    const dataStr =
+      "data:text/x-yaml;charset=utf-8," + encodeURIComponent(finalYaml);
+    link.setAttribute("href", dataStr);
+    link.setAttribute("download", "storagecluster.yaml");
+    link.click();
+  };
+
   return (
     <>
       {!isDownloadButtonVisible && <SkipToTop onClick={scroller} />}
@@ -328,12 +357,21 @@ const ResultsPage: React.FC = () => {
           >
             <Button
               className="button-normalizer"
+              id="sharing-link"
               isDisabled={allNodes.length === 0}
               onClick={pushSharingEvent}
             >
               Get Sharing Link
             </Button>
           </Popover>
+          {isODFPresent && (
+            <Button
+              onClick={() => downloadCluster()}
+              className="button-normalizer"
+            >
+              Download Storage Cluster YAML
+            </Button>
+          )}
         </div>
         <div>
           {!isODFPresent && (
