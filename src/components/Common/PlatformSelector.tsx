@@ -21,6 +21,7 @@ import {
   PLATFORM_CHANGE,
   useGetAnalyticClientID,
 } from "../../analytics";
+import "./platformSelector.css";
 
 const platformDropdownItems = [
   <DropdownItem key="BareMetal" id="BareMetal">

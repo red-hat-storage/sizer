@@ -3,14 +3,6 @@
   max-width: 1200px;
 }
 
-.planner-form__dropdown {
-  min-width: 15em;
-}
-
-.planner-form__dropdown > button {
-  width: 100%;
-}
-
 /* Required for labspace */
 .pf-c-number-input input {
   margin-bottom: 0px !important;
