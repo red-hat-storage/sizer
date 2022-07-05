@@ -43,8 +43,8 @@ count: 3
 # If this workload should always run on a particular set of machines
 usesMachines:
   - default
-# Storage that is used by this workload (Provisioned by ODF)
-storageCapacityRequired: 1000
+# Storage that is used by this workload in GB (Provisioned by ODF)
+storageCapacityRequired: 1024
 # A list of Services/Pods that make up this workload
 services:
   # A human friendly name for this Service
