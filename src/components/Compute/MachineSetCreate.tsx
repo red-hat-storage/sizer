@@ -144,7 +144,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
         cpu: !isCloudPlatform ? cpu : (instance?.cpuUnits as number),
         memory: !isCloudPlatform ? memory : (instance?.memory as number),
         instanceName: isCloudPlatform ? (instance?.name as string) : "",
-        numberOfDisks: instance.maxDisks,
+        numberOfDisks: isCloudPlatform ? instance.maxDisks : 24,
         onlyFor: isStoragePage
           ? [ODF_WORKLOAD_NAME]
           : selectedWorkloads.map((workload) => workload.name),
