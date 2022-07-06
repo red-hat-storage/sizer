@@ -13,6 +13,7 @@ type CreateCard = {
   onClick: () => void;
   Icon: React.ComponentType;
   className?: string;
+  id?: string;
 };
 
 const CreateCard: React.FC<CreateCard> = ({
@@ -20,6 +21,7 @@ const CreateCard: React.FC<CreateCard> = ({
   onClick,
   Icon,
   className,
+  id,
 }) => {
   return (
     <Card className={`${className} generic-card`}>
@@ -29,7 +31,7 @@ const CreateCard: React.FC<CreateCard> = ({
           <Title headingLevel="h4" size="lg">
             Create a new {type}
           </Title>
-          <Button variant="primary" onClick={onClick}>
+          <Button variant="primary" onClick={onClick} id={id}>
             Create {type}
           </Button>
         </EmptyState>

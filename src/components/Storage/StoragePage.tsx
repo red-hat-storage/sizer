@@ -211,7 +211,7 @@ const StoragePage: React.FC = () => {
             )}
             <DiskSize machine={dedicatedMS} />
             <ActionGroup>
-              <Button variant="primary" onClick={onClick}>
+              <Button variant="primary" onClick={onClick} id="create-odf">
                 Create
               </Button>
             </ActionGroup>

@@ -5,6 +5,13 @@ import { Dispatch } from "@reduxjs/toolkit";
 
 type GetSizeTour = (dispatch: Dispatch) => Shepherd.Tour;
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const doesElementExist = (element) =>
+  document.querySelector(`${element}`) !== null;
+
+const generateTabId = (id: string, key: number) => `#pf-tab-${key}-${id}`;
+
 export const getSizerTour: GetSizeTour = (dispatch) => {
   const tour = new Shepherd.Tour({
     defaultStepOptions: {
@@ -43,46 +50,11 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       ],
     },
     {
-      title: "Sharing",
-      text: "You can share your configuration by copying the URL above. It will auto-update when you change anything.",
-      buttons: [
-        {
-          text: "Skip Tour",
-          action: tour.cancel,
-        },
-        {
-          text: "Next",
-          action: tour.next,
-        },
-      ],
-    },
-    {
-      text: "Chose your Platform here. Note that some Platforms are in tech-preview",
+      title: "The layout",
+      text: "ODF sizer has four tabs. These four tabs are Workloads, Storage, Compute and Results",
       attachTo: {
-        element: "#dropdown-platform",
-        on: "top",
-      },
-      buttons: [
-        {
-          text: "Skip Tour",
-          action: tour.cancel,
-        },
-        {
-          text: "Next",
-          action: tour.next,
-        },
-      ],
-      when: {
-        show: () => {
-          dispatch(setTab(0));
-        },
-      },
-    },
-    {
-      text: "Some platforms allow you to specify the CPU and Memory characteristics of your nodes. Select your node's CPU units here. Be aware that core count and CPU unit count can differ.",
-      attachTo: {
-        element: "#cpu-dropdown",
-        on: "top",
+        element: ".pf-c-tabs",
+        on: "bottom",
       },
       buttons: [
         {
@@ -96,10 +68,35 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       ],
     },
     {
-      text: "Select your node's amount of memory here",
+      title: "Workloads",
+      text: "This page allows you to create workloads to simulate on this OCP cluster.",
       attachTo: {
-        element: "#memory-dropdown",
+        element: generateTabId("workloads-tab", 0),
+        on: "bottom",
+      },
+      buttons: [
+        {
+          text: "Skip Tour",
+          action: tour.cancel,
+        },
+        {
+          text: "Next",
+          action: tour.next,
+        },
+      ],
+    },
+    {
+      title: "Storage",
+      text: "This page allows you to create an ODF storage cluster.",
+      attachTo: {
+        element: generateTabId("storage-tab", 1),
         on: "top",
+      },
+      beforeShowPromise: async () => {
+        dispatch(setTab(1));
+        while (!doesElementExist("#create-odf")) {
+          await sleep(100);
+        }
       },
       buttons: [
         {
@@ -147,6 +144,14 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       ],
     },
     {
+      beforeShowPromise: async () => {
+        dispatch(setTab(3));
+        // Set State to make the cluster out of regular support size
+        dispatch(setFlashSize(6));
+        while (!doesElementExist("#support-exception-modal")) {
+          await sleep(100);
+        }
+      },
       text: "When your configuration is out of the regular support limits, we will show a modal here",
       attachTo: {
         element: "#support-exception-modal",
@@ -163,23 +168,91 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
         },
       ],
       when: {
-        show: () => {
-          // Set State to make the cluster out of regular support size
-          dispatch(setFlashSize(6));
-          dispatch(setTab(1));
-        },
         hide: () => {
           // Revert it to original State
           dispatch(setFlashSize(2.5));
+          dispatch(setTab(1));
         },
       },
     },
     {
-      text: "Generic information on how we calculate the cluster will be visible here and auto-update when you change the input",
+      beforeShowPromise: async () => {
+        dispatch(setTab(2));
+        while (!doesElementExist("#create-ms")) {
+          await sleep(100);
+        }
+      },
+      title: "Compute",
+      text: "This page allows you to create MachineSets to simulate Nodes on this OCP cluster.",
       attachTo: {
-        element: "#results",
+        element: generateTabId("compute-tab", 2),
         on: "bottom",
       },
+      buttons: [
+        {
+          text: "Skip Tour",
+          action: tour.cancel,
+        },
+        {
+          text: "Next",
+          action: tour.next,
+        },
+      ],
+    },
+    {
+      text: "Chose your Platform here. Note that some Platforms are in tech-preview",
+      attachTo: {
+        element: "#platform-selector",
+        on: "top",
+      },
+      buttons: [
+        {
+          text: "Skip Tour",
+          action: tour.cancel,
+        },
+        {
+          text: "Next",
+          action: tour.next,
+        },
+      ],
+    },
+    {
+      beforeShowPromise: async () => {
+        dispatch(setTab(3));
+        while (!doesElementExist("#sharing-link")) {
+          await sleep(100);
+        }
+      },
+      title: "Results",
+      attachTo: {
+        element: generateTabId("results-tab", 3),
+        on: "bottom",
+      },
+      text: "Generic information on how we calculate the cluster will be visible here and auto-update when you change the state",
+      buttons: [
+        {
+          text: "Skip Tour",
+          action: tour.cancel,
+        },
+        {
+          text: "Next",
+          action: tour.next,
+        },
+      ],
+    },
+    {
+      beforeShowPromise: async () => {
+        dispatch(setTab(3));
+        while (!doesElementExist("#sharing-link")) {
+          await sleep(100);
+        }
+      },
+      title: "Sharing",
+      attachTo: {
+        element: "#sharing-link",
+        on: "top",
+      },
+      text: "You can click on this button to generate the sharing link for your configuration.",
       buttons: [
         {
           text: "Skip Tour",

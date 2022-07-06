@@ -15,6 +15,7 @@ import {
   setDeploymentType,
   setDedicatedMachines,
   setPlatform,
+  setTourActive,
 } from "../redux";
 import "./sizer.css";
 import "./shepherd.css";
@@ -24,6 +25,8 @@ import { MinimalState } from "../types";
 import useAnalytics from "../analytics/analytics";
 import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
 import ErrorBoundary from "../utils/ErrorBoundary";
+import { getSizerTour } from "./Tour/Tour";
+import * as Cookies from "js-cookie";
 
 const LazyResultsPage = React.lazy(() => import("./Results/ResultsPage"));
 const LazyComputePage = React.lazy(() => import("./Compute/ComputePage"));
@@ -112,7 +115,7 @@ export const Sizer_: React.FC = () => {
     prevState.current = coreState;
   }, [coreState]);
 
-  /*   React.useEffect(() => {
+  React.useEffect(() => {
     const tour = getSizerTour(dispatch);
     if (!Cookies.get("SkipTour") && !window.location.search.includes("faq")) {
       dispatch(setTourActive(true));
@@ -121,7 +124,6 @@ export const Sizer_: React.FC = () => {
       dispatch(setTourActive(false));
     }
   }, []);
- */
 
   const HeaderComponent =
     process.env.DEPLOYMENT_MODE !== "lab" ? (
@@ -162,6 +164,7 @@ export const Sizer_: React.FC = () => {
                   <Tab
                     eventKey={0}
                     title={<TabTitleText>Workloads</TabTitleText>}
+                    id="workloads-tab"
                   >
                     <React.Suspense
                       fallback={<Spinner isSVG aria-label="Basic Spinner" />}
@@ -173,6 +176,7 @@ export const Sizer_: React.FC = () => {
                     className="sizer-section"
                     eventKey={1}
                     title={<TabTitleText>Storage</TabTitleText>}
+                    id="storage-tab"
                   >
                     <React.Suspense
                       fallback={<Spinner isSVG aria-label="Basic Spinner" />}
@@ -183,6 +187,7 @@ export const Sizer_: React.FC = () => {
                   <Tab
                     eventKey={2}
                     title={<TabTitleText>Compute</TabTitleText>}
+                    id="compute-tab"
                   >
                     <React.Suspense
                       fallback={<Spinner isSVG aria-label="Basic Spinner" />}
@@ -193,6 +198,7 @@ export const Sizer_: React.FC = () => {
                   <Tab
                     eventKey={3}
                     title={<TabTitleText>Results</TabTitleText>}
+                    id="results-tab"
                   >
                     <React.Suspense
                       fallback={<Spinner isSVG aria-label="Basic Spinner" />}

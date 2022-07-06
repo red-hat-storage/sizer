@@ -48,6 +48,7 @@ const Compute: React.FC = () => {
             onClick={openCreateModal}
             Icon={ServerIcon}
             type="MachineSet"
+            id="create-ms"
           />
         </GridItem>
         {machines.map((machine) => (
