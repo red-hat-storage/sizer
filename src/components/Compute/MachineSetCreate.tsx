@@ -30,6 +30,7 @@ import {
   useGetAnalyticClientID,
 } from "../../analytics";
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../../constants";
+import { getRandomName } from "./RandomComputeName";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";
 
@@ -143,7 +144,9 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
         name: isStoragePage ? ODF_DEDICATED_MS_NAME : name,
         cpu: !isCloudPlatform ? cpu : (instance?.cpuUnits as number),
         memory: !isCloudPlatform ? memory : (instance?.memory as number),
-        instanceName: isCloudPlatform ? (instance?.name as string) : "",
+        instanceName: isCloudPlatform
+          ? (instance?.name as string)
+          : getRandomName(),
         numberOfDisks: isCloudPlatform ? instance.maxDisks : 24,
         onlyFor: isStoragePage
           ? [ODF_WORKLOAD_NAME]

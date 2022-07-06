@@ -5,6 +5,7 @@ import { removeMachineSet } from "../../redux";
 import { Card, CardItem } from "../Generic/CardItem";
 import { launchModal } from "../Modals/Modals";
 import MachineSetEditModal from "./MachineSetEdit";
+import * as _ from "lodash";
 
 type MachineSetCardProps = {
   machineSet: MachineSet;
@@ -34,7 +35,9 @@ const MachineSetCard: React.FC<MachineSetCardProps> = ({
       >
         <CardItem title="CPU" value={cpu} />
         <CardItem title="Memory" value={memory} />
-        <CardItem title="Instance" value={instanceName} />
+        {!_.isEmpty(instanceName) && (
+          <CardItem title="Instance" value={instanceName} />
+        )}
         <CardItem title="Number of Disks" value={numberOfDisks} />
         {onlyFor.length > 0 && (
           <CardItem title="Only For (Workloads)" value={onlyFor.join(", ")} />
