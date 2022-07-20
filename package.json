@@ -1,5 +1,5 @@
 {
-  "name": "ocs-solver",
+  "name": "odf-solver",
   "version": "1.0.0",
   "description": "A web application used for estimating and understanding ODF deployments.",
   "scripts": {
