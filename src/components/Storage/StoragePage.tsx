@@ -147,8 +147,10 @@ const StoragePage: React.FC = () => {
       const selectedMS = machineSet.find((ms) => ms.name === dedicatedMSName);
       workload.usesMachines = [selectedMS.name];
       if (selectedMS.onlyFor.length === 0) {
-        selectedMS.onlyFor = [odfWorkload.name];
-        dispatch(updateMachineSet(selectedMS));
+        const updatedSelectedMS = Object.assign(_.cloneDeep(selectedMS), {
+          onlyFor: [odfWorkload.name],
+        });
+        dispatch(updateMachineSet(updatedSelectedMS));
       }
     }
     dispatch(addServices(services));
@@ -168,6 +170,8 @@ const StoragePage: React.FC = () => {
   };
 
   const needsMachineSet = _.isEmpty(dedicatedMSName);
+
+  const disableCreation = useDedicated && !dedicatedMSName;
 
   return (
     <div className="page--margin">
@@ -211,7 +215,12 @@ const StoragePage: React.FC = () => {
             )}
             <DiskSize machine={dedicatedMS} />
             <ActionGroup>
-              <Button variant="primary" onClick={onClick} id="create-odf">
+              <Button
+                variant="primary"
+                onClick={onClick}
+                id="create-odf"
+                isDisabled={disableCreation}
+              >
                 Create
               </Button>
             </ActionGroup>

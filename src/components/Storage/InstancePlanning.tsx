@@ -27,7 +27,9 @@ const InstancePlanning: React.FC<InstancePlanningProps> = ({
 }) => {
   const machineSets = useSelector((store: Store) => store.machineSet);
   const undedicatedMachineSets = machineSets.filter(
-    (ms) => ms.onlyFor.length === 0 || ms.onlyFor?.[0] === ODF_DEDICATED_MS_NAME
+    (ms) =>
+      (ms.onlyFor.length === 0 || ms.onlyFor?.[0] === ODF_DEDICATED_MS_NAME) &&
+      ms.name !== "default"
   );
   const [isOpen, setOpen] = React.useState(false);
   const [selectedOption, setSelected] = React.useState(null);
@@ -57,8 +59,15 @@ const InstancePlanning: React.FC<InstancePlanningProps> = ({
     setOpen(false);
   };
 
+  const isValid = !!selectedOption;
+
   return (
-    <FormGroup fieldId="instance-selector" label="Machine Instance">
+    <FormGroup
+      fieldId="instance-selector"
+      label="Machine Instance"
+      helperTextInvalid="Please select a Machine to dedicated for ODF."
+      validated={isValid ? "default" : "error"}
+    >
       <Select
         className="storage-ms__instance-select"
         variant={SelectVariant.single}
