@@ -188,7 +188,7 @@ const StoragePage: React.FC = () => {
           {defaultODFInstances[platform].name}).
         </Alert>
       )}
-      <Split>
+      <Split className="storage-page__config">
         <SplitItem>
           <Title headingLevel="h1">Configure ODF Storage</Title>
           <TextContent>

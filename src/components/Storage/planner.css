@@ -7,3 +7,9 @@
 .pf-c-number-input input {
   margin-bottom: 0px !important;
 }
+
+@media (max-width: 425px) {
+  .storage-page__config {
+    flex-direction: column !important;
+  }
+}
