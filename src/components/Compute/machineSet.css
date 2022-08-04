@@ -1,0 +1,14 @@
+@media (max-width: 425px) {
+  .ms-modal {
+    width: 90vw !important;
+  }
+}
+@media (min-width: 425px) and (max-width: 1024px) {
+  .ms-modal {
+    width: 70vw !important;
+  }
+}
+
+.ms-modal {
+  min-height: 50vh;
+}

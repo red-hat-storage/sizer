@@ -1,5 +1,5 @@
 .workload__Modal {
-  min-height: 450px;
+  min-height: 75vh;
 }
 
 .workload__dataList--center {
@@ -12,4 +12,38 @@
 
 .workload__checkbox {
   margin: 2em 0;
+}
+
+@media (max-width: 425px) {
+  .workload__dataList--center {
+    flex-direction: column !important;
+  }
+  .workload-datalist__row {
+    flex-direction: column !important;
+  }
+
+  .workload-create__search {
+    width: 100% !important;
+  }
+  .workload-create__search > ul {
+    width: 100% !important;
+  }
+
+  .workload-dataList__createButton {
+    width: 100%;
+    margin-right: 0 !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 425px) {
+  .workload__Modal {
+    width: 90vw !important;
+  }
+}
+@media (min-width: 425px) and (max-width: 1024px) {
+  .workload__Modal {
+    width: 70vw !important;
+  }
 }

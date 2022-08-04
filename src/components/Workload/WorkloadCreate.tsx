@@ -256,6 +256,7 @@ const WorkloadCreate: React.FC = () => {
             onClear={() => setMachines([])}
             selections={usesMachines.map((m) => m)}
             onSelect={onSelectMachines}
+            className="workload-create__search"
           >
             {machineOptions}
           </Select>
@@ -266,7 +267,7 @@ const WorkloadCreate: React.FC = () => {
           <DataList aria-label="Default Workloads">
             {defaultWorkloads.map((wl) => (
               <DataListItem key={wl.name}>
-                <DataListItemRow>
+                <DataListItemRow className="workload-datalist__row">
                   <DataListItemCells
                     dataListCells={[
                       <DataListCell
@@ -297,6 +298,7 @@ const WorkloadCreate: React.FC = () => {
                           defaultWorkloadsModifierMap[wl.name]
                         ).map(([modifierName, modifierObject]) => (
                           <Button
+                            className="workload-dataList__createButton"
                             key={`${wl.name}-workload-btn-${modifierName}`}
                             onClick={onCreate(
                               wl.name,
@@ -314,7 +316,7 @@ const WorkloadCreate: React.FC = () => {
               </DataListItem>
             ))}
             <DataListItem key="custom">
-              <DataListItemRow>
+              <DataListItemRow className="workload-datalist__row">
                 <DataListItemCells
                   dataListCells={[
                     <DataListCell
@@ -340,7 +342,12 @@ const WorkloadCreate: React.FC = () => {
                   id="modifiers"
                   className="workload__dataList--center"
                 >
-                  <Button onClick={() => setCustom(true)}>Create</Button>
+                  <Button
+                    onClick={() => setCustom(true)}
+                    className="workload-dataList__createButton"
+                  >
+                    Create
+                  </Button>
                 </DataListAction>
               </DataListItemRow>
             </DataListItem>

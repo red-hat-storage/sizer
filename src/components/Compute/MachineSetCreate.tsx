@@ -31,6 +31,7 @@ import {
 } from "../../analytics";
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../../constants";
 import { getRandomName } from "./RandomComputeName";
+import "./machineSet.css";
 
 export const CM_MODAL_ID = "CREATE_MASCHINE_SET";
 
@@ -212,6 +213,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
 
   return (
     <Modal
+      className="ms-modal"
       height="80vh"
       width="40vw"
       isOpen={CM_MODAL_ID === ui.openModal}

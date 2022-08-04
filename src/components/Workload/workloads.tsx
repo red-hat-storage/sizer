@@ -35,7 +35,14 @@ const WorkloadPage: React.FC = () => {
         </TextContent>
       </div>
       <Grid hasGutter>
-        <GridItem rowSpan={2} span={3}>
+        <GridItem
+          smRowSpan={12}
+          mdRowSpan={12}
+          lgRowSpan={3}
+          sm={12}
+          md={6}
+          lg={3}
+        >
           <CreateCard
             onClick={openCreateModal}
             Icon={ClusterIcon}
@@ -45,7 +52,15 @@ const WorkloadPage: React.FC = () => {
         {workloads
           .filter((wl) => wl.duplicateOf === undefined)
           .map((wl) => (
-            <GridItem key={`${wl.id}`} rowSpan={2} span={3}>
+            <GridItem
+              key={`${wl.id}`}
+              smRowSpan={12}
+              mdRowSpan={12}
+              lgRowSpan={3}
+              sm={12}
+              md={6}
+              lg={3}
+            >
               <WorkloadCard
                 workload={wl}
                 disableActions={disableActions(wl.name)}

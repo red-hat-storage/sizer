@@ -43,7 +43,14 @@ const Compute: React.FC = () => {
       </Form>
       <MachineSetCreate />
       <Grid hasGutter>
-        <GridItem rowSpan={2} span={3}>
+        <GridItem
+          smRowSpan={12}
+          mdRowSpan={12}
+          lgRowSpan={3}
+          sm={12}
+          md={6}
+          lg={3}
+        >
           <CreateCard
             onClick={openCreateModal}
             Icon={ServerIcon}
@@ -52,7 +59,15 @@ const Compute: React.FC = () => {
           />
         </GridItem>
         {machines.map((machine) => (
-          <GridItem rowSpan={2} span={3} key={`${machine.id}`}>
+          <GridItem
+            key={`${machine.id}`}
+            smRowSpan={12}
+            mdRowSpan={12}
+            lgRowSpan={3}
+            sm={12}
+            md={6}
+            lg={3}
+          >
             <MachineSetCard
               key={`${machine.id}`}
               machineSet={machine}

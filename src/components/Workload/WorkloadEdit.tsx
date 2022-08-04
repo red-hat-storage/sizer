@@ -190,7 +190,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
   const Header = () => (
     <Flex justifyContent={{ default: "justifyContentSpaceBetween" }}>
       <FlexItem>
-        <Title headingLevel="h1">Edit MachineSet</Title>
+        <Title headingLevel="h1">Edit Workload</Title>
       </FlexItem>
       {!advancedEditor && (
         <FlexItem>
@@ -208,6 +208,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
 
   return (
     <Modal
+      className="workload__Modal"
       height="80vh"
       width="40vw"
       isOpen={true}

@@ -85,6 +85,7 @@ const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
     <Modal
       height="80vh"
       width="40vw"
+      className="ms-modal"
       isOpen={true}
       onClose={() => closeModal()}
       title="Edit Machine Set"
@@ -101,7 +102,6 @@ const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
           Cancel
         </Button>,
       ]}
-      className="machineset-edit__modal"
     >
       <Form>
         <FormGroup label="Instance Type" fieldId="instance-type">
