@@ -12,3 +12,12 @@
 .ms-modal {
   min-height: 50vh;
 }
+
+.ms-create__form--cloud {
+  margin-bottom: 15em !important;
+}
+
+.ms-modal .pf-c-select__menu {
+  max-height: 30vh;
+  overflow: scroll;
+}

@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import cx from "classnames";
 import {
   Button,
   Dropdown,
@@ -230,7 +229,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
         </Button>,
       ]}
     >
-      <Form className={cx("compute-ms-create__form--cloud")}>
+      <Form className="ms-create__form--cloud">
         {!isStoragePage && (
           <FormGroup
             label="Machine Name"
