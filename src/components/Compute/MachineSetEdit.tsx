@@ -17,9 +17,10 @@ import {
   Button,
   SelectOptionObject,
 } from "@patternfly/react-core";
-import SelectionList from "./SelectList";
 import { platformInstanceMap } from "../../cloudInstance";
 import * as _ from "lodash";
+import { InstancePlanner } from "./Common";
+import { isCloudPlatform as affirmCloudPlatform } from "../../utils";
 
 type WorkloadEditModalProps = {
   machineSet: MachineSet;
@@ -43,6 +44,9 @@ const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
   const [selectedInstance, setInstance] = React.useState<string>(
     machineSet.instanceName
   );
+  const [cpu, setCPU] = React.useState(machineSet.cpu);
+  const [memory, setMem] = React.useState(machineSet.memory);
+  const isCloudPlatform = affirmCloudPlatform(platform);
 
   const workloadOptions = React.useMemo(
     () =>
@@ -70,10 +74,14 @@ const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
     const updateMS = Object.assign({}, machineSet, {
       onlyFor: dedicated,
       instanceName: selectedInstance,
-      cpu: instance.cpuUnits,
-      memory: instance.memory,
-      instanceStorage: instance.instanceStorage,
-      numberOfDisks: instance.maxDisks,
+      cpu: isCloudPlatform ? instance.cpuUnits : cpu,
+      memory: isCloudPlatform ? instance.memory : memory,
+      instanceStorage: isCloudPlatform
+        ? instance.instanceStorage
+        : machineSet.instanceStorage,
+      numberOfDisks: isCloudPlatform
+        ? instance.maxDisks
+        : machineSet.numberOfDisks,
     });
     dispatch(updateMachineSet(updateMS));
     dispatch(removeAllNodes());
@@ -104,15 +112,17 @@ const MachineSetEditModal: React.FC<WorkloadEditModalProps> = ({
       ]}
     >
       <Form>
-        <FormGroup label="Instance Type" fieldId="instance-type">
-          <SelectionList
-            selection={selectedInstance}
-            setInstance={setInstance}
-          />
-        </FormGroup>
+        <InstancePlanner
+          cpu={cpu}
+          setCPU={setCPU}
+          memory={memory}
+          setMemory={setMem}
+          instance={selectedInstance}
+          setInstance={setInstance}
+        />
         <FormGroup label="Dedicate to Workload" fieldId="dedicated-workloads">
           <Select
-            variant={SelectVariant.typeaheadMulti}
+            variant={SelectVariant.checkbox}
             isOpen={isOpen}
             onToggle={() => setOpen((o) => !o)}
             onClear={() => setDedicated([])}
