@@ -71,7 +71,7 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
 
   const disableDiskSize = isCloudPlatform(platform)
     ? machine?.instanceStorage !== 0 && _.isNumber(machine?.instanceStorage)
-    : true;
+    : false;
 
   React.useEffect(() => {
     if (
