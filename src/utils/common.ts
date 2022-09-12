@@ -40,4 +40,4 @@ export const canNodeSupportRequirements = (
     : true;
 
 export const isCloudPlatform = (platform: Platform): boolean =>
-  [Platform.AWS, Platform.AZURE, Platform.GCP].includes(platform);
+  [Platform.AWS, Platform.AZURE, Platform.GCP, Platform.IBM].includes(platform);

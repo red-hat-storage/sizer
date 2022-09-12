@@ -14,7 +14,7 @@ import {
 } from "@patternfly/react-core";
 import { useDispatch, useSelector } from "react-redux";
 import { addMachineSet, closeModal, Store } from "../../redux";
-import { Instance, Platform } from "../../types";
+import { Instance } from "../../types";
 import { platformInstanceMap } from "../../cloudInstance";
 import { Service, Workload } from "../../types";
 import { getWorkloadResourceConsumption } from "../../utils/workload";
@@ -26,6 +26,7 @@ import {
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../../constants";
 import { getRandomName } from "./RandomComputeName";
 import { InstancePlanner } from "./Common";
+import { isCloudPlatform as affirmCloudPlatform } from "../../utils";
 
 import "./machineSet.css";
 
@@ -85,9 +86,7 @@ const MachineSetCreate: React.FC<MachineSetCreateProps> = ({
     [JSON.stringify(workloads)]
   );
 
-  const isCloudPlatform = [Platform.AWS, Platform.AZURE, Platform.GCP].includes(
-    platform
-  );
+  const isCloudPlatform = affirmCloudPlatform(platform);
 
   const create = () => {
     const instance = _.find<Instance>(

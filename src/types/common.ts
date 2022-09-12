@@ -14,6 +14,7 @@ export const enum Platform {
   VMware = "VMware",
   RHV = "RHV",
   AWS = "AWS",
+  IBM = "IBM",
 }
 
 export const enum DeploymentType {

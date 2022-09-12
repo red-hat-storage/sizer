@@ -36,6 +36,9 @@ const platformDropdownItems = [
   <DropdownItem key="Azure" id="AZURE">
     Azure
   </DropdownItem>,
+  <DropdownItem key="IBM" id="IBM">
+    IBM
+  </DropdownItem>,
   <DropdownItem key="VMware" id="VMware">
     VMs in VMware
   </DropdownItem>,
