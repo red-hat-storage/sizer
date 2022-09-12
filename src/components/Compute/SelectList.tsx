@@ -20,17 +20,15 @@ type SelectionListProps = {
 };
 
 const getStorageDescription = (instance: Instance): string => {
-  let description: "";
+  let description = ", ";
   if (instance.instanceStorage && instance?.instanceStorage !== 0) {
-    description += `, Storage: ${getReadableMemory(instance.instanceStorage)}`;
+    description += `Storage: ${getReadableMemory(instance.instanceStorage)}, `;
   }
   if (instance.maxDisks) {
-    description += `(Disks: ${instance.maxDisks}`;
+    description += `Disks: ${instance.maxDisks}`;
   }
   if (instance.storageType) {
-    description += `, ${instance.storageType})`;
-  } else {
-    description += ")";
+    description += `(${instance.storageType})`;
   }
   return description;
 };

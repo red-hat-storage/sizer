@@ -98,7 +98,7 @@ const AzureInstances: Instance[] = azureInstances.map(
     return {
       name,
       cpuUnits: cpu,
-      memory: toTB(memory),
+      memory: memory,
       instanceStorage: toTB(instanceStorage),
       maxDisks,
     };

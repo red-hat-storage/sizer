@@ -1,5 +1,5 @@
 export const getReadableMemory = (value: number): string => {
-  const units = ["MB", "GB", "TB"];
+  const units = ["GB", "TB"];
 
   let unitIndex = 0;
   let scaledValue = value;

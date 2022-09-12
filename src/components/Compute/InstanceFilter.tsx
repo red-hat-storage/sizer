@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { platformInstanceMap } from "../../cloudInstance";
 import { Instance } from "../../types";
 import { Store } from "../../redux";
-import { Flex, FlexItem } from "@patternfly/react-core";
+import { FormGroup } from "@patternfly/react-core";
 import Slider from "@mui/material/Slider";
 import { getReadableMemory } from "../../utils";
+import "./instanceFilter.css";
 
 type InstanceFilterProps = {
   cpu: [number, number];
@@ -30,10 +31,11 @@ const InstanceFilter: React.FC<InstanceFilterProps> = ({
     return [_.uniq(memoryUnits), _.uniq(cpuUnits)];
   }, [platform]);
 
-  const maxMemory: number = _.max(memoryPoints);
-  const minMemory: number = _.min(memoryPoints);
+  const minMemory: number = _.min(memoryPoints) / 1024;
   const maxCPU: number = _.max(cpuPoints);
   const minCPU: number = _.min(cpuPoints);
+
+  const maxMemory = Math.log2(_.max(memoryPoints));
 
   const handleCPUChange = (
     event: Event,
@@ -63,7 +65,7 @@ const InstanceFilter: React.FC<InstanceFilterProps> = ({
     newValue: number | number[],
     activeThumb: number
   ) => {
-    const minDistance = 5;
+    const minDistance = 1;
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -71,48 +73,45 @@ const InstanceFilter: React.FC<InstanceFilterProps> = ({
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
         const clamped = Math.min(newValue[0], maxMemory - minDistance);
-        setMemory([clamped, clamped + minDistance]);
+        setMemory([2 ** clamped, 2 ** (clamped + minDistance)]);
       } else {
         const clamped = Math.max(newValue[1], minDistance);
-        setMemory([clamped - minDistance, clamped]);
+        setMemory([2 ** (clamped - minDistance), 2 ** clamped]);
       }
     } else {
-      setMemory(newValue as number[]);
+      setMemory([2 ** newValue[0], 2 ** newValue[1]]);
     }
   };
 
   return (
-    <div>
-      <div>Advanced filters: </div>
-      <Flex direction={{ default: "column" }} grow={{ default: "grow" }}>
-        <FlexItem>CPU</FlexItem>
-        <FlexItem>
-          <Slider
-            id="cpu"
-            value={cpu}
-            onChange={handleCPUChange}
-            valueLabelDisplay="auto"
-            disableSwap
-            min={minCPU}
-            max={maxCPU}
-          />
-        </FlexItem>
-      </Flex>
-      <Flex direction={{ default: "column" }} grow={{ default: "grow" }}>
-        <FlexItem>Memory</FlexItem>
-        <FlexItem>
-          <Slider
-            value={memory}
-            onChange={handleMemoryChange}
-            valueLabelDisplay="auto"
-            disableSwap
-            min={minMemory}
-            max={maxMemory}
-            valueLabelFormat={getReadableMemory}
-          />
-        </FlexItem>
-      </Flex>
-    </div>
+    <>
+      <FormGroup label="CPU Filter" fieldId="cpu">
+        <Slider
+          classes={{ root: "slider-padding" }}
+          id="cpu"
+          value={cpu}
+          onChange={handleCPUChange}
+          valueLabelDisplay="on"
+          disableSwap
+          min={minCPU}
+          max={maxCPU}
+        />
+      </FormGroup>
+      <FormGroup label="Memory Filter" fieldId="memory">
+        <Slider
+          classes={{ root: "slider-padding" }}
+          id="memory"
+          value={[Math.log2(memory[0]), Math.log2(memory[1])]}
+          onChange={handleMemoryChange}
+          valueLabelDisplay="on"
+          disableSwap
+          min={minMemory}
+          max={maxMemory}
+          valueLabelFormat={getReadableMemory}
+          scale={(x) => 2 ** x}
+        />
+      </FormGroup>
+    </>
   );
 };
 
@@ -126,7 +125,7 @@ type UseInstanceFilter = () => [
 
 const useInstanceFilter: UseInstanceFilter = () => {
   const [cpu, setCPU] = React.useState<[number, number]>([0, 100]);
-  const [memory, setMemory] = React.useState<[number, number]>([0, 100 ** 2]);
+  const [memory, setMemory] = React.useState<[number, number]>([0, 500]);
 
   const FilterComponent = (
     <InstanceFilter
