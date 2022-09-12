@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  Alert,
   Select,
   SelectOption,
   SelectOptionObject,
@@ -10,6 +11,7 @@ import { useSelector } from "react-redux";
 import { Store } from "../../redux";
 import useInstanceFilter from "./InstanceFilter";
 import { platformInstanceMap } from "../../cloudInstance";
+import { getReadableMemory } from "../../utils";
 
 type SelectionListProps = {
   setInstance: any;
@@ -17,11 +19,27 @@ type SelectionListProps = {
   id?: string;
 };
 
-const getDescription = (instance: Instance): string => {
-  let description = `Memory: ${instance.memory}, CPU: ${instance.cpuUnits}`;
-  if (instance.instanceStorage && instance.instanceStorage !== 0) {
-    description += `, Storage: ${instance.instanceStorage}`;
+const getStorageDescription = (instance: Instance): string => {
+  let description: "";
+  if (instance.instanceStorage && instance?.instanceStorage !== 0) {
+    description += `, Storage: ${getReadableMemory(instance.instanceStorage)}`;
   }
+  if (instance.maxDisks) {
+    description += `(Disks: ${instance.maxDisks}`;
+  }
+  if (instance.storageType) {
+    description += `, ${instance.storageType})`;
+  } else {
+    description += ")";
+  }
+  return description;
+};
+
+const getDescription = (instance: Instance): string => {
+  let description = `Memory: ${getReadableMemory(instance.memory)}, CPU: ${
+    instance.cpuUnits
+  }`;
+  description += getStorageDescription(instance);
   return description;
 };
 
@@ -91,7 +109,11 @@ const SelectionList: React.FC<SelectionListProps> = ({
           ))}
         </Select>
       ) : (
-        <>No instances are present for the selected filters.</>
+        <Alert
+          isInline
+          title="No instances are present for the selected filters."
+          variant="warning"
+        />
       )}
     </>
   );

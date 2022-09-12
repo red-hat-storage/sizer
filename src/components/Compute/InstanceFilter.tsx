@@ -4,193 +4,111 @@ import { useSelector } from "react-redux";
 import { platformInstanceMap } from "../../cloudInstance";
 import { Instance } from "../../types";
 import { Store } from "../../redux";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownToggle,
-  Flex,
-  FlexItem,
-} from "@patternfly/react-core";
-import CaretDownIcon from "@patternfly/react-icons/dist/esm/icons/caret-down-icon";
+import { Flex, FlexItem } from "@patternfly/react-core";
+import Slider from "@mui/material/Slider";
+import { getReadableMemory } from "../../utils";
 
 type InstanceFilterProps = {
-  setMaxCPU: any;
-  maxCPU: number;
-  minCPU: number;
-  setMinCPU: any;
-  minMem: number;
-  setMinMem: any;
-  maxMem: number;
-  setMaxMem: any;
-};
-
-enum DropdownID {
-  MIN_CPU = "MIN_CPU",
-  MAX_CPU = "MAX_CPU",
-  MIN_MEM = "MIN_MEM",
-  MAX_MEM = "MAX_MEM",
-}
-
-const dropdownItemGenerator = (comparator, filter, items) => {
-  const viablePoints = comparator ? items.filter(filter) : items;
-  const sortedPoints = viablePoints.sort((a, b) => a - b);
-  return sortedPoints.map((item) => (
-    <DropdownItem key={item.toString()} id={item.toString()}>
-      {item.toString()}
-    </DropdownItem>
-  ));
+  cpu: [number, number];
+  setCPU: any;
+  memory: [number, number];
+  setMemory: any;
 };
 
 const InstanceFilter: React.FC<InstanceFilterProps> = ({
-  minCPU,
-  setMinCPU,
-  maxCPU,
-  setMaxCPU,
-  minMem,
-  setMinMem,
-  maxMem,
-  setMaxMem,
+  cpu,
+  setCPU,
+  memory,
+  setMemory,
 }) => {
-  const [isMinCPUOpen, setMinCPUOpen] = React.useState(false);
-  const [isMaxCPUOpen, setMaxCPUOpen] = React.useState(false);
-  const [isMinMemOpen, setMinMemOpen] = React.useState(false);
-  const [isMaxMemOpen, setMaxMemOpen] = React.useState(false);
-
   const platform = useSelector((store: Store) => store.cluster.platform);
 
-  const [memoryDropdownPoints, cpuUnitPoints] = React.useMemo(() => {
+  const [memoryPoints, cpuPoints] = React.useMemo(() => {
     const instanceMap: Instance[] = platformInstanceMap[platform];
     const memoryUnits = instanceMap.map((item) => item.memory);
     const cpuUnits = instanceMap.map((item) => item.cpuUnits);
     return [_.uniq(memoryUnits), _.uniq(cpuUnits)];
   }, [platform]);
 
-  const minimumMemoryDropdownItems = React.useMemo(() => {
-    return dropdownItemGenerator(
-      maxMem !== 0,
-      (item) => item < maxMem,
-      memoryDropdownPoints
-    );
-  }, [maxMem, memoryDropdownPoints]);
+  const maxMemory: number = _.max(memoryPoints);
+  const minMemory: number = _.min(memoryPoints);
+  const maxCPU: number = _.max(cpuPoints);
+  const minCPU: number = _.min(cpuPoints);
 
-  const maxMemoryDropdownItems = React.useMemo(() => {
-    return dropdownItemGenerator(
-      minMem > 0 || maxMem === 0,
-      (item) => item > minMem,
-      memoryDropdownPoints
-    );
-  }, [minMem, maxMem, memoryDropdownPoints]);
+  const handleCPUChange = (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number
+  ) => {
+    const minDistance = 5;
+    if (!Array.isArray(newValue)) {
+      return;
+    }
 
-  const minimumCPUDropdownItems = React.useMemo(() => {
-    return dropdownItemGenerator(
-      maxCPU !== 0,
-      (item) => item < maxCPU,
-      cpuUnitPoints
-    );
-  }, [maxCPU, cpuUnitPoints]);
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], maxCPU - minDistance);
+        setCPU([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setCPU([clamped - minDistance, clamped]);
+      }
+    } else {
+      setCPU(newValue as number[]);
+    }
+  };
 
-  const maxCPUDropdownItems = React.useMemo(() => {
-    return dropdownItemGenerator(
-      minCPU > 0 || maxCPU === 0,
-      (item) => item > minCPU,
-      cpuUnitPoints
-    );
-  }, [minCPU, maxCPU, cpuUnitPoints]);
+  const handleMemoryChange = (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number
+  ) => {
+    const minDistance = 5;
+    if (!Array.isArray(newValue)) {
+      return;
+    }
 
-  const onSelect = (dropdownID: DropdownID) => (event: React.FormEvent) => {
-    switch (dropdownID) {
-      case DropdownID.MAX_CPU:
-        setMaxCPU(Number(event.currentTarget.id));
-        setMaxCPUOpen(false);
-        break;
-
-      case DropdownID.MIN_CPU:
-        setMinCPU(Number(event.currentTarget.id));
-        setMinCPUOpen(false);
-        break;
-      case DropdownID.MIN_MEM:
-        setMinMem(Number(event.currentTarget.id));
-        setMinMemOpen(false);
-        break;
-      case DropdownID.MAX_MEM:
-        setMaxMem(Number(event.currentTarget.id));
-        setMaxMemOpen(false);
-        break;
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], maxMemory - minDistance);
+        setMemory([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setMemory([clamped - minDistance, clamped]);
+      }
+    } else {
+      setMemory(newValue as number[]);
     }
   };
 
   return (
     <div>
       <div>Advanced filters: </div>
-      <Flex>
+      <Flex direction={{ default: "column" }} grow={{ default: "grow" }}>
+        <FlexItem>CPU</FlexItem>
         <FlexItem>
-          Min. CPU:
-          <Dropdown
-            onSelect={onSelect(DropdownID.MIN_CPU)}
-            toggle={
-              <DropdownToggle
-                id="min-cpu-toggle"
-                onToggle={() => setMinCPUOpen((o) => !o)}
-                toggleIndicator={CaretDownIcon}
-              >
-                {minCPU ? minCPU.toString() : "Min. CPU"}
-              </DropdownToggle>
-            }
-            isOpen={isMinCPUOpen}
-            dropdownItems={minimumCPUDropdownItems}
-          />
-        </FlexItem>
-        <FlexItem>
-          Max. CPU:
-          <Dropdown
-            onSelect={onSelect(DropdownID.MAX_CPU)}
-            toggle={
-              <DropdownToggle
-                id="max-cpu-toggle"
-                onToggle={() => setMaxCPUOpen((o) => !o)}
-                toggleIndicator={CaretDownIcon}
-              >
-                {maxCPU || "Max. CPU"}
-              </DropdownToggle>
-            }
-            isOpen={isMaxCPUOpen}
-            dropdownItems={maxCPUDropdownItems}
+          <Slider
+            id="cpu"
+            value={cpu}
+            onChange={handleCPUChange}
+            valueLabelDisplay="auto"
+            disableSwap
+            min={minCPU}
+            max={maxCPU}
           />
         </FlexItem>
       </Flex>
-      <Flex>
+      <Flex direction={{ default: "column" }} grow={{ default: "grow" }}>
+        <FlexItem>Memory</FlexItem>
         <FlexItem>
-          Min. Memory:
-          <Dropdown
-            onSelect={onSelect(DropdownID.MIN_MEM)}
-            toggle={
-              <DropdownToggle
-                id="min-mem-toggle"
-                onToggle={() => setMinMemOpen((o) => !o)}
-                toggleIndicator={CaretDownIcon}
-              >
-                {minMem || "Min. Memory"}
-              </DropdownToggle>
-            }
-            isOpen={isMinMemOpen}
-            dropdownItems={minimumMemoryDropdownItems}
-          />
-        </FlexItem>
-        <FlexItem>
-          Max. Memory:
-          <Dropdown
-            onSelect={onSelect(DropdownID.MAX_MEM)}
-            toggle={
-              <DropdownToggle
-                id="max-max-toggle"
-                onToggle={() => setMaxMemOpen((o) => !o)}
-                toggleIndicator={CaretDownIcon}
-              >
-                {maxMem || "Max. Memory"}
-              </DropdownToggle>
-            }
-            isOpen={isMaxMemOpen}
-            dropdownItems={maxMemoryDropdownItems}
+          <Slider
+            value={memory}
+            onChange={handleMemoryChange}
+            valueLabelDisplay="auto"
+            disableSwap
+            min={minMemory}
+            max={maxMemory}
+            valueLabelFormat={getReadableMemory}
           />
         </FlexItem>
       </Flex>
@@ -207,25 +125,19 @@ type UseInstanceFilter = () => [
 ];
 
 const useInstanceFilter: UseInstanceFilter = () => {
-  const [maxCPU, setMaxCPU] = React.useState(0);
-  const [minCPU, setMinCPU] = React.useState(0);
-  const [minMem, setMinMem] = React.useState(0);
-  const [maxMem, setMaxMem] = React.useState(0);
+  const [cpu, setCPU] = React.useState<[number, number]>([0, 100]);
+  const [memory, setMemory] = React.useState<[number, number]>([0, 100 ** 2]);
 
   const FilterComponent = (
     <InstanceFilter
-      minCPU={minCPU}
-      setMinCPU={setMinCPU}
-      maxCPU={maxCPU}
-      setMaxCPU={setMaxCPU}
-      minMem={minMem}
-      setMinMem={setMinMem}
-      maxMem={maxMem}
-      setMaxMem={setMaxMem}
+      cpu={cpu}
+      setCPU={setCPU}
+      memory={memory}
+      setMemory={setMemory}
     />
   );
 
-  return [FilterComponent, minCPU, maxCPU, minMem, maxMem];
+  return [FilterComponent, cpu[0], cpu[1], memory[0], memory[1]];
 };
 
 export default useInstanceFilter;
