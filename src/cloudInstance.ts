@@ -91,15 +91,16 @@ const GCPInstances: Instance[] = gcpInstances.map((instance) => {
   };
 });
 
-const toTB = (memory: number) => memory / 1024;
+const toGB = (memory: number) => memory / 1024;
 
 const AzureInstances: Instance[] = azureInstances.map(
   ({ name, cpu, memory, instanceStorage, maxDisks }) => {
+    // JSON file has units in MB
     return {
       name,
       cpuUnits: cpu,
-      memory: memory,
-      instanceStorage: toTB(instanceStorage),
+      memory: toGB(memory),
+      instanceStorage: toGB(instanceStorage),
       maxDisks,
     };
   }
