@@ -36,9 +36,11 @@ const platformDropdownItems = [
   <DropdownItem key="Azure" id="AZURE">
     Azure
   </DropdownItem>,
-  <DropdownItem key="IBM" id="IBM">
-    {/* ROKS = RedHat OpenShift Kubernetes Service */}
-    IBM Cloud (ROKS)
+  <DropdownItem key="IBMC" id={Platform.IBMC}>
+    IBM Cloud ROKS(Classic)
+  </DropdownItem>,
+  <DropdownItem key="IBMV" id={Platform.IBMV}>
+    IBM Cloud ROKS(VPC)
   </DropdownItem>,
   <DropdownItem key="VMware" id="VMware">
     VMs in VMware

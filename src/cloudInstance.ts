@@ -6,14 +6,14 @@ const gcpInstances = require("../GCP.json");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const azureInstances = require("../AZURE.json");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ibmInstances = require("../IBM.json");
+const ibmClassicInstances = require("../IBM-classic.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const ibmVPCInstances = require("../IBM-vpc.json");
 import * as _ from "lodash";
 
-type CloudPlatForm =
-  | Platform.AWS
-  | Platform.AZURE
-  | Platform.GCP
-  | Platform.IBM;
+type IBM = Platform.IBMC | Platform.IBMV;
+
+type CloudPlatForm = Platform.AWS | Platform.AZURE | Platform.GCP | IBM;
 
 type PlatformInstanceMap = {
   [platform in CloudPlatForm]: Instance[];
@@ -35,10 +35,15 @@ const defaults = {
     ocpDefault: "Standard_D2_v3",
     controlPlane: "Standard_D8s_v3",
   },
-  [Platform.IBM]: {
+  [Platform.IBMC]: {
+    odfDefault: "b3c.16x64",
+    ocpDefault: "u3c.2x4",
+    controlPlane: "b3c.4x16",
+  },
+  [Platform.IBMV]: {
     odfDefault: "bx2.16x64",
     ocpDefault: "bx2.2x8",
-    controlPlane: "b3c.4x16",
+    controlPlane: "bx2.4x16",
   },
 };
 
@@ -120,7 +125,19 @@ const AzureInstances: Instance[] = azureInstances.map(
 const parseIBMUnits = (unitString: string): number =>
   Number(unitString.split("GB")[0]);
 
-const IBMInstances: Instance[] = ibmInstances
+const IBMClassicInstances: Instance[] = ibmClassicInstances
+  .filter(({ ocp_unsupported }) => !ocp_unsupported)
+  .map(({ name, memory, storage, cores }) => {
+    return {
+      name,
+      cpuUnits: Number(cores),
+      memory: parseIBMUnits(memory),
+      instanceStorage: parseIBMUnits(storage),
+      maxDisks: 24,
+    };
+  });
+
+const IBMVPCInstances: Instance[] = ibmVPCInstances
   .filter(({ ocp_unsupported }) => !ocp_unsupported)
   .map(({ name, memory, storage, cores }) => {
     return {
@@ -136,7 +153,8 @@ export const platformInstanceMap: PlatformInstanceMap = {
   [Platform.AWS]: AWSInstances,
   [Platform.AZURE]: AzureInstances,
   [Platform.GCP]: GCPInstances,
-  [Platform.IBM]: IBMInstances,
+  [Platform.IBMC]: IBMClassicInstances,
+  [Platform.IBMV]: IBMVPCInstances,
 };
 
 const isDefault = (platform: Platform) => (item: Instance) =>
@@ -152,8 +170,11 @@ export const defaultInstances: { [platform in Platform]: Instance } = (() => ({
   [Platform.GCP]: platformInstanceMap.GCP.find(
     isDefault(Platform.GCP)
   ) as Instance,
-  [Platform.IBM]: platformInstanceMap.IBM.find(
-    isDefault(Platform.IBM)
+  [Platform.IBMC]: platformInstanceMap[Platform.IBMC].find(
+    isDefault(Platform.IBMC)
+  ) as Instance,
+  [Platform.IBMV]: platformInstanceMap[Platform.IBMV].find(
+    isDefault(Platform.IBMV)
   ) as Instance,
   [Platform.VMware]: {
     cpuUnits: 40,
@@ -187,8 +208,11 @@ export const controlPlaneInstances: {
   [Platform.GCP]: platformInstanceMap.GCP.find(
     isControlPlane(Platform.GCP)
   ) as Instance,
-  [Platform.IBM]: platformInstanceMap.IBM.find(
-    isControlPlane(Platform.IBM)
+  [Platform.IBMC]: platformInstanceMap[Platform.IBMC].find(
+    isControlPlane(Platform.IBMC)
+  ) as Instance,
+  [Platform.IBMV]: platformInstanceMap[Platform.IBMV].find(
+    isControlPlane(Platform.IBMV)
   ) as Instance,
   [Platform.VMware]: {
     cpuUnits: 6,
@@ -222,8 +246,11 @@ export const defaultODFInstances: {
   [Platform.GCP]: platformInstanceMap.GCP.find(
     isODFInstance(Platform.GCP)
   ) as Instance,
-  [Platform.IBM]: platformInstanceMap.IBM.find(
-    isODFInstance(Platform.IBM)
+  [Platform.IBMC]: platformInstanceMap[Platform.IBMC].find(
+    isODFInstance(Platform.IBMC)
+  ) as Instance,
+  [Platform.IBMV]: platformInstanceMap[Platform.IBMV].find(
+    isODFInstance(Platform.IBMV)
   ) as Instance,
   [Platform.VMware]: {
     cpuUnits: 6,
