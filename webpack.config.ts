@@ -9,7 +9,7 @@ const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
-const deploymentMode = process.env.DEPLOYMENT_MODE || "lab";
+const deploymentMode = process.env.DEPLOYMENT_MODE || "";
 
 const Configuration: webpack.Configuration = {
   entry: ["./src/index.tsx"],
@@ -179,10 +179,12 @@ const Configuration: webpack.Configuration = {
     new ForkTsCheckerWebpackPlugin(),
     new HTMLWebpackPlugin({
       template:
-       
         __dirname +
-        (deploymentMode === "lab" ? "/lab-index.html" :
-        (deploymentMode === "lab" ? "/lab-index.html" : "/index.html")),
+        (deploymentMode === "lab"
+          ? "/lab-index.html"
+          : deploymentMode === "lab"
+          ? "/lab-index.html"
+          : "/index.html"),
       favicon: __dirname + "/assets/images/ocs-logo.png",
     }),
     new webpack.EnvironmentPlugin({
