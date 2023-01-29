@@ -1,0 +1,43 @@
+name: Push to Google bucket
+on:
+  push:
+    branches: [main, develop]
+
+env:
+  DOCKER_HOST: unix:///var/run/docker.sock
+  GCS_BUCKET: sizer.ocs.ninja
+  GCS_PROJECT: apt-quarter-272014
+  APK_CACHE_DIR: $CI_PROJECT_DIR/.cache/apk
+
+jobs:
+  push-to-google:
+    name: push-to-google
+    runs-on: ubuntu-latest
+    env:
+      BUILD_STEP: ${{ github.ref_name == 'main' && 'build-upstream' || 'betabuild-upstream' }}
+      DEST_BUCKET: ${{ github.ref_name == 'main' && 'sizer.ocs.ninja' || 'sizer.ocs.ninja/beta' }}
+    steps:
+      - id: build
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+      - run: npm ci --legacy-peer-deps
+      - run: npm run $BUILD_STEP
+      - id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: "${{ secrets.GCS_SA_KEY }}"
+      - id: push-js
+        uses: google-github-actions/upload-cloud-storage@v1
+        with:
+          path: ./build
+          destination: ${{ env.DEST_BUCKET }}
+          parent: false
+      - id: configure
+        uses: google-github-actions/setup-gcloud@v1
+      - name: Make files public
+        run: gsutil -m acl set -r "./gsutil-public.json" "gs://$DEST_BUCKET"
+      - name: Make RH files Internal
+        run: gsutil -m acl set -r "./gsutil-redhat.json" "gs://$GCS_BUCKET/**/redhat.js"
