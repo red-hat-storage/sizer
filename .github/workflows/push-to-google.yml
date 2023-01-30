@@ -24,7 +24,7 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
       - run: npm ci --legacy-peer-deps
-      - run: npm run $BUILD_STEP
+      - run: GH_TOKEN=${{ secrets.GIST_TOKEN }} npm run $BUILD_STEP
       - id: auth
         uses: google-github-actions/auth@v1
         with:
