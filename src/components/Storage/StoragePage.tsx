@@ -44,6 +44,7 @@ import InstancePlanning from "./InstancePlanning";
 import MachineSetCreate from "../Compute/MachineSetCreate";
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../../constants";
 import * as _ from "lodash";
+import { isCloudPlatform } from "../../utils";
 
 const StoragePage: React.FC = () => {
   const {
@@ -110,7 +111,9 @@ const StoragePage: React.FC = () => {
       ocsState.usableCapacity,
       ocsState.flashSize,
       ocsState.deploymentType,
-      ocsState.dedicatedMachines
+      ocsState.dedicatedMachines,
+      true,
+      !isCloudPlatform(platform) // Enables RGW only for UPI deployments
     );
 
     // Remove existing ODF Workload if already present

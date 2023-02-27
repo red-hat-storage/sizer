@@ -10,7 +10,7 @@ const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
 const deploymentMode = process.env.DEPLOYMENT_MODE || "";
-const GH_TOKEN = process.env.GH_TOKEN;
+const GH_TOKEN = process.env.GH_TOKEN || "";
 
 const Configuration: webpack.Configuration = {
   entry: ["./src/index.tsx"],
