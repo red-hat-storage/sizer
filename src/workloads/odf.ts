@@ -85,7 +85,7 @@ export const getODFWorkload = (
       name: "NooBaa_DB",
       requiredCPU: 0.5,
       requiredMemory: 4,
-      zones: 2,
+      zones: 1,
       runsWith: [],
       avoid: [],
     });
@@ -93,7 +93,7 @@ export const getODFWorkload = (
       name: "NooBaa_Endpoint",
       requiredCPU: 1,
       requiredMemory: 2,
-      zones: 2,
+      zones: 1,
       runsWith: [],
       avoid: [],
     });
@@ -101,7 +101,15 @@ export const getODFWorkload = (
       name: "NooBaa_core",
       requiredCPU: 1,
       requiredMemory: 4,
-      zones: 2,
+      zones: 1,
+      runsWith: [],
+      avoid: [],
+    });
+    odfWorkload.services.push({
+      name: "NooBaa_operator",
+      requiredCPU: 0.25,
+      requiredMemory: 0.5, // 512Mi
+      zones: 1,
       runsWith: [],
       avoid: [],
     });

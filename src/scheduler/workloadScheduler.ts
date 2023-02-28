@@ -14,7 +14,6 @@ import { addZone, generateZoneID } from "../redux/reducers";
 import { getMaxZones, sortBestZones } from "../utils/node";
 import { addServiceToZone, getCoplacedServices } from "../utils/service";
 import { store as Store } from "../redux/store";
-import zIndex from "@mui/material/styles/zIndex";
 
 /**
  * Scheduling logic
