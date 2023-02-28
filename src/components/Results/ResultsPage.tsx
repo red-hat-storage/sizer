@@ -89,10 +89,11 @@ const ResultsPage: React.FC = () => {
     const checkSchedulability = isWorkloadSchedulable(services, machineSets);
     const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
       workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+    const usedZonesId: number[] = [];
     workloadSchedulability.forEach((item) => {
       if (item[1]) {
         // Schedule on MachineSets that can run it
-        scheduler(item[0], services, item[2]);
+        scheduler(item[0], services, item[2], usedZonesId);
       } else {
         unschedulables.push(item[0]);
       }
