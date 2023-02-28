@@ -5,3 +5,4 @@ export * from "./workload";
 export * from "./ErrorBoundary";
 export * from "./odf";
 export * from "./units";
+export * from "./kubelet";

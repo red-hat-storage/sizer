@@ -1,5 +1,9 @@
 import { Platform, Service } from "../types";
 import { Node } from "../types";
+import {
+  getNodeKubeletCPURequirements,
+  getNodeKubeletMemoryRequirements,
+} from "./kubelet";
 
 type ResourceRequirement = {
   totalMem: number;
@@ -32,13 +36,18 @@ export const canNodeSupportRequirements = (
   requirements: ResourceRequirement,
   currentUsage: ResourceRequirement,
   node: Node
-): boolean =>
-  requirements.totalCPU + currentUsage.totalCPU > node.cpuUnits ||
-  requirements.totalMem + currentUsage.totalMem > node.memory ||
-  requirements.totalDisks + currentUsage.totalDisks > node.maxDisks
+): boolean => {
+  const kubeletCPU = getNodeKubeletCPURequirements(node.cpuUnits);
+  const kubeletMemory = getNodeKubeletMemoryRequirements(node.memory);
+
+  return requirements.totalCPU + currentUsage.totalCPU + kubeletCPU >
+    node.cpuUnits ||
+    requirements.totalMem + currentUsage.totalMem + kubeletMemory >
+      node.memory ||
+    requirements.totalDisks + currentUsage.totalDisks > node.maxDisks
     ? false
     : true;
-
+};
 export const isCloudPlatform = (platform: Platform): boolean =>
   [
     Platform.AWS,

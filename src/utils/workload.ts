@@ -15,6 +15,10 @@ import {
 import { generateServiceID, removeServices } from "../redux/reducers/service";
 import { getTotalResourceRequirement } from "./common";
 import { getAllCoplacedServices, sortServices } from "./service";
+import {
+  getNodeKubeletCPURequirements,
+  getNodeKubeletMemoryRequirements,
+} from "./kubelet";
 
 type WorkloadDescriptorObjects = {
   services: Service[];
@@ -137,6 +141,8 @@ export const isWorkloadSchedulable =
       );
       if (canRun.length > 0) {
         return [true, canRun];
+      } else {
+        return [false, null];
       }
     }
     // Check if a dedicated MS is present
@@ -170,9 +176,12 @@ export const areServicesSchedulable = (
 ): boolean => {
   const { totalMem, totalCPU, totalDisks } =
     getTotalResourceRequirement(services);
+  const kubeletCPU = getNodeKubeletCPURequirements(machineSet.cpu);
+  const kubeletMemory = getNodeKubeletMemoryRequirements(machineSet.memory);
+
   return (
-    totalMem <= machineSet.memory &&
-    totalCPU <= machineSet.cpu &&
+    totalMem + kubeletMemory <= machineSet.memory &&
+    totalCPU + kubeletCPU <= machineSet.cpu &&
     totalDisks <= machineSet.numberOfDisks
   );
 };

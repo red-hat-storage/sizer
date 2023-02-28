@@ -10,8 +10,8 @@ const defaultState = {
     {
       id: 0,
       name: "ControlPlane",
-      requiredCPU: 4,
-      requiredMemory: 16,
+      requiredCPU: 3.5,
+      requiredMemory: 13.39,
       zones: 3,
       avoid: [],
       runsWith: [],
