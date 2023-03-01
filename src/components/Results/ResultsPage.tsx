@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Conv from "html2canvas";
 import { request } from "@octokit/request";
 import {
@@ -25,6 +26,7 @@ import {
   addWorkload,
   removeAllNodes,
   removeAllZones,
+  setTab,
   setUsableCapacity,
   store,
   Store,
@@ -78,6 +80,10 @@ const ResultsPage: React.FC = () => {
   >([]);
   const [isODFPresent, createODFWorkload] = useODFPresent();
   const [, usedStorage, totalStorage] = useStorageDetails();
+
+  const redirectToStoragePage = () => {
+    dispatch(setTab(1));
+  };
 
   const showOverProvisionWarning = isODFPresent && usedStorage > totalStorage;
 
@@ -384,8 +390,11 @@ const ResultsPage: React.FC = () => {
               title="No Storage Cluster is available"
               actionLinks={
                 <>
-                  <AlertActionLink onClick={createODFWorkload}>
+                  <AlertActionLink onClick={redirectToStoragePage}>
                     Create ODF Cluster
+                  </AlertActionLink>
+                  <AlertActionLink onClick={createODFWorkload}>
+                    Create default ODF Cluster(10 TB)
                   </AlertActionLink>
                 </>
               }
