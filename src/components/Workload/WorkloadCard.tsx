@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Workload } from "../../types";
+import { Service, Workload } from "../../types";
 import { Store } from "../../redux";
 import WorkloadEditFormModal from "./WorkloadEdit";
 import { Card, CardItem } from "../Generic/CardItem";
@@ -14,6 +14,17 @@ import { launchModal } from "../Modals/Modals";
 type WorkloadCardProps = {
   workload: Workload;
   disableActions?: boolean;
+};
+
+const getServiceDescription = (service: Service) => {
+  const serviceName = service.name;
+  const replicas = service.zones;
+
+  let description = serviceName;
+  if (replicas > 1) {
+    description += `(X ${replicas} replicas)`;
+  }
+  return description;
 };
 
 const WorkloadCard: React.FC<WorkloadCardProps> = ({
@@ -63,7 +74,7 @@ const WorkloadCard: React.FC<WorkloadCardProps> = ({
         <CardItem title="Memory Used" value={`${totalMem} GB`} />
         <CardItem
           title="Services"
-          value={workloadServices.map((s) => s.name).join(", ")}
+          value={workloadServices.map(getServiceDescription).join(", ")}
         />
         {usesMachines && (
           <CardItem title="Uses Machines" value={usesMachines} />
