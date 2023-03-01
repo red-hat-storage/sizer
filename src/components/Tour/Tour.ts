@@ -350,7 +350,7 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       ],
     },
     {
-      text: "These bars show you how much CPU and Memory is used up by the Workloads and Cluster Services.<br><br>Be aware that these numbers are just estimations that also rely on the placement of the Pods in your deployment.",
+      text: "These bars show you how much CPU and Memory is used up by the Workloads and Cluster Services.<br><br>Be aware that these numbers are just estimations that also rely on the placement of the Pods in your deployment as OpenShift might schedule them differently.",
       attachTo: {
         element: "#resource-bars",
         on: "top",
