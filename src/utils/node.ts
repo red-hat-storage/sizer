@@ -154,6 +154,12 @@ export const sortBestZones = (
     }
   });
 
-  suitableZones.sort((a, b) => a.freeNodes - b.freeNodes);
+  suitableZones.sort((a, b) => {
+    const diff = b.freeNodes - a.freeNodes;
+    if (diff === 0) {
+      return b.zone.id - a.zone.id;
+    }
+    return diff;
+  });
   return suitableZones.map((sZ) => sZ.zone);
 };

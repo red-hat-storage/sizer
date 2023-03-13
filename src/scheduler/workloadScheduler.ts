@@ -95,7 +95,10 @@ export const workloadScheduler =
                 i++;
               }
               if (!bestZone) {
-                bestZone = currentZones[0];
+                const sortedZones = _.cloneDeep(currentZones).sort(
+                  (a, b) => b.id - a.id
+                );
+                bestZone = sortedZones[0];
                 usedZonesId.splice(0, usedZonesId.length);
               }
             }

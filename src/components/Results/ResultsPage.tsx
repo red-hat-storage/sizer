@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import Conv from "html2canvas";
 import { request } from "@octokit/request";
 import {
