@@ -27,6 +27,7 @@ import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import { getSizerTour } from "./Tour/Tour";
 import * as Cookies from "js-cookie";
+import { useSetupAPI } from "../api";
 
 const LazyResultsPage = React.lazy(() => import("./Results/ResultsPage"));
 const LazyComputePage = React.lazy(() => import("./Compute/ComputePage"));
@@ -46,6 +47,8 @@ export const Sizer_: React.FC = () => {
   const prevState = React.useRef<Omit<Store, "ui">>();
 
   const analytics = useAnalytics();
+
+  useSetupAPI();
 
   GAContext.displayName = "GAContext";
 
