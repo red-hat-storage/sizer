@@ -1,15 +1,22 @@
 import * as _ from "lodash";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { node } from "webpack";
-import { defaultODFInstances } from "./cloudInstance";
+import {
+  controlPlaneInstances,
+  defaultInstances,
+  defaultODFInstances,
+  platformInstanceMap,
+} from "./cloudInstance";
+import { getRandomName } from "./components/Compute/RandomComputeName";
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "./constants";
 import {
   addMachineSet,
   addServices,
   addWorkload,
+  clearAllMachines,
   removeAllNodes,
   removeAllZones,
+  setPlatform,
   store,
   Store,
   updateMachineSet,
@@ -22,6 +29,7 @@ import {
   Workload,
   Zone,
   Node,
+  Instance,
 } from "./types";
 import {
   getWorkloadFromDescriptors,
@@ -37,11 +45,13 @@ export const useSetupAPI = (): void => {
     services: existingServices,
     machineSet,
     nodes,
+    platform,
   } = useSelector((store: Store) => ({
     workloads: store.workload,
     services: store.service.services,
     machineSet: store.machineSet,
     nodes: store.node.nodes,
+    platform: store.cluster.platform,
   }));
 
   const dispatch = useDispatch();
@@ -171,7 +181,6 @@ export const useSetupAPI = (): void => {
   const zones: Zone[] = useSelector((store: Store) => store.zone.zones);
 
   const showLayout = React.useCallback(() => {
-    schedule();
     const zoneNodeMap = zones.reduce((acc, curr) => {
       acc[curr.id] = nodes.filter((node) => curr.nodes.includes(node.id));
       let currNodes = _.cloneDeep(acc[curr.id]);
@@ -185,7 +194,67 @@ export const useSetupAPI = (): void => {
       return acc;
     }, {} as { [key: number]: Node[] });
     console.log(zoneNodeMap);
-  }, [nodes, schedule, services, zones]);
+    return zoneNodeMap;
+  }, [nodes, services, zones]);
+
+  const createMachineSet = React.useCallback(
+    (
+      machineSetName: string,
+      instanceName?: string,
+      cpu?: number,
+      memory?: number,
+      dedicateToODF?: boolean
+    ) => {
+      const instance = _.find<Instance>(
+        platformInstanceMap[platform],
+        (item) => item.name === instanceName
+      );
+      const isCloud = isCloudPlatform(platform);
+      const machineSet = {
+        name: machineSetName,
+        cpu: !isCloud ? cpu : instance?.cpuUnits,
+        memory: !isCloud ? memory : instance?.memory,
+        instanceName: isCloud ? instance?.name : getRandomName(),
+        numberOfDisks: isCloud ? instance.maxDisks : 24,
+        onlyFor: dedicateToODF ? [ODF_WORKLOAD_NAME] : [],
+        label: "Worker Node",
+        instanceStorage: instance?.instanceStorage,
+      };
+      dispatch(addMachineSet(machineSet));
+    },
+    [dispatch, platform]
+  );
+
+  const changePlatform = React.useCallback(
+    (platform: Platform) => {
+      dispatch(setPlatform(platform));
+      dispatch(removeAllNodes());
+      dispatch(clearAllMachines());
+      const workerInstance = defaultInstances[platform];
+      const defaultMachineSet: MachineSet = {
+        name: "default",
+        cpu: workerInstance.cpuUnits,
+        memory: workerInstance.memory,
+        instanceName: workerInstance.name,
+        onlyFor: [],
+        numberOfDisks: 24,
+        label: "Worker Node",
+      };
+      dispatch(addMachineSet(defaultMachineSet));
+      const controlInstance = controlPlaneInstances[platform];
+      const controlPlaneMachineSet: MachineSet = {
+        name: "controlPlane",
+        cpu: controlInstance.cpuUnits,
+        memory: controlInstance.memory,
+        instanceName: controlInstance.name,
+        onlyFor: ["ControlPlane"],
+        numberOfDisks: 24,
+        label: "Control Plane Node",
+      };
+      dispatch(addMachineSet(controlPlaneMachineSet));
+    },
+    [dispatch]
+  );
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -197,5 +266,17 @@ export const useSetupAPI = (): void => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.showLayout = showLayout;
-  }, [createODFWorkload, schedule, showLayout]);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.createMachineSet = createMachineSet;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.changePlatform = changePlatform;
+  }, [
+    createODFWorkload,
+    schedule,
+    showLayout,
+    createMachineSet,
+    changePlatform,
+  ]);
 };
