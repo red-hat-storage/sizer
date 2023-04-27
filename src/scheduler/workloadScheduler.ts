@@ -11,7 +11,7 @@ import { Node } from "../types";
 import * as _ from "lodash";
 import { Dispatch } from "@reduxjs/toolkit";
 import { addZone, generateZoneID } from "../redux/reducers";
-import { getMaxZones } from "../utils/node";
+import { getMaxZones, sortBestZones } from "../utils/node";
 import { addServiceToZone, getCoplacedServices } from "../utils/service";
 import { store as Store } from "../redux/store";
 
@@ -33,7 +33,12 @@ import { store as Store } from "../redux/store";
 
 export const workloadScheduler =
   (store: typeof Store, dispatch: Dispatch) =>
-  (workload: Workload, services: Service[], machineSet: MachineSet[]): void => {
+  (
+    workload: Workload,
+    services: Service[],
+    machineSet: MachineSet[],
+    usedZonesId: number[]
+  ): void => {
     let currentZones: Zone[] = store.getState().zone.zones;
     let currentNodes: Node[] = store.getState().node.nodes;
 
@@ -57,21 +62,51 @@ export const workloadScheduler =
 
     const scheduledServiceIDs: number[] = [];
     serviceObjects.forEach((candidateService) => {
-      if (!(candidateService.id in scheduledServiceIDs)) {
+      if (!scheduledServiceIDs.includes(candidateService.id)) {
         const bundle: Service[] = getCoplacedServices(
           candidateService,
           serviceObjects.filter(
-            (service) => !(service.id in scheduledServiceIDs)
+            (service) => !scheduledServiceIDs.includes(service.id)
           )
         );
         // This service bundle needs to be scheduled
         if (bundle.length > 0) {
           const scheduleInZones: number = getMaxZones(bundle);
-          _.times(scheduleInZones, (count) => {
+          _.times(scheduleInZones, () => {
             currentZones = store.getState().zone.zones;
             currentNodes = store.getState().node.nodes;
+            const filteredZones = currentZones.filter(
+              (z) => !usedZonesId.includes(z.id)
+            );
+            const suitableZones = sortBestZones(
+              filteredZones,
+              currentNodes,
+              services,
+              bundle
+            );
+
+            let bestZone = suitableZones.pop();
+            if (!bestZone) {
+              let i = 0;
+              while (!bestZone && i < currentZones.length) {
+                if (!usedZonesId.includes(currentZones[i].id)) {
+                  bestZone = currentZones[i];
+                }
+                i++;
+              }
+              if (!bestZone) {
+                const sortedZones = _.cloneDeep(currentZones).sort(
+                  (a, b) => b.id - a.id
+                );
+                bestZone = sortedZones[0];
+                usedZonesId.splice(0, usedZonesId.length);
+              }
+            }
+            if (bestZone) {
+              usedZonesId.push(bestZone.id);
+            }
             addServiceToZone(dispatch)(
-              currentZones[count],
+              bestZone,
               currentNodes,
               services,
               bundle,

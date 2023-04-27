@@ -1,0 +1,26 @@
+FROM node:16.20.0-slim as builder
+COPY . .
+RUN npm install --legacy-peer-deps
+RUN npm run build-upstream
+
+
+FROM debian:stable-slim
+LABEL maintainer="Bipul Adh <bipul@ibm.com>"
+
+RUN apt-get update && apt-get install gnupg wget -y && \
+    wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+    apt-get update && \
+    apt-get install google-chrome-stable curl -y --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
+    apt-get install -y nodejs
+
+WORKDIR /
+COPY --from=builder /build /build
+COPY server server
+WORKDIR /server
+RUN npm install --legacy-peer-deps
+ENTRYPOINT npm run dev
+
+

@@ -24,6 +24,18 @@ const NodeCpuCountItems = [
   <DropdownItem key="48" id="48">
     48
   </DropdownItem>,
+  <DropdownItem key="60" id="60">
+    60
+  </DropdownItem>,
+  <DropdownItem key="72" id="72">
+    72
+  </DropdownItem>,
+  <DropdownItem key="84" id="84">
+    84
+  </DropdownItem>,
+  <DropdownItem key="96" id="96">
+    96
+  </DropdownItem>,
 ];
 
 const NodeMemoryItems = [
@@ -44,6 +56,18 @@ const NodeMemoryItems = [
   </DropdownItem>,
   <DropdownItem key="128" id="128">
     128
+  </DropdownItem>,
+  <DropdownItem key="160" id="160">
+    160
+  </DropdownItem>,
+  <DropdownItem key="192" id="192">
+    192
+  </DropdownItem>,
+  <DropdownItem key="256" id="256">
+    256
+  </DropdownItem>,
+  <DropdownItem key="512" id="512">
+    512
   </DropdownItem>,
 ];
 

@@ -25,6 +25,7 @@ import {
   addWorkload,
   removeAllNodes,
   removeAllZones,
+  setTab,
   setUsableCapacity,
   store,
   Store,
@@ -79,6 +80,10 @@ const ResultsPage: React.FC = () => {
   const [isODFPresent, createODFWorkload] = useODFPresent();
   const [, usedStorage, totalStorage] = useStorageDetails();
 
+  const redirectToStoragePage = () => {
+    dispatch(setTab(1));
+  };
+
   const showOverProvisionWarning = isODFPresent && usedStorage > totalStorage;
 
   React.useEffect(() => {
@@ -89,10 +94,11 @@ const ResultsPage: React.FC = () => {
     const checkSchedulability = isWorkloadSchedulable(services, machineSets);
     const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
       workloads.map((wl) => [wl, ...checkSchedulability(wl)]);
+    const usedZonesId: number[] = [];
     workloadSchedulability.forEach((item) => {
       if (item[1]) {
         // Schedule on MachineSets that can run it
-        scheduler(item[0], services, item[2]);
+        scheduler(item[0], services, item[2], usedZonesId);
       } else {
         unschedulables.push(item[0]);
       }
@@ -188,7 +194,11 @@ const ResultsPage: React.FC = () => {
     const gistID = urlSearchParams.get("state");
     const MinimalState: MinimalState = {
       workload: coreState.workload
-        .filter((wl) => wl.name.toLowerCase() !== "controlplane")
+        .filter(
+          (wl) =>
+            wl.name.toLowerCase() !== "controlplane" &&
+            !Object.prototype.hasOwnProperty.call(wl, "duplicateOf")
+        )
         .map((wl) => getDescriptorFromWorkload(wl, coreState.service.services)),
       machineSet: coreState.machineSet,
       ocs: coreState.ocs,
@@ -383,8 +393,11 @@ const ResultsPage: React.FC = () => {
               title="No Storage Cluster is available"
               actionLinks={
                 <>
-                  <AlertActionLink onClick={createODFWorkload}>
+                  <AlertActionLink onClick={redirectToStoragePage}>
                     Create ODF Cluster
+                  </AlertActionLink>
+                  <AlertActionLink onClick={createODFWorkload}>
+                    Create default ODF Cluster(10 TB)
                   </AlertActionLink>
                 </>
               }

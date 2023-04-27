@@ -45,7 +45,7 @@ export const sortNodesWithLeastConsumption = (
 
 const getNode = (machineSet: MachineSet): Node => ({
   id: getNodeID(),
-  maxDisks: machineSet.numberOfDisks,
+  maxDisks: machineSet?.numberOfDisks,
   cpuUnits: machineSet.cpu,
   memory: machineSet.memory,
   machineSet: machineSet.name,

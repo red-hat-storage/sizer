@@ -1,4 +1,4 @@
-import { Service, Workload } from "../types";
+import { Service, Workload, Zone } from "../types";
 import { Node } from "../types";
 import * as _ from "lodash";
 import {
@@ -128,4 +128,38 @@ export const getOSDsInNode = (node: Node, services: Service[]): number => {
   return nodeServices.filter((service) =>
     service.name.toUpperCase().includes("OSD")
   ).length;
+};
+
+export const sortBestZones = (
+  zones: Zone[],
+  nodes: Node[],
+  allServices: Service[],
+  workload: Service[]
+): Zone[] => {
+  const requirements = getTotalResourceRequirement(workload);
+
+  const suitableZones = [];
+
+  zones.forEach((zone) => {
+    const nodesInZone = nodes.filter((node) => zone.nodes.includes(node.id));
+    const nodesThatCanSupport = nodesInZone.filter((node) => {
+      const servicesInNode = allServices.filter((s) =>
+        node.services.includes(s.id)
+      );
+      const currentNodeUsage = getTotalResourceRequirement(servicesInNode);
+      return canNodeSupportRequirements(requirements, currentNodeUsage, node);
+    });
+    if (nodesThatCanSupport.length > 0) {
+      suitableZones.push({ zone, freeNodes: nodesThatCanSupport.length });
+    }
+  });
+
+  suitableZones.sort((a, b) => {
+    const diff = b.freeNodes - a.freeNodes;
+    if (diff === 0) {
+      return b.zone.id - a.zone.id;
+    }
+    return diff;
+  });
+  return suitableZones.map((sZ) => sZ.zone);
 };
