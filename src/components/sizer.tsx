@@ -21,13 +21,15 @@ import "./sizer.css";
 import "./shepherd.css";
 import { createWorkload } from "./Workload/create";
 import * as _ from "lodash";
-import { MinimalState } from "../types";
+import { DeploymentType, MinimalState, Platform } from "../types";
 import useAnalytics from "../analytics/analytics";
 import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
-import ErrorBoundary from "../utils/ErrorBoundary";
+import { ErrorBoundary, handleLegacyURL, isLegacyURL } from "../utils";
 import { getSizerTour } from "./Tour/Tour";
 import * as Cookies from "js-cookie";
 import { useSetupAPI } from "../api";
+import { getODFWorkload } from "../workloads";
+import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../constants";
 
 const LazyResultsPage = React.lazy(() => import("./Results/ResultsPage"));
 const LazyComputePage = React.lazy(() => import("./Compute/ComputePage"));
@@ -104,6 +106,51 @@ export const Sizer_: React.FC = () => {
           dispatch(setDedicatedMachines(parsedState.ocs.dedicatedMachines));
         })
         .catch((err) => console.error(err));
+    } else if (isLegacyURL(urlSearchParams)) {
+      const {
+        platform,
+        cpu,
+        memory,
+        diskSize,
+        usableCapacity,
+        deploymentType,
+        nvmeTuning,
+        cephFSActive,
+        noobaaActive,
+        rgwActive,
+      } = handleLegacyURL(urlSearchParams);
+      const workloadCreater = createWorkload(dispatch);
+      dispatch(setPlatform(platform as Platform));
+      dispatch(
+        addMachineSet({
+          name: ODF_DEDICATED_MS_NAME,
+          cpu: Number(cpu),
+          memory: Number(memory),
+          instanceName: "LEGACY_INSTANCE",
+          numberOfDisks: 24,
+          onlyFor: [ODF_WORKLOAD_NAME],
+          label: "Beta Node",
+        })
+      );
+      const workload = getODFWorkload(
+        Number(usableCapacity) / 1024,
+        Number(diskSize),
+        deploymentType as DeploymentType,
+        [ODF_DEDICATED_MS_NAME],
+        noobaaActive === "true",
+        rgwActive === "true",
+        cephFSActive === "true",
+        nvmeTuning === "true"
+      );
+      // Configure OCS
+      dispatch(setFlashSize(Number(diskSize)));
+      dispatch(setUsableCapacity(Number(usableCapacity) / 1024));
+      dispatch(setDeploymentType(deploymentType as DeploymentType));
+      dispatch(setDedicatedMachines([ODF_DEDICATED_MS_NAME]));
+      workloadCreater(workload);
+      alert(
+        'You are using a legacy URL. This might be unsupported in the upcoming versions so please update your link by going to Results and clicking "Get Sharing Link"'
+      );
     }
   }, [dispatch]);
 
