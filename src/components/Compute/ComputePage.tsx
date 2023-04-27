@@ -17,8 +17,7 @@ import MachineSetCard from "./MachineSetCard";
 import PlatformSelector from "../Common/PlatformSelector";
 import "./compute.css";
 
-const isDeletable = (machineName: string) =>
-  machineName !== "controlPlane" && machineName !== "default";
+const isDeletable = (machineName: string) => machineName !== "controlPlane";
 
 const Compute: React.FC = () => {
   const dispatch = useDispatch();
