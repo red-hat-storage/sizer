@@ -173,6 +173,8 @@ export const Sizer_: React.FC = () => {
     } else {
       dispatch(setTourActive(false));
     }
+    // This should be only triggered once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const HeaderComponent =
