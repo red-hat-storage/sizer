@@ -40,10 +40,12 @@ describe("Test scheduler", () => {
     dispatch(addWorkload(kafkaWorkload));
     const state = store.getState();
     const { service, workload, machineSet } = state;
+    const usedZonesId: number[] = [];
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
-      machineSet
+      machineSet,
+      usedZonesId
     );
   });
 });

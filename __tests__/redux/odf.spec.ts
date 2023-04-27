@@ -68,10 +68,12 @@ describe("Test ODF schedule", () => {
     dispatch(addWorkload(odfWorkload));
     const state = store.getState();
     const { service, workload, machineSet } = state;
+    const usedZonesId: number[] = [];
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
-      machineSet
+      machineSet,
+      usedZonesId
     );
   });
   it("Should edit internal ODF workload to external", () => {
@@ -79,10 +81,12 @@ describe("Test ODF schedule", () => {
     dispatch(editWorkload(odfExternalWorkload));
     const state = store.getState();
     const { service, workload, machineSet } = state;
+    const usedZonesId: number[] = [];
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
-      machineSet
+      machineSet,
+      usedZonesId
     );
   });
   it("Should edit external ODF workload to compact", () => {
@@ -90,10 +94,12 @@ describe("Test ODF schedule", () => {
     dispatch(editWorkload(odfCompactWorkload));
     const state = store.getState();
     const { service, workload, machineSet } = state;
+    const usedZonesId: number[] = [];
     workloadScheduler(store, dispatch)(
       workload[0],
       service.services,
-      machineSet
+      machineSet,
+      usedZonesId
     );
   });
 });
