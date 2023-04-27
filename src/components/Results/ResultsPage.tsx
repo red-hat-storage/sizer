@@ -194,7 +194,11 @@ const ResultsPage: React.FC = () => {
     const gistID = urlSearchParams.get("state");
     const MinimalState: MinimalState = {
       workload: coreState.workload
-        .filter((wl) => wl.name.toLowerCase() !== "controlplane")
+        .filter(
+          (wl) =>
+            wl.name.toLowerCase() !== "controlplane" &&
+            !Object.prototype.hasOwnProperty.call(wl, "duplicateOf")
+        )
         .map((wl) => getDescriptorFromWorkload(wl, coreState.service.services)),
       machineSet: coreState.machineSet,
       ocs: coreState.ocs,
