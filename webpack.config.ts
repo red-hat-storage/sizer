@@ -32,7 +32,6 @@ const Configuration: webpack.Configuration = {
       {
         test: /\.tsx$|ts$/,
         use: [
-          { loader: "cache-loader" },
           {
             loader: "thread-loader",
             options: {
@@ -162,6 +161,10 @@ const Configuration: webpack.Configuration = {
           path.resolve(
             __dirname,
             "node_modules/react-monaco-editor/node_modules/monaco-editor/esm/vs"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/react-styles/css/assets/images"
           ),
         ],
         use: {
