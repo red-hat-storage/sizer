@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Page, Spinner, Tab, Tabs, TabTitleText } from "@patternfly/react-core";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Page, Spinner } from "@patternfly/react-core";
 import { request } from "@octokit/request";
 import Header from "./Header/Header";
 import {
@@ -30,6 +30,7 @@ import * as Cookies from "js-cookie";
 import { useSetupAPI } from "../api";
 import { getODFWorkload } from "../workloads";
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../constants";
+import Navbar from "./Navbar";
 
 const LazyResultsPage = React.lazy(() => import("./Results/ResultsPage"));
 const LazyComputePage = React.lazy(() => import("./Compute/ComputePage"));
@@ -43,7 +44,6 @@ export const GAContext =
 
 export const Sizer_: React.FC = () => {
   const dispatch = useDispatch();
-  const activeTab = useSelector((state: Store) => state.ui.activeTab);
   const [activeModal, setActiveModal] = React.useState("");
   const coreState = useSelector((state: Store) => _.omit(state, "ui"));
   const prevState = React.useRef<Omit<Store, "ui">>();
@@ -184,8 +184,9 @@ export const Sizer_: React.FC = () => {
 
   return (
     <GAContext.Provider value={analytics}>
-      <Router>
+      <HashRouter>
         <Page header={HeaderComponent} className="sizer-page">
+          <Navbar />
           <React.Suspense
             fallback={<Spinner isSVG aria-label="Basic Spinner" />}
           >
@@ -193,83 +194,36 @@ export const Sizer_: React.FC = () => {
               isOpen={activeModal === "About"}
               onClose={() => setActiveModal("")}
             />
-          </React.Suspense>
-          <React.Suspense
-            fallback={<Spinner isSVG aria-label="Basic Spinner" />}
-          >
             <LazyFAQModal
               isOpen={activeModal === "FAQ"}
               onClose={() => setActiveModal("")}
             />
+            <Switch>
+              <Route path="/workloads">
+                <LazyWorkloadPage />
+              </Route>
+              <Route path="/storage">
+                <LazyStoragePage />
+              </Route>
+              <Route path="/compute">
+                <LazyComputePage />
+              </Route>
+              <Route path="/results">
+                <LazyResultsPage />
+              </Route>
+              <Redirect from="/" to="/workloads" />
+            </Switch>
           </React.Suspense>
-          <Switch>
-            <Route path="/">
-              <ErrorBoundary>
-                <Tabs
-                  activeKey={activeTab}
-                  onSelect={(_e, tabIndex) =>
-                    dispatch(setTab(tabIndex as number))
-                  }
-                  unmountOnExit
-                  mountOnEnter
-                >
-                  <Tab
-                    eventKey={0}
-                    title={<TabTitleText>Workloads</TabTitleText>}
-                    id="workloads-tab"
-                  >
-                    <React.Suspense
-                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
-                    >
-                      <LazyWorkloadPage />
-                    </React.Suspense>
-                  </Tab>
-                  <Tab
-                    className="sizer-section"
-                    eventKey={1}
-                    title={<TabTitleText>Storage</TabTitleText>}
-                    id="storage-tab"
-                  >
-                    <React.Suspense
-                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
-                    >
-                      <LazyStoragePage />
-                    </React.Suspense>
-                  </Tab>
-                  <Tab
-                    eventKey={2}
-                    title={<TabTitleText>Compute</TabTitleText>}
-                    id="compute-tab"
-                  >
-                    <React.Suspense
-                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
-                    >
-                      <LazyComputePage />
-                    </React.Suspense>
-                  </Tab>
-                  <Tab
-                    eventKey={3}
-                    title={<TabTitleText>Results</TabTitleText>}
-                    id="results-tab"
-                  >
-                    <React.Suspense
-                      fallback={<Spinner isSVG aria-label="Basic Spinner" />}
-                    >
-                      <LazyResultsPage />
-                    </React.Suspense>
-                  </Tab>
-                </Tabs>
-              </ErrorBoundary>
-            </Route>
-          </Switch>
         </Page>
-      </Router>
+      </HashRouter>
     </GAContext.Provider>
   );
 };
 
 export const Sizer: React.FC = () => (
   <Provider store={store}>
-    <Sizer_ />
+    <ErrorBoundary>
+      <Sizer_ />
+    </ErrorBoundary>
   </Provider>
 );

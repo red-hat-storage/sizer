@@ -10,7 +10,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const doesElementExist = (element) =>
   document.querySelector(`${element}`) !== null;
 
-const generateTabId = (id: string, key: number) => `#pf-tab-${key}-${id}`;
+const generateTabId = (id: string) => `#nav-item-${id}`;
 
 export const getSizerTour: GetSizeTour = (dispatch) => {
   const tour = new Shepherd.Tour({
@@ -53,7 +53,7 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       title: "The main navigation",
       text: "Use the tabs to navigate between defining your <b>Workloads</b>, configuring required <b>Storage</b>, setting your desired <b>Compute</b> sizes and to view your current Sizer <b>Results</b>",
       attachTo: {
-        element: ".pf-c-tabs",
+        element: ".pf-c-nav",
         on: "bottom",
       },
       buttons: [
@@ -71,7 +71,7 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       title: "Workloads",
       text: "On this page you add your list of Applications that will run on your cluster. We have some common use cases ready as Templates. Defining custom Workloads is also possible.",
       attachTo: {
-        element: generateTabId("workloads-tab", 0),
+        element: generateTabId("workloads"),
         on: "bottom",
       },
       buttons: [
@@ -89,7 +89,7 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       title: "Storage",
       text: "Here you define the OpenShift Data Foundation installation which will add persistent storage to your Workloads.",
       attachTo: {
-        element: generateTabId("storage-tab", 1),
+        element: generateTabId("storage"),
         on: "top",
       },
       beforeShowPromise: async () => {
@@ -153,7 +153,7 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       title: "Compute",
       text: "On this page you can set your instance sizes that make up your OpenShift cluster. We have instance sizes for the most popular public clouds built in, otherwise you can use the BareMetal configuration.",
       attachTo: {
-        element: generateTabId("compute-tab", 2),
+        element: generateTabId("compute"),
         on: "bottom",
       },
       buttons: [
@@ -193,7 +193,7 @@ export const getSizerTour: GetSizeTour = (dispatch) => {
       },
       title: "Results",
       attachTo: {
-        element: generateTabId("results-tab", 3),
+        element: generateTabId("results"),
         on: "bottom",
       },
       text: "Generic information on how we calculate the cluster will be visible here and auto-update when you change inputs on the other tabs.",
