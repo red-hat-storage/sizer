@@ -1,5 +1,8 @@
 import puppeteer, { Browser, Page } from "puppeteer";
 import express from "express";
+import bodyParser from "body-parser";
+import { body, validationResult } from "express-validator";
+import { isValidPlatformName, isValidInstanceName } from "./validation.mjs";
 
 const REACT_APP_PORT = 3001;
 const MAIN_APP_PORT = 9100;
@@ -11,7 +14,7 @@ export class AppInstance {
 
   async init(): Promise<void> {
     this.#browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       executablePath: "/usr/bin/google-chrome",
       args: [
         "--disable-gpu",
@@ -25,6 +28,12 @@ export class AppInstance {
     await this.page.goto(LOCAL_LINK, { waitUntil: "domcontentloaded" });
   }
 
+  async refresh(): Promise<void> {
+    await this.page.close();
+    this.page = await this.#browser.newPage();
+    await this.page.goto(LOCAL_LINK, { waitUntil: "domcontentloaded" });
+  }
+
   async addStorageClusterWorkload(
     usableSize: number,
     diskSize: number,
@@ -32,7 +41,7 @@ export class AppInstance {
     msName?: string
   ): Promise<any> {
     return await this.page.evaluate(
-      async (usableSize, diskSize, platform) => {
+      async (usableSize, diskSize, platform, msName) => {
         await (window as any).createStorageCluster(
           usableSize,
           diskSize,
@@ -43,7 +52,8 @@ export class AppInstance {
       },
       usableSize,
       diskSize,
-      platform
+      platform,
+      msName
     );
   }
 
@@ -90,6 +100,8 @@ export class AppInstance {
   }
 }
 
+const DEDICATED_MS_NAME = "odf-ms";
+
 const reactApp = express();
 reactApp.use(express.static("../build"));
 reactApp.listen(REACT_APP_PORT, () => {
@@ -97,45 +109,64 @@ reactApp.listen(REACT_APP_PORT, () => {
 });
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 const backend = new AppInstance();
 await backend.init();
 
-app.get("/addMachine", async (req, res) => {
-  const msName = req.query.msName as string;
-  const instanceName = req.query?.instance as string;
-  const cpu = Number(req.query?.cpu);
-  const mem = Number(req.query?.mem);
-  const platform = req.query?.platform as string;
-  if (platform !== "AWS") {
-    await backend.setPlatform(platform);
-  }
-  await backend.createMachineSet(msName, instanceName, cpu, mem);
-  await backend.schedule();
-  res.status(200).send({ message: "Added machineset successfully!" });
-});
-
-app.get("/", async (req, res) => {
-  const usableCapacity = Number(req.query.usableCapacity);
-  const diskSize = Number(req.query.diskSize);
-  const platform: string = (
-    req.query.platform ? req.query.platform : "AWS"
-  ) as string;
-  const msName: string = req.query?.msName as string;
-  if (platform !== "AWS") {
-    await backend.setPlatform(platform);
-  }
-  if (req.query?.usableCapacity) {
-    await backend.addStorageClusterWorkload(
-      usableCapacity,
-      diskSize,
-      platform,
-      msName
-    );
-  }
+app.get("/", async (_req, res) => {
   await backend.schedule();
   const layout = await backend.getLayout();
   res.send(layout);
 });
+
+app.get("/reset", async (_req, res) => {
+  await backend.refresh();
+  return res.send();
+});
+
+app.post(
+  "/",
+  body("usableCapacity").isNumeric().toFloat(),
+  body("diskSize").optional().isNumeric().toFloat(),
+  body("cpu").optional().isNumeric().toFloat(),
+  body("mem").optional().isNumeric().toFloat(),
+  body("platform").custom((value) => isValidPlatformName(value)),
+  body("instanceName").custom((value, { req }) =>
+    isValidInstanceName(value, req.body.platform)
+  ),
+  async (req, res) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res.status(400).send({ errors: result.array() });
+    }
+    const body = req.body;
+    const usableCapacity = body?.usableCapacity;
+    const diskSize = body?.diskSize;
+    const platform = body?.platform;
+
+    const instanceName = body?.instanceName;
+    const cpu = body?.cpu;
+    const mem = body?.mem;
+
+    await backend.setPlatform(platform);
+    const shouldCreateMS = instanceName || cpu || mem;
+    if (shouldCreateMS) {
+      await backend.createMachineSet(DEDICATED_MS_NAME, instanceName, cpu, mem);
+    }
+    if (usableCapacity) {
+      await backend.addStorageClusterWorkload(
+        usableCapacity,
+        diskSize,
+        platform,
+        shouldCreateMS ? DEDICATED_MS_NAME : ""
+      );
+    }
+    await backend.schedule();
+    res.send();
+  }
+);
 
 app.listen(MAIN_APP_PORT, () => {
   console.log(`Listening on port ${MAIN_APP_PORT}`);
