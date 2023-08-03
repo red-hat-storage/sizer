@@ -228,6 +228,12 @@ const StoragePage: React.FC = () => {
               </Button>
             </ActionGroup>
           </Form>
+          <Alert isInline title="Support for large clusters">
+            ODF supports cluster larger than 1PB. To plan for a larger capacity,{" "}
+            <a href="mailto:fdf-pms@wwpdl.vnet.ibm.com?subject=[ODF Sizer] Large capacity arch review">
+              please send an email to us
+            </a>
+          </Alert>
         </SplitItem>
         <SplitItem>
           <Flex
