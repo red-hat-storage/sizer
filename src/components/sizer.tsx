@@ -1,6 +1,13 @@
 import * as React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  HashRouter,
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { Page, Spinner } from "@patternfly/react-core";
 import { request } from "@octokit/request";
 import Header from "./Header/Header";
@@ -49,6 +56,8 @@ export const Sizer_: React.FC = () => {
   const prevState = React.useRef<Omit<Store, "ui">>();
 
   const analytics = useAnalytics();
+  const location = useLocation();
+  const history = useHistory();
 
   useSetupAPI();
 
@@ -78,8 +87,12 @@ export const Sizer_: React.FC = () => {
     };
   }, [dispatch]);
 
+  const isCompactMode = useSelector(
+    (store: Store) => store.cluster.isCompactMode
+  );
+
   React.useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
+    const urlSearchParams = new URLSearchParams(location.search);
     const gistID = urlSearchParams.get("state");
     if (gistID) {
       request("GET /gists/{gist_id}", {
@@ -135,7 +148,9 @@ export const Sizer_: React.FC = () => {
       const workload = getODFWorkload(
         Number(usableCapacity) / 1024,
         Number(diskSize),
-        deploymentType as DeploymentType,
+        isCompactMode
+          ? DeploymentType.COMPACT
+          : (deploymentType as DeploymentType),
         [ODF_DEDICATED_MS_NAME],
         noobaaActive === "true",
         rgwActive === "true",
@@ -160,14 +175,14 @@ export const Sizer_: React.FC = () => {
       prevState.current &&
       JSON.stringify(prevState.current) !== JSON.stringify(coreState)
     ) {
-      window.history.replaceState(null, "", window.location.pathname);
+      history.replace(location.pathname);
     }
     prevState.current = coreState;
-  }, [coreState]);
+  }, [coreState, history, location.pathname]);
 
   React.useEffect(() => {
     const tour = getSizerTour(dispatch);
-    if (!Cookies.get("SkipTour") && !window.location.search.includes("faq")) {
+    if (!Cookies.get("SkipTour") && !location.search.includes("faq")) {
       dispatch(setTourActive(true));
       tour.start();
     } else {
@@ -184,38 +199,34 @@ export const Sizer_: React.FC = () => {
 
   return (
     <GAContext.Provider value={analytics}>
-      <HashRouter>
-        <Page header={HeaderComponent} className="sizer-page">
-          <Navbar />
-          <React.Suspense
-            fallback={<Spinner isSVG aria-label="Basic Spinner" />}
-          >
-            <LazyAboutModal
-              isOpen={activeModal === "About"}
-              onClose={() => setActiveModal("")}
-            />
-            <LazyFAQModal
-              isOpen={activeModal === "FAQ"}
-              onClose={() => setActiveModal("")}
-            />
-            <Switch>
-              <Route path="/workloads">
-                <LazyWorkloadPage />
-              </Route>
-              <Route path="/storage">
-                <LazyStoragePage />
-              </Route>
-              <Route path="/compute">
-                <LazyComputePage />
-              </Route>
-              <Route path="/results">
-                <LazyResultsPage />
-              </Route>
-              <Redirect from="/" to="/workloads" />
-            </Switch>
-          </React.Suspense>
-        </Page>
-      </HashRouter>
+      <Page header={HeaderComponent} className="sizer-page">
+        <Navbar />
+        <React.Suspense fallback={<Spinner isSVG aria-label="Basic Spinner" />}>
+          <LazyAboutModal
+            isOpen={activeModal === "About"}
+            onClose={() => setActiveModal("")}
+          />
+          <LazyFAQModal
+            isOpen={activeModal === "FAQ"}
+            onClose={() => setActiveModal("")}
+          />
+          <Switch>
+            <Route path="/workloads">
+              <LazyWorkloadPage />
+            </Route>
+            <Route path="/storage">
+              <LazyStoragePage />
+            </Route>
+            <Route path="/compute">
+              <LazyComputePage />
+            </Route>
+            <Route path="/results">
+              <LazyResultsPage />
+            </Route>
+            <Redirect from="/" to="/workloads" />
+          </Switch>
+        </React.Suspense>
+      </Page>
     </GAContext.Provider>
   );
 };
@@ -223,7 +234,9 @@ export const Sizer_: React.FC = () => {
 export const Sizer: React.FC = () => (
   <Provider store={store}>
     <ErrorBoundary>
-      <Sizer_ />
+      <HashRouter>
+        <Sizer_ />
+      </HashRouter>
     </ErrorBoundary>
   </Provider>
 );

@@ -53,6 +53,7 @@ import {
 } from "../../analytics";
 import { getOCSData, getODFData, StorageClassMap } from "../../utils";
 import * as jsyaml from "js-yaml";
+import { useHistory, useLocation } from "react-router-dom";
 
 const ResultsPage: React.FC = () => {
   const {
@@ -83,6 +84,9 @@ const ResultsPage: React.FC = () => {
   const redirectToStoragePage = () => {
     dispatch(setTab(1));
   };
+
+  const location = useLocation();
+  const history = useHistory();
 
   const showOverProvisionWarning = isODFPresent && usedStorage > totalStorage;
 
@@ -190,7 +194,7 @@ const ResultsPage: React.FC = () => {
 
   const shouldOpen = () => {
     setVisible(true);
-    const urlSearchParams = new URLSearchParams(window.location.search);
+    const urlSearchParams = new URLSearchParams(location.search);
     const gistID = urlSearchParams.get("state");
     const MinimalState: MinimalState = {
       workload: coreState.workload
@@ -224,12 +228,10 @@ const ResultsPage: React.FC = () => {
         .then((response) => {
           setLink(response.data.id || "");
           setLoading(false);
-          window.history.replaceState(
-            null,
-            "",
+          history.replace(
             getLink(
-              window.location.origin,
-              window.location.pathname,
+              window.location.origin.toString(),
+              location.pathname,
               response.data.id as string
             )
           );
@@ -358,8 +360,8 @@ const ResultsPage: React.FC = () => {
                   </div>
                   <ClipboardCopy isReadOnly hoverTip="Copy" clickTip="Copied">
                     {getLink(
-                      window.location.origin,
-                      window.location.pathname,
+                      window.location.origin.toString(),
+                      location.pathname,
                       link
                     )}
                   </ClipboardCopy>
@@ -393,7 +395,7 @@ const ResultsPage: React.FC = () => {
               title="No Storage Cluster is available"
               actionLinks={
                 <>
-                  <AlertActionLink onClick={redirectToStoragePage}>
+                  <AlertActionLink onClick={() => null}>
                     Create ODF Cluster
                   </AlertActionLink>
                   <AlertActionLink onClick={createODFWorkload}>

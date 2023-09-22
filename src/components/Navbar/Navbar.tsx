@@ -12,16 +12,17 @@ const Navigation: React.FunctionComponent = () => {
 
   const onSelect = React.useCallback(
     (result: { itemId: string | number }) => {
-      setActiveItem(result.itemId as string);
       history.push(`/${result.itemId}`);
+      setActiveItem(result.itemId as string);
     },
     [history]
   );
 
   React.useEffect(() => {
     const pathname = location?.pathname?.replace?.("/", "");
-    if (!pathname) return;
-    setActiveItem(pathname);
+    if (pathname) {
+      setActiveItem(pathname);
+    }
   }, [location]);
 
   return (

@@ -45,6 +45,8 @@ import MachineSetCreate from "../Compute/MachineSetCreate";
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../../constants";
 import * as _ from "lodash";
 import { isCloudPlatform } from "../../utils";
+import { useCompactMode } from "../../hooks";
+import { useHistory } from "react-router-dom";
 
 const StoragePage: React.FC = () => {
   const {
@@ -63,12 +65,27 @@ const StoragePage: React.FC = () => {
     totalCapacity: store.ocs.usableCapacity,
   }));
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { enableCompactModeCluster, disableCompactModeCluster } =
+    useCompactMode();
 
   const [useDedicated, setDedicated] = React.useState(() =>
     machineSet.find((ms) => ms.onlyFor.includes(ODF_WORKLOAD_NAME))
       ? true
       : false
   );
+
+  const [isCompactMode, setCompactMode] = React.useState(false);
+
+  const toggleCompactMode = React.useCallback(() => {
+    if (isCompactMode) {
+      disableCompactModeCluster();
+      setCompactMode(false);
+    } else {
+      enableCompactModeCluster();
+      setCompactMode(true);
+    }
+  }, [disableCompactModeCluster, enableCompactModeCluster, isCompactMode]);
 
   const [dedicatedMSName, setDedicatedMSName] = React.useState(
     () =>
@@ -159,7 +176,7 @@ const StoragePage: React.FC = () => {
     dispatch(addServices(services));
     dispatch(addWorkload(workload));
     // Redirect users to Results Page
-    dispatch(setTab(3));
+      history.push(`/results`);
 
     if (clientID) {
       const params = {
@@ -208,6 +225,12 @@ const StoragePage: React.FC = () => {
                 onChange={() => setDedicated((o) => !o)}
                 isChecked={useDedicated}
                 id="enable-dedicated"
+              />
+              <Checkbox
+                label="Use Compact Mode"
+                onChange={toggleCompactMode}
+                isChecked={isCompactMode}
+                id="enable-compact"
               />
             </FormGroup>
             {useDedicated && (

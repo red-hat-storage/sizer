@@ -1,5 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { DeploymentType } from "../../types";
+import { enableCompactMode } from "./cluster";
 
 const defaultState = {
   flashSize: 2.5,
@@ -31,6 +32,10 @@ const ocsReducer = createReducer(defaultState, (builder) => {
     })
     .addCase(setDedicatedMachines, (state, { payload }) => {
       state.dedicatedMachines = payload;
+    })
+    .addCase(enableCompactMode, (state) => {
+      state.dedicatedMachines = ["compact-default"];
+      state.deploymentType = DeploymentType.COMPACT;
     });
 });
 

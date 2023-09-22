@@ -27,7 +27,7 @@ export const getSupportExceptions: (
       message,
     });
   }
-  if ([DeploymentType.COMPACT, DeploymentType.MINIMAL].includes(deployment)) {
+  if ([].includes(deployment)) {
     const message = `The deployment mode you selected is currently only available as Technology Preview. This means you need a support exception to be able to get support with this mode. <br>Chose the standard deployment mode to get the most stability and be able to scale out further.`;
     exceptions.push({
       issue: "DeploymentMode",

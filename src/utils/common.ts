@@ -1,4 +1,4 @@
-import { Platform, Service } from "../types";
+import { Instance, MachineSet, Platform, Service } from "../types";
 import { Node } from "../types";
 import {
   getNodeKubeletCPURequirements,
@@ -56,3 +56,23 @@ export const isCloudPlatform = (platform: Platform): boolean =>
     Platform.IBMC,
     Platform.IBMV,
   ].includes(platform);
+
+export const getMachinetSetFromInstance = (
+  instance: Instance,
+  id: number,
+  name: string,
+  label: string,
+  onlyFor: string[] = [],
+  maxDisks?: number
+): MachineSet => {
+  return {
+    id,
+    name,
+    cpu: instance.cpuUnits,
+    memory: instance.memory,
+    instanceName: instance.name,
+    numberOfDisks: maxDisks ?? instance.maxDisks,
+    onlyFor,
+    label,
+  };
+};
