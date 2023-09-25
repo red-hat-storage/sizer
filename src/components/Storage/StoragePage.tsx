@@ -75,15 +75,15 @@ const StoragePage: React.FC = () => {
       : false
   );
 
-  const [isCompactMode, setCompactMode] = React.useState(false);
+  const isCompactMode = useSelector(
+    (store: Store) => store.cluster.isCompactMode
+  );
 
   const toggleCompactMode = React.useCallback(() => {
     if (isCompactMode) {
       disableCompactModeCluster();
-      setCompactMode(false);
     } else {
       enableCompactModeCluster();
-      setCompactMode(true);
     }
   }, [disableCompactModeCluster, enableCompactModeCluster, isCompactMode]);
 
@@ -176,7 +176,7 @@ const StoragePage: React.FC = () => {
     dispatch(addServices(services));
     dispatch(addWorkload(workload));
     // Redirect users to Results Page
-      history.push(`/results`);
+    history.push(`/results`);
 
     if (clientID) {
       const params = {

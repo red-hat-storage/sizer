@@ -395,7 +395,7 @@ const ResultsPage: React.FC = () => {
               title="No Storage Cluster is available"
               actionLinks={
                 <>
-                  <AlertActionLink onClick={() => null}>
+                  <AlertActionLink onClick={() => history.push('/storage')}>
                     Create ODF Cluster
                   </AlertActionLink>
                   <AlertActionLink onClick={createODFWorkload}>
