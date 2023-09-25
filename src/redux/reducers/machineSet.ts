@@ -44,7 +44,9 @@ const getDefaultCompactModeMachineSet = (platform: Platform) => {
     instance,
     MS_COUNTER++,
     "compact-default",
-    "Compact Node"
+    "Compact Node",
+    undefined,
+    instance?.maxDisks ?? 24
   );
 };
 

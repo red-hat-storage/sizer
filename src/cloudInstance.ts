@@ -253,18 +253,18 @@ export const defaultODFInstances: {
     isODFInstance(Platform.IBMV)
   ) as Instance,
   [Platform.VMware]: {
-    cpuUnits: 6,
-    memory: 16,
+    cpuUnits: 16,
+    memory: 64,
     name: "odfDefault",
   },
   [Platform.RHV]: {
-    cpuUnits: 6,
-    memory: 16,
+    cpuUnits: 16,
+    memory: 64,
     name: "odfDefault",
   },
   [Platform.BAREMETAL]: {
-    cpuUnits: 6,
-    memory: 16,
+    cpuUnits: 16,
+    memory: 64,
     name: "odfDefault",
   },
 }))();
