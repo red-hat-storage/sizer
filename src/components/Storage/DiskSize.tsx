@@ -59,11 +59,6 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
       }
     };
 
-  const isDiskSizeTechPreview = React.useMemo(
-    () => ocsState.flashSize > 4.0,
-    [ocsState.flashSize]
-  );
-
   const isDiskSizeZero = React.useMemo(
     () => ocsState.flashSize === 0 || ocsState.flashSize < 0.1,
     [ocsState.flashSize]
@@ -89,16 +84,14 @@ const DiskSize: React.FC<DiskSizeProps> = ({ machine }) => {
 
   const diskSizeHelperText = isDiskSizeZero
     ? "Minimum disk size should be of 0.1 TB"
-    : "Disks greater than 4TB is not tested and is still a tech preview feature.";
+    : "";
 
   return (
     <>
       <FormGroup
         label="Flash Disk Size (TB)"
         fieldId="flash-input"
-        validated={
-          isDiskSizeTechPreview || isDiskSizeZero ? "error" : "success"
-        }
+        validated={isDiskSizeZero ? "error" : "success"}
         helperTextInvalid={diskSizeHelperText}
         helperTextInvalidIcon={<WarningTriangleIcon />}
       >
