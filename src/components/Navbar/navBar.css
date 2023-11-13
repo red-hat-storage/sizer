@@ -1,0 +1,41 @@
+.pf-c-nav.pf-m-horizontal {
+  background-color: var(--pf-global--Color--light-100);
+  padding-left: 1.75rem;
+  --pf-c-nav__link--FontSize: 1.4rem;
+  --pf-c-nav__link--FontWeight: var(
+    --pf-global--FontWeight--overpass--semi-bold
+  );
+  border-bottom: var(--pf-global--BorderWidth--sm) solid
+    var(--pf-global--palette--black-300);
+}
+
+.pf-c-nav__link {
+  --pf-c-nav__link--Color: var(--pf-global--palette--black-600);
+  --pf-c-nav__link--PaddingTop: var(--pf-global--spacer--sm);
+  --pf-c-nav__link--PaddingRight: var(--pf-global--spacer--md);
+  --pf-c-nav__link--PaddingBottom: var(--pf-global--spacer--sm);
+  --pf-c-nav__link--PaddingLeft: var(--pf-global--spacer--md);
+  --pf-c-nav__link--m-current--Color: var(--pf-global--palette--blue-400);
+}
+
+.pf-c-nav__link:active {
+  --pf-c-nav__link--active--Color: var(--pf-global--palette--black-600);
+}
+
+.pf-c-nav__link:hover {
+  --pf-c-nav__link--hover--Color: var(--pf-global--palette--black-600);
+}
+
+.pf-c-nav__link::before {
+  --pf-c-nav__link--before--BorderColor: currentColor;
+  --pf-c-nav--m-horizontal__link--Right: 0;
+  --pf-c-nav--m-horizontal__link--Left: 0;
+}
+
+.pf-c-nav__link:hover::before {
+  --pf-c-nav__link--before--BorderColor: var(--pf-global--palette--black-300);
+}
+
+.pf-c-nav__link.pf-m-current:hover::before {
+  --pf-c-nav__link--before--BorderColor: currentColor;
+}

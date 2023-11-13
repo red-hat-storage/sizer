@@ -1,5 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { Workload } from "../../types";
+import { disableCompactMode, enableCompactMode } from "./cluster";
 
 let WL_COUNTER = 1;
 export const generateWorkloadID = (): number => WL_COUNTER++;
@@ -41,6 +42,22 @@ const workloadReducer = createReducer(defaultState, (builder) => {
       return state.map((item) => {
         if (item.id === payload.id) {
           return Object.assign({}, item, payload);
+        }
+        return item;
+      });
+    })
+    .addCase(enableCompactMode, (state) => {
+      return state.map((item) => {
+        if (item.name === "ControlPlane") {
+          return Object.assign({}, item, { usesMachines: [] });
+        }
+        return item;
+      });
+    })
+    .addCase(disableCompactMode, (state) => {
+      return state.map((item) => {
+        if (item.name === "ControlPlane") {
+          return Object.assign({}, item, { usesMachines: ["controlPlane"] });
         }
         return item;
       });
