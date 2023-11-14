@@ -7,11 +7,7 @@ import {
   Workload,
   WorkloadDescriptor,
 } from "../types";
-import {
-  generateWorkloadID,
-  removeServicesFromNodes,
-  removeWorkload,
-} from "../redux";
+import { generateWorkloadID, removeWorkload } from "../redux/reducers/workload";
 import { generateServiceID, removeServices } from "../redux/reducers/service";
 import { getTotalResourceRequirement } from "./common";
 import { getAllCoplacedServices, sortServices } from "./service";
@@ -19,6 +15,7 @@ import {
   getNodeKubeletCPURequirements,
   getNodeKubeletMemoryRequirements,
 } from "./kubelet";
+import { removeServicesFromNodes } from "../redux/reducers/node";
 
 type WorkloadDescriptorObjects = {
   services: Service[];
@@ -81,24 +78,6 @@ export const getDescriptorFromWorkload = (
     services: serviceDescriptors,
   });
   return workloadDescriptor;
-};
-
-export const getMachineSetForWorkload = (
-  workload: Workload,
-  machineSets: MachineSet[]
-): MachineSet => {
-  const dedicatedMS = machineSets.find((ms) =>
-    ms.onlyFor.includes(workload.name)
-  );
-  if (dedicatedMS) {
-    return dedicatedMS;
-  }
-  if (workload.usesMachines.length > 0) {
-    return machineSets.find((ms) =>
-      workload.usesMachines.includes(ms.name)
-    ) as MachineSet;
-  }
-  return machineSets[0];
 };
 
 export const getWorkloadResourceConsumption = (

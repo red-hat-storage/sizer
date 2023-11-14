@@ -7,7 +7,7 @@ import {
 import { MachineSet } from "../../types";
 import { Platform } from "../../types";
 import { disableCompactMode, enableCompactMode } from "./cluster";
-import { getMachinetSetFromInstance } from "../../utils";
+import { getMachinetSetFromInstance } from "../../utils/common";
 
 let MS_COUNTER = 2;
 

@@ -1,17 +1,13 @@
 import { getODFWorkload } from "../../src/workloads";
 import { MachineSet } from "../../src/types";
-import {
-  addMachineSet,
-  addServices,
-  addWorkload,
-  editServices,
-  editWorkload,
-} from "../../src/redux/reducers";
 import { store as mainStore } from "../../src/redux/store";
 import { workloadScheduler } from "../../src/scheduler/workloadScheduler";
 import { getWorkloadFromDescriptors } from "../../src/utils/workload";
 import { DeploymentType } from "../../src/types";
 import { ODF_WORKLOAD_NAME } from "../../src/constants";
+import { addMachineSet } from "../../src/redux/reducers/machineSet";
+import { addServices, editServices } from "../../src/redux/reducers/service";
+import { addWorkload, editWorkload } from "../../src/redux/reducers/workload";
 
 const { services: odfServices, workload: odfWorkload } =
   getWorkloadFromDescriptors(

@@ -127,7 +127,9 @@ export const useSetupAPI = (): void => {
           dispatch(addMachineSet(odfMS));
         }
       } else {
-        const selectedMS = machineSet.find((ms) => ms.name === dedicatedMSName);
+        const selectedMS: MachineSet = machineSet.find(
+          (ms) => ms.name === dedicatedMSName
+        ) as MachineSet;
         workload.usesMachines = [selectedMS.name];
         if (selectedMS.onlyFor.length === 0) {
           const updatedSelectedMS = Object.assign(_.cloneDeep(selectedMS), {
@@ -162,7 +164,7 @@ export const useSetupAPI = (): void => {
   const schedule = React.useCallback(() => {
     dispatch(removeAllZones());
     dispatch(removeAllNodes());
-    const unschedulables = [];
+    const unschedulables: Workload[] = [];
     const scheduler = workloadScheduler(store, dispatch);
     const checkSchedulability = isWorkloadSchedulable(services, machineSets);
     const workloadSchedulability: [Workload, boolean, MachineSet[]][] =
@@ -208,9 +210,9 @@ export const useSetupAPI = (): void => {
       const instance = _.find<Instance>(
         platformInstanceMap[platform],
         (item) => item.name === instanceName
-      );
+      ) as Instance;
       const isCloud = isCloudPlatform(platform);
-      const machineSet = {
+      const machineSet: MachineSet = {
         name: machineSetName,
         cpu: !isCloud ? cpu : instance?.cpuUnits,
         memory: !isCloud ? memory : instance?.memory,
@@ -219,7 +221,7 @@ export const useSetupAPI = (): void => {
         onlyFor: dedicateToODF ? [ODF_WORKLOAD_NAME] : [],
         label: "Worker Node",
         instanceStorage: instance?.instanceStorage,
-      };
+      } as MachineSet;
       dispatch(addMachineSet(machineSet));
     },
     [dispatch, platform]

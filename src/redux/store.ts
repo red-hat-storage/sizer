@@ -1,14 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  uiReducer,
-  ocsReducer,
-  workloadReducer,
-  machineSetReducer,
-  clusterReducer,
-  nodeReducer,
-  zoneReducer,
-  serviceReducer,
-} from "./reducers";
+import { uiReducer } from "./reducers/ui";
+import { ocsReducer } from "./reducers/ocs";
+import { workloadReducer } from "./reducers/workload";
+import { machineSetReducer } from "./reducers/machineSet";
+import { clusterReducer } from "./reducers/cluster";
+import { nodeReducer } from "./reducers/node";
+import { zoneReducer } from "./reducers/zone";
+import { serviceReducer } from "./reducers/service";
 
 const store = configureStore({
   reducer: {

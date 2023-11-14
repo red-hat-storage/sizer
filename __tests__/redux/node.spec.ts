@@ -2,16 +2,13 @@ import { ServiceDescriptor } from "../../src/types/Service";
 import { Platform } from "../../src/types/common";
 import { pruneNodes } from "../../src/scheduler/nodePruner";
 import { store as mainStore } from "../../src/redux/store";
-import {
-  removeWorkloads,
-  removeServices,
-  removeNodes,
-  setPlatform,
-} from "../../src/redux/reducers";
-
 import { runWorkload } from "../common";
 import { isWorkloadSchedulable } from "../../src/utils/workload";
 import { MachineSet } from "../../src/types";
+import { setPlatform } from "../../src/redux/reducers/cluster";
+import { removeNodes } from "../../src/redux/reducers/node";
+import { removeServices } from "../../src/redux/reducers/service";
+import { removeWorkloads } from "../../src/redux/reducers/workload";
 
 const testServices: ServiceDescriptor[] = [
   {

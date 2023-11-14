@@ -1,6 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { Node, Zone } from "../../src/types";
-import { removeNodes, removeZone } from "../redux";
+import { removeNodes } from "../redux/reducers/node";
+import { removeZone } from "../redux/reducers/zone";
 
 export const pruneNodes =
   (dispatch: Dispatch) =>

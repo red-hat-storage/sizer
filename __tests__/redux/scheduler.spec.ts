@@ -1,13 +1,11 @@
 import { defaultWorkloads } from "../../src/components/Workload/defaultWorkloads";
 import { MachineSet, WorkloadDescriptor } from "../../src/types";
-import {
-  addMachineSet,
-  addServices,
-  addWorkload,
-} from "../../src/redux/reducers";
+import { addMachineSet } from "../../src/redux/reducers/machineSet";
 import { store as mainStore } from "../../src/redux/store";
 import { workloadScheduler } from "../../src/scheduler/workloadScheduler";
 import { getWorkloadFromDescriptors } from "../../src/utils/workload";
+import { addServices } from "../../src/redux/reducers/service";
+import { addWorkload } from "../../src/redux/reducers/workload";
 
 const kafkaWorkloadDescriptor: WorkloadDescriptor = defaultWorkloads.find(
   (wl) => wl.name === "Kafka"
