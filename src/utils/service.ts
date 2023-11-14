@@ -2,14 +2,27 @@ import { MachineSet, Service, Workload, Zone } from "../types";
 import { Node } from "../types";
 import { canNodeAddService, getTotalNodeMemoryConsumption } from "./node";
 import { Dispatch } from "@reduxjs/toolkit";
-import {
-  addNode,
-  addNodesToZone,
-  addServicesToNode,
-  getNodeID,
-} from "../redux/reducers";
-import { getMachineSetForWorkload } from "./workload";
+import { addNode, addServicesToNode, getNodeID } from "../redux/reducers/node";
 import { getTotalResourceRequirement } from "./common";
+import { addNodesToZone } from "../redux/reducers/zone";
+
+export const getMachineSetForWorkload = (
+  workload: Workload,
+  machineSets: MachineSet[]
+): MachineSet => {
+  const dedicatedMS = machineSets.find((ms) =>
+    ms.onlyFor.includes(workload.name)
+  );
+  if (dedicatedMS) {
+    return dedicatedMS;
+  }
+  if (workload.usesMachines.length > 0) {
+    return machineSets.find((ms) =>
+      workload.usesMachines.includes(ms.name)
+    ) as MachineSet;
+  }
+  return machineSets[0];
+};
 
 /**
  *

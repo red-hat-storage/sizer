@@ -10,7 +10,7 @@ import { MachineSet, Service, Workload, Zone } from "../types";
 import { Node } from "../types";
 import * as _ from "lodash";
 import { Dispatch } from "@reduxjs/toolkit";
-import { addZone, generateZoneID } from "../redux/reducers";
+import { addZone, generateZoneID } from "../redux/reducers/zone";
 import { getMaxZones, sortBestZones } from "../utils/node";
 import { addServiceToZone, getCoplacedServices } from "../utils/service";
 import { store as Store } from "../redux/store";
