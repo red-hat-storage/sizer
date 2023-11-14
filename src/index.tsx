@@ -1,8 +1,8 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Sizer } from "./components/sizer";
 import "@patternfly/patternfly/patternfly.css";
 
 const node = document.getElementById("root");
-
-ReactDOM.render(<Sizer />, node);
+const root = createRoot(node);
+root.render(<Sizer />);
