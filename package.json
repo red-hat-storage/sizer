@@ -1,6 +1,6 @@
 {
   "name": "odf-solver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A web application used for estimating and understanding ODF deployments.",
   "scripts": {
     "test": "jest __tests__/redux/",
