@@ -228,13 +228,6 @@ const ResultsPage: React.FC = () => {
         .then((response) => {
           setLink(response.data.id || "");
           setLoading(false);
-          history.replace(
-            getLink(
-              window.location.origin.toString(),
-              location.pathname,
-              response.data.id as string
-            )
-          );
         })
         .catch((err) => {
           console.error(err);
@@ -395,7 +388,7 @@ const ResultsPage: React.FC = () => {
               title="No Storage Cluster is available"
               actionLinks={
                 <>
-                  <AlertActionLink onClick={() => history.push('/storage')}>
+                  <AlertActionLink onClick={() => history.push("/storage")}>
                     Create ODF Cluster
                   </AlertActionLink>
                   <AlertActionLink onClick={createODFWorkload}>
