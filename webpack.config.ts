@@ -9,6 +9,7 @@ const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 const mode = process.env.MODE || "development";
 const publicPath = process.env.PUBLIC_PATH || "/";
+const isBeta = publicPath !== "/";
 const deploymentMode = process.env.DEPLOYMENT_MODE || "";
 const GH_TOKEN = process.env.GH_TOKEN || "";
 
@@ -186,8 +187,8 @@ const Configuration: webpack.Configuration = {
         __dirname +
         (deploymentMode === "lab"
           ? "/lab-index.html"
-          : deploymentMode === "lab"
-          ? "/lab-index.html"
+          : isBeta
+          ? "/index-beta.html"
           : "/index.html"),
       favicon: __dirname + "/assets/images/ocs-logo.png",
     }),

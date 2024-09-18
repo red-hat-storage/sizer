@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {
-  HashRouter,
+  Navigate,
   Route,
-  Switch,
-  Redirect,
-  useHistory,
+  Routes,
+  useNavigate,
   useLocation,
+  BrowserRouter,
+  HashRouter,
 } from "react-router-dom";
 import { Page, Spinner } from "@patternfly/react-core";
 import { request } from "@octokit/request";
@@ -57,7 +58,7 @@ export const Sizer_: React.FC = () => {
 
   const analytics = useAnalytics();
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useSetupAPI();
 
@@ -175,7 +176,7 @@ export const Sizer_: React.FC = () => {
       prevState.current &&
       JSON.stringify(prevState.current) !== JSON.stringify(coreState)
     ) {
-      history.replace(location.pathname);
+      navigate(location.pathname);
     }
     prevState.current = coreState;
   }, [coreState, history, location.pathname]);
@@ -210,26 +211,21 @@ export const Sizer_: React.FC = () => {
             isOpen={activeModal === "FAQ"}
             onClose={() => setActiveModal("")}
           />
-          <Switch>
-            <Route path="/workloads">
-              <LazyWorkloadPage />
-            </Route>
-            <Route path="/storage">
-              <LazyStoragePage />
-            </Route>
-            <Route path="/compute">
-              <LazyComputePage />
-            </Route>
-            <Route path="/results">
-              <LazyResultsPage />
-            </Route>
-            <Redirect from="/" to="/workloads" />
-          </Switch>
+          <Routes>
+            <Route path="/workloads" element={<LazyWorkloadPage />} />
+            <Route path="/storage" element={<LazyStoragePage />} />
+            <Route path="/compute" element={<LazyComputePage />} />
+            <Route path="/results" element={<LazyResultsPage />} />
+            <Route path="/" element={<Navigate to="/workloads" />} />
+          </Routes>
         </React.Suspense>
       </Page>
     </GAContext.Provider>
   );
 };
+
+const IS_BETA = process.env.PUBLIC_PATH === "/sizer.ocs.ninja/beta/";
+const BETA_BASE = "/sizer.ocs.ninja/beta";
 
 export const Sizer: React.FC = () => (
   <Provider store={store}>
