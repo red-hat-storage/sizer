@@ -10,6 +10,6 @@ export const getLink = (
   if (pathname.endsWith("/") && pathname !== "/") {
     link += pathname.substring(0, pathname.length - 1);
   }
-  link += `?state=${gistID}`;
+  link += `#/?state=${gistID}`;
   return link;
 };

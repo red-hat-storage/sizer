@@ -1,18 +1,18 @@
 import * as React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Nav, NavItem, NavList } from "@patternfly/react-core";
 import * as _ from "lodash";
 import "./navBar.css";
 
 const Navigation: React.FunctionComponent = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const [activeItem, setActiveItem] = React.useState<string>("workloads");
   const routes = ["workloads", "storage", "compute", "results"];
 
   const onSelect = React.useCallback(
     (result: { itemId: string | number }) => {
-      history.push(`/${result.itemId}`);
+      navigate(`/${result.itemId}`);
       setActiveItem(result.itemId as string);
     },
     [history]

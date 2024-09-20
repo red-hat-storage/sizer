@@ -53,7 +53,7 @@ import {
 } from "../../analytics";
 import { getOCSData, getODFData, StorageClassMap } from "../../utils";
 import * as jsyaml from "js-yaml";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ResultsPage: React.FC = () => {
   const {
@@ -86,7 +86,7 @@ const ResultsPage: React.FC = () => {
   };
 
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const showOverProvisionWarning = isODFPresent && usedStorage > totalStorage;
 
@@ -228,13 +228,6 @@ const ResultsPage: React.FC = () => {
         .then((response) => {
           setLink(response.data.id || "");
           setLoading(false);
-          history.replace(
-            getLink(
-              window.location.origin.toString(),
-              location.pathname,
-              response.data.id as string
-            )
-          );
         })
         .catch((err) => {
           console.error(err);
@@ -361,7 +354,7 @@ const ResultsPage: React.FC = () => {
                   <ClipboardCopy isReadOnly hoverTip="Copy" clickTip="Copied">
                     {getLink(
                       window.location.origin.toString(),
-                      location.pathname,
+                      window.location.pathname,
                       link
                     )}
                   </ClipboardCopy>
@@ -395,7 +388,7 @@ const ResultsPage: React.FC = () => {
               title="No Storage Cluster is available"
               actionLinks={
                 <>
-                  <AlertActionLink onClick={() => history.push('/storage')}>
+                  <AlertActionLink onClick={() => navigate("/storage")}>
                     Create ODF Cluster
                   </AlertActionLink>
                   <AlertActionLink onClick={createODFWorkload}>
