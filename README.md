@@ -3,7 +3,6 @@
 This repository contains the source code of the ODF 4 Sizing Tool.
 The tool is hosted on https://sizer.ocs.ninja and pushes to main automatically update this site.
 
-This tool is been kept up to date by [Brent Compton's](mailto:bcompton@redhat.com) team and is designed in a rolling release. Thus the website always refers to the latest ODF version.
 
 ## Using the source code
 
