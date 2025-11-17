@@ -13,7 +13,7 @@ const defaultState = {
 const addNode = createAction<Node>("ADD_NODE");
 const updateNode = createAction<Node>("UPDATE_NODE_NODE");
 const addServicesToNode = createAction<{ nodeID: number; services: number[] }>(
-  "ADD_SERVICE_TO_NODE"
+  "ADD_SERVICE_TO_NODE",
 );
 const removeServicesFromNodes = createAction<Service[]>("REMOVE_SERVICES");
 const removeNodes = createAction<Node[]>("REMOVE_NODES");
@@ -26,20 +26,20 @@ const nodeReducer = createReducer(defaultState, (builder) => {
     })
     .addCase(updateNode, ({ nodes }, { payload: updated }) => {
       nodes.map((node) =>
-        node.id === updated.id ? Object.assign({}, node, updated) : node
+        node.id === updated.id ? Object.assign({}, node, updated) : node,
       );
     })
     .addCase(addServicesToNode, (state, { payload }) => {
-      const node = state.nodes.find(
-        (node) => node.id === payload.nodeID
-      ) as Node;
-      node.services = [...node?.services, ...payload.services];
+      const node = state.nodes.find((node) => node.id === payload.nodeID);
+      if (node) {
+        node.services = [...node.services, ...payload.services];
+      }
     })
     .addCase(removeServicesFromNodes, (state, { payload }) => {
       const serviceIDs = payload.map((service) => service.id);
       state.nodes.map((node) => {
         node.services = node.services.filter(
-          (service) => !serviceIDs.includes(service)
+          (service) => !serviceIDs.includes(service),
         );
       });
     })

@@ -18,7 +18,8 @@ import PlatformSelector from "../Common/PlatformSelector";
 import "./compute.css";
 
 const isDeletable = (machineName: string) => machineName !== "controlPlane";
-const isEditable = (machineName: string) => true; // Allow editing all machine sets including control plane
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const isEditable = (_machineName: string) => true; // Allow editing all machine sets including control plane
 
 const Compute: React.FC = () => {
   const dispatch = useDispatch();

@@ -1,5 +1,4 @@
 import * as _ from "lodash";
-import { DeepPartial } from "@reduxjs/toolkit";
 import {
   WorkloadDescriptor as Workload,
   WorkloadDescriptor,
@@ -13,6 +12,13 @@ import {
   DiagnosesIcon,
   EyeIcon,
 } from "@patternfly/react-icons";
+
+// DeepPartial type utility (removed from Redux Toolkit 2.x)
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
 
 type WorkloadData = Omit<WorkloadDescriptor, "uid"> & {
   icon: React.ComponentClass;

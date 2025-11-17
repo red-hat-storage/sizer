@@ -1,8 +1,9 @@
 import * as webpack from "webpack";
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 import * as path from "path";
 import * as os from "os";
-import * as ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
-import * as HTMLWebpackPlugin from "html-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import HTMLWebpackPlugin from "html-webpack-plugin";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
@@ -13,7 +14,9 @@ const isBeta = publicPath !== "/";
 const deploymentMode = process.env.DEPLOYMENT_MODE || "";
 const GH_TOKEN = process.env.GH_TOKEN || "";
 
-const Configuration: webpack.Configuration = {
+const Configuration: webpack.Configuration & {
+  devServer?: DevServerConfiguration;
+} = {
   entry: ["./src/index.tsx"],
   output: {
     path: path.resolve(__dirname, "build/"),
@@ -60,32 +63,32 @@ const Configuration: webpack.Configuration = {
           path.resolve(__dirname, "node_modules/@patternfly/react-code-editor"),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-code-editor/node_modules/@patternfly"
+            "node_modules/@patternfly/react-code-editor/node_modules/@patternfly",
           ),
           path.resolve(__dirname, "node_modules/@patternfly/react-styles/css"),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-core/dist/styles/base.css"
+            "node_modules/@patternfly/react-core/dist/styles/base.css",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-core/dist/esm/@patternfly/patternfly"
+            "node_modules/@patternfly/react-core/dist/esm/@patternfly/patternfly",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-core/node_modules/@patternfly/react-styles/css"
+            "node_modules/@patternfly/react-core/node_modules/@patternfly/react-styles/css",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-table/node_modules/@patternfly/react-styles/css"
+            "node_modules/@patternfly/react-table/node_modules/@patternfly/react-styles/css",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css"
+            "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css",
           ),
           path.resolve(
             __dirname,
-            "node_modules/react-monaco-editor/node_modules/monaco-editor/"
+            "node_modules/react-monaco-editor/node_modules/monaco-editor/",
           ),
         ],
         use: ["style-loader", "css-loader"],
@@ -99,31 +102,31 @@ const Configuration: webpack.Configuration = {
           path.resolve(__dirname, "node_modules/@patternfly/react-code-editor"),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-code-editor/node_modules/@patternfly"
+            "node_modules/@patternfly/react-code-editor/node_modules/@patternfly",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/patternfly/assets/images"
+            "node_modules/@patternfly/patternfly/assets/images",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-styles/css/assets/images"
+            "node_modules/@patternfly/react-styles/css/assets/images",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-core/dist/styles/assets/images"
+            "node_modules/@patternfly/react-core/dist/styles/assets/images",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-core/node_modules/@patternfly/react-styles/css/assets/images"
+            "node_modules/@patternfly/react-core/node_modules/@patternfly/react-styles/css/assets/images",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-table/node_modules/@patternfly/react-styles/css/assets/images"
+            "node_modules/@patternfly/react-table/node_modules/@patternfly/react-styles/css/assets/images",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css/assets/images"
+            "node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css/assets/images",
           ),
         ],
         use: [
@@ -145,27 +148,27 @@ const Configuration: webpack.Configuration = {
           path.resolve(__dirname, "node_modules/monaco-editor"),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-core/dist/styles/assets/fonts"
+            "node_modules/@patternfly/react-core/dist/styles/assets/fonts",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-core/dist/styles/assets/pficon"
+            "node_modules/@patternfly/react-core/dist/styles/assets/pficon",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/patternfly/assets/fonts"
+            "node_modules/@patternfly/patternfly/assets/fonts",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/patternfly/assets/pficon"
+            "node_modules/@patternfly/patternfly/assets/pficon",
           ),
           path.resolve(
             __dirname,
-            "node_modules/react-monaco-editor/node_modules/monaco-editor/esm/vs"
+            "node_modules/react-monaco-editor/node_modules/monaco-editor/esm/vs",
           ),
           path.resolve(
             __dirname,
-            "node_modules/@patternfly/react-styles/css/assets/images"
+            "node_modules/@patternfly/react-styles/css/assets/images",
           ),
         ],
         use: {
@@ -188,8 +191,8 @@ const Configuration: webpack.Configuration = {
         (deploymentMode === "lab"
           ? "/lab-index.html"
           : isBeta
-          ? "/index-beta.html"
-          : "/index.html"),
+            ? "/index-beta.html"
+            : "/index.html"),
       favicon: __dirname + "/assets/images/ocs-logo.png",
     }),
     new webpack.EnvironmentPlugin({

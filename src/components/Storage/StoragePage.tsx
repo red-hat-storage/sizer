@@ -21,7 +21,6 @@ import { getODFWorkload } from "../../workloads";
 import {
   addWorkload,
   addServices,
-  setTab,
   Store,
   addMachineSet,
   updateMachineSet,
@@ -72,11 +71,11 @@ const StoragePage: React.FC = () => {
   const [useDedicated, setDedicated] = React.useState(() =>
     machineSet.find((ms) => ms.onlyFor.includes(ODF_WORKLOAD_NAME))
       ? true
-      : false
+      : false,
   );
 
   const isCompactMode = useSelector(
-    (store: Store) => store.cluster.isCompactMode
+    (store: Store) => store.cluster.isCompactMode,
   );
 
   const toggleCompactMode = React.useCallback(() => {
@@ -90,17 +89,17 @@ const StoragePage: React.FC = () => {
   const [dedicatedMSName, setDedicatedMSName] = React.useState(
     () =>
       machineSet.find((ms) => ms.onlyFor.includes(ODF_WORKLOAD_NAME))?.name ??
-      null
+      null,
   );
 
   const totalStorage = React.useMemo(
     () =>
       workloads.reduce(
         (acc, curr) => (acc += (curr.storageCapacityRequired || 0) / 1000),
-        0
+        0,
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(workloads)]
+    [JSON.stringify(workloads)],
   );
 
   const clientID = useGetAnalyticClientID();
@@ -108,7 +107,7 @@ const StoragePage: React.FC = () => {
   React.useEffect(() => {
     // Dedicated MachineSet for ODF
     const hasDedicatedMS = machineSet.find(
-      (ms) => ms.name === ODF_DEDICATED_MS_NAME
+      (ms) => ms.name === ODF_DEDICATED_MS_NAME,
     );
     if (hasDedicatedMS) {
       if (!dedicatedMSName) {
@@ -120,7 +119,7 @@ const StoragePage: React.FC = () => {
 
   const dedicatedMS = React.useMemo(
     () => machineSet.find((ms) => ms.name === ODF_DEDICATED_MS_NAME),
-    [machineSet]
+    [machineSet],
   );
 
   const onClick = () => {
@@ -130,12 +129,12 @@ const StoragePage: React.FC = () => {
       ocsState.deploymentType,
       ocsState.dedicatedMachines,
       true,
-      !isCloudPlatform(platform) // Enables RGW only for UPI deployments
+      !isCloudPlatform(platform), // Enables RGW only for UPI deployments
     );
 
     // Remove existing ODF Workload if already present
     const oldWorkload = workloads.find((wl) =>
-      wl.name.includes(ODF_WORKLOAD_NAME)
+      wl.name.includes(ODF_WORKLOAD_NAME),
     );
     if (oldWorkload) {
       removeWorkloadSafely(dispatch)(oldWorkload, existingServices);
@@ -147,7 +146,7 @@ const StoragePage: React.FC = () => {
     if (!useDedicated) {
       const workloadScheduleChecker = isWorkloadSchedulable(
         services,
-        machineSet
+        machineSet,
       );
       const [isSchedulable] = workloadScheduleChecker(workload);
       if (!isSchedulable) {
@@ -184,7 +183,7 @@ const StoragePage: React.FC = () => {
         // deploymentType: ocsState.deploymentType
       };
       customEventPusher(STORAGE_CREATE, params, clientID).catch((err) =>
-        console.error("Error sending data to analytics service", err)
+        console.error("Error sending data to analytics service", err),
       );
     }
   };

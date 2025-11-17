@@ -9,6 +9,7 @@
     "strict": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
     "jsx": "react",
     "sourceMap": true,
     "resolveJsonModule": true

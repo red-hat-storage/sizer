@@ -53,30 +53,47 @@ export const useGetAnalyticClientID = (useDebug?: boolean): string => {
   const [clientID, setClientID] = React.useState<string>(null);
 
   React.useEffect(() => {
-    Promise.resolve(analytics).then((a) =>
+    Promise.resolve(analytics).then((a) => {
+      // Skip if analytics is not initialized (e.g., localhost)
+      if (!a || !analyticsID) {
+        return;
+      }
       a.gtag("get", analyticsID, "client_id", (id) => {
         setClientID(id);
         console.log("Id for client is: ", id);
-      })
-    );
+      });
+    });
   }, [analyticsID, analytics]);
   return clientID;
 };
 
 const useAnalytics: UseAnalytics = (useDebug) => {
   const id = useGetAnalyticID(useDebug);
-  const gaItem = React.useMemo(async () => {
-    if (GA4Initialized) {
-      return GA4Initialized;
-    } else {
-      const ga4Item = new GA4React(id, { send_page_view: true });
-      const initialized = await ga4Item.initialize();
-      GA4Initialized = initialized;
-      return initialized;
+  const [gaPromise] = React.useState<Promise<GA4ReactResolveInterface>>(() => {
+    // Don't initialize GA if no tracking ID (e.g., localhost without debug)
+    if (!id) {
+      return Promise.resolve(null);
     }
-  }, [id]);
 
-  return gaItem;
+    if (GA4Initialized) {
+      return Promise.resolve(GA4Initialized);
+    }
+
+    // Initialize GA4React asynchronously
+    return (async () => {
+      try {
+        const ga4Item = new GA4React(id, { send_page_view: true });
+        const initialized = await ga4Item.initialize();
+        GA4Initialized = initialized;
+        return initialized;
+      } catch (error) {
+        console.warn("GA4React initialization failed:", error);
+        return null;
+      }
+    })();
+  });
+
+  return gaPromise;
 };
 
 export default useAnalytics;

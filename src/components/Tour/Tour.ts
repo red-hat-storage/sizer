@@ -1,5 +1,5 @@
 import Shepherd from "shepherd.js";
-import * as Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import { setFlashSize, setTab, setTourActive } from "../../redux";
 import { Dispatch } from "@reduxjs/toolkit";
 

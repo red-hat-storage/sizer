@@ -14,7 +14,7 @@ const addZone = createAction<Zone>("ADD_ZONE");
 const removeZone = createAction<Zone>("REMOVE_ZONE");
 const removeAllZones = createAction("REMOVE_ALL_ZONE");
 const addNodesToZone = createAction<{ zoneId: number; nodes: number[] }>(
-  "ADD_NODE_TO_ZONE"
+  "ADD_NODE_TO_ZONE",
 );
 
 const zoneReducer = createReducer(defaultState, (builder) => {
@@ -31,8 +31,10 @@ const zoneReducer = createReducer(defaultState, (builder) => {
       return state;
     })
     .addCase(addNodesToZone, ({ zones }, { payload: { zoneId, nodes } }) => {
-      const updateZone = zones.find((z) => z.id === zoneId) as Zone;
-      updateZone.nodes = [...updateZone?.nodes, ...nodes];
+      const updateZone = zones.find((z) => z.id === zoneId);
+      if (updateZone) {
+        updateZone.nodes = [...updateZone.nodes, ...nodes];
+      }
     });
 });
 

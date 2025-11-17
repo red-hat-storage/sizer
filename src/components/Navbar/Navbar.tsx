@@ -15,7 +15,7 @@ const Navigation: React.FunctionComponent = () => {
       navigate(`/${result.itemId}`);
       setActiveItem(result.itemId as string);
     },
-    [history]
+    [navigate],
   );
 
   React.useEffect(() => {
