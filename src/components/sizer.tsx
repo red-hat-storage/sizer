@@ -6,7 +6,6 @@ import {
   Routes,
   useNavigate,
   useLocation,
-  BrowserRouter,
   HashRouter,
 } from "react-router-dom";
 import { Page, Spinner } from "@patternfly/react-core";
@@ -34,7 +33,7 @@ import useAnalytics from "../analytics/analytics";
 import { GA4ReactResolveInterface } from "ga-4-react/dist/models/gtagModels";
 import { ErrorBoundary, handleLegacyURL, isLegacyURL } from "../utils";
 import { getSizerTour } from "./Tour/Tour";
-import * as Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import { useSetupAPI } from "../api";
 import { getODFWorkload } from "../workloads";
 import { ODF_DEDICATED_MS_NAME, ODF_WORKLOAD_NAME } from "../constants";
@@ -89,7 +88,7 @@ export const Sizer_: React.FC = () => {
   }, [dispatch]);
 
   const isCompactMode = useSelector(
-    (store: Store) => store.cluster.isCompactMode
+    (store: Store) => store.cluster.isCompactMode,
   );
 
   React.useEffect(() => {
@@ -144,7 +143,7 @@ export const Sizer_: React.FC = () => {
           numberOfDisks: 24,
           onlyFor: [ODF_WORKLOAD_NAME],
           label: "Beta Node",
-        })
+        }),
       );
       const workload = getODFWorkload(
         Number(usableCapacity) / 1024,
@@ -156,7 +155,7 @@ export const Sizer_: React.FC = () => {
         noobaaActive === "true",
         rgwActive === "true",
         cephFSActive === "true",
-        nvmeTuning === "true"
+        nvmeTuning === "true",
       );
       // Configure OCS
       dispatch(setFlashSize(Number(diskSize)));
@@ -165,7 +164,7 @@ export const Sizer_: React.FC = () => {
       dispatch(setDedicatedMachines([ODF_DEDICATED_MS_NAME]));
       workloadCreater(workload);
       alert(
-        'You are using a legacy URL. This might be unsupported in the upcoming versions so please update your link by going to Results and clicking "Get Sharing Link"'
+        'You are using a legacy URL. This might be unsupported in the upcoming versions so please update your link by going to Results and clicking "Get Sharing Link"',
       );
     }
   }, [dispatch]);
@@ -223,9 +222,6 @@ export const Sizer_: React.FC = () => {
     </GAContext.Provider>
   );
 };
-
-const IS_BETA = process.env.PUBLIC_PATH === "/sizer.ocs.ninja/beta/";
-const BETA_BASE = "/sizer.ocs.ninja/beta";
 
 export const Sizer: React.FC = () => (
   <Provider store={store}>

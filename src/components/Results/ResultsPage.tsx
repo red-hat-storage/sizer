@@ -25,7 +25,6 @@ import {
   addWorkload,
   removeAllNodes,
   removeAllZones,
-  setTab,
   setUsableCapacity,
   store,
   Store,
@@ -86,10 +85,6 @@ const ResultsPage: React.FC = () => {
   const [isODFPresent, createODFWorkload] = useODFPresent();
   const [, usedStorage, totalStorage] = useStorageDetails();
 
-  const redirectToStoragePage = () => {
-    dispatch(setTab(1));
-  };
-
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -104,7 +99,7 @@ const ResultsPage: React.FC = () => {
 
     // Check if control plane allows workload scheduling
     const controlPlaneMachineSet = machineSets.find(
-      (ms) => ms.name === "controlPlane"
+      (ms) => ms.name === "controlPlane",
     );
     const isControlPlaneSchedulable =
       controlPlaneMachineSet?.allowWorkloadScheduling === true;
@@ -168,7 +163,7 @@ const ResultsPage: React.FC = () => {
         totalWorkloads: `${workloads.length}`,
       };
       customEventPusher(RESULTS_CLICKED, params, clientID).catch((err) =>
-        console.error("Error sending data to analytics service", err)
+        console.error("Error sending data to analytics service", err),
       );
     }
   }, [
@@ -199,7 +194,7 @@ const ResultsPage: React.FC = () => {
     });
     if (clientID) {
       customEventPusher(DOWNLOAD_IMAGE, {}, clientID).catch((err) =>
-        console.error("Error sending data to analytics service", err)
+        console.error("Error sending data to analytics service", err),
       );
     }
   };
@@ -209,9 +204,9 @@ const ResultsPage: React.FC = () => {
       getSupportExceptions(
         ocsState.flashSize,
         platform,
-        ocsState.deploymentType
+        ocsState.deploymentType,
       ),
-    [ocsState.flashSize, platform, ocsState.deploymentType]
+    [ocsState.flashSize, platform, ocsState.deploymentType],
   );
 
   React.useEffect(() => {
@@ -233,7 +228,7 @@ const ResultsPage: React.FC = () => {
     setShowAdvanced(true);
     if (clientID) {
       customEventPusher(SHOW_ADVANCED, {}, clientID).catch((err) =>
-        console.error("Error sending data to analytics service", err)
+        console.error("Error sending data to analytics service", err),
       );
     }
   };
@@ -247,7 +242,7 @@ const ResultsPage: React.FC = () => {
         .filter(
           (wl) =>
             wl.name.toLowerCase() !== "controlplane" &&
-            !Object.prototype.hasOwnProperty.call(wl, "duplicateOf")
+            !Object.prototype.hasOwnProperty.call(wl, "duplicateOf"),
         )
         .map((wl) => getDescriptorFromWorkload(wl, coreState.service.services)),
       machineSet: coreState.machineSet,
@@ -288,12 +283,12 @@ const ResultsPage: React.FC = () => {
       usedStorage + 5,
       ocsState.flashSize,
       ocsState.deploymentType,
-      ocsState.dedicatedMachines
+      ocsState.dedicatedMachines,
     );
 
     // Remove existing ODF Workload if already present
     const oldWorkload = workloads.find((wl) =>
-      wl.name.includes(ODF_WORKLOAD_NAME)
+      wl.name.includes(ODF_WORKLOAD_NAME),
     );
     if (oldWorkload) {
       removeWorkloadSafely(dispatch)(oldWorkload, services);
@@ -309,7 +304,7 @@ const ResultsPage: React.FC = () => {
   const pushSharingEvent = () => {
     if (clientID) {
       customEventPusher(GET_SHARING_LINK, {}, clientID).catch((err) =>
-        console.error("Error sending data to analytics service", err)
+        console.error("Error sending data to analytics service", err),
       );
     }
   };
@@ -327,7 +322,7 @@ const ResultsPage: React.FC = () => {
       "",
       false,
       0,
-      false
+      false,
     );
     const odfSystem = getODFData();
     const clusterYaml = jsyaml.dump(cluster);
@@ -395,13 +390,14 @@ const ResultsPage: React.FC = () => {
               ) : (
                 <div>
                   <div>
-                    You can use the following link to share your configuration:{" "}
+                    You can use the following link to share your
+                    configuration:{" "}
                   </div>
                   <ClipboardCopy isReadOnly hoverTip="Copy" clickTip="Copied">
                     {getLink(
                       window.location.origin.toString(),
                       window.location.pathname,
-                      link
+                      link,
                     )}
                   </ClipboardCopy>
                 </div>

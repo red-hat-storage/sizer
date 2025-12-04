@@ -111,7 +111,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
   const [count, setCount] = React.useState(workload.count);
   const [usesMachines, setMachines] = React.useState(workload.usesMachines);
   const [storageCapacity, setStorageCapacity] = React.useState(
-    workload.storageCapacityRequired
+    workload.storageCapacityRequired,
   );
 
   const [isOpen, setOpen] = React.useState(false);
@@ -140,7 +140,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
           </SelectOption>
         );
       }),
-    [machines]
+    [machines],
   );
 
   const onSelectMachines = (_event: any, machine: SelectOptionObject) => {
@@ -156,7 +156,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
     const remover = removeWorkloadSafely(dispatch);
     remover(workload, services);
     const duplicateWorkloads = workloads.filter(
-      (wl) => wl.duplicateOf === workload.id
+      (wl) => wl.duplicateOf === workload.id,
     );
     duplicateWorkloads.forEach((wl) => remover(wl, services));
     let descriptor: WorkloadDescriptor = null;
@@ -187,23 +187,26 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
     setWorkloadYAML(data);
   };
 
-  const Header = () => (
-    <Flex justifyContent={{ default: "justifyContentSpaceBetween" }}>
-      <FlexItem>
-        <Title headingLevel="h1">Edit Workload</Title>
-      </FlexItem>
-      {!advancedEditor && (
+  const headerContent = React.useMemo(
+    () => (
+      <Flex justifyContent={{ default: "justifyContentSpaceBetween" }}>
         <FlexItem>
-          <Button
-            onClick={() => setAdvancedEditor(true)}
-            variant={ButtonVariant.link}
-            isInline
-          >
-            Edit YAML
-          </Button>
+          <Title headingLevel="h1">Edit Workload</Title>
         </FlexItem>
-      )}
-    </Flex>
+        {!advancedEditor && (
+          <FlexItem>
+            <Button
+              onClick={() => setAdvancedEditor(true)}
+              variant={ButtonVariant.link}
+              isInline
+            >
+              Edit YAML
+            </Button>
+          </FlexItem>
+        )}
+      </Flex>
+    ),
+    [advancedEditor],
   );
 
   return (
@@ -213,7 +216,7 @@ const WorkloadEditFormModal: React.FC<WorkloadEditModalProps> = ({
       width="40vw"
       isOpen={true}
       onClose={() => closeModal()}
-      header={<Header />}
+      header={headerContent}
       actions={[
         <Button
           key="save"
