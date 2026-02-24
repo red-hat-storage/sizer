@@ -1,5 +1,8 @@
 build
 node_modules
-lib
+lib/dist/
+lib/node_modules/
+service/dist/
+service/node_modules/
 *.log
 coverage

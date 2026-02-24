@@ -1,0 +1,661 @@
+# Real production inventory: 795 VMs, 4556 CPU, 25661 GB
+# Split into 72 services for 128 CPU / 512 GB worker nodes (UI-compatible)
+# First 3 services: 12 VMs each, Last 69 services: 11 VMs each
+# Per service: 63.28 CPU / 356.4 GB with 1.5x over-commitment
+# Expected cluster: 75 nodes (3 CP + 72 workers)
+# Note: Memory is the bottleneck (not CPU) due to UI 512 GB limit
+
+---
+name: all-vms-batched
+count: 1
+usesMachines: ["worker"]
+storageCapacityRequired: 0
+services:
+  - name: vms-batch-1-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 1
+    avoid: []
+    runsWith: []
+  - name: vms-batch-2-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 2
+    avoid: []
+    runsWith: []
+  - name: vms-batch-3-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 3
+    avoid: []
+    runsWith: []
+  - name: vms-batch-4-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 4
+    avoid: []
+    runsWith: []
+  - name: vms-batch-5-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 5
+    avoid: []
+    runsWith: []
+  - name: vms-batch-6-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 6
+    avoid: []
+    runsWith: []
+  - name: vms-batch-7-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 7
+    avoid: []
+    runsWith: []
+  - name: vms-batch-8-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 8
+    avoid: []
+    runsWith: []
+  - name: vms-batch-9-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 9
+    avoid: []
+    runsWith: []
+  - name: vms-batch-10-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 10
+    avoid: []
+    runsWith: []
+  - name: vms-batch-11-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 11
+    avoid: []
+    runsWith: []
+  - name: vms-batch-12-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 12
+    avoid: []
+    runsWith: []
+  - name: vms-batch-13-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 13
+    avoid: []
+    runsWith: []
+  - name: vms-batch-14-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 14
+    avoid: []
+    runsWith: []
+  - name: vms-batch-15-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 15
+    avoid: []
+    runsWith: []
+  - name: vms-batch-16-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 16
+    avoid: []
+    runsWith: []
+  - name: vms-batch-17-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 17
+    avoid: []
+    runsWith: []
+  - name: vms-batch-18-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 18
+    avoid: []
+    runsWith: []
+  - name: vms-batch-19-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 19
+    avoid: []
+    runsWith: []
+  - name: vms-batch-20-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 20
+    avoid: []
+    runsWith: []
+  - name: vms-batch-21-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 21
+    avoid: []
+    runsWith: []
+  - name: vms-batch-22-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 22
+    avoid: []
+    runsWith: []
+  - name: vms-batch-23-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 23
+    avoid: []
+    runsWith: []
+  - name: vms-batch-24-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 24
+    avoid: []
+    runsWith: []
+  - name: vms-batch-25-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 25
+    avoid: []
+    runsWith: []
+  - name: vms-batch-26-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 26
+    avoid: []
+    runsWith: []
+  - name: vms-batch-27-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 27
+    avoid: []
+    runsWith: []
+  - name: vms-batch-28-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 28
+    avoid: []
+    runsWith: []
+  - name: vms-batch-29-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 29
+    avoid: []
+    runsWith: []
+  - name: vms-batch-30-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 30
+    avoid: []
+    runsWith: []
+  - name: vms-batch-31-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 31
+    avoid: []
+    runsWith: []
+  - name: vms-batch-32-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 32
+    avoid: []
+    runsWith: []
+  - name: vms-batch-33-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 33
+    avoid: []
+    runsWith: []
+  - name: vms-batch-34-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 34
+    avoid: []
+    runsWith: []
+  - name: vms-batch-35-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 35
+    avoid: []
+    runsWith: []
+  - name: vms-batch-36-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 36
+    avoid: []
+    runsWith: []
+  - name: vms-batch-37-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 37
+    avoid: []
+    runsWith: []
+  - name: vms-batch-38-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 38
+    avoid: []
+    runsWith: []
+  - name: vms-batch-39-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 39
+    avoid: []
+    runsWith: []
+  - name: vms-batch-40-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 40
+    avoid: []
+    runsWith: []
+  - name: vms-batch-41-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 41
+    avoid: []
+    runsWith: []
+  - name: vms-batch-42-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 42
+    avoid: []
+    runsWith: []
+  - name: vms-batch-43-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 43
+    avoid: []
+    runsWith: []
+  - name: vms-batch-44-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 44
+    avoid: []
+    runsWith: []
+  - name: vms-batch-45-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 45
+    avoid: []
+    runsWith: []
+  - name: vms-batch-46-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 46
+    avoid: []
+    runsWith: []
+  - name: vms-batch-47-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 47
+    avoid: []
+    runsWith: []
+  - name: vms-batch-48-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 48
+    avoid: []
+    runsWith: []
+  - name: vms-batch-49-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 49
+    avoid: []
+    runsWith: []
+  - name: vms-batch-50-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 50
+    avoid: []
+    runsWith: []
+  - name: vms-batch-51-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 51
+    avoid: []
+    runsWith: []
+  - name: vms-batch-52-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 52
+    avoid: []
+    runsWith: []
+  - name: vms-batch-53-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 53
+    avoid: []
+    runsWith: []
+  - name: vms-batch-54-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 54
+    avoid: []
+    runsWith: []
+  - name: vms-batch-55-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 55
+    avoid: []
+    runsWith: []
+  - name: vms-batch-56-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 56
+    avoid: []
+    runsWith: []
+  - name: vms-batch-57-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 57
+    avoid: []
+    runsWith: []
+  - name: vms-batch-58-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 58
+    avoid: []
+    runsWith: []
+  - name: vms-batch-59-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 59
+    avoid: []
+    runsWith: []
+  - name: vms-batch-60-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 60
+    avoid: []
+    runsWith: []
+  - name: vms-batch-61-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 61
+    avoid: []
+    runsWith: []
+  - name: vms-batch-62-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 62
+    avoid: []
+    runsWith: []
+  - name: vms-batch-63-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 63
+    avoid: []
+    runsWith: []
+  - name: vms-batch-64-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 64
+    avoid: []
+    runsWith: []
+  - name: vms-batch-65-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 65
+    avoid: []
+    runsWith: []
+  - name: vms-batch-66-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 66
+    avoid: []
+    runsWith: []
+  - name: vms-batch-67-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 67
+    avoid: []
+    runsWith: []
+  - name: vms-batch-68-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 68
+    avoid: []
+    runsWith: []
+  - name: vms-batch-69-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 69
+    avoid: []
+    runsWith: []
+  - name: vms-batch-70-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 70
+    avoid: []
+    runsWith: []
+  - name: vms-batch-71-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 71
+    avoid: []
+    runsWith: []
+  - name: vms-batch-72-services
+    requiredCPU: 63.28
+    requiredMemory: 356.4
+    limitCPU: 94.9
+    limitMemory: 534.6
+    zones: 1
+    id: 72
+    avoid: []
+    runsWith: []

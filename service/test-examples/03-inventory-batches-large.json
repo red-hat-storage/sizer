@@ -1,0 +1,1270 @@
+{
+  "platform": "BareMetal",
+  "detailed": true,
+  "machineSets": [
+    {
+      "name": "controlPlane",
+      "cpu": 16,
+      "memory": 32,
+      "instanceName": "control-plane",
+      "numberOfDisks": 24,
+      "onlyFor": [],
+      "label": "Control Plane",
+      "allowWorkloadScheduling": false,
+      "controlPlaneReserved": {
+        "cpu": 3.5,
+        "memory": 13.39
+      }
+    },
+    {
+      "name": "worker",
+      "cpu": 128,
+      "memory": 512,
+      "instanceName": "hpe-synergy-480-gen10-plus-x2",
+      "numberOfDisks": 24,
+      "onlyFor": [],
+      "label": "Worker (128 CPU / 512 GB - UI Compatible)"
+    }
+  ],
+  "workloads": [
+    {
+      "name": "control-plane-services",
+      "count": 1,
+      "usesMachines": ["controlPlane"],
+      "services": [
+        {
+          "name": "ControlPlane",
+          "requiredCPU": 3.5,
+          "requiredMemory": 13.39,
+          "zones": 3,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-1",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-1-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-2",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-2-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-3",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-3-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-4",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-4-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-5",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-5-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-6",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-6-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-7",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-7-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-8",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-8-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-9",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-9-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-10",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-10-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-11",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-11-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-12",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-12-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-13",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-13-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-14",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-14-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-15",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-15-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-16",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-16-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-17",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-17-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-18",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-18-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-19",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-19-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-20",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-20-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-21",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-21-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-22",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-22-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-23",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-23-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-24",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-24-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-25",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-25-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-26",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-26-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-27",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-27-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-28",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-28-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-29",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-29-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-30",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-30-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-31",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-31-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-32",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-32-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-33",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-33-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-34",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-34-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-35",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-35-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-36",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-36-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-37",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-37-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-38",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-38-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-39",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-39-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-40",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-40-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-41",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-41-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-42",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-42-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-43",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-43-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-44",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-44-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-45",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-45-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-46",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-46-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-47",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-47-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-48",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-48-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-49",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-49-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-50",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-50-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-51",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-51-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-52",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-52-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-53",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-53-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-54",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-54-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-55",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-55-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-56",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-56-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-57",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-57-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-58",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-58-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-59",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-59-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-60",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-60-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-61",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-61-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-62",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-62-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-63",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-63-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-64",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-64-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-65",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-65-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-66",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-66-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-67",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-67-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-68",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-68-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-69",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-69-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-70",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-70-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-71",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-71-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-batch-72",
+      "count": 1,
+      "usesMachines": ["worker"],
+      "services": [
+        {
+          "name": "vms-batch-72-services",
+          "requiredCPU": 63.28,
+          "requiredMemory": 356.4,
+          "limitCPU": 94.9,
+          "limitMemory": 534.6,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    }
+  ]
+}

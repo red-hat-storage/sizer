@@ -1,0 +1,127 @@
+# Large inventory workload for 281 VMs (1094 CPU, 2425 GB total)
+# Split into 13 services to fit on 128 CPU / 512 GB worker nodes
+# Each service: ~22 VMs, 84.2 CPU, 186.5 GB with 1.5x over-commitment
+
+---
+name: all-vms-batched
+count: 1
+usesMachines: ["worker"]
+storageCapacityRequired: 0
+services:
+  - name: vms-batch-1-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 1
+    avoid: []
+    runsWith: []
+  - name: vms-batch-2-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 2
+    avoid: []
+    runsWith: []
+  - name: vms-batch-3-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 3
+    avoid: []
+    runsWith: []
+  - name: vms-batch-4-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 4
+    avoid: []
+    runsWith: []
+  - name: vms-batch-5-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 5
+    avoid: []
+    runsWith: []
+  - name: vms-batch-6-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 6
+    avoid: []
+    runsWith: []
+  - name: vms-batch-7-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 7
+    avoid: []
+    runsWith: []
+  - name: vms-batch-8-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 8
+    avoid: []
+    runsWith: []
+  - name: vms-batch-9-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 9
+    avoid: []
+    runsWith: []
+  - name: vms-batch-10-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 10
+    avoid: []
+    runsWith: []
+  - name: vms-batch-11-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 11
+    avoid: []
+    runsWith: []
+  - name: vms-batch-12-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 12
+    avoid: []
+    runsWith: []
+  - name: vms-batch-13-services
+    requiredCPU: 84.2
+    requiredMemory: 186.5
+    limitCPU: 126.2
+    limitMemory: 279.8
+    zones: 1
+    id: 13
+    avoid: []
+    runsWith: []

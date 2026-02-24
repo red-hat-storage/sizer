@@ -1,0 +1,2198 @@
+[
+  {
+    "name": "c5d.2xlarge",
+    "instanceStorage": [1, 200, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 8
+  },
+  {
+    "name": "c5d.xlarge",
+    "instanceStorage": [1, 100, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 4
+  },
+  {
+    "name": "m6a.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 96
+  },
+  {
+    "name": "m5dn.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  { "name": "c5.metal", "instanceStorage": "EBS", "memory": 192, "cpu": 96 },
+  { "name": "c6a.8xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 32 },
+  {
+    "name": "d3en.12xlarge",
+    "instanceStorage": [24, 13980, "HDD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "d3en.8xlarge",
+    "instanceStorage": [16, 13980, "HDD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  {
+    "name": "r5ad.16xlarge",
+    "instanceStorage": [4, 600, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 64
+  },
+  { "name": "m5a.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  { "name": "m5n.metal", "instanceStorage": "EBS", "memory": 384, "cpu": 96 },
+  {
+    "name": "c6id.8xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 32
+  },
+  {
+    "name": "m5ad.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  {
+    "name": "m6id.xlarge",
+    "instanceStorage": [1, 237, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  {
+    "name": "c6i.32xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 128
+  },
+  { "name": "r5b.xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 4 },
+  {
+    "name": "r5n.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "i2.2xlarge",
+    "instanceStorage": [2, 800, "SSD"],
+    "memory": 61,
+    "cpu": 8
+  },
+  { "name": "c5.9xlarge", "instanceStorage": "EBS", "memory": 72, "cpu": 36 },
+  {
+    "name": "r5ad.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  { "name": "r5.metal", "instanceStorage": "EBS", "memory": 768, "cpu": 96 },
+  { "name": "m5.24xlarge", "instanceStorage": "EBS", "memory": 384, "cpu": 96 },
+  {
+    "name": "m5d.24xlarge",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "r5n.xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 4 },
+  {
+    "name": "x2idn.32xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 2048,
+    "cpu": 128
+  },
+  {
+    "name": "i3en.12xlarge",
+    "instanceStorage": [4, 7500, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "i4i.large",
+    "instanceStorage": [1, 468, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 2
+  },
+  {
+    "name": "i3en.metal",
+    "instanceStorage": [8, 7500, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  { "name": "m5zn.3xlarge", "instanceStorage": "EBS", "memory": 48, "cpu": 12 },
+  {
+    "name": "m5d.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "c5ad.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 4
+  },
+  {
+    "name": "u-9tb1.112xlarge",
+    "instanceStorage": "EBS",
+    "memory": 9216,
+    "cpu": 448
+  },
+  {
+    "name": "x2iezn.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 1536,
+    "cpu": 48
+  },
+  {
+    "name": "m6id.32xlarge",
+    "instanceStorage": [4, 1900, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 128
+  },
+  { "name": "c5.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  {
+    "name": "r5dn.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  {
+    "name": "m6id.2xlarge",
+    "instanceStorage": [1, 474, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  { "name": "c6a.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  { "name": "c5n.large", "instanceStorage": "EBS", "memory": 5.25, "cpu": 2 },
+  {
+    "name": "is4gen.8xlarge",
+    "instanceStorage": [4, 7500, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 32
+  },
+  {
+    "name": "m6id.4xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  {
+    "name": "x2iedn.2xlarge",
+    "instanceStorage": [1, 237, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 8
+  },
+  { "name": "c5.24xlarge", "instanceStorage": "EBS", "memory": 192, "cpu": 96 },
+  {
+    "name": "i2.xlarge",
+    "instanceStorage": [1, 800, "SSD"],
+    "memory": 30.5,
+    "cpu": 4
+  },
+  { "name": "c5.12xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 48 },
+  {
+    "name": "i4i.32xlarge",
+    "instanceStorage": [8, 3750, "NVMeSSD"],
+    "memory": 1024,
+    "cpu": 128
+  },
+  {
+    "name": "m5n.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 64
+  },
+  { "name": "t2.micro", "instanceStorage": "EBS", "memory": 1, "cpu": 1 },
+  {
+    "name": "d2.8xlarge",
+    "instanceStorage": [24, 2000, "HDD"],
+    "memory": 244,
+    "cpu": 36
+  },
+  {
+    "name": "m6i.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 96
+  },
+  {
+    "name": "i3en.3xlarge",
+    "instanceStorage": [1, 7500, "NVMeSSD"],
+    "memory": 96,
+    "cpu": 12
+  },
+  {
+    "name": "z1d.3xlarge",
+    "instanceStorage": [1, 450, "NVMeSSD"],
+    "memory": 96,
+    "cpu": 12
+  },
+  { "name": "m5.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  { "name": "inf1.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  { "name": "c5.18xlarge", "instanceStorage": "EBS", "memory": 144, "cpu": 72 },
+  {
+    "name": "c6id.2xlarge",
+    "instanceStorage": [1, 474, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 8
+  },
+  {
+    "name": "x2iedn.32xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 4096,
+    "cpu": 128
+  },
+  {
+    "name": "r6gd.16xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 64
+  },
+  {
+    "name": "dl1.24xlarge",
+    "instanceStorage": [4, null, ""],
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "x1e.16xlarge",
+    "instanceStorage": [1, 1920, "SSD"],
+    "memory": 1952,
+    "cpu": 64
+  },
+  {
+    "name": "r5n.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "r5dn.metal",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "i2.8xlarge",
+    "instanceStorage": [8, 800, "SSD"],
+    "memory": 244,
+    "cpu": 32
+  },
+  {
+    "name": "r5dn.8xlarge",
+    "instanceStorage": [2, 600, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 32
+  },
+  { "name": "r5a.8xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 32 },
+  {
+    "name": "i4i.16xlarge",
+    "instanceStorage": [4, 3750, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 64
+  },
+  { "name": "r6i.large", "instanceStorage": "EBS", "memory": 16, "cpu": 2 },
+  { "name": "m6a.4xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 16 },
+  { "name": "r6g.medium", "instanceStorage": "EBS", "memory": 8, "cpu": 1 },
+  {
+    "name": "c6i.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 96
+  },
+  {
+    "name": "c6id.32xlarge",
+    "instanceStorage": [4, 1900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 128
+  },
+  { "name": "m6i.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  {
+    "name": "r6g.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 48
+  },
+  { "name": "c4.4xlarge", "instanceStorage": "EBS", "memory": 30, "cpu": 16 },
+  { "name": "a1.metal", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  {
+    "name": "i4i.metal",
+    "instanceStorage": [8, 3750, "NVMeSSD"],
+    "memory": 1024,
+    "cpu": 128
+  },
+  {
+    "name": "i3en.xlarge",
+    "instanceStorage": [1, 2500, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  {
+    "name": "i3.xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 30.5,
+    "cpu": 4
+  },
+  {
+    "name": "d3.2xlarge",
+    "instanceStorage": [6, 1980, "HDD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  { "name": "t4g.micro", "instanceStorage": "EBS", "memory": 1, "cpu": 2 },
+  { "name": "m5zn.metal", "instanceStorage": "EBS", "memory": 192, "cpu": 48 },
+  { "name": "r5b.large", "instanceStorage": "EBS", "memory": 16, "cpu": 2 },
+  {
+    "name": "i3.4xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 122,
+    "cpu": 16
+  },
+  {
+    "name": "i3en.2xlarge",
+    "instanceStorage": [2, 2500, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  { "name": "m5a.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  { "name": "c6i.8xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 32 },
+  { "name": "c5.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  { "name": "c6gn.8xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 32 },
+  {
+    "name": "m5n.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 96
+  },
+  {
+    "name": "c6id.24xlarge",
+    "instanceStorage": [4, 1425, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 96
+  },
+  {
+    "name": "r5d.8xlarge",
+    "instanceStorage": [2, 600, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 32
+  },
+  { "name": "c6g.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  { "name": "t2.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  { "name": "r5.12xlarge", "instanceStorage": "EBS", "memory": 384, "cpu": 48 },
+  {
+    "name": "u-12tb1.112xlarge",
+    "instanceStorage": "EBS",
+    "memory": 12288,
+    "cpu": 448
+  },
+  {
+    "name": "h1.8xlarge",
+    "instanceStorage": [4, 2000, "HDD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  {
+    "name": "r5b.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 64
+  },
+  {
+    "name": "r5d.24xlarge",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "i3en.6xlarge",
+    "instanceStorage": [2, 7500, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 24
+  },
+  { "name": "r4.8xlarge", "instanceStorage": "EBS", "memory": 244, "cpu": 32 },
+  { "name": "t2.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  {
+    "name": "c3.4xlarge",
+    "instanceStorage": [2, 160, "SSD"],
+    "memory": 30,
+    "cpu": 16
+  },
+  {
+    "name": "x1.16xlarge",
+    "instanceStorage": [1, 1920, "SSD"],
+    "memory": 976,
+    "cpu": 64
+  },
+  {
+    "name": "c5d.18xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 144,
+    "cpu": 72
+  },
+  {
+    "name": "m5a.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 64
+  },
+  { "name": "c6i.12xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 48 },
+  { "name": "r5a.large", "instanceStorage": "EBS", "memory": 16, "cpu": 2 },
+  {
+    "name": "c3.large",
+    "instanceStorage": [2, 16, "SSD"],
+    "memory": 3.75,
+    "cpu": 2
+  },
+  {
+    "name": "c6a.48xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 192
+  },
+  {
+    "name": "m6i.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "c6gd.medium",
+    "instanceStorage": [1, 59, "NVMeSSD"],
+    "memory": 2,
+    "cpu": 1
+  },
+  {
+    "name": "inf1.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 96
+  },
+  {
+    "name": "r5a.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 768,
+    "cpu": 96
+  },
+  { "name": "a1.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "i3en.large",
+    "instanceStorage": [1, 1250, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 2
+  },
+  {
+    "name": "u-6tb1.56xlarge",
+    "instanceStorage": "EBS",
+    "memory": 6144,
+    "cpu": 224
+  },
+  { "name": "c5n.4xlarge", "instanceStorage": "EBS", "memory": 42, "cpu": 16 },
+  { "name": "c4.xlarge", "instanceStorage": "EBS", "memory": 7.5, "cpu": 4 },
+  {
+    "name": "x1e.4xlarge",
+    "instanceStorage": [1, 480, "SSD"],
+    "memory": 488,
+    "cpu": 16
+  },
+  {
+    "name": "m5d.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  {
+    "name": "m5ad.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  {
+    "name": "c6id.metal",
+    "instanceStorage": [4, 1900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 128
+  },
+  {
+    "name": "i3en.24xlarge",
+    "instanceStorage": [8, 7500, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "c5n.18xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 72
+  },
+  {
+    "name": "m5d.16xlarge",
+    "instanceStorage": [4, 600, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "c6gd.metal",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 64
+  },
+  { "name": "m6a.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  { "name": "m4.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  { "name": "t3.medium", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  {
+    "name": "h1.4xlarge",
+    "instanceStorage": [2, 2000, "HDD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  {
+    "name": "x1e.xlarge",
+    "instanceStorage": [1, 120, "SSD"],
+    "memory": 122,
+    "cpu": 4
+  },
+  {
+    "name": "x2iezn.6xlarge",
+    "instanceStorage": "EBS",
+    "memory": 768,
+    "cpu": 24
+  },
+  {
+    "name": "m5dn.24xlarge",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "c6i.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "m5dn.metal",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "m5a.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  { "name": "r5n.large", "instanceStorage": "EBS", "memory": 16, "cpu": 2 },
+  { "name": "m5.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  { "name": "c5.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  { "name": "m5.16xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 64 },
+  {
+    "name": "r3.large",
+    "instanceStorage": [1, 32, "SSD"],
+    "memory": 15.25,
+    "cpu": 2
+  },
+  {
+    "name": "m5dn.16xlarge",
+    "instanceStorage": [4, 600, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "m6id.large",
+    "instanceStorage": [1, 118, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 2
+  },
+  { "name": "m6a.8xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 32 },
+  {
+    "name": "c6a.32xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 128
+  },
+  { "name": "r5n.2xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 8 },
+  { "name": "c4.large", "instanceStorage": "EBS", "memory": 3.75, "cpu": 2 },
+  {
+    "name": "r5dn.16xlarge",
+    "instanceStorage": [4, 600, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 64
+  },
+  {
+    "name": "r5d.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  { "name": "m4.4xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 16 },
+  {
+    "name": "m5d.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 2
+  },
+  { "name": "m6i.8xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 32 },
+  {
+    "name": "x2iezn.2xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 8
+  },
+  { "name": "r5.2xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 8 },
+  {
+    "name": "m3.2xlarge",
+    "instanceStorage": [2, 80, "SSD"],
+    "memory": 30,
+    "cpu": 8
+  },
+  {
+    "name": "c3.2xlarge",
+    "instanceStorage": [2, 80, "SSD"],
+    "memory": 15,
+    "cpu": 8
+  },
+  { "name": "c5n.9xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 36 },
+  {
+    "name": "c5d.24xlarge",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 96
+  },
+  {
+    "name": "m5a.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 48
+  },
+  { "name": "m6i.metal", "instanceStorage": "EBS", "memory": 512, "cpu": 128 },
+  {
+    "name": "r3.xlarge",
+    "instanceStorage": [1, 80, "SSD"],
+    "memory": 30.5,
+    "cpu": 4
+  },
+  {
+    "name": "c6id.16xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 64
+  },
+  {
+    "name": "m5n.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "m5d.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  {
+    "name": "m6a.48xlarge",
+    "instanceStorage": "EBS",
+    "memory": 768,
+    "cpu": 192
+  },
+  { "name": "m4.10xlarge", "instanceStorage": "EBS", "memory": 160, "cpu": 40 },
+  {
+    "name": "c6id.4xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 16
+  },
+  {
+    "name": "m5ad.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 2
+  },
+  {
+    "name": "x2iezn.4xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 16
+  },
+  {
+    "name": "c5d.large",
+    "instanceStorage": [1, 50, "NVMeSSD"],
+    "memory": 4,
+    "cpu": 2
+  },
+  { "name": "c6i.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  {
+    "name": "r5d.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  { "name": "m6g.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  {
+    "name": "r5b.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "x2gd.2xlarge",
+    "instanceStorage": [1, 475, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 8
+  },
+  {
+    "name": "r5d.metal",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "i2.4xlarge",
+    "instanceStorage": [4, 800, "SSD"],
+    "memory": 122,
+    "cpu": 16
+  },
+  { "name": "c6a.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "r5n.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 64
+  },
+  {
+    "name": "c6i.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 128,
+    "cpu": 64
+  },
+  {
+    "name": "r5a.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 64
+  },
+  {
+    "name": "i4i.2xlarge",
+    "instanceStorage": [1, 1875, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  {
+    "name": "x1.32xlarge",
+    "instanceStorage": [2, 1920, "SSD"],
+    "memory": 1952,
+    "cpu": 128
+  },
+  { "name": "c5n.2xlarge", "instanceStorage": "EBS", "memory": 21, "cpu": 8 },
+  {
+    "name": "c6gn.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 96,
+    "cpu": 48
+  },
+  { "name": "r5n.8xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 32 },
+  {
+    "name": "d3en.xlarge",
+    "instanceStorage": [2, 13980, "HDD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  { "name": "c6i.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  { "name": "m5.metal", "instanceStorage": "EBS", "memory": 384, "cpu": 96 },
+  {
+    "name": "m5dn.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 2
+  },
+  { "name": "m5.12xlarge", "instanceStorage": "EBS", "memory": 192, "cpu": 48 },
+  { "name": "m6a.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  {
+    "name": "r5d.4xlarge",
+    "instanceStorage": [2, 300, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 16
+  },
+  { "name": "c7g.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  {
+    "name": "r6gd.12xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "i4i.4xlarge",
+    "instanceStorage": [1, 3750, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 16
+  },
+  { "name": "r6g.2xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 8 },
+  {
+    "name": "m3.large",
+    "instanceStorage": [1, 32, "SSD"],
+    "memory": 7.5,
+    "cpu": 2
+  },
+  { "name": "m6i.4xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 16 },
+  {
+    "name": "c5d.4xlarge",
+    "instanceStorage": [1, 400, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 16
+  },
+  {
+    "name": "c6gd.12xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 96,
+    "cpu": 48
+  },
+  { "name": "r5n.4xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 16 },
+  { "name": "m5n.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  { "name": "r5.24xlarge", "instanceStorage": "EBS", "memory": 768, "cpu": 96 },
+  {
+    "name": "r5ad.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "x2iedn.8xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 1024,
+    "cpu": 32
+  },
+  {
+    "name": "m5dn.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "c6gd.2xlarge",
+    "instanceStorage": [1, 474, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 8
+  },
+  { "name": "r4.large", "instanceStorage": "EBS", "memory": 15.25, "cpu": 2 },
+  {
+    "name": "d3en.2xlarge",
+    "instanceStorage": [4, 13980, "HDD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  {
+    "name": "x1e.32xlarge",
+    "instanceStorage": [2, 1920, "SSD"],
+    "memory": 3904,
+    "cpu": 128
+  },
+  {
+    "name": "x2iedn.xlarge",
+    "instanceStorage": [1, 118, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 4
+  },
+  {
+    "name": "x2iedn.metal",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 4096,
+    "cpu": 128
+  },
+  { "name": "c5n.xlarge", "instanceStorage": "EBS", "memory": 10.5, "cpu": 4 },
+  { "name": "m5a.4xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 16 },
+  {
+    "name": "r5ad.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  {
+    "name": "x2iezn.metal",
+    "instanceStorage": "EBS",
+    "memory": 1536,
+    "cpu": 48
+  },
+  { "name": "c5a.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  { "name": "t2.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  {
+    "name": "c3.8xlarge",
+    "instanceStorage": [2, 320, "SSD"],
+    "memory": 60,
+    "cpu": 32
+  },
+  {
+    "name": "m6id.16xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "m3.medium",
+    "instanceStorage": [1, 4, "SSD"],
+    "memory": 3.75,
+    "cpu": 1
+  },
+  { "name": "m6i.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  { "name": "r6i.2xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 8 },
+  {
+    "name": "r5dn.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  {
+    "name": "x1e.2xlarge",
+    "instanceStorage": [1, 240, "SSD"],
+    "memory": 244,
+    "cpu": 8
+  },
+  { "name": "inf1.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "m6a.32xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 128
+  },
+  { "name": "m6i.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  {
+    "name": "m6id.24xlarge",
+    "instanceStorage": [4, 1425, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "r5.8xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 32 },
+  {
+    "name": "c5d.9xlarge",
+    "instanceStorage": [1, 900, "NVMeSSD"],
+    "memory": 72,
+    "cpu": 36
+  },
+  {
+    "name": "r6i.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "x2iedn.16xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 2048,
+    "cpu": 64
+  },
+  {
+    "name": "h1.2xlarge",
+    "instanceStorage": [1, 2000, "HDD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  { "name": "m5a.8xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 32 },
+  { "name": "m4.16xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 64 },
+  {
+    "name": "c3.xlarge",
+    "instanceStorage": [2, 40, "SSD"],
+    "memory": 7.5,
+    "cpu": 4
+  },
+  { "name": "m5zn.6xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 24 },
+  {
+    "name": "x1e.8xlarge",
+    "instanceStorage": [1, 960, "SSD"],
+    "memory": 976,
+    "cpu": 32
+  },
+  {
+    "name": "d3en.6xlarge",
+    "instanceStorage": [12, 13980, "HDD"],
+    "memory": 96,
+    "cpu": 24
+  },
+  { "name": "r5a.2xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 8 },
+  { "name": "r5.xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 4 },
+  {
+    "name": "c5d.metal",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 96
+  },
+  {
+    "name": "m5d.8xlarge",
+    "instanceStorage": [2, 600, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  { "name": "t2.small", "instanceStorage": "EBS", "memory": 2, "cpu": 1 },
+  { "name": "c6gn.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  { "name": "r6i.metal", "instanceStorage": "EBS", "memory": 1024, "cpu": 128 },
+  { "name": "m4.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  {
+    "name": "x2idn.metal",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 2048,
+    "cpu": 128
+  },
+  {
+    "name": "d2.xlarge",
+    "instanceStorage": [3, 2000, "HDD"],
+    "memory": 30.5,
+    "cpu": 4
+  },
+  { "name": "c6i.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  { "name": "c6a.12xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 48 },
+  { "name": "c5.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "x2gd.xlarge",
+    "instanceStorage": [1, 237, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 4
+  },
+  { "name": "m6g.medium", "instanceStorage": "EBS", "memory": 4, "cpu": 1 },
+  {
+    "name": "m1.xlarge",
+    "instanceStorage": [4, 420, "HDD"],
+    "memory": 15,
+    "cpu": 4
+  },
+  {
+    "name": "r5b.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 48
+  },
+  { "name": "m5n.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  { "name": "c5a.12xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 48 },
+  {
+    "name": "m6g.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "x2iedn.4xlarge",
+    "instanceStorage": [1, 475, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 16
+  },
+  {
+    "name": "m3.xlarge",
+    "instanceStorage": [2, 40, "SSD"],
+    "memory": 15,
+    "cpu": 4
+  },
+  {
+    "name": "m6id.metal",
+    "instanceStorage": [4, 1900, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 128
+  },
+  {
+    "name": "m1.medium",
+    "instanceStorage": [1, 410, "HDD"],
+    "memory": 3.75,
+    "cpu": 1
+  },
+  { "name": "t3a.medium", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  { "name": "r5n.metal", "instanceStorage": "EBS", "memory": 768, "cpu": 96 },
+  { "name": "m5.8xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 32 },
+  { "name": "r4.16xlarge", "instanceStorage": "EBS", "memory": 488, "cpu": 64 },
+  {
+    "name": "r6i.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 64
+  },
+  { "name": "m5.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  {
+    "name": "z1d.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  {
+    "name": "m5dn.4xlarge",
+    "instanceStorage": [2, 300, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  {
+    "name": "im4gn.2xlarge",
+    "instanceStorage": [1, 3750, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  {
+    "name": "r5ad.24xlarge",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  { "name": "c6a.metal", "instanceStorage": "EBS", "memory": 384, "cpu": 192 },
+  {
+    "name": "r3.2xlarge",
+    "instanceStorage": [1, 160, "SSD"],
+    "memory": 61,
+    "cpu": 8
+  },
+  { "name": "r4.2xlarge", "instanceStorage": "EBS", "memory": 61, "cpu": 8 },
+  {
+    "name": "m6a.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "z1d.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  {
+    "name": "m6gd.12xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  { "name": "r6g.8xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 32 },
+  {
+    "name": "r5dn.4xlarge",
+    "instanceStorage": [2, 300, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 16
+  },
+  {
+    "name": "d3.8xlarge",
+    "instanceStorage": [24, 1980, "HDD"],
+    "memory": 256,
+    "cpu": 32
+  },
+  {
+    "name": "is4gen.4xlarge",
+    "instanceStorage": [2, 7500, "NVMeSSD"],
+    "memory": 96,
+    "cpu": 16
+  },
+  { "name": "r6i.4xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 16 },
+  { "name": "r6i.xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 4 },
+  { "name": "c4.8xlarge", "instanceStorage": "EBS", "memory": 60, "cpu": 36 },
+  { "name": "c7g.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  {
+    "name": "c6a.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 128,
+    "cpu": 64
+  },
+  { "name": "c5a.8xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 32 },
+  { "name": "c6a.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  {
+    "name": "u-3tb1.56xlarge",
+    "instanceStorage": "EBS",
+    "memory": 3072,
+    "cpu": 224
+  },
+  {
+    "name": "z1d.metal",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 48
+  },
+  { "name": "t3.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  {
+    "name": "d2.2xlarge",
+    "instanceStorage": [6, 2000, "HDD"],
+    "memory": 61,
+    "cpu": 8
+  },
+  { "name": "r6g.metal", "instanceStorage": "EBS", "memory": 512, "cpu": 64 },
+  {
+    "name": "d2.4xlarge",
+    "instanceStorage": [12, 2000, "HDD"],
+    "memory": 122,
+    "cpu": 16
+  },
+  {
+    "name": "m5ad.4xlarge",
+    "instanceStorage": [2, 300, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  { "name": "c6g.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  {
+    "name": "r6i.32xlarge",
+    "instanceStorage": "EBS",
+    "memory": 1024,
+    "cpu": 128
+  },
+  {
+    "name": "x2idn.16xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 1024,
+    "cpu": 64
+  },
+  {
+    "name": "u-6tb1.112xlarge",
+    "instanceStorage": "EBS",
+    "memory": 6144,
+    "cpu": 448
+  },
+  { "name": "inf1.6xlarge", "instanceStorage": "EBS", "memory": 48, "cpu": 24 },
+  {
+    "name": "z1d.6xlarge",
+    "instanceStorage": [1, 900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 24
+  },
+  {
+    "name": "d3.4xlarge",
+    "instanceStorage": [12, 1980, "HDD"],
+    "memory": 128,
+    "cpu": 16
+  },
+  {
+    "name": "r6gd.2xlarge",
+    "instanceStorage": [1, 474, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 8
+  },
+  {
+    "name": "m5zn.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "c6gd.16xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 64
+  },
+  {
+    "name": "m6gd.2xlarge",
+    "instanceStorage": [1, 474, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  { "name": "c5a.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  {
+    "name": "c6id.12xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 96,
+    "cpu": 48
+  },
+  {
+    "name": "m5d.4xlarge",
+    "instanceStorage": [2, 300, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  { "name": "r5.16xlarge", "instanceStorage": "EBS", "memory": 512, "cpu": 64 },
+  {
+    "name": "x2iezn.8xlarge",
+    "instanceStorage": "EBS",
+    "memory": 1024,
+    "cpu": 32
+  },
+  { "name": "r5a.4xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 16 },
+  { "name": "t3.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  { "name": "c6a.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  {
+    "name": "z1d.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 48
+  },
+  { "name": "r5b.metal", "instanceStorage": "EBS", "memory": 768, "cpu": 96 },
+  { "name": "r4.xlarge", "instanceStorage": "EBS", "memory": 30.5, "cpu": 4 },
+  {
+    "name": "m1.small",
+    "instanceStorage": [1, 160, "HDD+900MBswap"],
+    "memory": 1.7,
+    "cpu": 1
+  },
+  {
+    "name": "c5ad.8xlarge",
+    "instanceStorage": [2, 600, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 32
+  },
+  {
+    "name": "c6id.large",
+    "instanceStorage": [1, 118, "NVMeSSD"],
+    "memory": 4,
+    "cpu": 2
+  },
+  { "name": "r6i.8xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 32 },
+  {
+    "name": "r5d.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 2
+  },
+  { "name": "m5.4xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 16 },
+  { "name": "a1.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  { "name": "r5b.8xlarge", "instanceStorage": "EBS", "memory": 256, "cpu": 32 },
+  {
+    "name": "r6gd.8xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 32
+  },
+  {
+    "name": "r6i.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 768,
+    "cpu": 96
+  },
+  {
+    "name": "i3.metal",
+    "instanceStorage": [8, 1900, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 64
+  },
+  {
+    "name": "c6g.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 128,
+    "cpu": 64
+  },
+  { "name": "m5zn.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  {
+    "name": "r6g.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 64
+  },
+  {
+    "name": "x2gd.metal",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 1024,
+    "cpu": 64
+  },
+  {
+    "name": "c5ad.24xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 96
+  },
+  {
+    "name": "m6gd.large",
+    "instanceStorage": [1, 118, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 2
+  },
+  { "name": "t4g.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  {
+    "name": "m6id.12xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  { "name": "m5n.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  { "name": "r5b.2xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 8 },
+  {
+    "name": "m5dn.8xlarge",
+    "instanceStorage": [2, 600, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  {
+    "name": "c5d.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 96,
+    "cpu": 48
+  },
+  {
+    "name": "r5dn.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 2
+  },
+  {
+    "name": "c5ad.16xlarge",
+    "instanceStorage": [2, 1200, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 64
+  },
+  { "name": "r4.4xlarge", "instanceStorage": "EBS", "memory": 122, "cpu": 16 },
+  { "name": "r5a.xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 4 },
+  { "name": "m5n.4xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 16 },
+  {
+    "name": "m5ad.24xlarge",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "c6g.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  { "name": "m6g.metal", "instanceStorage": "EBS", "memory": 256, "cpu": 64 },
+  {
+    "name": "d3en.4xlarge",
+    "instanceStorage": [8, 13980, "HDD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  {
+    "name": "f1.4xlarge",
+    "instanceStorage": [1, 940, "NVMeSSD"],
+    "memory": 244,
+    "cpu": 16
+  },
+  { "name": "t3a.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  {
+    "name": "c5a.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 96
+  },
+  { "name": "c5a.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  {
+    "name": "x2idn.24xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 1536,
+    "cpu": 96
+  },
+  {
+    "name": "f1.2xlarge",
+    "instanceStorage": [1, 470, "NVMeSSD"],
+    "memory": 122,
+    "cpu": 8
+  },
+  {
+    "name": "r5a.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "m6i.32xlarge",
+    "instanceStorage": "EBS",
+    "memory": 512,
+    "cpu": 128
+  },
+  { "name": "m5zn.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  {
+    "name": "u-12tb1.metal",
+    "instanceStorage": "EBS",
+    "memory": 12288,
+    "cpu": 448
+  },
+  {
+    "name": "x2gd.medium",
+    "instanceStorage": [1, 59, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 1
+  },
+  {
+    "name": "x2iedn.24xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 3072,
+    "cpu": 96
+  },
+  {
+    "name": "c5ad.4xlarge",
+    "instanceStorage": [2, 300, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 16
+  },
+  {
+    "name": "r6gd.xlarge",
+    "instanceStorage": [1, 237, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  {
+    "name": "m5d.metal",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "m6g.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  { "name": "c4.2xlarge", "instanceStorage": "EBS", "memory": 15, "cpu": 8 },
+  {
+    "name": "m5ad.8xlarge",
+    "instanceStorage": [2, 600, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  {
+    "name": "m6gd.16xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "r5dn.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "m6id.8xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  { "name": "c6gn.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "h1.16xlarge",
+    "instanceStorage": [8, 2000, "HDD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "m5a.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "m6g.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  {
+    "name": "r6gd.4xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 16
+  },
+  {
+    "name": "m6a.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "m6i.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 48
+  },
+  { "name": "m6a.metal", "instanceStorage": "EBS", "memory": 768, "cpu": 192 },
+  {
+    "name": "i3.large",
+    "instanceStorage": [1, 475, "NVMeSSD"],
+    "memory": 15.25,
+    "cpu": 2
+  },
+  {
+    "name": "m6gd.medium",
+    "instanceStorage": [1, 59, "NVMeSSD"],
+    "memory": 4,
+    "cpu": 1
+  },
+  { "name": "c6g.12xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 48 },
+  { "name": "r5.4xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 16 },
+  {
+    "name": "m6gd.4xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  {
+    "name": "c6gd.large",
+    "instanceStorage": [1, 118, "NVMeSSD"],
+    "memory": 4,
+    "cpu": 2
+  },
+  { "name": "m5zn.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  {
+    "name": "c5a.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 128,
+    "cpu": 64
+  },
+  { "name": "r5.large", "instanceStorage": "EBS", "memory": 16, "cpu": 2 },
+  {
+    "name": "c6a.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 96
+  },
+  { "name": "t4g.small", "instanceStorage": "EBS", "memory": 2, "cpu": 2 },
+  { "name": "m4.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  {
+    "name": "i4i.8xlarge",
+    "instanceStorage": [2, 3750, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 32
+  },
+  {
+    "name": "m5dn.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  { "name": "r5b.4xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 16 },
+  {
+    "name": "r5ad.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 2
+  },
+  {
+    "name": "im4gn.8xlarge",
+    "instanceStorage": [2, 7500, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  {
+    "name": "x2gd.8xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 32
+  },
+  {
+    "name": "r5ad.8xlarge",
+    "instanceStorage": [2, 600, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 32
+  },
+  { "name": "c6g.metal", "instanceStorage": "EBS", "memory": 128, "cpu": 64 },
+  {
+    "name": "c6gd.8xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 32
+  },
+  { "name": "m6a.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  { "name": "c7g.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "z1d.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 2
+  },
+  { "name": "m6g.4xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 16 },
+  { "name": "c6i.metal", "instanceStorage": "EBS", "memory": 256, "cpu": 128 },
+  {
+    "name": "r3.4xlarge",
+    "instanceStorage": [1, 320, "SSD"],
+    "memory": 122,
+    "cpu": 16
+  },
+  {
+    "name": "m6gd.xlarge",
+    "instanceStorage": [1, 237, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  {
+    "name": "i3.16xlarge",
+    "instanceStorage": [8, 1900, "NVMeSSD"],
+    "memory": 488,
+    "cpu": 64
+  },
+  {
+    "name": "m5ad.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "i3.8xlarge",
+    "instanceStorage": [4, 1900, "NVMeSSD"],
+    "memory": 244,
+    "cpu": 32
+  },
+  {
+    "name": "c5ad.large",
+    "instanceStorage": [1, 75, "NVMeSSD"],
+    "memory": 4,
+    "cpu": 2
+  },
+  {
+    "name": "im4gn.4xlarge",
+    "instanceStorage": [1, 7500, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  { "name": "c5n.metal", "instanceStorage": "EBS", "memory": 192, "cpu": 72 },
+  {
+    "name": "im4gn.large",
+    "instanceStorage": [1, 937, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 2
+  },
+  {
+    "name": "r5d.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 48
+  },
+  {
+    "name": "i3.2xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 61,
+    "cpu": 8
+  },
+  {
+    "name": "m5ad.16xlarge",
+    "instanceStorage": [4, 600, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  { "name": "t4g.medium", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  { "name": "c7g.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  {
+    "name": "c5ad.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 8
+  },
+  {
+    "name": "is4gen.2xlarge",
+    "instanceStorage": [1, 7500, "NVMeSSD"],
+    "memory": 48,
+    "cpu": 8
+  },
+  { "name": "c5a.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  {
+    "name": "x2gd.large",
+    "instanceStorage": [1, 118, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 2
+  },
+  {
+    "name": "r5dn.24xlarge",
+    "instanceStorage": [4, 900, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  { "name": "c7g.8xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 32 },
+  { "name": "c6gn.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  {
+    "name": "is4gen.medium",
+    "instanceStorage": [1, 937, "NVMeSSD"],
+    "memory": 6,
+    "cpu": 1
+  },
+  { "name": "c7g.12xlarge", "instanceStorage": "EBS", "memory": 96, "cpu": 48 },
+  {
+    "name": "r3.8xlarge",
+    "instanceStorage": [2, 320, "SSD"],
+    "memory": 244,
+    "cpu": 32
+  },
+  {
+    "name": "c7g.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 128,
+    "cpu": 64
+  },
+  { "name": "r6g.4xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 16 },
+  { "name": "t3a.small", "instanceStorage": "EBS", "memory": 2, "cpu": 2 },
+  {
+    "name": "m1.large",
+    "instanceStorage": [2, 420, "HDD"],
+    "memory": 7.5,
+    "cpu": 2
+  },
+  {
+    "name": "m2.4xlarge",
+    "instanceStorage": [2, 840, "HDD"],
+    "memory": 68.4,
+    "cpu": 8
+  },
+  {
+    "name": "m6gd.metal",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "c6id.xlarge",
+    "instanceStorage": [1, 237, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 4
+  },
+  {
+    "name": "m2.xlarge",
+    "instanceStorage": [1, 420, "HDD"],
+    "memory": 17.1,
+    "cpu": 2
+  },
+  {
+    "name": "c1.medium",
+    "instanceStorage": [1, 350, "HDD+900MBswap"],
+    "memory": 1.7,
+    "cpu": 2
+  },
+  {
+    "name": "x2gd.12xlarge",
+    "instanceStorage": [2, 1425, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 48
+  },
+  {
+    "name": "r6gd.metal",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 64
+  },
+  { "name": "m6g.8xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 32 },
+  {
+    "name": "cc2.8xlarge",
+    "instanceStorage": [4, 840, "HDD"],
+    "memory": 60.5,
+    "cpu": 32
+  },
+  {
+    "name": "is4gen.large",
+    "instanceStorage": [1, 1875, "NVMeSSD"],
+    "memory": 12,
+    "cpu": 2
+  },
+  {
+    "name": "c1.xlarge",
+    "instanceStorage": [4, 420, "HDD"],
+    "memory": 7,
+    "cpu": 8
+  },
+  {
+    "name": "c5ad.12xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 96,
+    "cpu": 48
+  },
+  { "name": "c7g.medium", "instanceStorage": "EBS", "memory": 2, "cpu": 1 },
+  { "name": "c6g.medium", "instanceStorage": "EBS", "memory": 2, "cpu": 1 },
+  {
+    "name": "r5d.16xlarge",
+    "instanceStorage": [4, 600, "NVMeSSD"],
+    "memory": 512,
+    "cpu": 64
+  },
+  { "name": "a1.medium", "instanceStorage": "EBS", "memory": 2, "cpu": 1 },
+  {
+    "name": "m2.2xlarge",
+    "instanceStorage": [1, 850, "HDD"],
+    "memory": 34.2,
+    "cpu": 4
+  },
+  {
+    "name": "x2gd.16xlarge",
+    "instanceStorage": [2, 1900, "NVMeSSD"],
+    "memory": 1024,
+    "cpu": 64
+  },
+  {
+    "name": "r5ad.4xlarge",
+    "instanceStorage": [2, 300, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 16
+  },
+  { "name": "c6g.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  { "name": "t3a.nano", "instanceStorage": "EBS", "memory": 0.5, "cpu": 2 },
+  {
+    "name": "im4gn.xlarge",
+    "instanceStorage": [1, 1875, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  { "name": "vt1.3xlarge", "instanceStorage": "EBS", "memory": 24, "cpu": 12 },
+  {
+    "name": "c6gd.4xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 16
+  },
+  {
+    "name": "cr1.8xlarge",
+    "instanceStorage": [2, 120, "SSD"],
+    "memory": 244,
+    "cpu": 32
+  },
+  {
+    "name": "r6gd.medium",
+    "instanceStorage": [1, 59, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 1
+  },
+  { "name": "m5n.8xlarge", "instanceStorage": "EBS", "memory": 128, "cpu": 32 },
+  {
+    "name": "m6gd.8xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  { "name": "a1.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  {
+    "name": "i4i.xlarge",
+    "instanceStorage": [1, 937, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  { "name": "t3.nano", "instanceStorage": "EBS", "memory": 0.5, "cpu": 2 },
+  {
+    "name": "d3.xlarge",
+    "instanceStorage": [3, 1980, "HDD"],
+    "memory": 32,
+    "cpu": 4
+  },
+  { "name": "t3a.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  { "name": "c6g.8xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 32 },
+  {
+    "name": "c6gn.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 128,
+    "cpu": 64
+  },
+  { "name": "c6gn.medium", "instanceStorage": "EBS", "memory": 2, "cpu": 1 },
+  { "name": "t3.micro", "instanceStorage": "EBS", "memory": 1, "cpu": 2 },
+  {
+    "name": "u-6tb1.metal",
+    "instanceStorage": "EBS",
+    "memory": 6144,
+    "cpu": 448
+  },
+  { "name": "t3.small", "instanceStorage": "EBS", "memory": 2, "cpu": 2 },
+  {
+    "name": "f1.16xlarge",
+    "instanceStorage": [4, 940, "NVMeSSD"],
+    "memory": 976,
+    "cpu": 64
+  },
+  {
+    "name": "m6g.12xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "vt1.24xlarge",
+    "instanceStorage": "EBS",
+    "memory": 192,
+    "cpu": 96
+  },
+  { "name": "t3.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  { "name": "vt1.6xlarge", "instanceStorage": "EBS", "memory": 48, "cpu": 24 },
+  { "name": "c6gn.large", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  { "name": "t3a.micro", "instanceStorage": "EBS", "memory": 1, "cpu": 2 },
+  {
+    "name": "u-9tb1.metal",
+    "instanceStorage": "EBS",
+    "memory": 9216,
+    "cpu": 448
+  },
+  { "name": "r6g.xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 4 },
+  {
+    "name": "im4gn.16xlarge",
+    "instanceStorage": [4, 7500, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "x2gd.4xlarge",
+    "instanceStorage": [1, 950, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 16
+  },
+  { "name": "c6gn.metal", "instanceStorage": "EBS", "memory": 128, "cpu": 64 },
+  { "name": "r6g.large", "instanceStorage": "EBS", "memory": 16, "cpu": 2 },
+  { "name": "a1.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  { "name": "t2.medium", "instanceStorage": "EBS", "memory": 4, "cpu": 2 },
+  { "name": "t4g.2xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 8 },
+  {
+    "name": "hs1.8xlarge",
+    "instanceStorage": [24, 2000, "HDD"],
+    "memory": 117,
+    "cpu": 16
+  },
+  {
+    "name": "u-18tb1.metal",
+    "instanceStorage": "EBS",
+    "memory": 18432,
+    "cpu": 448
+  },
+  { "name": "t1.micro", "instanceStorage": "EBS", "memory": 0.613, "cpu": 1 },
+  {
+    "name": "r6gd.large",
+    "instanceStorage": [1, 118, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 2
+  },
+  { "name": "t4g.xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 4 },
+  {
+    "name": "c6gd.xlarge",
+    "instanceStorage": [1, 237, "NVMeSSD"],
+    "memory": 8,
+    "cpu": 4
+  },
+  { "name": "t4g.nano", "instanceStorage": "EBS", "memory": 0.5, "cpu": 2 },
+  {
+    "name": "is4gen.xlarge",
+    "instanceStorage": [1, 3750, "NVMeSSD"],
+    "memory": 24,
+    "cpu": 4
+  },
+  {
+    "name": "u-24tb1.metal",
+    "instanceStorage": "EBS",
+    "memory": 24576,
+    "cpu": 448
+  },
+  { "name": "t2.nano", "instanceStorage": "EBS", "memory": 0.5, "cpu": 1 },
+  { "name": "mac2.metal", "instanceStorage": "EBS", "memory": 16, "cpu": 12 },
+  { "name": "t3a.large", "instanceStorage": "EBS", "memory": 8, "cpu": 2 },
+  { "name": "i2.large", "instanceStorage": "EBS", "memory": 15, "cpu": 2 },
+  { "name": "mac1.metal", "instanceStorage": "EBS", "memory": 32, "cpu": 12 },
+  {
+    "name": "g5.16xlarge",
+    "instanceStorage": [1, 1900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  { "name": "g3s.xlarge", "instanceStorage": "EBS", "memory": 30.5, "cpu": 4 },
+  { "name": "p3.2xlarge", "instanceStorage": "EBS", "memory": 61, "cpu": 8 },
+  {
+    "name": "g5.4xlarge",
+    "instanceStorage": [1, 600, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  {
+    "name": "g4dn.8xlarge",
+    "instanceStorage": [1, 900, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  {
+    "name": "g4ad.xlarge",
+    "instanceStorage": [1, 150, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  { "name": "g3.4xlarge", "instanceStorage": "EBS", "memory": 122, "cpu": 16 },
+  {
+    "name": "g5.xlarge",
+    "instanceStorage": [1, 250, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  {
+    "name": "g4dn.16xlarge",
+    "instanceStorage": [1, 900, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "g5.8xlarge",
+    "instanceStorage": [1, 900, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  {
+    "name": "g4ad.4xlarge",
+    "instanceStorage": [1, 600, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  {
+    "name": "g4ad.2xlarge",
+    "instanceStorage": [1, 300, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  { "name": "p2.xlarge", "instanceStorage": "EBS", "memory": 61, "cpu": 4 },
+  {
+    "name": "g2.2xlarge",
+    "instanceStorage": [1, 60, "SSD"],
+    "memory": 15,
+    "cpu": 8
+  },
+  {
+    "name": "g4dn.xlarge",
+    "instanceStorage": [1, 125, "NVMeSSD"],
+    "memory": 16,
+    "cpu": 4
+  },
+  {
+    "name": "g5.2xlarge",
+    "instanceStorage": [1, 450, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  {
+    "name": "g4dn.4xlarge",
+    "instanceStorage": [1, 225, "NVMeSSD"],
+    "memory": 64,
+    "cpu": 16
+  },
+  { "name": "g5g.4xlarge", "instanceStorage": "EBS", "memory": 32, "cpu": 16 },
+  { "name": "g5g.2xlarge", "instanceStorage": "EBS", "memory": 16, "cpu": 8 },
+  {
+    "name": "g4dn.2xlarge",
+    "instanceStorage": [1, 225, "NVMeSSD"],
+    "memory": 32,
+    "cpu": 8
+  },
+  { "name": "g5g.xlarge", "instanceStorage": "EBS", "memory": 8, "cpu": 4 },
+  { "name": "g5g.8xlarge", "instanceStorage": "EBS", "memory": 64, "cpu": 32 },
+  {
+    "name": "g4ad.8xlarge",
+    "instanceStorage": [1, 1200, "NVMeSSD"],
+    "memory": 128,
+    "cpu": 32
+  },
+  { "name": "g5g.metal", "instanceStorage": "EBS", "memory": 128, "cpu": 64 },
+  { "name": "g3.8xlarge", "instanceStorage": "EBS", "memory": 244, "cpu": 32 },
+  {
+    "name": "g5g.16xlarge",
+    "instanceStorage": "EBS",
+    "memory": 128,
+    "cpu": 64
+  },
+  {
+    "name": "g5.24xlarge",
+    "instanceStorage": [1, 3800, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  { "name": "g3.16xlarge", "instanceStorage": "EBS", "memory": 488, "cpu": 64 },
+  {
+    "name": "g5.12xlarge",
+    "instanceStorage": [1, 3800, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  {
+    "name": "g4ad.16xlarge",
+    "instanceStorage": [2, 1200, "NVMeSSD"],
+    "memory": 256,
+    "cpu": 64
+  },
+  {
+    "name": "g2.8xlarge",
+    "instanceStorage": [2, 120, "SSD"],
+    "memory": 60,
+    "cpu": 32
+  },
+  { "name": "p3.8xlarge", "instanceStorage": "EBS", "memory": 244, "cpu": 32 },
+  {
+    "name": "g4dn.12xlarge",
+    "instanceStorage": [1, 900, "NVMeSSD"],
+    "memory": 192,
+    "cpu": 48
+  },
+  { "name": "p3.16xlarge", "instanceStorage": "EBS", "memory": 488, "cpu": 64 },
+  {
+    "name": "p3dn.24xlarge",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 96
+  },
+  { "name": "p2.8xlarge", "instanceStorage": "EBS", "memory": 488, "cpu": 32 },
+  {
+    "name": "g4dn.metal",
+    "instanceStorage": [2, 900, "NVMeSSD"],
+    "memory": 384,
+    "cpu": 96
+  },
+  {
+    "name": "p4de.24xlarge",
+    "instanceStorage": [8, 1000, "NVMeSSD"],
+    "memory": 1152,
+    "cpu": 96
+  },
+  {
+    "name": "p4d.24xlarge",
+    "instanceStorage": [8, 1000, "NVMeSSD"],
+    "memory": 1152,
+    "cpu": 96
+  },
+  {
+    "name": "g5.48xlarge",
+    "instanceStorage": [2, 3800, "NVMeSSD"],
+    "memory": 768,
+    "cpu": 192
+  },
+  { "name": "p2.16xlarge", "instanceStorage": "EBS", "memory": 732, "cpu": 64 }
+]

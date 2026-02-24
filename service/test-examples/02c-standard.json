@@ -1,0 +1,64 @@
+{
+  "platform": "BareMetal",
+  "detailed": true,
+  "machineSets": [
+    {
+      "name": "controlPlane",
+      "cpu": 64,
+      "memory": 256,
+      "instanceName": "control-plane",
+      "numberOfDisks": 24,
+      "onlyFor": [],
+      "label": "Control Plane",
+      "allowWorkloadScheduling": true,
+      "controlPlaneReserved": {
+        "cpu": 3.5,
+        "memory": 13.39
+      }
+    },
+    {
+      "name": "worker",
+      "cpu": 64,
+      "memory": 256,
+      "instanceName": "worker-large",
+      "numberOfDisks": 24,
+      "onlyFor": [],
+      "label": "Worker"
+    }
+  ],
+  "workloads": [
+    {
+      "name": "control-plane-services",
+      "count": 1,
+      "usesMachines": [],
+      "services": [
+        {
+          "name": "ControlPlane",
+          "requiredCPU": 3.5,
+          "requiredMemory": 13.39,
+          "zones": 3,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "vms-standard",
+      "count": 1,
+      "usesMachines": [],
+      "services": [
+        {
+          "name": "vms-50-1:4",
+          "requiredCPU": 15,
+          "requiredMemory": 30,
+          "limitCPU": 60,
+          "limitMemory": 120,
+          "zones": 3,
+          "runsWith": [],
+          "avoid": [],
+          "description": "Standard profile: 1:4 ratio, 4x over-commitment"
+        }
+      ]
+    }
+  ]
+}

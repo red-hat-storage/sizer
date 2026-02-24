@@ -1,0 +1,63 @@
+{
+  "platform": "BareMetal",
+  "detailed": true,
+  "machineSets": [
+    {
+      "name": "controlPlane",
+      "cpu": 64,
+      "memory": 256,
+      "instanceName": "control-plane",
+      "numberOfDisks": 24,
+      "onlyFor": [],
+      "label": "Control Plane",
+      "allowWorkloadScheduling": true,
+      "controlPlaneReserved": {
+        "cpu": 3.5,
+        "memory": 13.39
+      }
+    },
+    {
+      "name": "worker",
+      "cpu": 64,
+      "memory": 256,
+      "instanceName": "worker-large",
+      "numberOfDisks": 24,
+      "onlyFor": [],
+      "label": "Worker"
+    }
+  ],
+  "workloads": [
+    {
+      "name": "control-plane-services",
+      "count": 1,
+      "usesMachines": ["controlPlane"],
+      "services": [
+        {
+          "name": "ControlPlane",
+          "requiredCPU": 3.5,
+          "requiredMemory": 13.39,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    },
+    {
+      "name": "small-vms-aggregate",
+      "count": 1,
+      "usesMachines": [],
+      "services": [
+        {
+          "name": "vms-50",
+          "requiredCPU": 60,
+          "requiredMemory": 120,
+          "limitCPU": 90,
+          "limitMemory": 180,
+          "zones": 1,
+          "runsWith": [],
+          "avoid": []
+        }
+      ]
+    }
+  ]
+}

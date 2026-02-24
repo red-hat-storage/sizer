@@ -1,0 +1,48 @@
+# Build stage
+FROM registry.access.redhat.com/ubi9/nodejs-22 AS builder
+
+WORKDIR /app
+
+RUN chown -R 1001:0 /app
+
+USER 1001
+
+# Copy workspace
+COPY --chown=1001:0 package*.json ./
+COPY --chown=1001:0 lib ./lib
+COPY --chown=1001:0 service ./service
+
+# Install all dependencies
+RUN --mount=type=cache,target=/home/node/.npm \
+    npm install --legacy-peer-deps
+
+# Build library and service
+RUN npm run build:lib && npm run build:service
+
+# Install runtime dependencies only (no dev dependencies)
+RUN --mount=type=cache,target=/root/.npm \
+    npm install --legacy-peer-deps --omit=dev
+
+# Runtime stage
+FROM registry.access.redhat.com/ubi9/nodejs-22-minimal
+
+WORKDIR /app
+
+# Copy service dist
+COPY --from=builder /app/service/dist ./dist
+COPY --from=builder /app/service/package.json ./package.json
+
+# Copy workspace node_modules (includes both service and library deps)
+COPY --from=builder /app/node_modules ./node_modules
+
+# Copy built library (workspace dependency)
+COPY --from=builder /app/lib/dist ./lib/dist
+COPY --from=builder /app/lib/package.json ./lib/package.json
+
+ENV PORT=9200
+EXPOSE 9200
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:9200/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1); });"
+
+CMD ["node", "dist/server.js"]

@@ -1,8 +1,8 @@
 import * as webpack from "webpack";
 import * as path from "path";
 import * as os from "os";
-import * as ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
-import * as HTMLWebpackPlugin from "html-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import HTMLWebpackPlugin from "html-webpack-plugin";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
@@ -158,6 +158,10 @@ const Configuration: webpack.Configuration = {
           path.resolve(
             __dirname,
             "node_modules/@patternfly/patternfly/assets/pficon"
+          ),
+          path.resolve(
+            __dirname,
+            "node_modules/@patternfly/patternfly/assets/images"
           ),
           path.resolve(
             __dirname,
