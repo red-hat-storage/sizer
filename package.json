@@ -83,7 +83,7 @@
     "@patternfly/patternfly": "^4.90.5",
     "@patternfly/react-charts": "6.28.4",
     "@patternfly/react-code-editor": "^4.2.92",
-    "@patternfly/react-core": "^4.101.3",
+    "@patternfly/react-core": "^6.0.0",
     "@patternfly/react-icons": "^4.9.5",
     "@patternfly/react-styles": "^4.8.5",
     "@reduxjs/toolkit": "^1.5.1",
