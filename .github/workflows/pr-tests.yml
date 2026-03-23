@@ -1,0 +1,77 @@
+name: PR Tests - Cypress
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "src/**"
+      - "cypress/**"
+      - "package.json"
+      - "package-lock.json"
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start dev server
+        run: |
+          npm run dev &
+          echo "DEV_SERVER_PID=$!" >> $GITHUB_ENV
+
+      - name: Wait for dev server
+        run: |
+          echo "Waiting for dev server to be ready..."
+          timeout 120 bash -c 'until curl -sf http://localhost:9005 > /dev/null; do sleep 2; done'
+          echo "Dev server is ready!"
+
+      - name: Run Cypress tests (excluding sharing_link)
+        run: |
+          CYPRESS_BASE_URL=http://localhost:9005 npx cypress run \
+            --spec "cypress/e2e/sizer/odf_results.cy.js,cypress/e2e/sizer/tour.cy.js" \
+            --config video=false
+        env:
+          CI: true
+
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+      - name: Stop dev server
+        if: always()
+        run: |
+          if [ ! -z "$DEV_SERVER_PID" ]; then
+            kill $DEV_SERVER_PID 2>/dev/null || true
+          fi
+          # Cleanup any remaining processes on port 9005
+          lsof -ti:9005 | xargs kill -9 2>/dev/null || true
+
+  test-summary:
+    runs-on: ubuntu-latest
+    needs: cypress-tests
+    if: always()
+    steps:
+      - name: Test Results
+        run: |
+          if [ "${{ needs.cypress-tests.result }}" == "success" ]; then
+            echo "✅ All Cypress tests passed!"
+          else
+            echo "❌ Cypress tests failed. Check the logs above."
+            exit 1
+          fi

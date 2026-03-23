@@ -13,7 +13,12 @@
     "format": "./node_modules/.bin/prettier --write 'src/**/*.{ts,tsx}'",
     "build:lib": "npm run build --workspace=lib",
     "build:service": "npm run build --workspace=service",
-    "build:all": "npm run build --workspaces --if-present"
+    "build:all": "npm run build --workspaces --if-present",
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run",
+    "cy:run:local": "CYPRESS_BASE_URL=http://localhost:9005 npx cypress run",
+    "cy:run:local:pr": "CYPRESS_BASE_URL=http://localhost:9005 npx cypress run --spec 'cypress/e2e/sizer/odf_results.cy.js,cypress/e2e/sizer/tour.cy.js'",
+    "cy:run:prod": "CYPRESS_BASE_URL=https://sizer.odf.ninja npx cypress run"
   },
   "repository": {
     "type": "git",
@@ -45,6 +50,7 @@
     "coffeescript": "^2.5.1",
     "copy-webpack-plugin": "^6.3.2",
     "css-loader": "^5.1.3",
+    "cypress": "^13.14.2",
     "eslint": "^7.15.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "file-loader": "^6.2.0",
