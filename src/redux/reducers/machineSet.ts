@@ -23,21 +23,14 @@ const defaultState: MachineSet[] = [
     undefined,
     24
   ),
-  {
-    ...getMachinetSetFromInstance(
-      controlInstance,
-      1,
-      "controlPlane",
-      "Control Plane Node",
-      undefined,
-      24
-    ),
-    allowWorkloadScheduling: false, // Default to disabled
-    controlPlaneReserved: {
-      cpu: 2, // Reserve 2 CPU for control plane services
-      memory: 4, // Reserve 4GB for control plane services
-    },
-  },
+  getMachinetSetFromInstance(
+    controlInstance,
+    1,
+    "controlPlane",
+    "Control Plane Node",
+    undefined,
+    24
+  ),
 ];
 
 const addMachineSet = createAction<MachineSet>("ADD_MACHINE");
@@ -76,18 +69,18 @@ const machineSetReducer = createReducer(defaultState, (builder) => {
     .addCase(disableCompactMode, (machines, { payload: platform }) => {
       return [
         getMachinetSetFromInstance(
+          defaultODFInstances[platform],
+          MS_COUNTER++,
+          "default",
+          "Worker Node"
+        ),
+        getMachinetSetFromInstance(
           controlPlaneInstances[platform],
           MS_COUNTER++,
           "controlPlane",
           "Control Plane Node",
           undefined,
           24
-        ),
-        getMachinetSetFromInstance(
-          defaultODFInstances[platform],
-          MS_COUNTER++,
-          "default",
-          "Worker Node"
         ),
       ];
     });

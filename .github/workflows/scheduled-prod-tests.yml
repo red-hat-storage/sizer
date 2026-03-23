@@ -1,0 +1,83 @@
+name: Scheduled Production Tests
+
+on:
+  schedule:
+    # Runs every 3 days at 3:00 AM UTC
+    - cron: "0 3 */3 * *"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  cypress-production-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all Cypress tests against production
+        run: npm run cy:run:prod
+        env:
+          CI: true
+
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-production-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+      - name: Create GitHub Issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Production Cypress Tests Failed',
+              body: `## Production Tests Failed
+
+              The scheduled Cypress tests against production (https://sizer.odf.ninja) have failed.
+
+              **Workflow Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+              **Date:** ${new Date().toISOString()}
+
+              Please check the workflow logs and screenshots for details.
+
+              ### Next Steps
+              1. Review the test failures in the workflow logs
+              2. Check if the production site is accessible
+              3. Verify if recent deployments may have caused regressions
+              4. Run tests locally with: \`npm run cy:run:prod\`
+
+              ---
+              *This issue was automatically created by the scheduled production tests workflow.*`,
+              labels: ['bug', 'cypress', 'production', 'automated']
+            });
+            console.log('Created issue:', issue.data.number);
+
+  test-summary:
+    runs-on: ubuntu-latest
+    needs: cypress-production-tests
+    if: always()
+    steps:
+      - name: Test Results Summary
+        run: |
+          if [ "${{ needs.cypress-production-tests.result }}" == "success" ]; then
+            echo "✅ All production Cypress tests passed!"
+            echo "Production site (https://sizer.odf.ninja) is healthy."
+          else
+            echo "❌ Production Cypress tests failed!"
+            echo "An issue has been created for investigation."
+            exit 1
+          fi

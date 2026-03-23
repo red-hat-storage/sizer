@@ -52,15 +52,18 @@ export const canNodeAddService = (
   const machineSet = machineSets.find((ms) => ms.name === node.machineSet);
 
   // Control plane scheduling rules
+  const isControlPlaneCandidate = isControlPlaneService(candidate);
+
   if (node.isControlPlane) {
-    // Control plane services can always be scheduled on control plane nodes
-    if (isControlPlaneService(candidate)) {
-      return true;
-    }
     // For non-control plane services, check scheduling permissions
-    // Check both the node property and the MachineSet property
-    if (!node.allowWorkloadScheduling && !machineSet?.allowWorkloadScheduling) {
-      return false;
+    if (!isControlPlaneCandidate) {
+      // Only block if explicitly set to false (not undefined)
+      const nodeSchedulable = node.allowWorkloadScheduling;
+      const msSchedulable = machineSet?.allowWorkloadScheduling;
+      // Block only if either is explicitly false
+      if (nodeSchedulable === false || msSchedulable === false) {
+        return false;
+      }
     }
   } else {
     // Non-control plane node - check if workload requires control plane
@@ -69,13 +72,19 @@ export const canNodeAddService = (
     }
   }
 
-  // Check if node is tainted, but skip this check for schedulable control plane nodes
+  // Check if node is tainted, but skip this check for:
+  // 1. Schedulable control plane nodes
+  // 2. Control plane services on control plane nodes (they belong there)
   const isSchedulableControlPlane =
     machineSet?.name === "controlPlane" &&
     machineSet?.allowWorkloadScheduling === true;
 
+  const skipTaintCheck =
+    isSchedulableControlPlane ||
+    (node.isControlPlane && isControlPlaneCandidate);
+
   if (
-    !isSchedulableControlPlane &&
+    !skipTaintCheck &&
     !_.isEmpty(node.onlyFor) &&
     !node.onlyFor.includes(currentWorkload.name)
   ) {

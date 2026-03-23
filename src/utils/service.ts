@@ -66,19 +66,10 @@ const getNode = (machineSet: MachineSet): Node => ({
   services: [],
   instanceName: machineSet.instanceName,
   onlyFor: machineSet.onlyFor,
-  // Set control plane properties based on machine set configuration
-  isControlPlane: machineSet.name === "controlPlane",
-  allowWorkloadScheduling:
-    machineSet.allowWorkloadScheduling ??
-    (machineSet.name === "controlPlane" ? false : undefined),
-  controlPlaneReserved:
-    machineSet.controlPlaneReserved ??
-    (machineSet.name === "controlPlane"
-      ? {
-          cpu: 2, // Default: Reserve 2 CPU for control plane services
-          memory: 4, // Default: Reserve 4GB for control plane services
-        }
-      : undefined),
+  // Set control plane properties only if explicitly configured
+  isControlPlane: machineSet.name === "controlPlane" ? true : undefined,
+  allowWorkloadScheduling: machineSet.allowWorkloadScheduling,
+  controlPlaneReserved: machineSet.controlPlaneReserved,
 });
 
 /**
