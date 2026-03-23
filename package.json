@@ -31,7 +31,7 @@
   },
   "homepage": "https://gitlab.consulting.redhat.com/red-hat-data-services/ocs-solver#readme",
   "devDependencies": {
-    "@testing-library/react": "^14.1.0",
+    "@testing-library/react": "^16.0.0",
     "@types/classnames": "^2.3.1",
     "@types/fabric": "^3.6.9",
     "@types/jest": "^26.0.23",
