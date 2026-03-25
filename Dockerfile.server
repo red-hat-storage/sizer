@@ -1,4 +1,4 @@
-FROM node:16.20.0-slim as builder
+FROM node:24.14.1-slim as builder
 COPY . .
 RUN npm install --legacy-peer-deps
 RUN npm run build-upstream
