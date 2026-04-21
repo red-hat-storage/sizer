@@ -18,25 +18,25 @@ jobs:
       DEST_BUCKET: ${{ github.ref_name == 'main' && 'sizer.ocs.ninja' || 'sizer.ocs.ninja/beta' }}
     steps:
       - id: build
-        uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
       - run: npm ci --legacy-peer-deps
       - run: GH_TOKEN=${{ secrets.GIST_TOKEN }} npm run $BUILD_STEP
       - id: auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.GCS_SA_KEY }}"
       - id: push-js
-        uses: google-github-actions/upload-cloud-storage@v1
+        uses: google-github-actions/upload-cloud-storage@v2
         with:
           path: ./build
           destination: ${{ env.DEST_BUCKET }}
           parent: false
       - id: configure
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
       - name: Make files public
         run: gsutil -m acl set -r "./gsutil-public.json" "gs://$DEST_BUCKET"
       - name: Make RH files Internal

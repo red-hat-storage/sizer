@@ -8,12 +8,12 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Login to Quay Registry
         run: echo ${{ secrets.QUAY_TOKEN }} | docker login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
       - name: Get the version
         id: vars
-        run: echo ::set-output name=tag::$(echo ${GITHUB_SHA:0:8})
+        run: echo "tag=$(echo ${GITHUB_SHA:0:8})" >> "$GITHUB_OUTPUT"
       - name: Build the tagged image
         run: docker build . --file Dockerfile.server --tag quay.io/badhikar/sizer:${{steps.vars.outputs.tag}}
       - name: Push the tagged image
