@@ -1,26 +1,34 @@
-FROM node:16.20.0-slim as builder
+FROM node:18-slim AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --legacy-peer-deps
 COPY . .
-RUN npm install --legacy-peer-deps
 RUN npm run build-upstream
 
+FROM node:18-slim
+LABEL org.opencontainers.image.title="ODF Sizer"
+LABEL org.opencontainers.image.description="Web application for estimating and understanding ODF deployments"
+LABEL org.opencontainers.image.source="https://github.com/red-hat-storage/sizer"
+LABEL org.opencontainers.image.vendor="Red Hat"
+LABEL org.opencontainers.image.licenses="MIT"
 
-FROM debian:stable-slim
-LABEL maintainer="Bipul Adh <bipul@ibm.com>"
-
-RUN apt-get update && apt-get install gnupg wget -y && \
-    wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg && \
-    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl gnupg ca-certificates && \
+    curl -fsSL https://dl.google.com/linux/linux_signing_key.pub \
+      | gpg --dearmor -o /etc/apt/trusted.gpg.d/google-chrome.gpg && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" \
+      > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update && \
-    apt-get install google-chrome-stable curl -y --no-install-recommends && \
+    apt-get install -y --no-install-recommends google-chrome-stable && \
+    apt-get purge -y curl gnupg && \
+    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
-    apt-get install -y nodejs npm
 
-WORKDIR /
-COPY --from=builder /build /build
-COPY server server
-WORKDIR /server
-RUN npm install --legacy-peer-deps
-ENTRYPOINT npm run dev
+WORKDIR /app
+COPY --from=builder /app/build ./build
+COPY server ./server
+WORKDIR /app/server
+RUN npm install --legacy-peer-deps && npm cache clean --force
 
-
+EXPOSE 3001 9100
+ENTRYPOINT ["npm", "run", "dev"]
