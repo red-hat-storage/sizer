@@ -1,8 +1,9 @@
 # ODF Sizing Tool
 
 This repository contains the source code of the ODF 4 Sizing Tool.
-The tool is hosted on https://sizer.ocs.ninja and pushes to main automatically update this site.
+The tool is hosted on https://sizer.ocs.ninja and https://access.redhat.com/labs/ocsst. Pushes to main branch update these sites.
 
+For detailed development information, architecture overview, and contribution guidelines, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Using the source code
 
@@ -19,4 +20,4 @@ If you want to build the code in a one-off way, you can do so with `npm run buil
 ### Developing with the code
 
 To develop it is handy to use the `npm run dev` feature that will automatically rebuild the code when there are changes to the source code.
-Running `npm run dev` will spawn a server on http://localhost:9001 that you can visit to see the site with your code changes. When the code is rebuild, the browser will automatically refresh the site for you.
+Running `npm run dev` will spawn a server on http://localhost:9005 that you can visit to see the site with your code changes. When the code is rebuild, the browser will automatically refresh the site for you.
