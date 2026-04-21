@@ -6,3 +6,4 @@ service/dist/
 service/node_modules/
 *.log
 coverage
+CLAUDE.md
