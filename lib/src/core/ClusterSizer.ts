@@ -22,6 +22,9 @@ export type ClusterSizing = {
   services?: Service[];
 };
 
+const MAX_SUGGESTED_CPU_CORES = 384;
+const MAX_SUGGESTED_MEMORY_GB = 4096;
+
 export class ClusterSizer {
   /**
    * Main sizing function
@@ -137,10 +140,10 @@ export class ClusterSizer {
         const machineSetMemory = targetMachineSet?.memory || 0;
         
         // Calculate minimum required machineset size
-        // Round CPU up to nearest multiple of 2 (max 200)
-        // Round Memory up to nearest multiple of 4 (max 512)
-        const minRequiredCPU = Math.min(200, Math.ceil(totalRequiredCPU / 2) * 2);
-        const minRequiredMemory = Math.min(512, Math.ceil(totalRequiredMemory / 4) * 4);
+        // Round CPU up to nearest multiple of 2 (max MAX_SUGGESTED_CPU_CORES)
+        // Round Memory up to nearest multiple of 4 (max MAX_SUGGESTED_MEMORY_GB)
+        const minRequiredCPU = Math.min(MAX_SUGGESTED_CPU_CORES, Math.ceil(totalRequiredCPU / 2) * 2);
+        const minRequiredMemory = Math.min(MAX_SUGGESTED_MEMORY_GB, Math.ceil(totalRequiredMemory / 4) * 4);
         
         throw new Error(
           `Workload "${workload.name}" is not schedulable. ` +
