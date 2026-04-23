@@ -9,7 +9,6 @@ const azureInstances = require("../AZURE.json");
 const ibmClassicInstances = require("../IBM-classic.json");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ibmVPCInstances = require("../IBM-vpc.json");
-import * as _ from "lodash";
 
 type IBM = Platform.IBMC | Platform.IBMV;
 
@@ -47,59 +46,48 @@ const defaults = {
   },
 };
 
-const parseAWSInstanceStorage = (
-  storage: string | [number, number, string]
-) => {
-  let maxDisks = 24;
-  let instanceStorage = 0;
-  let storageType = "EBS";
-  if (typeof storage === "string") {
-    maxDisks = 24;
-    instanceStorage = 0;
-  }
-  if (_.isArray(storage)) {
-    // First is max Disks
-    maxDisks = storage[0];
-    instanceStorage = storage[1];
-    storageType = storage[2];
-  }
-  return { maxDisks, instanceStorage, storageType };
+type ParsedStorage = {
+  maxDisks: number;
+  instanceStorage: number;
+  storageType: string;
 };
 
-const AWSInstances: Instance[] = awsInstances?.map((instance) => {
-  const { maxDisks, instanceStorage, storageType } = parseAWSInstanceStorage(
-    instance.instanceStorage as string | [number, number, string]
+const parseInstanceStorage = (
+  storage: [number, number, string] | undefined,
+  defaultMaxDisks = 24
+): ParsedStorage => {
+  if (!storage) {
+    return { maxDisks: defaultMaxDisks, instanceStorage: 0, storageType: "" };
+  }
+  return {
+    maxDisks: storage[0],
+    instanceStorage: storage[1],
+    storageType: storage[2],
+  };
+};
+
+const AWSInstances: Instance[] = awsInstances.map((instance) => {
+  const { maxDisks, instanceStorage, storageType } = parseInstanceStorage(
+    instance.instanceStorage
   );
   return {
     name: instance.name,
     cpuUnits: instance.cpu,
-    instanceStorage: instanceStorage,
+    instanceStorage,
     storageType,
     maxDisks,
     memory: instance.memory,
   };
 });
 
-const parseGCPInstanceStorage = (storage: string) => {
-  let maxDisks = 127;
-  let instanceStorage = 0;
-  let storageType = "Persistent Disk";
-
-  if (storage.toLowerCase() === "supported") {
-    maxDisks = 9;
-    instanceStorage = 375;
-    storageType = "SSD";
-  }
-  return { maxDisks, instanceStorage, storageType };
-};
-
 const GCPInstances: Instance[] = gcpInstances.map((instance) => {
-  const { maxDisks, instanceStorage, storageType } = parseGCPInstanceStorage(
-    instance.ssd
+  const { maxDisks, instanceStorage, storageType } = parseInstanceStorage(
+    instance.instanceStorage,
+    127
   );
   return {
     name: instance.name,
-    cpuUnits: instance.cpus,
+    cpuUnits: instance.cpu,
     instanceStorage,
     maxDisks,
     storageType,
@@ -107,45 +95,49 @@ const GCPInstances: Instance[] = gcpInstances.map((instance) => {
   };
 });
 
-const toGB = (memory: number) => memory / 1024;
-
-const AzureInstances: Instance[] = azureInstances.map(
-  ({ name, cpu, memory, instanceStorage, maxDisks }) => {
-    // JSON file has units in MB
-    return {
-      name,
-      cpuUnits: cpu,
-      memory: toGB(memory),
-      instanceStorage: toGB(instanceStorage),
-      maxDisks,
-    };
-  }
-);
-
-const parseIBMUnits = (unitString: string): number =>
-  Number(unitString.split("GB")[0]);
+const AzureInstances: Instance[] = azureInstances.map((instance) => {
+  const { instanceStorage, storageType } = parseInstanceStorage(
+    instance.instanceStorage
+  );
+  return {
+    name: instance.name,
+    cpuUnits: instance.cpu,
+    memory: instance.memory,
+    instanceStorage,
+    storageType,
+    maxDisks: instance.maxDisks,
+  };
+});
 
 const IBMClassicInstances: Instance[] = ibmClassicInstances
   .filter(({ ocp_unsupported }) => !ocp_unsupported)
-  .map(({ name, memory, storage, cores }) => {
+  .map((instance) => {
+    const { maxDisks, instanceStorage, storageType } = parseInstanceStorage(
+      instance.instanceStorage
+    );
     return {
-      name,
-      cpuUnits: Number(cores),
-      memory: parseIBMUnits(memory),
-      instanceStorage: parseIBMUnits(storage),
-      maxDisks: 24,
+      name: instance.name,
+      cpuUnits: instance.cpu,
+      memory: instance.memory,
+      instanceStorage,
+      storageType,
+      maxDisks,
     };
   });
 
 const IBMVPCInstances: Instance[] = ibmVPCInstances
   .filter(({ ocp_unsupported }) => !ocp_unsupported)
-  .map(({ name, memory, storage, cores }) => {
+  .map((instance) => {
+    const { maxDisks, instanceStorage, storageType } = parseInstanceStorage(
+      instance.instanceStorage
+    );
     return {
-      name,
-      cpuUnits: Number(cores),
-      memory: parseIBMUnits(memory),
-      instanceStorage: parseIBMUnits(storage),
-      maxDisks: 24,
+      name: instance.name,
+      cpuUnits: instance.cpu,
+      memory: instance.memory,
+      instanceStorage,
+      storageType,
+      maxDisks,
     };
   });
 
