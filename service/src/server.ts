@@ -15,7 +15,7 @@ import type {
 
 const app = express();
 // Increase body size limit to handle large payloads (e.g., 100k VMs = ~1MB)
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "100mb" }));
 
 const PORT = process.env.PORT || 9000;
 

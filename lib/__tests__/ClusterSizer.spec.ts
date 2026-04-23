@@ -363,4 +363,121 @@ describe('ClusterSizer', () => {
       expect(result.nodeCount).toBeGreaterThan(0);
     });
   });
+
+  describe('Large node sizes', () => {
+    // These tests verify cap behaviour in error messages (see MAX_SUGGESTED_CPU_CORES / MAX_SUGGESTED_MEMORY_GB
+    // in ClusterSizer.ts). They complement the existing 'should throw error for unschedulable workload'
+    // tests, which only assert that an error is thrown — not what the message says.
+
+    it('should successfully schedule a workload on a 300-CPU / 3000-GB node', () => {
+      const workloads: WorkloadDescriptor[] = [
+        {
+          name: 'large-workload',
+          count: 1,
+          usesMachines: [],
+          services: [
+            {
+              name: 'large-service',
+              requiredCPU: 250,
+              requiredMemory: 1800,
+              zones: 1,
+              runsWith: [],
+              avoid: []
+            }
+          ]
+        }
+      ];
+
+      const machineSets: MachineSet[] = [
+        {
+          name: 'worker',
+          cpu: 300,
+          memory: 3000,
+          instanceName: 'giant-node',
+          numberOfDisks: 24,
+          onlyFor: [],
+          label: 'Worker'
+        }
+      ];
+
+      const result = ClusterSizer.size(workloads, Platform.BAREMETAL, machineSets);
+      expect(result.nodeCount).toBeGreaterThanOrEqual(1);
+      expect(result.totalCPU).toBeGreaterThanOrEqual(250);    // at least enough for the service's requiredCPU
+      expect(result.totalMemory).toBeGreaterThanOrEqual(1800); // at least enough for the service's requiredMemory
+    });
+
+    it('should cap the CPU suggestion at 384 in the unschedulable error message', () => {
+      const workloads: WorkloadDescriptor[] = [
+        {
+          name: 'impossible-workload',
+          count: 1,
+          usesMachines: ['worker'],
+          services: [
+            {
+              name: 'huge-service',
+              requiredCPU: 500,
+              requiredMemory: 10,
+              zones: 1,
+              runsWith: [],
+              avoid: []
+            }
+          ]
+        }
+      ];
+
+      const machineSets: MachineSet[] = [
+        {
+          name: 'worker',
+          cpu: 32,
+          memory: 64,
+          instanceName: 'small-node',
+          numberOfDisks: 24,
+          onlyFor: [],
+          label: 'Worker'
+        }
+      ];
+
+      // MAX_SUGGESTED_CPU_CORES = 384, defined in ClusterSizer.ts
+      expect(() => {
+        ClusterSizer.size(workloads, Platform.BAREMETAL, machineSets);
+      }).toThrow(/at least 384 CPU and \d+ GB/);
+    });
+
+    it('should cap the memory suggestion at 4096 in the unschedulable error message', () => {
+      const workloads: WorkloadDescriptor[] = [
+        {
+          name: 'impossible-workload',
+          count: 1,
+          usesMachines: ['worker'],
+          services: [
+            {
+              name: 'huge-service',
+              requiredCPU: 10,
+              requiredMemory: 5000,
+              zones: 1,
+              runsWith: [],
+              avoid: []
+            }
+          ]
+        }
+      ];
+
+      const machineSets: MachineSet[] = [
+        {
+          name: 'worker',
+          cpu: 32,
+          memory: 64,
+          instanceName: 'small-node',
+          numberOfDisks: 24,
+          onlyFor: [],
+          label: 'Worker'
+        }
+      ];
+
+      // MAX_SUGGESTED_MEMORY_GB = 4096, defined in ClusterSizer.ts
+      expect(() => {
+        ClusterSizer.size(workloads, Platform.BAREMETAL, machineSets);
+      }).toThrow(/at least \d+ CPU and 4096 GB/);
+    });
+  });
 });
