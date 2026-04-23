@@ -66,15 +66,17 @@ const workloadDescription: WorkloadDescriptor = {
 describe("Test utility functions around workload descriptors", () => {
   it("Test if Service object is properly formed", () => {
     const { services } = getWorkloadFromDescriptors(workloadDescription);
-    expect(services[0].runsWith).toEqual([]);
-    expect(services[0].avoid).toEqual([1, 2]);
-    expect(services[1].runsWith).toEqual([2]);
-    expect(services[1].avoid).toEqual([0]);
-    expect(services[2].runsWith).toEqual([]);
-    expect(services[2].avoid).toEqual([0]);
+    const [sA, sB, sC] = services;
+    expect(sA.runsWith).toEqual([]);
+    expect(sA.avoid).toEqual([sB.id, sC.id]);
+    expect(sB.runsWith).toEqual([sC.id]);
+    expect(sB.avoid).toEqual([sA.id]);
+    expect(sC.runsWith).toEqual([]);
+    expect(sC.avoid).toEqual([sA.id]);
   });
   it("Test if Workload object is properly formed", () => {
-    const { workload } = getWorkloadFromDescriptors(workloadDescription);
-    expect(workload.services).toEqual([0, 1, 2]);
+    const { workload, services } =
+      getWorkloadFromDescriptors(workloadDescription);
+    expect(workload.services).toEqual(services.map((s) => s.id));
   });
 });
