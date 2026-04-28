@@ -2,5554 +2,4164 @@
   {
     "name": "Basic_A0",
     "cpu": 1,
-    "memory": 768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 20480,
+    "memory": 0.75,
     "maxDisks": 1,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 20, "SSD"]
   },
   {
     "name": "Basic_A1",
     "cpu": 1,
-    "memory": 1792,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 40960,
+    "memory": 1.75,
     "maxDisks": 2,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 40, "SSD"]
   },
   {
     "name": "Basic_A2",
     "cpu": 2,
-    "memory": 3584,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 61440,
+    "memory": 3.5,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 60, "SSD"]
   },
   {
     "name": "Basic_A3",
     "cpu": 4,
-    "memory": 7168,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 122880,
+    "memory": 7,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 120, "SSD"]
   },
   {
     "name": "Basic_A4",
     "cpu": 8,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 245760,
+    "memory": 14,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 240, "SSD"]
   },
   {
     "name": "Standard_A0",
     "cpu": 1,
-    "memory": 768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 20480,
+    "memory": 0.75,
     "maxDisks": 1,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 20, "SSD"]
   },
   {
     "name": "Standard_A1",
     "cpu": 1,
-    "memory": 1792,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 71680,
+    "memory": 1.75,
     "maxDisks": 2,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 70, "SSD"]
   },
   {
     "name": "Standard_A1_v2",
     "cpu": 1,
-    "memory": 2048,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 10240,
+    "memory": 2,
     "maxDisks": 2,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 10, "SSD"]
   },
   {
     "name": "Standard_A2",
     "cpu": 2,
-    "memory": 3584,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 138240,
+    "memory": 3.5,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 135, "SSD"]
   },
   {
     "name": "Standard_A2_v2",
     "cpu": 2,
-    "memory": 4096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 20480,
+    "memory": 4,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 20, "SSD"]
   },
   {
     "name": "Standard_A2m_v2",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 20480,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 20, "SSD"]
   },
   {
     "name": "Standard_A3",
     "cpu": 4,
-    "memory": 7168,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 291840,
+    "memory": 7,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 285, "SSD"]
   },
   {
     "name": "Standard_A4",
     "cpu": 8,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 619520,
+    "memory": 14,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 605, "SSD"]
   },
   {
     "name": "Standard_A4_v2",
     "cpu": 4,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 40960,
+    "memory": 8,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 40, "SSD"]
   },
   {
     "name": "Standard_A4m_v2",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 40960,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 40, "SSD"]
   },
   {
     "name": "Standard_A5",
     "cpu": 2,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 138240,
+    "memory": 14,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 135, "SSD"]
   },
   {
     "name": "Standard_A6",
     "cpu": 4,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 291840,
+    "memory": 28,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 285, "SSD"]
   },
   {
     "name": "Standard_A7",
     "cpu": 8,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 619520,
+    "memory": 56,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 605, "SSD"]
   },
   {
     "name": "Standard_A8_v2",
     "cpu": 8,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 81920,
+    "memory": 16,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 80, "SSD"]
   },
   {
     "name": "Standard_A8m_v2",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 81920,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 80, "SSD"]
   },
   {
     "name": "Standard_B12ms",
     "cpu": 12,
-    "memory": 49152,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 98304,
+    "memory": 48,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 96, "SSD"]
   },
   {
     "name": "Standard_B16ms",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_B1ls",
     "cpu": 1,
-    "memory": 512,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096,
+    "memory": 0.5,
     "maxDisks": 2,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4, "SSD"]
   },
   {
     "name": "Standard_B1ms",
     "cpu": 1,
-    "memory": 2048,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096,
+    "memory": 2,
     "maxDisks": 2,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4, "SSD"]
   },
   {
     "name": "Standard_B1s",
     "cpu": 1,
-    "memory": 1024,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096,
+    "memory": 1,
     "maxDisks": 2,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4, "SSD"]
   },
   {
     "name": "Standard_B20ms",
     "cpu": 20,
-    "memory": 81920,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 163840,
+    "memory": 80,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 160, "SSD"]
   },
   {
     "name": "Standard_B2ms",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 16, "SSD"]
   },
   {
     "name": "Standard_B2s",
     "cpu": 2,
-    "memory": 4096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8192,
+    "memory": 4,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8, "SSD"]
   },
   {
     "name": "Standard_B4ms",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_B8ms",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_D1",
     "cpu": 1,
-    "memory": 3584,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 51200,
+    "memory": 3.5,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 50, "SSD"]
   },
   {
     "name": "Standard_D1_v2",
     "cpu": 1,
-    "memory": 3584,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 51200,
+    "memory": 3.5,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 50, "SSD"]
   },
   {
     "name": "Standard_D11",
     "cpu": 2,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 14,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_D11_v2",
     "cpu": 2,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 14,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_D12",
     "cpu": 4,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 28,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_D12_v2",
     "cpu": 4,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 28,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_D13",
     "cpu": 8,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_D13_v2",
     "cpu": 8,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_D14",
     "cpu": 16,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_D14_v2",
     "cpu": 16,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_D15_v2",
     "cpu": 20,
-    "memory": 143360,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 140,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_D16_v3",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_D16_v4",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D16_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D16a_v4",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_D16ads_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_D16as_v4",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_D16as_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D16d_v4",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_D16d_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_D16ds_v4",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_D16ds_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_D16s_v3",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_D16s_v4",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D16s_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D2",
     "cpu": 2,
-    "memory": 7168,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 7,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_D2_v2",
     "cpu": 2,
-    "memory": 7168,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 7,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_D2_v3",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 51200,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 50, "SSD"]
   },
   {
     "name": "Standard_D2_v4",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": false
+    "memory": 8,
+    "maxDisks": 4
   },
   {
     "name": "Standard_D2_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": false
+    "memory": 8,
+    "maxDisks": 4
   },
   {
     "name": "Standard_D2a_v4",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 51200,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 50, "SSD"]
   },
   {
     "name": "Standard_D2ads_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_D2as_v4",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 16, "SSD"]
   },
   {
     "name": "Standard_D2as_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 8,
+    "maxDisks": 4
   },
   {
     "name": "Standard_D2d_v4",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_D2d_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_D2ds_v4",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_D2ds_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_D2s_v3",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 16, "SSD"]
   },
   {
     "name": "Standard_D2s_v4",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 8,
+    "maxDisks": 4
   },
   {
     "name": "Standard_D2s_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 8,
+    "maxDisks": 4
   },
   {
     "name": "Standard_D3",
     "cpu": 4,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 14,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_D3_v2",
     "cpu": 4,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 14,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_D32_v3",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_D32_v4",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D32_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D32a_v4",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_D32ads_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_D32as_v4",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_D32as_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D32d_v4",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_D32d_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_D32ds_v4",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_D32ds_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_D32s_v3",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_D32s_v4",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D32s_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D4",
     "cpu": 8,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 28,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_D4_v2",
     "cpu": 8,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 28,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_D4_v3",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_D4_v4",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": false
+    "memory": 16,
+    "maxDisks": 8
   },
   {
     "name": "Standard_D4_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": false
+    "memory": 16,
+    "maxDisks": 8
   },
   {
     "name": "Standard_D48_v3",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_D48_v4",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D48_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D48a_v4",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_D48ads_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_D48as_v4",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 393216,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 384, "SSD"]
   },
   {
     "name": "Standard_D48as_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D48d_v4",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_D48d_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_D48ds_v4",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_D48ds_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_D48s_v3",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 393216,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 384, "SSD"]
   },
   {
     "name": "Standard_D48s_v4",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D48s_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D4a_v4",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_D4ads_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_D4as_v4",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_D4as_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 8
   },
   {
     "name": "Standard_D4d_v4",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_D4d_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_D4ds_v4",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_D4ds_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_D4s_v3",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_D4s_v4",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 8
   },
   {
     "name": "Standard_D4s_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 8
   },
   {
     "name": "Standard_D5_v2",
     "cpu": 16,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 56,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_D64_v3",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1638400,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1600, "SSD"]
   },
   {
     "name": "Standard_D64_v4",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D64_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D64a_v4",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1638400,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1600, "SSD"]
   },
   {
     "name": "Standard_D64ads_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_D64as_v4",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_D64as_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D64d_v4",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_D64d_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_D64ds_v4",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_D64ds_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_D64s_v3",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_D64s_v4",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D64s_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D8_v3",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_D8_v4",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": false
+    "memory": 32,
+    "maxDisks": 16
   },
   {
     "name": "Standard_D8_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": false
+    "memory": 32,
+    "maxDisks": 16
   },
   {
     "name": "Standard_D8a_v4",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_D8ads_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_D8as_v4",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_D8as_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 16
   },
   {
     "name": "Standard_D8d_v4",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_D8d_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_D8ds_v4",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_D8ds_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_D8s_v3",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_D8s_v4",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 16
   },
   {
     "name": "Standard_D8s_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 16
   },
   {
     "name": "Standard_D96_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D96a_v4",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_D96ads_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_D96as_v4",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 786432,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 768, "SSD"]
   },
   {
     "name": "Standard_D96as_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_D96d_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3686400,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 3600, "SSD"]
   },
   {
     "name": "Standard_D96ds_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3686400,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 3600, "SSD"]
   },
   {
     "name": "Standard_D96s_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC16ads_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_DC16as_v5",
     "cpu": 16,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC16ds_v3",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_DC16s_v3",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC1ds_v3",
     "cpu": 1,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_DC1s_v2",
     "cpu": 1,
-    "memory": 4096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 51200,
+    "memory": 4,
     "maxDisks": 1,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 50, "SSD"]
   },
   {
     "name": "Standard_DC1s_v3",
     "cpu": 1,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 8,
+    "maxDisks": 4
   },
   {
     "name": "Standard_DC24ds_v3",
     "cpu": 24,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_DC24s_v3",
     "cpu": 24,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC2ads_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 8,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_DC2as_v5",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 8,
+    "maxDisks": 4
   },
   {
     "name": "Standard_DC2ds_v3",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_DC2s",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 8,
     "maxDisks": 2,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_DC2s_v2",
     "cpu": 2,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 8,
     "maxDisks": 2,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_DC2s_v3",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 8
   },
   {
     "name": "Standard_DC32ads_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_DC32as_v5",
     "cpu": 32,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC32ds_v3",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_DC32s_v3",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC48ads_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_DC48as_v5",
     "cpu": 48,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC48ds_v3",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_DC48s_v3",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC4ads_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 16,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_DC4as_v5",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 8
   },
   {
     "name": "Standard_DC4ds_v3",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_DC4s",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_DC4s_v2",
     "cpu": 4,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_DC4s_v3",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 16
   },
   {
     "name": "Standard_DC64ads_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_DC64as_v5",
     "cpu": 64,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC8_v2",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_DC8ads_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 32,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_DC8as_v5",
     "cpu": 8,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 16
   },
   {
     "name": "Standard_DC8ds_v3",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_DC8s_v3",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DC96ads_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_DC96as_v5",
     "cpu": 96,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_DS1",
     "cpu": 1,
-    "memory": 3584,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 7168,
+    "memory": 3.5,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 7, "SSD"]
   },
   {
     "name": "Standard_DS1_v2",
     "cpu": 1,
-    "memory": 3584,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 7168,
+    "memory": 3.5,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 7, "SSD"]
   },
   {
     "name": "Standard_DS11",
     "cpu": 2,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 28672,
+    "memory": 14,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 28, "SSD"]
   },
   {
     "name": "Standard_DS11_v2",
     "cpu": 2,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 28672,
+    "memory": 14,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 28, "SSD"]
   },
   {
     "name": "Standard_DS11-1_v2",
     "cpu": 1,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 28672,
+    "memory": 14,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 28, "SSD"]
   },
   {
     "name": "Standard_DS12",
     "cpu": 4,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 57344,
+    "memory": 28,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 56, "SSD"]
   },
   {
     "name": "Standard_DS12_v2",
     "cpu": 4,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 57344,
+    "memory": 28,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 56, "SSD"]
   },
   {
     "name": "Standard_DS12-1_v2",
     "cpu": 1,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 57344,
+    "memory": 28,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 56, "SSD"]
   },
   {
     "name": "Standard_DS12-2_v2",
     "cpu": 2,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 57344,
+    "memory": 28,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 56, "SSD"]
   },
   {
     "name": "Standard_DS13",
     "cpu": 8,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 114688,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 112, "SSD"]
   },
   {
     "name": "Standard_DS13_v2",
     "cpu": 8,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 114688,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 112, "SSD"]
   },
   {
     "name": "Standard_DS13-2_v2",
     "cpu": 2,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 114688,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 112, "SSD"]
   },
   {
     "name": "Standard_DS13-4_v2",
     "cpu": 4,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 114688,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 112, "SSD"]
   },
   {
     "name": "Standard_DS14",
     "cpu": 16,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 229376,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 224, "SSD"]
   },
   {
     "name": "Standard_DS14_v2",
     "cpu": 16,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 229376,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 224, "SSD"]
   },
   {
     "name": "Standard_DS14-4_v2",
     "cpu": 4,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 229376,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 224, "SSD"]
   },
   {
     "name": "Standard_DS14-8_v2",
     "cpu": 8,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 229376,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 224, "SSD"]
   },
   {
     "name": "Standard_DS15_v2",
     "cpu": 20,
-    "memory": 143360,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 286720,
+    "memory": 140,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 280, "SSD"]
   },
   {
     "name": "Standard_DS2",
     "cpu": 2,
-    "memory": 7168,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 14336,
+    "memory": 7,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 14, "SSD"]
   },
   {
     "name": "Standard_DS2_v2",
     "cpu": 2,
-    "memory": 7168,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 14336,
+    "memory": 7,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 14, "SSD"]
   },
   {
     "name": "Standard_DS3",
     "cpu": 4,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 28672,
+    "memory": 14,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 28, "SSD"]
   },
   {
     "name": "Standard_DS3_v2",
     "cpu": 4,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 28672,
+    "memory": 14,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 28, "SSD"]
   },
   {
     "name": "Standard_DS4",
     "cpu": 8,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 57344,
+    "memory": 28,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 56, "SSD"]
   },
   {
     "name": "Standard_DS4_v2",
     "cpu": 8,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 57344,
+    "memory": 28,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 56, "SSD"]
   },
   {
     "name": "Standard_DS5_v2",
     "cpu": 16,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 114688,
+    "memory": 56,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 112, "SSD"]
   },
   {
     "name": "Standard_E104i_v5",
     "cpu": 104,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": false
+    "memory": 672,
+    "maxDisks": 64
   },
   {
     "name": "Standard_E104id_v5",
     "cpu": 104,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3891200,
+    "memory": 672,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 3800, "SSD"]
   },
   {
     "name": "Standard_E104ids_v5",
     "cpu": 104,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3891200,
+    "memory": 672,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 3800, "SSD"]
   },
   {
     "name": "Standard_E104is_v5",
     "cpu": 104,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 64
   },
   {
     "name": "Standard_E112iads_v5",
     "cpu": 112,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3891200,
+    "memory": 672,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 3800, "SSD"]
   },
   {
     "name": "Standard_E112ias_v5",
     "cpu": 112,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 64
   },
   {
     "name": "Standard_E16_v3",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_E16_v4",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16-4ads_v5",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16-4as_v4",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_E16-4as_v5",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16-4ds_v4",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16-4ds_v5",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16-4s_v3",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_E16-4s_v4",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16-4s_v5",
     "cpu": 4,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16-8ads_v5",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16-8as_v4",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_E16-8as_v5",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16-8ds_v4",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16-8ds_v5",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16-8s_v3",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_E16-8s_v4",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16-8s_v5",
     "cpu": 8,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16a_v4",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 409600,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 400, "SSD"]
   },
   {
     "name": "Standard_E16ads_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16as_v4",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_E16as_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16bds_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16bs_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16d_v4",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16d_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16ds_v4",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16ds_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_E16s_v3",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_E16s_v4",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E16s_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E2_v3",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 51200,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 50, "SSD"]
   },
   {
     "name": "Standard_E2_v4",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": false
+    "memory": 16,
+    "maxDisks": 4
   },
   {
     "name": "Standard_E2_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": false
+    "memory": 16,
+    "maxDisks": 4
   },
   {
     "name": "Standard_E20_v3",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 512000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 500, "SSD"]
   },
   {
     "name": "Standard_E20_v4",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 160,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E20_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 160,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E20a_v4",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 512000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 500, "SSD"]
   },
   {
     "name": "Standard_E20ads_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 768000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 750, "SSD"]
   },
   {
     "name": "Standard_E20as_v4",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 327680,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 320, "SSD"]
   },
   {
     "name": "Standard_E20as_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 160,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E20d_v4",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 768000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 750, "SSD"]
   },
   {
     "name": "Standard_E20d_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 768000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 750, "SSD"]
   },
   {
     "name": "Standard_E20ds_v4",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 768000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 750, "SSD"]
   },
   {
     "name": "Standard_E20ds_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 768000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 750, "SSD"]
   },
   {
     "name": "Standard_E20s_v3",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 327680,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 320, "SSD"]
   },
   {
     "name": "Standard_E20s_v4",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 160,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E20s_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 160,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E2a_v4",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 51200,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 50, "SSD"]
   },
   {
     "name": "Standard_E2ads_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_E2as_v4",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_E2as_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 4
   },
   {
     "name": "Standard_E2bds_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_E2bs_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 4
   },
   {
     "name": "Standard_E2d_v4",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_E2d_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_E2ds_v4",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_E2ds_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_E2s_v3",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_E2s_v4",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 4
   },
   {
     "name": "Standard_E2s_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 4
   },
   {
     "name": "Standard_E32_v3",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_E32_v4",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32-16ads_v5",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32-16as_v4",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_E32-16as_v5",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32-16ds_v4",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32-16ds_v5",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32-16s_v3",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_E32-16s_v4",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32-16s_v5",
     "cpu": 16,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32-8ads_v5",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32-8as_v4",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_E32-8as_v5",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32-8ds_v4",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32-8ds_v5",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32-8s_v3",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_E32-8s_v4",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32-8s_v5",
     "cpu": 8,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32a_v4",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_E32ads_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32as_v4",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_E32as_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32bds_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32bs_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32d_v4",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32d_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32ds_v4",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32ds_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E32s_v3",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_E32s_v4",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E32s_v5",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 256,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E4_v3",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_E4_v4",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": false
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E4_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": false
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E4-2ads_v5",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4-2as_v4",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_E4-2as_v5",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E4-2ds_v4",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4-2ds_v5",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4-2s_v3",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_E4-2s_v4",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E4-2s_v5",
     "cpu": 2,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E48_v3",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E48_v4",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E48_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E48a_v4",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_E48ads_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_E48as_v4",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 786432,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 768, "SSD"]
   },
   {
     "name": "Standard_E48as_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E48bds_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_E48bs_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E48d_v4",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_E48d_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_E48ds_v4",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_E48ds_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_E48s_v3",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 786432,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 768, "SSD"]
   },
   {
     "name": "Standard_E48s_v4",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E48s_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E4a_v4",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 102400,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 100, "SSD"]
   },
   {
     "name": "Standard_E4ads_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4as_v4",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_E4as_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E4bds_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4bs_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E4d_v4",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4d_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4ds_v4",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4ds_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_E4s_v3",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_E4s_v4",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E4s_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_E64_v3",
     "cpu": 64,
-    "memory": 442368,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1638400,
+    "memory": 432,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1600, "SSD"]
   },
   {
     "name": "Standard_E64_v4",
     "cpu": 64,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 504,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64-16ads_v5",
     "cpu": 16,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64-16as_v4",
     "cpu": 16,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 884736,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 864, "SSD"]
   },
   {
     "name": "Standard_E64-16as_v5",
     "cpu": 16,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64-16ds_v4",
     "cpu": 16,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 504,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64-16ds_v5",
     "cpu": 16,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64-16s_v3",
     "cpu": 16,
-    "memory": 442368,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 884736,
+    "memory": 432,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 864, "SSD"]
   },
   {
     "name": "Standard_E64-16s_v4",
     "cpu": 16,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 504,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64-16s_v5",
     "cpu": 16,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64-32ads_v5",
     "cpu": 32,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64-32as_v4",
     "cpu": 32,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 884736,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 864, "SSD"]
   },
   {
     "name": "Standard_E64-32as_v5",
     "cpu": 32,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64-32ds_v4",
     "cpu": 32,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 504,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64-32ds_v5",
     "cpu": 32,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64-32s_v3",
     "cpu": 32,
-    "memory": 442368,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 884736,
+    "memory": 432,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 864, "SSD"]
   },
   {
     "name": "Standard_E64-32s_v4",
     "cpu": 32,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 504,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64-32s_v5",
     "cpu": 32,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64a_v4",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1638400,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1600, "SSD"]
   },
   {
     "name": "Standard_E64ads_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64as_v4",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 884736,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 864, "SSD"]
   },
   {
     "name": "Standard_E64as_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64bds_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64bs_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64d_v4",
     "cpu": 64,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 504,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64d_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64ds_v4",
     "cpu": 64,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 504,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64ds_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E64i_v3",
     "cpu": 64,
-    "memory": 442368,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1638400,
+    "memory": 432,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1600, "SSD"]
   },
   {
     "name": "Standard_E64is_v3",
     "cpu": 64,
-    "memory": 442368,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 884736,
+    "memory": 432,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 864, "SSD"]
   },
   {
     "name": "Standard_E64s_v3",
     "cpu": 64,
-    "memory": 442368,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 884736,
+    "memory": 432,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 864, "SSD"]
   },
   {
     "name": "Standard_E64s_v4",
     "cpu": 64,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 504,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E64s_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E8_v3",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_E8_v4",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": false
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": false
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8-2ads_v5",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8-2as_v4",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_E8-2as_v5",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8-2ds_v4",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8-2ds_v5",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8-2s_v3",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_E8-2s_v4",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8-2s_v5",
     "cpu": 2,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8-4ads_v5",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8-4as_v4",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_E8-4as_v5",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8-4ds_v4",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8-4ds_v5",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8-4s_v3",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_E8-4s_v4",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8-4s_v5",
     "cpu": 4,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E80ids_v4",
     "cpu": 80,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4362240,
+    "memory": 504,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4260, "SSD"]
   },
   {
     "name": "Standard_E80is_v4",
     "cpu": 80,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 504,
+    "maxDisks": 64
   },
   {
     "name": "Standard_E8a_v4",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 204800,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 200, "SSD"]
   },
   {
     "name": "Standard_E8ads_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8as_v4",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_E8as_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8bds_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8bs_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8d_v4",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8d_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8ds_v4",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8ds_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_E8s_v3",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_E8s_v4",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E8s_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_E96_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": false
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E96-24ads_v5",
     "cpu": 24,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E96-24as_v4",
     "cpu": 24,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_E96-24as_v5",
     "cpu": 24,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E96-24ds_v5",
     "cpu": 24,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E96-24s_v5",
     "cpu": 24,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E96-48ads_v5",
     "cpu": 48,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E96-48as_v4",
     "cpu": 48,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_E96-48as_v5",
     "cpu": 48,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E96-48ds_v5",
     "cpu": 48,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E96-48s_v5",
     "cpu": 48,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E96a_v4",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_E96ads_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3686400,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 3600, "SSD"]
   },
   {
     "name": "Standard_E96as_v4",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_E96as_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_E96d_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3686400,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 3600, "SSD"]
   },
   {
     "name": "Standard_E96ds_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3686400,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 3600, "SSD"]
   },
   {
     "name": "Standard_E96s_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_EC16ads_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 614400,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 600, "SSD"]
   },
   {
     "name": "Standard_EC16as_v5",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 128,
+    "maxDisks": 32
   },
   {
     "name": "Standard_EC20ads_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 768000,
+    "memory": 160,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 750, "SSD"]
   },
   {
     "name": "Standard_EC20as_v5",
     "cpu": 20,
-    "memory": 163840,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 160,
+    "maxDisks": 32
   },
   {
     "name": "Standard_EC2ads_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 76800,
+    "memory": 16,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 75, "SSD"]
   },
   {
     "name": "Standard_EC2as_v5",
     "cpu": 2,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 4,
-    "supportPremiumDisk": true
+    "memory": 16,
+    "maxDisks": 4
   },
   {
     "name": "Standard_EC32ads_v5",
     "cpu": 32,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1228800,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1200, "SSD"]
   },
   {
     "name": "Standard_EC32as_v5",
     "cpu": 32,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 192,
+    "maxDisks": 32
   },
   {
     "name": "Standard_EC48ads_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1843200,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1800, "SSD"]
   },
   {
     "name": "Standard_EC48as_v5",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 384,
+    "maxDisks": 32
   },
   {
     "name": "Standard_EC4ads_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 153600,
+    "memory": 32,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 150, "SSD"]
   },
   {
     "name": "Standard_EC4as_v5",
     "cpu": 4,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 8,
-    "supportPremiumDisk": true
+    "memory": 32,
+    "maxDisks": 8
   },
   {
     "name": "Standard_EC64ads_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_EC64as_v5",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 512,
+    "maxDisks": 32
   },
   {
     "name": "Standard_EC8ads_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 307200,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 300, "SSD"]
   },
   {
     "name": "Standard_EC8as_v5",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 16,
-    "supportPremiumDisk": true
+    "memory": 64,
+    "maxDisks": 16
   },
   {
     "name": "Standard_EC96ads_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_EC96as_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_EC96iads_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2457600,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2400, "SSD"]
   },
   {
     "name": "Standard_EC96ias_v5",
     "cpu": 96,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 672,
+    "maxDisks": 32
   },
   {
     "name": "Standard_F1",
     "cpu": 1,
-    "memory": 2048,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384,
+    "memory": 2,
     "maxDisks": 4,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 16, "SSD"]
   },
   {
     "name": "Standard_F16",
     "cpu": 16,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 32,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_F16s",
     "cpu": 16,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 32,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_F16s_v2",
     "cpu": 16,
-    "memory": 32768,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 32,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_F1s",
     "cpu": 1,
-    "memory": 2048,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096,
+    "memory": 2,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4, "SSD"]
   },
   {
     "name": "Standard_F2",
     "cpu": 2,
-    "memory": 4096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 4,
     "maxDisks": 8,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_F2s",
     "cpu": 2,
-    "memory": 4096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8192,
+    "memory": 4,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8, "SSD"]
   },
   {
     "name": "Standard_F2s_v2",
     "cpu": 2,
-    "memory": 4096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384,
+    "memory": 4,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 16, "SSD"]
   },
   {
     "name": "Standard_F32s_v2",
     "cpu": 32,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 64,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_F4",
     "cpu": 4,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 8,
     "maxDisks": 16,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_F48s_v2",
     "cpu": 48,
-    "memory": 98304,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 393216,
+    "memory": 96,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 384, "SSD"]
   },
   {
     "name": "Standard_F4s",
     "cpu": 4,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384,
+    "memory": 8,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 16, "SSD"]
   },
   {
     "name": "Standard_F4s_v2",
     "cpu": 4,
-    "memory": 8192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 8,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_F64s_v2",
     "cpu": 64,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 524288,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 512, "SSD"]
   },
   {
     "name": "Standard_F72s_v2",
     "cpu": 72,
-    "memory": 147456,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 589824,
+    "memory": 144,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 576, "SSD"]
   },
   {
     "name": "Standard_F8",
     "cpu": 8,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 16,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_F8s",
     "cpu": 8,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 32768,
+    "memory": 16,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 32, "SSD"]
   },
   {
     "name": "Standard_F8s_v2",
     "cpu": 8,
-    "memory": 16384,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 16,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_FX12mds",
     "cpu": 12,
-    "memory": 258048,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 516096,
+    "memory": 252,
     "maxDisks": 24,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 504, "SSD"]
   },
   {
     "name": "Standard_FX24mds",
     "cpu": 24,
-    "memory": 516096,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1032192,
+    "memory": 504,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1008, "SSD"]
   },
   {
     "name": "Standard_FX36mds",
     "cpu": 36,
-    "memory": 774144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1548288,
+    "memory": 756,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1512, "SSD"]
   },
   {
     "name": "Standard_FX48mds",
     "cpu": 48,
-    "memory": 1032192,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2064384,
+    "memory": 1008,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2016, "SSD"]
   },
   {
     "name": "Standard_FX4mds",
     "cpu": 4,
-    "memory": 86016,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 172032,
+    "memory": 84,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 168, "SSD"]
   },
   {
     "name": "Standard_H16",
     "cpu": 16,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_H16m",
     "cpu": 16,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 224,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_H16mr",
     "cpu": 16,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 224,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_H16r",
     "cpu": 16,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 112,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_H8",
     "cpu": 8,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_H8m",
     "cpu": 8,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 112,
     "maxDisks": 32,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_HB120-16rs_v2",
     "cpu": 16,
-    "memory": 455997,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 960000,
+    "memory": 445.3095703125,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 937.5, "SSD"]
   },
   {
     "name": "Standard_HB120-16rs_v3",
     "cpu": 16,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_HB120-32rs_v2",
     "cpu": 32,
-    "memory": 455997,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 960000,
+    "memory": 445.3095703125,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 937.5, "SSD"]
   },
   {
     "name": "Standard_HB120-32rs_v3",
     "cpu": 32,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_HB120-64rs_v2",
     "cpu": 64,
-    "memory": 455997,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 960000,
+    "memory": 445.3095703125,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 937.5, "SSD"]
   },
   {
     "name": "Standard_HB120-64rs_v3",
     "cpu": 64,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_HB120-96rs_v2",
     "cpu": 96,
-    "memory": 455997,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 960000,
+    "memory": 445.3095703125,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 937.5, "SSD"]
   },
   {
     "name": "Standard_HB120-96rs_v3",
     "cpu": 96,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_HB120rs_v2",
     "cpu": 120,
-    "memory": 466944,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 456,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_HB120rs_v3",
     "cpu": 120,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_HB60-15rs",
     "cpu": 15,
-    "memory": 233472,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 716800,
+    "memory": 228,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 700, "SSD"]
   },
   {
     "name": "Standard_HB60-30rs",
     "cpu": 30,
-    "memory": 233472,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 716800,
+    "memory": 228,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 700, "SSD"]
   },
   {
     "name": "Standard_HB60-45rs",
     "cpu": 45,
-    "memory": 233472,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 716800,
+    "memory": 228,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 700, "SSD"]
   },
   {
     "name": "Standard_HB60rs",
     "cpu": 60,
-    "memory": 233472,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 716800,
+    "memory": 228,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 700, "SSD"]
   },
   {
     "name": "Standard_HC44-16rs",
     "cpu": 16,
-    "memory": 360448,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 716800,
+    "memory": 352,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 700, "SSD"]
   },
   {
     "name": "Standard_HC44-32rs",
     "cpu": 32,
-    "memory": 360448,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 716800,
+    "memory": 352,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 700, "SSD"]
   },
   {
     "name": "Standard_HC44rs",
     "cpu": 44,
-    "memory": 360448,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 716800,
+    "memory": 352,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 700, "SSD"]
   },
   {
     "name": "Standard_L16as_v3",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 163840,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 160, "SSD"]
   },
   {
     "name": "Standard_L16s_v2",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 163840,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 160, "SSD"]
   },
   {
     "name": "Standard_L16s_v3",
     "cpu": 16,
-    "memory": 131072,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 163840,
+    "memory": 128,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 160, "SSD"]
   },
   {
     "name": "Standard_L32as_v3",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 327680,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 320, "SSD"]
   },
   {
     "name": "Standard_L32s_v2",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 327680,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 320, "SSD"]
   },
   {
     "name": "Standard_L32s_v3",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 327680,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 320, "SSD"]
   },
   {
     "name": "Standard_L48as_v3",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_L48s_v2",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_L48s_v3",
     "cpu": 48,
-    "memory": 393216,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 491520,
+    "memory": 384,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 480, "SSD"]
   },
   {
     "name": "Standard_L64as_v3",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 655360,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 640, "SSD"]
   },
   {
     "name": "Standard_L64s_v2",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 655360,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 640, "SSD"]
   },
   {
     "name": "Standard_L64s_v3",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 655360,
+    "memory": 512,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 640, "SSD"]
   },
   {
     "name": "Standard_L80as_v3",
     "cpu": 80,
-    "memory": 655360,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 640,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_L80s_v2",
     "cpu": 80,
-    "memory": 655360,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 640,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_L80s_v3",
     "cpu": 80,
-    "memory": 655360,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 819200,
+    "memory": 640,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 800, "SSD"]
   },
   {
     "name": "Standard_L8as_v3",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 81920,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 80, "SSD"]
   },
   {
     "name": "Standard_L8s_v2",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 81920,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 80, "SSD"]
   },
   {
     "name": "Standard_L8s_v3",
     "cpu": 8,
-    "memory": 65536,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 81920,
+    "memory": 64,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 80, "SSD"]
   },
   {
     "name": "Standard_M128",
     "cpu": 128,
-    "memory": 2048000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384000,
+    "memory": 2000,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 16000, "SSD"]
   },
   {
     "name": "Standard_M128-32ms",
     "cpu": 32,
-    "memory": 3891200,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096000,
+    "memory": 3800,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4000, "SSD"]
   },
   {
     "name": "Standard_M128-64ms",
     "cpu": 64,
-    "memory": 3891200,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096000,
+    "memory": 3800,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4000, "SSD"]
   },
   {
     "name": "Standard_M128dms_v2",
     "cpu": 128,
-    "memory": 3985408,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4194304,
+    "memory": 3892,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4096, "SSD"]
   },
   {
     "name": "Standard_M128ds_v2",
     "cpu": 128,
-    "memory": 2097152,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4194304,
+    "memory": 2048,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4096, "SSD"]
   },
   {
     "name": "Standard_M128m",
     "cpu": 128,
-    "memory": 3891200,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 16384000,
+    "memory": 3800,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 16000, "SSD"]
   },
   {
     "name": "Standard_M128ms",
     "cpu": 128,
-    "memory": 3891200,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096000,
+    "memory": 3800,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4000, "SSD"]
   },
   {
     "name": "Standard_M128ms_v2",
     "cpu": 128,
-    "memory": 3985408,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 3892,
+    "maxDisks": 64
   },
   {
     "name": "Standard_M128s",
     "cpu": 128,
-    "memory": 2048000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4096000,
+    "memory": 2000,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4000, "SSD"]
   },
   {
     "name": "Standard_M128s_v2",
     "cpu": 128,
-    "memory": 2097152,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 2048,
+    "maxDisks": 64
   },
   {
     "name": "Standard_M16-4ms",
     "cpu": 4,
-    "memory": 448000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 512000,
+    "memory": 437.5,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 500, "SSD"]
   },
   {
     "name": "Standard_M16-8ms",
     "cpu": 8,
-    "memory": 448000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 512000,
+    "memory": 437.5,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 500, "SSD"]
   },
   {
     "name": "Standard_M16ms",
     "cpu": 16,
-    "memory": 448000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 512000,
+    "memory": 437.5,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 500, "SSD"]
   },
   {
     "name": "Standard_M192idms_v2",
     "cpu": 192,
-    "memory": 4194304,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4194304,
+    "memory": 4096,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4096, "SSD"]
   },
   {
     "name": "Standard_M192ids_v2",
     "cpu": 192,
-    "memory": 2097152,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4194304,
+    "memory": 2048,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4096, "SSD"]
   },
   {
     "name": "Standard_M192ims_v2",
     "cpu": 192,
-    "memory": 4194304,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 4096,
+    "maxDisks": 64
   },
   {
     "name": "Standard_M192is_v2",
     "cpu": 192,
-    "memory": 2097152,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 2048,
+    "maxDisks": 64
   },
   {
     "name": "Standard_M208ms_v2",
     "cpu": 208,
-    "memory": 5836800,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4194304,
+    "memory": 5700,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4096, "SSD"]
   },
   {
     "name": "Standard_M208s_v2",
     "cpu": 208,
-    "memory": 2918400,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 4194304,
+    "memory": 2850,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 4096, "SSD"]
   },
   {
     "name": "Standard_M32-16ms",
     "cpu": 16,
-    "memory": 896000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 875,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_M32-8ms",
     "cpu": 8,
-    "memory": 896000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 875,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_M32dms_v2",
     "cpu": 32,
-    "memory": 896000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1048576,
+    "memory": 875,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1024, "SSD"]
   },
   {
     "name": "Standard_M32ls",
     "cpu": 32,
-    "memory": 262144,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 256,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_M32ms",
     "cpu": 32,
-    "memory": 896000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 875,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_M32ms_v2",
     "cpu": 32,
-    "memory": 896000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 32,
-    "supportPremiumDisk": true
+    "memory": 875,
+    "maxDisks": 32
   },
   {
     "name": "Standard_M32ts",
     "cpu": 32,
-    "memory": 196608,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1024000,
+    "memory": 192,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1000, "SSD"]
   },
   {
     "name": "Standard_M416-208ms_v2",
     "cpu": 208,
-    "memory": 11673600,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8388608,
+    "memory": 11400,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8192, "SSD"]
   },
   {
     "name": "Standard_M416-208s_v2",
     "cpu": 208,
-    "memory": 5836800,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8388608,
+    "memory": 5700,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8192, "SSD"]
   },
   {
     "name": "Standard_M416ms_v2",
     "cpu": 416,
-    "memory": 11673600,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8388608,
+    "memory": 11400,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8192, "SSD"]
   },
   {
     "name": "Standard_M416s_v2",
     "cpu": 416,
-    "memory": 5836800,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8388608,
+    "memory": 5700,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8192, "SSD"]
   },
   {
     "name": "Standard_M64",
     "cpu": 64,
-    "memory": 1024000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8192000,
+    "memory": 1000,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8000, "SSD"]
   },
   {
     "name": "Standard_M64-16ms",
     "cpu": 16,
-    "memory": 1792000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 1750,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_M64-32ms",
     "cpu": 32,
-    "memory": 1792000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 1750,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_M64dms_v2",
     "cpu": 64,
-    "memory": 1835008,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2097152,
+    "memory": 1792,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2048, "SSD"]
   },
   {
     "name": "Standard_M64ds_v2",
     "cpu": 64,
-    "memory": 1048576,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2097152,
+    "memory": 1024,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2048, "SSD"]
   },
   {
     "name": "Standard_M64ls",
     "cpu": 64,
-    "memory": 524288,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 512,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_M64m",
     "cpu": 64,
-    "memory": 1792000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 8192000,
+    "memory": 1750,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 8000, "SSD"]
   },
   {
     "name": "Standard_M64ms",
     "cpu": 64,
-    "memory": 1792000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 1750,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_M64ms_v2",
     "cpu": 64,
-    "memory": 1835008,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 1792,
+    "maxDisks": 64
   },
   {
     "name": "Standard_M64s",
     "cpu": 64,
-    "memory": 1024000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2048000,
+    "memory": 1000,
     "maxDisks": 64,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2000, "SSD"]
   },
   {
     "name": "Standard_M64s_v2",
     "cpu": 64,
-    "memory": 1048576,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 0,
-    "maxDisks": 64,
-    "supportPremiumDisk": true
+    "memory": 1024,
+    "maxDisks": 64
   },
   {
     "name": "Standard_M8-2ms",
     "cpu": 2,
-    "memory": 224000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 256000,
+    "memory": 218.75,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 250, "SSD"]
   },
   {
     "name": "Standard_M8-4ms",
     "cpu": 4,
-    "memory": 224000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 256000,
+    "memory": 218.75,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 250, "SSD"]
   },
   {
     "name": "Standard_M8ms",
     "cpu": 8,
-    "memory": 224000,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 256000,
+    "memory": 218.75,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 250, "SSD"]
   },
   {
     "name": "Standard_NC12",
     "cpu": 12,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 696320,
+    "memory": 112,
     "maxDisks": 48,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 680, "SSD"]
   },
   {
     "name": "Standard_NC12s_v2",
     "cpu": 12,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 688128,
+    "memory": 224,
     "maxDisks": 24,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 672, "SSD"]
   },
   {
     "name": "Standard_NC12s_v3",
     "cpu": 12,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 688128,
+    "memory": 224,
     "maxDisks": 24,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 672, "SSD"]
   },
   {
     "name": "Standard_NC16as_T4_v3",
     "cpu": 16,
-    "memory": 112640,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 360448,
+    "memory": 110,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 352, "SSD"]
   },
   {
     "name": "Standard_NC24",
     "cpu": 24,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1474560,
+    "memory": 224,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1440, "SSD"]
   },
   {
     "name": "Standard_NC24ads_A100_v4",
     "cpu": 24,
-    "memory": 225280,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 65536,
+    "memory": 220,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 64, "SSD"]
   },
   {
     "name": "Standard_NC24r",
     "cpu": 24,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1474560,
+    "memory": 224,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1440, "SSD"]
   },
   {
     "name": "Standard_NC24rs_v2",
     "cpu": 24,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_NC24rs_v3",
     "cpu": 24,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_NC24s_v2",
     "cpu": 24,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_NC24s_v3",
     "cpu": 24,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_NC48ads_A100_v4",
     "cpu": 48,
-    "memory": 450560,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 131072,
+    "memory": 440,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 128, "SSD"]
   },
   {
     "name": "Standard_NC4as_T4_v3",
     "cpu": 4,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 180224,
+    "memory": 28,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 176, "SSD"]
   },
   {
     "name": "Standard_NC6",
     "cpu": 6,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 389120,
+    "memory": 56,
     "maxDisks": 24,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 380, "SSD"]
   },
   {
     "name": "Standard_NC64as_T4_v3",
     "cpu": 64,
-    "memory": 450560,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2883584,
+    "memory": 440,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2816, "SSD"]
   },
   {
     "name": "Standard_NC6s_v2",
     "cpu": 6,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 344064,
+    "memory": 112,
     "maxDisks": 12,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 336, "SSD"]
   },
   {
     "name": "Standard_NC6s_v3",
     "cpu": 6,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 344064,
+    "memory": 112,
     "maxDisks": 12,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 336, "SSD"]
   },
   {
     "name": "Standard_NC8as_T4_v3",
     "cpu": 8,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 360448,
+    "memory": 56,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 352, "SSD"]
   },
   {
     "name": "Standard_NC96ads_A100_v4",
     "cpu": 96,
-    "memory": 901120,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 262144,
+    "memory": 880,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 256, "SSD"]
   },
   {
     "name": "Standard_ND12s",
     "cpu": 12,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 688128,
+    "memory": 224,
     "maxDisks": 24,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 672, "SSD"]
   },
   {
     "name": "Standard_ND24rs",
     "cpu": 24,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_ND24s",
     "cpu": 24,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_ND40rs_v2",
     "cpu": 40,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2969600,
+    "memory": 672,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2900, "SSD"]
   },
   {
     "name": "Standard_ND6s",
     "cpu": 6,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 344064,
+    "memory": 112,
     "maxDisks": 12,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 336, "SSD"]
   },
   {
     "name": "Standard_ND96amsr_A100_v4",
     "cpu": 96,
-    "memory": 1970176,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2969600,
+    "memory": 1924,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2900, "SSD"]
   },
   {
     "name": "Standard_ND96asr_v4",
     "cpu": 96,
-    "memory": 921600,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2969600,
+    "memory": 900,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2900, "SSD"]
   },
   {
     "name": "Standard_NP10s",
     "cpu": 10,
-    "memory": 172032,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 753664,
+    "memory": 168,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 736, "SSD"]
   },
   {
     "name": "Standard_NP20s",
     "cpu": 20,
-    "memory": 344064,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1509376,
+    "memory": 336,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1474, "SSD"]
   },
   {
     "name": "Standard_NP40s",
     "cpu": 40,
-    "memory": 688128,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 3018752,
+    "memory": 672,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2948, "SSD"]
   },
   {
     "name": "Standard_NV12",
     "cpu": 12,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 696320,
+    "memory": 112,
     "maxDisks": 48,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 680, "SSD"]
   },
   {
     "name": "Standard_NV12ads_A10_v5",
     "cpu": 12,
-    "memory": 112640,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 368640,
+    "memory": 110,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 360, "SSD"]
   },
   {
     "name": "Standard_NV12s_v3",
     "cpu": 12,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 344064,
+    "memory": 112,
     "maxDisks": 12,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 336, "SSD"]
   },
   {
     "name": "Standard_NV16as_v4",
     "cpu": 16,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 360448,
+    "memory": 56,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 352, "SSD"]
   },
   {
     "name": "Standard_NV18ads_A10_v5",
     "cpu": 18,
-    "memory": 225280,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 737280,
+    "memory": 220,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 720, "SSD"]
   },
   {
     "name": "Standard_NV24",
     "cpu": 24,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1474560,
+    "memory": 224,
     "maxDisks": 64,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 1440, "SSD"]
   },
   {
     "name": "Standard_NV24s_v3",
     "cpu": 24,
-    "memory": 229376,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 688128,
+    "memory": 224,
     "maxDisks": 24,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 672, "SSD"]
   },
   {
     "name": "Standard_NV32as_v4",
     "cpu": 32,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 720896,
+    "memory": 112,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 704, "SSD"]
   },
   {
     "name": "Standard_NV36adms_A10_v5",
     "cpu": 36,
-    "memory": 901120,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2936012,
+    "memory": 880,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2867.19921875, "SSD"]
   },
   {
     "name": "Standard_NV36ads_A10_v5",
     "cpu": 36,
-    "memory": 450560,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1468006,
+    "memory": 440,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1433.599609375, "SSD"]
   },
   {
     "name": "Standard_NV48s_v3",
     "cpu": 48,
-    "memory": 458752,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 1376256,
+    "memory": 448,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 1344, "SSD"]
   },
   {
     "name": "Standard_NV4as_v4",
     "cpu": 4,
-    "memory": 14336,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 90112,
+    "memory": 14,
     "maxDisks": 8,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 88, "SSD"]
   },
   {
     "name": "Standard_NV6",
     "cpu": 6,
-    "memory": 57344,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 389120,
+    "memory": 56,
     "maxDisks": 24,
-    "supportPremiumDisk": false
+    "instanceStorage": [1, 380, "SSD"]
   },
   {
     "name": "Standard_NV6ads_A10_v5",
     "cpu": 4,
-    "memory": 56320,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 184320,
+    "memory": 55,
     "maxDisks": 4,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 180, "SSD"]
   },
   {
     "name": "Standard_NV72ads_A10_v5",
     "cpu": 72,
-    "memory": 901120,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 2936012,
+    "memory": 880,
     "maxDisks": 32,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 2867.19921875, "SSD"]
   },
   {
     "name": "Standard_NV8as_v4",
     "cpu": 8,
-    "memory": 28672,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 180224,
+    "memory": 28,
     "maxDisks": 16,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 176, "SSD"]
   },
   {
     "name": "Standard_PB6s",
     "cpu": 6,
-    "memory": 114688,
-    "osDiskSizeInMB": 1047552,
-    "instanceStorage": 344064,
+    "memory": 112,
     "maxDisks": 12,
-    "supportPremiumDisk": true
+    "instanceStorage": [1, 336, "SSD"]
   }
 ]
