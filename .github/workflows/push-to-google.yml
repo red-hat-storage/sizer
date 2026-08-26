@@ -2,6 +2,15 @@ name: Push to Google bucket
 on:
   push:
     branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment target"
+        required: true
+        type: choice
+        options:
+          - main
+          - develop
 
 env:
   DOCKER_HOST: unix:///var/run/docker.sock
